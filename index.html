@@ -133,7 +133,7 @@
       </div>
     </header>
 
-    <!-- شريط التنقل الرئيسي (تظهر واجهة إدارة أعضاء الفريق حصرياً لمهند وسنبل ومي وباقي الأعضاء لا يدرون عنها) -->
+    <!-- شريط التنقل الرئيسي -->
     <div class="master-nav" id="masterNavContainer">
       <button class="master-nav-btn active" onclick="switchView('viewProfile', this)">👤 اللوحة الشخصية</button>
       <button class="master-nav-btn" onclick="switchView('viewWork', this)">💼 العمل والأدلة</button>
@@ -203,7 +203,7 @@
           </div>
 
           <div id="addSopContainer" style="display:none; padding: 1.2rem; border-radius: 8px; border: 2px dashed var(--primary-color); margin-bottom: 1.5rem; background: var(--profile-item-bg);">
-            <h4 style="margin-bottom: 1rem; color: var(--primary-color);">➕ إضافة دليل عمل أو مادة جديدة (خاص بسلطان، مي، ومهند)</h4>
+            <h4 style="margin-bottom: 1rem; color: var(--primary-color);">➕ إضافة دليل عمل أو مادة جديدة</h4>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
               <div class="form-group" style="margin-bottom:0;"><label>رمز الدليل (SOP ID)</label><input type="text" id="newSopId" placeholder="مثال: SOP-05"></div>
               <div class="form-group" style="margin-bottom:0;"><label>عنوان الدليل / المادة</label><input type="text" id="newSopTitle" placeholder="مثال: دليل سياسات العمل..."></div>
@@ -314,12 +314,25 @@
       </div>
     </div>
 
-    <!-- ================= الواجهة الخامسة: إدارة أعضاء الفريق (مخفية تماماً ولا تظهر إلا لسلطان، مي، ومهند) ================= -->
+    <!-- ================= الواجهة الخامسة: إدارة أعضاء الفريق (مخفية بالكامل عن البقية) ================= -->
     <div class="view-section" id="viewRole">
       <div style="background: var(--card-bg); padding: 1.5rem; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 1.5rem;">
         <h3 style="color: var(--primary-color); margin-bottom: 1rem;">👑 إدارة أعضاء الفريق وتجميد/تنشيط الحسابات</h3>
-        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">مخصصة حصرياً لـ (د. سلطان سنبل، مي القريشي، مهند مجرشي) لإدارة الحسابات، تجميدها، وإسناد المهام.</p>
         
+        <!-- لوحة استعراض إنجاز كل فرد على حدة للدكتور سلطان والدكتورة مي والمهند -->
+        <div style="padding: 1.2rem; border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 1.5rem; background: var(--profile-item-bg);">
+          <h4 style="margin-bottom: 0.8rem; color: var(--primary-color);">📈 متابعة حالة إنجاز المهام (للفريق وللأفراد)</h4>
+          <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 1rem; align-items: center; margin-bottom: 1rem;">
+            <div class="form-group" style="margin-bottom:0;">
+              <label>اختر العضو لعرض إنجازه الفردي</label>
+              <select id="selectMemberProgress" onchange="previewMemberProgress()"><option value="">اختر العضو للاستعراض...</option></select>
+            </div>
+            <div id="memberProgressResultBox" style="background:var(--card-bg); padding:0.8rem; border-radius:6px; font-size:0.85rem; border:1px solid var(--border-color);">
+              اختر عضواً من القائمة لعرض إجمالي مهامه، المكتملة، وقيد التنفيذ فورا.
+            </div>
+          </div>
+        </div>
+
         <!-- لوحة استعراض أداء وتقييمات الأعضاء مباشرة -->
         <div style="padding: 1.2rem; border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 1.5rem; background: var(--profile-item-bg);">
           <h4 style="margin-bottom: 0.8rem; color: var(--primary-color);">📊 استعراض أداء وتقييمات عضو محدد</h4>
@@ -337,7 +350,7 @@
         <!-- لوحة المؤشرات التحليلية للأدمن -->
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2rem;">
           <div style="background:var(--profile-item-bg); padding:1rem; border-radius:8px;">
-            <h4 style="font-size:0.9rem; color:var(--primary-color); margin-bottom:0.5rem;">حالة إنجاز مهام الفريق</h4>
+            <h4 style="font-size:0.9rem; color:var(--primary-color); margin-bottom:0.5rem;">حالة إنجاز مهام الفريق العامة</h4>
             <canvas id="adminTasksChart" style="max-height:180px;"></canvas>
           </div>
           <div style="background:var(--profile-item-bg); padding:1rem; border-radius:8px;">
@@ -416,6 +429,7 @@
     let currentUser = null;
     let globalTasksCache = [];
     let globalMembersCache = [];
+    let globalAllTasksForAdmin = [];
     let currentStatusFilter = 'all';
 
     if (localStorage.getItem('darkMode') === 'true') { document.body.classList.add('dark-mode'); }
@@ -470,7 +484,6 @@
       document.body.appendChild(script);
     }
 
-    // التحقق من الصلاحيات والتحكم حصرياً للثلاثي فقط: د. سلطان سنبل، مي القريشي، مهند مجرشي
     function checkIsThreeAdmins(user) {
       if (!user) return false;
       const mId = String(user['Member ID'] || user['رقم العضوية'] || '').trim().toUpperCase();
@@ -512,7 +525,7 @@
       fetchJSONP(`${API_URL}?action=login&memberId=${encodeURIComponent(id)}&password=${encodeURIComponent(pass)}`, res => {
         if(res.status === "success") {
           if(String(res.user['Status'] || res.user['الحالة'] || '').includes('مجمد')) {
-            err.innerText = "⚠️ عذراً، هذا الحساب مجمد حالياً من قبل الإدارة"; err.style.display="block"; return;
+            err.innerText = "⚠️️ عذراً، هذا الحساب مجمد حالياً من قبل الإدارة"; err.style.display="block"; return;
           }
           currentUser = res.user;
           localStorage.setItem('currentUser', JSON.stringify(currentUser));
@@ -542,7 +555,6 @@
       document.getElementById('bioText').innerText = currentUser['Bio'] || currentUser['النبذة'] || '-';
       document.getElementById('jobDescText').innerText = currentUser['Job Description'] || currentUser['الوصف الوظيفي'] || '-';
 
-      // إظهار لوحة إدارة أعضاء الفريق وإضافة الأدلة حصرياً للثلاثي فقط (وتخفيضها عن باقي الأعضاء تماماً)
       if(checkIsThreeAdmins(currentUser)) {
         document.getElementById('roleViewBtn').style.display = "flex";
         document.getElementById('addSopContainer').style.display = "block";
@@ -588,6 +600,12 @@
           renderMembersTable(globalMembersCache);
           populateNewTaskDropdown(globalMembersCache);
           populateEvalDropdown(globalMembersCache);
+          populateProgressDropdown(globalMembersCache);
+        }
+      });
+      fetchJSONP(`${API_URL}?action=getData&sheet=Tasks`, res => {
+        if(res.status === "success" && res.data) {
+          globalAllTasksForAdmin = res.data;
         }
       });
       fetchJSONP(`${API_URL}?action=getData&sheet=Requests`, res => {
@@ -656,6 +674,32 @@
           ${m['Full Name'] || m['الاسم الكامل']} (${m['Job Title'] || m['المسمى الوظيفي'] || ''})
         </option>
       `).join('');
+    }
+
+    function populateProgressDropdown(members) {
+      const select = document.getElementById('selectMemberProgress');
+      select.innerHTML = '<option value="">اختر العضو للاستعراض...</option>' + members.map(m => `
+        <option value="${m['Member ID'] || m['رقم العضوية']}">
+          ${m['Full Name'] || m['الاسم الكامل']} (${m['Job Title'] || m['المسمى الوظيفي'] || ''})
+        </option>
+      `).join('');
+    }
+
+    function previewMemberProgress() {
+      const mId = document.getElementById('selectMemberProgress').value;
+      const box = document.getElementById('memberProgressResultBox');
+      if(!mId) { box.innerHTML = "اختر عضواً من القائمة لعرض إجمالي مهامه، المكتملة، وقيد التنفيذ فورا."; return; }
+
+      const memberTasks = globalAllTasksForAdmin.filter(t => String(t['Member ID'] || t['رقم العضوية']) === String(mId));
+      const total = memberTasks.length;
+      const completed = memberTasks.filter(t => (t['Status'] || '').includes('مكتملة')).length;
+      const pending = total - completed;
+      const ratio = total > 0 ? Math.round((completed / total) * 100) : 0;
+
+      box.innerHTML = `
+        <p><strong>إجمالي المهام:</strong> ${total} | <strong>المكتملة:</strong> ${completed} | <strong>قيد التنفيذ:</strong> ${pending}</p>
+        <p style="margin-top:5px; color:var(--primary-color);"><strong>نسبة إنجاز العضو:</strong> ${ratio}%</p>
+      `;
     }
 
     function previewMemberEvaluation() {
