@@ -195,39 +195,14 @@
         </div>
       </div>
 
-      <!-- أدلة العمل المسؤوليات والوظائف لكل قسم -->
-      <div style="display: grid; grid-template-columns: 1fr; gap: 1.5rem;">
-        <div style="background: var(--card-bg); padding: 1.5rem; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;">
-            <h3 style="color: var(--primary-color);">أدلة العمل (SOPs) والمواد التنظيمية</h3>
-          </div>
-
-          <div id="addSopContainer" style="display:none; padding: 1.2rem; border-radius: 8px; border: 2px dashed var(--primary-color); margin-bottom: 1.5rem; background: var(--profile-item-bg);">
-            <h4 style="margin-bottom: 1rem; color: var(--primary-color);">➕ إضافة دليل عمل أو مادة جديدة</h4>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
-              <div class="form-group" style="margin-bottom:0;"><label>رمز الدليل (SOP ID)</label><input type="text" id="newSopId" placeholder="مثال: SOP-05"></div>
-              <div class="form-group" style="margin-bottom:0;"><label>عنوان الدليل / المادة</label><input type="text" id="newSopTitle" placeholder="مثال: دليل سياسات العمل..."></div>
-              <div class="form-group" style="margin-bottom:0;"><label>القسم والمسؤولية</label><input type="text" id="newSopDept" placeholder="مثال: الشؤون الإدارية"></div>
-              <div class="form-group" style="margin-bottom:0;"><label>رابط الملف / الدليل</label><input type="url" id="newSopLink" placeholder="https://..."></div>
-            </div>
-            <button class="btn" onclick="addNewSOPItem()">نشر الدليل / المادة في النظام</button>
-          </div>
-
-          <div id="sopsLoader" class="loader">جاري التحميل...</div>
-          <table class="data-table" id="sopsTable" style="display:none;">
-            <thead><tr><th>الرمز</th><th>العنوان</th><th>القسم والمسؤولية</th><th>الرابط</th></tr></thead>
-            <tbody id="sopsBody"></tbody>
-          </table>
-        </div>
-
-        <div style="background: var(--card-bg); padding: 1.5rem; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
-          <h3 style="color: var(--primary-color); margin-bottom: 1rem;">سجل التقييمات الدورية</h3>
-          <div id="evalsLoader" class="loader">جاري التحميل...</div>
-          <table class="data-table" id="evalsTable" style="display:none;">
-            <thead><tr><th>الجودة</th><th>الانضباط</th><th>التاريخ</th></tr></thead>
-            <tbody id="evalsBody"></tbody>
-          </table>
-        </div>
+      <!-- سجل التقييمات الدورية -->
+      <div style="background: var(--card-bg); padding: 1.5rem; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+        <h3 style="color: var(--primary-color); margin-bottom: 1rem;">سجل التقييمات الدورية</h3>
+        <div id="evalsLoader" class="loader">جاري التحميل...</div>
+        <table class="data-table" id="evalsTable" style="display:none;">
+          <thead><tr><th>الجودة</th><th>الانضباط</th><th>التاريخ</th></tr></thead>
+          <tbody id="evalsBody"></tbody>
+        </table>
       </div>
     </div>
 
@@ -290,25 +265,25 @@
       </div>
     </div>
 
-    <!-- ================= الواجهة الرابعة: خزنة التقارير والملفات (محدثة لرفع ملفات PDF والمستندات) ================= -->
+    <!-- ================= الواجهة الرابعة: خزنة التقارير والملفات ================= -->
     <div class="view-section" id="viewVault">
       <div style="background: var(--card-bg); padding: 1.5rem; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
-        <h3 style="color: var(--primary-color); margin-bottom: 1rem;">📂 خزنة رفع التقارير وملفات الـ PDF</h3>
-        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">يمكنك رفع ملفات الـ PDF أو المستندات مباشرة ومشاركتها مع فريق العمل.</p>
+        <h3 style="color: var(--primary-color); margin-bottom: 1rem;">📂 خزنة رفع الملفات والتقارير</h3>
+        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">يمكنك رفع روابط التقارير، ملفات المستندات، ومشاركتها مع فريق العمل.</p>
         
         <div style="padding: 1.2rem; border-radius: 8px; border: 2px dashed var(--primary-color); margin-bottom: 1.5rem; background: var(--profile-item-bg);">
-          <h4 style="margin-bottom: 1rem; color: var(--primary-color);">➕ رفع ملف PDF أو تقرير جديد</h4>
+          <h4 style="margin-bottom: 1rem; color: var(--primary-color);">➕ رفع تقرير أو ملف جديد</h4>
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
-            <div class="form-group" style="margin-bottom:0;"><label>عنوان الملف / التقرير</label><input type="text" id="vaultTitle" placeholder="مثال: تقرير إنجاز الأسبوع الأول"></div>
-            <div class="form-group" style="margin-bottom:0;"><label>اختر ملف PDF أو مستند</label><input type="file" id="vaultFileInput" accept=".pdf,.doc,.docx,.xls,.xlsx" style="padding:0.5rem;"></div>
+            <div class="form-group" style="margin-bottom:0;"><label>عنوان الملف/التقرير</label><input type="text" id="vaultTitle" placeholder="مثال: تقرير إنجاز الأسبوع الأول"></div>
+            <div class="form-group" style="margin-bottom:0;"><label>رابط الملف (Google Drive / رابط مباشر)</label><input type="url" id="vaultLink" placeholder="https://..."></div>
           </div>
-          <button class="btn" onclick="uploadVaultFile()">رفع الملف وحفظه في الخزنة وإشعار الفريق</button>
+          <button class="btn" onclick="uploadVaultFile()">حفظ في الخزنة وإشعار الفريق</button>
         </div>
 
         <h4 style="margin-bottom: 0.8rem; color: var(--primary-color);">الملفات والتقارير المرفوعة</h4>
         <div id="vaultLoader" class="loader">جاري التحميل...</div>
         <table class="data-table" id="vaultTable" style="display:none;">
-          <thead><tr><th>العنوان</th><th>المرفع بواسطة</th><th>التاريخ</th><th>تحميل / عرض PDF</th></tr></thead>
+          <thead><tr><th>العنوان</th><th>المرفع بواسطة</th><th>التاريخ</th><th>رابط الملف</th></tr></thead>
           <tbody id="vaultBody"></tbody>
         </table>
       </div>
@@ -319,6 +294,7 @@
       <div style="background: var(--card-bg); padding: 1.5rem; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 1.5rem;">
         <h3 style="color: var(--primary-color); margin-bottom: 1rem;">👑 إدارة أعضاء الفريق وتجميد/تنشيط الحسابات</h3>
         
+        <!-- لوحة استعراض إنجاز كل فرد على حدة -->
         <div style="padding: 1.2rem; border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 1.5rem; background: var(--profile-item-bg);">
           <h4 style="margin-bottom: 0.8rem; color: var(--primary-color);">📈 متابعة حالة إنجاز المهام (للفريق وللأفراد)</h4>
           <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 1rem; align-items: center; margin-bottom: 1rem;">
@@ -332,6 +308,7 @@
           </div>
         </div>
 
+        <!-- لوحة استعراض أداء وتقييمات الأعضاء مباشرة -->
         <div style="padding: 1.2rem; border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 1.5rem; background: var(--profile-item-bg);">
           <h4 style="margin-bottom: 0.8rem; color: var(--primary-color);">📊 استعراض أداء وتقييمات عضو محدد</h4>
           <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 1rem; align-items: center;">
@@ -345,6 +322,7 @@
           </div>
         </div>
 
+        <!-- لوحة المؤشرات التحليلية للأدمن -->
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2rem;">
           <div style="background:var(--profile-item-bg); padding:1rem; border-radius:8px;">
             <h4 style="font-size:0.9rem; color:var(--primary-color); margin-bottom:0.5rem;">حالة إنجاز مهام الفريق العامة</h4>
@@ -356,6 +334,7 @@
           </div>
         </div>
 
+        <!-- إسناد مهمة -->
         <div style="padding: 1.2rem; border-radius: 8px; border: 2px dashed var(--primary-color); margin-bottom: 1.5rem; background: var(--profile-item-bg);">
           <h4 style="margin-bottom: 1rem; color: var(--primary-color);">➕ إسناد مهمة جديدة لعضو مع إشعار فوري</h4>
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
@@ -366,9 +345,10 @@
             <div class="form-group" style="margin-bottom:0;"><label>تاريخ الاستحقاق</label><input type="date" id="newTaskDate"></div>
           </div>
           <div class="form-group" style="margin-bottom:1rem;"><label>تفاصيل إضافية</label><input type="text" id="newTaskDetails" placeholder="التفاصيل..."></div>
-          <button class="btn" onclick="addNewTaskWithAutoFill()">إسناد المهمة وإرسال إشعار فوري وإيميل</button>
+          <button class="btn" onclick="addNewTaskWithAutoFill()">إسناد المهمة وإرسال إشعار فوري وبريد إلكتروني</button>
         </div>
 
+        <!-- إدارة الأعضاء وتجميد الحسابات -->
         <div style="margin-bottom: 1.5rem;">
           <h4 style="margin-bottom: 0.8rem; color: var(--primary-color);">قائمة أعضاء الفريق والتجميد والتنشيط</h4>
           <div class="search-box-wrapper"><input type="text" id="memberSearchInput" placeholder="🔍 بحث بالاسم أو المسمى..." oninput="filterMembersTable()"></div>
@@ -508,7 +488,7 @@
       if(checkIsThreeAdmins(currentUser)) {
         loadAdminPanelData();
       }
-      loadTasks(); loadSOPs(); loadEvaluations(); loadMyRequests(); loadMySupportTickets(); loadVault(); loadActiveMembersForDropdown();
+      loadTasks(); loadEvaluations(); loadMyRequests(); loadMySupportTickets(); loadVault(); loadActiveMembersForDropdown();
     }
 
     function handleLogin() {
@@ -552,14 +532,12 @@
 
       if(checkIsThreeAdmins(currentUser)) {
         document.getElementById('roleViewBtn').style.display = "flex";
-        document.getElementById('addSopContainer').style.display = "block";
         loadAdminPanelData();
       } else {
         document.getElementById('roleViewBtn').style.display = "none";
-        document.getElementById('addSopContainer').style.display = "none";
       }
 
-      loadTasks(); loadSOPs(); loadEvaluations(); loadMyRequests(); loadMySupportTickets(); loadVault(); loadActiveMembersForDropdown();
+      loadTasks(); loadEvaluations(); loadMyRequests(); loadMySupportTickets(); loadVault(); loadActiveMembersForDropdown();
     }
 
     function switchView(viewId, btnElement, save=true) {
@@ -580,7 +558,7 @@
     function updateDarkModeButtonText() {
       const isDark = document.body.classList.contains('dark-mode');
       const btn = document.getElementById('darkModeBtn');
-      if(btn) btn.innerText = isDark ? '☀ المظهر الفاتح' : '🌙 المظهر الداكن';
+      if(btn) btn.innerText = isDark ? '☀️ المظهر الفاتح' : '🌙 المظهر الداكن';
     }
 
     function openNotifModal() { document.getElementById('notifModal').style.display = 'flex'; }
@@ -744,28 +722,6 @@
           manualRefreshData();
         } else {
           showToast("❌ حدث خطأ أثناء إسناد المهمة");
-        }
-      });
-    }
-
-    function addNewSOPItem() {
-      const sopId = document.getElementById('newSopId').value.trim();
-      const title = document.getElementById('newSopTitle').value.trim();
-      const dept = document.getElementById('newSopDept').value.trim();
-      const link = document.getElementById('newSopLink').value.trim();
-
-      if(!sopId || !title || !link) { showToast("⚠️ يرجى تعبئة رمز الدليل، العنوان، والرابط"); return; }
-
-      fetchJSONP(`${API_URL}?action=addSOP&sopId=${encodeURIComponent(sopId)}&title=${encodeURIComponent(title)}&department=${encodeURIComponent(dept)}&link=${encodeURIComponent(link)}`, res => {
-        if(res.status === "success") {
-          showToast("✅ تمت إضافة الدليل/المادة بنجاح وإشعار الفريق!");
-          document.getElementById('newSopId').value = '';
-          document.getElementById('newSopTitle').value = '';
-          document.getElementById('newSopDept').value = '';
-          document.getElementById('newSopLink').value = '';
-          loadSOPs();
-        } else {
-          showToast("❌ حدث خطأ أثناء إضافة الدليل");
         }
       });
     }
@@ -1019,24 +975,6 @@
       });
     }
 
-    function loadSOPs() {
-      fetchJSONP(`${API_URL}?action=getData&sheet=SOPs`, res => {
-        document.getElementById('sopsLoader').style.display = "none";
-        if(res.status === "success" && res.data) {
-          const tbody = document.getElementById('sopsBody');
-          document.getElementById('sopsTable').style.display = "table";
-          tbody.innerHTML = res.data.map(s => `
-            <tr>
-              <td>${s['SOP ID'] || s[0]}</td>
-              <td>${s['Title'] || s[1]}</td>
-              <td>${s['Department'] || s[2]} - ${s['Responsibilities'] || s['مسؤوليات القسم'] || ''}</td>
-              <td><a href="${s['Link'] || s[4]}" target="_blank" style="color:var(--primary-color);">رابط الدليل / المادة</a></td>
-            </tr>
-          `).join('');
-        }
-      });
-    }
-
     function loadEvaluations() {
       fetchJSONP(`${API_URL}?action=getData&sheet=Evaluations`, res => {
         document.getElementById('evalsLoader').style.display = "none";
@@ -1056,27 +994,19 @@
 
     function uploadVaultFile() {
       const title = document.getElementById('vaultTitle').value.trim();
-      const fileInput = document.getElementById('vaultFileInput');
+      const link = document.getElementById('vaultLink').value.trim();
       const uploader = currentUser['Full Name'] || currentUser['الاسم الكامل'];
 
-      if(!title || fileInput.files.length === 0) { showToast("⚠️ يرجى كتابة عنوان الملف واختيار ملف من جهازك"); return; }
+      if(!title || !link) { showToast("⚠️ يرجى تعبئة عنوان الملف والرابط"); return; }
 
-      const file = fileInput.files[0];
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        const base64Data = e.target.result;
-        fetchJSONP(`${API_URL}?action=addVaultFile&title=${encodeURIComponent(title)}&fileName=${encodeURIComponent(file.name)}&fileData=${encodeURIComponent(base64Data)}&uploader=${encodeURIComponent(uploader)}`, res => {
-          if(res.status === "success") {
-            showToast("✅ تم رفع ملف الـ PDF/المستند بنجاح إلى الخزنة وإشعار الفريق!");
-            document.getElementById('vaultTitle').value = '';
-            fileInput.value = '';
-            loadVault();
-          } else {
-            showToast("❌ حدث خطأ أثناء الرفع");
-          }
-        });
-      };
-      reader.readAsDataURL(file);
+      fetchJSONP(`${API_URL}?action=addVault&title=${encodeURIComponent(title)}&link=${encodeURIComponent(link)}&uploader=${encodeURIComponent(uploader)}`, res => {
+        if(res.status === "success") {
+          showToast("✅ تم رفع الملف بنجاح إلى الخزنة وإشعار الفريق");
+          document.getElementById('vaultTitle').value = '';
+          document.getElementById('vaultLink').value = '';
+          loadVault();
+        }
+      });
     }
 
     function loadVault() {
@@ -1093,7 +1023,7 @@
                 <td>${v['Title'] || v[0]}</td>
                 <td>${v['Uploader'] || v[1]}</td>
                 <td>${v['Date'] || v[2]}</td>
-                <td><a href="${v['Link'] || v[3]}" target="_blank" download style="color:var(--primary-color); font-weight:700;">📥 تحميل / عرض الملف</a></td>
+                <td><a href="${v['Link'] || v[3]}" target="_blank" style="color:var(--primary-color);">فتح الملف / التقرير</a></td>
               </tr>
             `).join('');
           }
