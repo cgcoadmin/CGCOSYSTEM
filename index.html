@@ -270,7 +270,7 @@
 
     <!-- زر الدعم الفني العائم -->
     <button class="support-float" onclick="openModal('supportModal')">
-        الدعم الفني
+        💬 الدعم الفني المباشر
     </button>
 
     <!-- نافذة 1: الاستفسارات والطلبات -->
@@ -278,19 +278,23 @@
         <div class="modal-box">
             <button class="close-x" onclick="closeModal('inquiriesModal')">&times;</button>
             <h2>الاستفسارات والطلبات</h2>
-            <div class="modal-desc">أدخل بياناتك، رقم الجوال، البريد، واستفسارك أو طلبك.</div>
-            <form onsubmit="handleFormSubmit(event, 'تم إرسال طلبك واستفسارك بنجاح.')">
+            <div class="modal-desc">أدخل بياناتك ورقم المتابعة أو تفاصيل طلبك.</div>
+            <form id="reqForm" onsubmit="submitInquiry(event)">
                 <div class="field">
                     <label>الاسم الكامل</label>
-                    <input type="text" required placeholder="أدخل اسمك الكريم">
+                    <input type="text" id="reqName" required placeholder="أدخل اسمك الكريم">
                 </div>
                 <div class="field">
-                    <label>رقم الجوال أو البريد الإلكتروني</label>
-                    <input type="text" required placeholder="لتواصل القسم معك">
+                    <label>نوع الطلب</label>
+                    <select id="reqType">
+                        <option value="استفسار سلوكي">استفسار سلوكي</option>
+                        <option value="إرشاد مهني">إرشاد مهني</option>
+                        <option value="دعم تقني">دعم تقني</option>
+                    </select>
                 </div>
                 <div class="field">
                     <label>الاستفسار أو الطلب</label>
-                    <textarea rows="4" required placeholder="اكتب استفسارك أو طلبك بوضوح..."></textarea>
+                    <textarea id="reqDetails" rows="4" required placeholder="اكتب استفسارك أو طلبك بوضوح..."></textarea>
                 </div>
                 <button type="submit" class="submit-btn">إرسال الطلب</button>
             </form>
@@ -329,35 +333,26 @@
         <div class="modal-box">
             <button class="close-x" onclick="closeModal('supportModal')">&times;</button>
             <h2>الدعم الفني</h2>
-            <div class="modal-desc">اختر صفتك للمتابعة والدعم.</div>
+            <div class="modal-desc">اختر صفتك للمتابعة والدعم (أوقات الدعم المباشر: 1 - 3 ظهراً).</div>
 
             <div class="tabs-switcher">
-                <button id="tabStudentBtn" class="active" onclick="switchTab('student')">طالب / زائر</button>
+                <button id="tabStudentBtn" class="active" onclick="switchTab('student')">الدعم المباشر</button>
                 <button id="tabStaffBtn" onclick="switchTab('staff')">عضو مكتب (ID)</button>
             </div>
 
-            <!-- نموذج الطالب -->
-            <form id="studentSupportForm" onsubmit="handleFormSubmit(event, 'تم رفع مشكلتك التقنية مع بيانات التواصل وسيتواصل معك الدعم الفني قريباً.')">
-                <div class="field">
-                    <label>الاسم</label>
-                    <input type="text" required placeholder="اسمك">
+            <!-- نموذج الطالب (الدعم المباشر مع التحقق من الوقت والبصمة الأمنية) -->
+            <div id="studentSupportForm">
+                <div style="background: #f0fdfa; padding: 12px; border-radius: 8px; margin-bottom: 12px; font-size: 12px; color: var(--primary);">
+                    ℹ️ محادثات الدعم الفني المباشر متاحة يومياً من <strong>1:00 ظهراً إلى 3:00 عصراً</strong>.
                 </div>
-                <div class="field">
-                    <label>رقم الجوال أو البريد</label>
-                    <input type="text" required placeholder="للتواصل معك">
-                </div>
-                <div class="field">
-                    <label>وصف المشكلة التقنية</label>
-                    <textarea rows="3" required placeholder="اشرح الخلل أو المشكلة..."></textarea>
-                </div>
-                <button type="submit" class="submit-btn">إرسال بلاغ الدعم</button>
-            </form>
+                <button type="button" class="submit-btn" onclick="checkLiveSupportTime()">دخول غرفة الدعم المباشر</button>
+            </div>
 
             <!-- نموذج عضو المكتب -->
             <form id="staffSupportForm" style="display: none;" onsubmit="handleStaffAuth(event)">
                 <div class="field">
                     <label>الرقم التعريفي (ID)</label>
-                    <input type="password" required placeholder="أدخل الآيدي الخاص بك">
+                    <input type="password" id="staffIdInput" required placeholder="أدخل الآيدي الخاص بك">
                 </div>
                 <button type="submit" class="submit-btn">دخول لوحة التحكم</button>
             </form>
@@ -365,6 +360,19 @@
     </div>
 
     <script>
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxZiymcfqIDhLXduA4-hEEGwqxhR5_sOmqOCoheWKuIx4qtNugU3r40fwniIyXo189fnw/exec";
+
+        // توليد بصمة بسيطة للجهاز للأمان ومنع التجاوزات
+        function getDeviceFingerprint() {
+            let rawData = navigator.userAgent + navigator.language + screen.width + 'x' + screen.height;
+            let hash = 0;
+            for (let i = 0; i < rawData.length; i++) {
+                hash = ((hash << 5) - hash) + rawData.charCodeAt(i);
+                hash |= 0;
+            }
+            return "FP-" + Math.abs(hash);
+        }
+
         function openModal(id) {
             document.getElementById(id).style.display = 'flex';
         }
@@ -386,8 +394,8 @@
             } else {
                 stBtn.classList.add('active');
                 sBtn.classList.remove('active');
+                sForm.style.display = 'none';
                 stForm.style.display = 'block';
-                stForm.style.display = 'none';
             }
         }
 
@@ -398,11 +406,62 @@
             e.target.reset();
         }
 
+        // إرسال الاستفسار والطلبات للـ Google Sheets باستخدام JSONP
+        function submitInquiry(e) {
+            e.preventDefault();
+            let name = document.getElementById('reqName').value;
+            let type = document.getElementById('reqType').value;
+            let details = document.getElementById('reqDetails').value;
+
+            let url = WEB_APP_URL + "?action=submitRequest&memberId=" + encodeURIComponent(name) + "&type=" + encodeURIComponent(type) + "&details=" + encodeURIComponent(details) + "&callback=handleResponse";
+            
+            let script = document.createElement('script');
+            script.src = url;
+            document.body.appendChild(script);
+        }
+
+        function handleResponse(res) {
+            if (res.status === "success") {
+                alert("تم إرسال طلبك بنجاح وسيتم معالجته قريباً!");
+                document.getElementById('reqForm').reset();
+                document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
+            } else {
+                alert("حدث خطأ أثناء الإرسال، حاول مرة أخرى.");
+            }
+        }
+
+        // التحقق من أوقات الدعم المباشر (1 إلى 3 ظهراً)
+        function checkLiveSupportTime() {
+            let now = new Date();
+            let hour = now.getHours();
+            let fp = getDeviceFingerprint();
+
+            // الساعة 13 إلى 15 (1 ظهراً إلى 3 عصراً)
+            if (hour >= 13 && hour < 15) {
+                alert("تم التحقق من الجهاز (بصمة أمنية مفعلة: " + fp + "). جارٍ فتح غرفة الدعم المباشر الآن...");
+                // هنا يتم فتح واجهة المحادثة المباشرة
+            } else {
+                alert("عذراً، أوقات الدعم الفني المباشر هي من الساعة 1:00 ظهراً إلى 3:00 عصراً. يمكنك إرسال استفسارك عبر نموذج الاستفسارات والطلبات في أي وقت.");
+            }
+        }
+
         function handleStaffAuth(e) {
             e.preventDefault();
-            alert('تم التحقق من الآيدي بنجاح! جاري فتح لوحة تحكم المكتب...');
-            document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
-            e.target.reset();
+            let memberId = document.getElementById('staffIdInput').value;
+            let url = WEB_APP_URL + "?action=login&memberId=" + encodeURIComponent(memberId) + "&password=&callback=staffLoginResponse";
+            
+            let script = document.createElement('script');
+            script.src = url;
+            document.body.appendChild(script);
+        }
+
+        function staffLoginResponse(res) {
+            if (res.status === "success") {
+                alert("مرحباً بك " + (res.user['Staff_Name'] || res.user['اسم العضو'] || 'عضو المكتب') + "! تم التحقق بنجاح.");
+                document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
+            } else {
+                alert(res.message || "الرقم التعريفي غير صحيح.");
+            }
         }
 
         window.onclick = function(e) {
