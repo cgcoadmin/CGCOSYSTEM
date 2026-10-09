@@ -281,7 +281,7 @@
             <div class="modal-desc">أدخل بياناتك وتفاصيل طلبك لإرساله مباشرة بالنظام.</div>
             <form id="reqForm" onsubmit="submitInquiry(event)">
                 <div class="field">
-                    <label>الاسم الكامل</label>
+                    <label>الاسم الكامل أو المعرف</label>
                     <input type="text" id="reqName" required placeholder="أدخل اسمك الكريم">
                 </div>
                 <div class="field">
@@ -360,7 +360,8 @@
     </div>
 
     <script>
-        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxZiymcfqIDhLXduA4-hEEGwqxhR5_sOmqOCoheWKuIx4qtNugU3r40fwniIyXo189fnw/exec";
+        // رابط الـ Web App المحدث والجديد
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyx65zGvnjwgaEUqk9YLzR-pDI3XaenXTXmzPZrsFsUy6_DyasYx0xGhs0x-sw35_g3OA/exec";
 
         // توليد بصمة بسيطة للجهاز للأمان ومنع التجاوزات
         function getDeviceFingerprint() {
@@ -422,7 +423,7 @@
 
         function handleResponse(res) {
             if (res.status === "success") {
-                alert("تم إرسال طلبك بنجاح وسيتم معالجته قريباً!");
+                alert("تم إرسال طلبك بنجاح! رقم المتابعة: " + res.requestId);
                 document.getElementById('reqForm').reset();
                 document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
             } else {
@@ -455,8 +456,9 @@
 
         function staffLoginResponse(res) {
             if (res.status === "success") {
-                alert("مرحباً بك " + (res.user['Staff_Name'] || res.user['اسم العضو'] || 'عضو المكتب') + "! تم التحقق بنجاح.");
+                alert("مرحباً بك " + (res.user['Full_Name'] || 'عضو المكتب') + " (" + res.user['Job_Title'] + ")! تم التحقق بنجاح.");
                 document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
+                // هنا سيتم توجيهه للوحة التحكم الخاصة به قريباً
             } else {
                 alert(res.message || "الرقم التعريفي غير صحيح.");
             }
