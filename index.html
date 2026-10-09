@@ -81,15 +81,15 @@
     .modal-content { background: var(--card-bg); padding: 2rem; border-radius: 12px; width: 90%; max-width: 500px; max-height: 85vh; overflow-y: auto; border: 1px solid var(--border-color); }
 
     /* تنسيق غرفة الدردشة الاحترافية (مثل واتساب) */
-    .whatsapp-chat-container { background: #efeae2; border-radius: 10px; border: 1px solid var(--border-color); max-height: 300px; overflow-y: auto; padding: 15px; display: flex; flex-direction: column; gap: 10px; margin-bottom: 10px; }
+    .whatsapp-chat-container { background: #efeae2; border-radius: 10px; border: 1px solid var(--border-color); height: 220px; overflow-y: auto; padding: 12px; display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px; }
     body.dark-mode .whatsapp-chat-container { background: #0b141a; }
-    .chat-bubble { max-width: 80%; padding: 10px 14px; border-radius: 8px; font-size: 0.88rem; position: relative; line-height: 1.5; word-wrap: break-word; }
+    .chat-bubble { max-width: 80%; padding: 8px 12px; border-radius: 8px; font-size: 0.85rem; position: relative; line-height: 1.4; word-wrap: break-word; }
     .chat-bubble.visitor { background: #ffffff; color: #111b21; align-self: flex-start; border-top-right-radius: 0; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
     body.dark-mode .chat-bubble.visitor { background: #202c33; color: #e9edef; }
     .chat-bubble.admin { background: #d9fdd3; color: #111b21; align-self: flex-end; border-top-left-radius: 0; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
     body.dark-mode .chat-bubble.admin { background: #005c4b; color: #e9edef; }
-    .chat-bubble .sender-name { font-size: 0.72rem; font-weight: bold; margin-bottom: 3px; color: var(--primary-color); }
-    .chat-bubble .chat-time { font-size: 0.65rem; color: var(--text-muted); text-align: left; margin-top: 4px; display: block; }
+    .chat-bubble .sender-name { font-size: 0.7rem; font-weight: bold; margin-bottom: 2px; color: var(--primary-color); }
+    .chat-bubble .chat-time { font-size: 0.6rem; color: var(--text-muted); text-align: left; margin-top: 3px; display: block; }
   </style>
 </head>
 <body>
@@ -286,19 +286,18 @@
     <div class="tab-content" id="visitorInquiriesTab">
       <div class="profile-card">
         <h3 style="color:var(--primary-color); margin-bottom:0.5rem;">💬 غرف محادثات الزوار والطلبات المشتركة</h3>
-        <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:1rem;">تابع غرف المحادثة، ورد مباشرة، أو قم بالتحويل للجهات المخصصة (تتحدث الحالة تلقائياً مع الإجراء).</p>
+        <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:1rem;">تابع غرف المحادثة، ورد مباشرة، أو قم بالتحويل. (لا يمكن التعديل أو الرد إذا كان الطلب بعهدة شخص آخر إلا إذا حوله لك).</p>
         
         <div id="visitorInquiriesLoader" class="loader">جاري التحميل...</div>
         <div style="overflow-x: auto;">
           <table class="data-table" id="visitorInquiriesTable" style="display:none;">
             <thead>
               <tr>
-                <th>رقم المتابعة</th>
-                <th>الزائر / الطالب</th>
-                <th>النوع والتفاصيل</th>
-                <th>الحالة والتحويل</th>
+                <th>رقم المتابعة والزائر</th>
+                <th>نوع الطلب والتفاصيل</th>
+                <th>الحالة والمتابع الحالي</th>
                 <th>غرفة الدردشة الفورية</th>
-                <th>إدارة الرد والتحويل</th>
+                <th>إدارة الرد والتحويل والصلاحيات</th>
               </tr>
             </thead>
             <tbody id="visitorInquiriesBody"></tbody>
@@ -383,7 +382,7 @@
   </div>
 
   <script>
-    const API_URL = "https://script.google.com/macros/s/AKfycbyFa_IU-ctWdh8D7j8pihczGsl6IvOXpJgVtnFU1onTdM-rMszW5xzF-ou7U-kzCYOvRw/exec";
+    const API_URL = "https://script.google.com/macros/s/AKfycbx_FKjWEiY22Dq9MERjuyjD6qtd-Ug2d_ra2L9pycuFiX1jkgXZaUJQ587rN3ohROlMNQ/exec";
     let currentUser = null;
     let globalTasksCache = [];
     let globalMembersCache = [];
@@ -469,7 +468,7 @@
       try {
         const messages = JSON.parse(chatLogJson || "[]");
         if(messages.length === 0) {
-          container.innerHTML = '<p style="text-align:center; color:var(--text-muted); font-size:0.85rem;">لا توجد رسائل في الغرفة...</p>';
+          container.innerHTML = '<p style="text-align:center; color:var(--text-muted); font-size:0.8rem;">لا توجد رسائل في الغرفة...</p>';
           return;
         }
         container.innerHTML = messages.map(m => {
@@ -484,7 +483,7 @@
         }).join('');
         container.scrollTop = container.scrollHeight;
       } catch(e) {
-        container.innerHTML = '<div style="white-space:pre-wrap; font-size:0.85rem;">' + chatLogJson + '</div>';
+        container.innerHTML = '<div style="white-space:pre-wrap; font-size:0.8rem;">' + chatLogJson + '</div>';
       }
     }
 
@@ -618,31 +617,38 @@
           const status = i['Status'] || i[6] || 'معلق';
           const reply = i['Reply'] || i[7] || '';
           const transferredTo = i['Transferred To'] || i[8] || 'غير محول';
-          const handledBy = i['Handled By'] || i[9] || 'لم يتم التحديد';
+          const handledBy = i['Handled By'] || i[9] || '';
           const chatLogJson = i['Chat Log'] || i[10] || '[]';
           const chatContainerId = `adminChatBox-${index}`;
 
           setTimeout(() => renderChatBubbles(chatLogJson, chatContainerId), 100);
 
+          const currentUserName = currentUser['Full Name'] || currentUser['الاسم'] || '';
+          const isLockedByOther = handledBy !== "" && handledBy !== currentUserName && transferredTo !== currentUserName;
+
           return `
             <tr>
-              <td><strong>${id}</strong><br><small style="color:var(--text-muted);">${email}</small></td>
-              <td>${name}</td>
-              <td><strong>${category}</strong><br><small>${details}</small></td>
+              <td><strong>${id}</strong><br><span style="font-weight:600; color:var(--primary-color);">${name}</span><br><small style="color:var(--text-muted);">${email}</small></td>
+              <td><strong>${category}</strong><br><p style="margin-top:4px; font-size:0.85rem;">${details}</p></td>
               <td>
                 <span class="badge ${status === 'تم الرد' ? 'badge-success' : 'badge-warning'}">${status}</span><br>
                 <small style="color:var(--primary-color);">تحويل: ${transferredTo}</small><br>
-                <small>بواسطة: ${handledBy}</small>
+                <small style="color:var(--text-muted);">بواسطة: ${handledBy || 'لم يتم البدء'}</small>
+                ${isLockedByOther ? '<br><span class="badge" style="background:#fee2e2; color:#dc2626; margin-top:4px;">🔒 بعهدة عضو آخر</span>' : ''}
               </td>
-              <td><div class="whatsapp-chat-container" id="${chatContainerId}" style="max-height:140px; min-width:200px;"></div></td>
+              <td><div class="whatsapp-chat-container" id="${chatContainerId}" style="max-height:165px; min-width:210px;"></div></td>
               <td>
-                <input type="text" id="inqReply-${id}" value="${reply}" placeholder="اكتب ردك هنا..." style="width:100%; margin-bottom:5px;">
-                <div style="margin-bottom:5px;">
-                  <select id="inqTransfer-${id}" style="padding:6px; font-size:0.85rem; width:100%;">
-                    ${transferOptionsHtml}
-                  </select>
-                </div>
-                <button class="btn" style="padding:5px 10px; font-size:0.85rem;" onclick="saveVisitorReplyAdmin('${id}')">إرسال وتحديث الحالة تلقائياً</button>
+                ${isLockedByOther ? `
+                  <p style="color:var(--danger-color); font-size:0.8rem; font-weight:bold;">هذه المحادثة قيد المعالجة من قبل (${handledBy}). لا يمكنك الرد أو الكتابة إلا إذا تم تحويلها لك.</p>
+                ` : `
+                  <input type="text" id="inqReply-${id}" value="${reply}" placeholder="اكتب ردك هنا..." style="width:100%; margin-bottom:5px;">
+                  <div style="margin-bottom:5px;">
+                    <select id="inqTransfer-${id}" style="padding:6px; font-size:0.85rem; width:100%;">
+                      ${transferOptionsHtml}
+                    </select>
+                  </div>
+                  <button class="btn" style="padding:5px 10px; font-size:0.85rem;" onclick="saveVisitorReplyAdmin('${id}')">إرسال وتحديث الحالة</button>
+                `}
               </td>
             </tr>
           `;
@@ -658,10 +664,10 @@
       const res = await callAPI(`action=updateVisitorReply&inqId=${encodeURIComponent(inqId)}&reply=${encodeURIComponent(reply)}&transferredTo=${encodeURIComponent(transferredTo)}&handledBy=${encodeURIComponent(handledBy)}`);
       
       if(res && res.status === "success") {
-        showToast("✅ تم إرسال الرد وتحديث الحالة في الغرفة بنجاح");
+        showToast("✅ تم إرسال الرد وتحديث الغرفة بنجاح");
         loadVisitorInquiriesAdmin();
       } else {
-        showToast("❌ حدث خطأ أثناء الحفظ");
+        alert(res ? res.message : "❌ حدث خطأ أثناء الحفظ");
       }
     }
 
@@ -906,4 +912,4 @@
     function exportToPDF(id, filename) { html2pdf().from(document.getElementById(id)).save(filename); }
   </script>
 </body>
-</html>    
+</html>
