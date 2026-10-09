@@ -462,7 +462,7 @@
       <button class="tab-btn" onclick="switchTab('analyticsTab', this)">📊 التحليلات البيانية</button>
     </div>
 
-    <!-- 1. التبويب الأول: اللوحة الشخصية (المطورة بالكامل) -->
+    <!-- 1. التبويب الأول: اللوحة الشخصية -->
     <div class="tab-content active" id="personalDashboardTab">
       <div class="stats-grid">
         <div class="stat-card"><span>إجمالي المهام المسندة</span><p id="statTotalTasks">0</p></div>
@@ -513,31 +513,31 @@
       </div>
     </div>
 
-    <!-- 2. التبويب الثاني: إدارة أعضاء الفريق -->
+    <!-- 2. التبويب الثاني: إدارة أعضاء الفريق (محدث بناءً على طلبك) -->
     <div class="tab-content" id="teamManagementTab">
       <div id="cooControlPanel">
         <h3 style="color: var(--primary-color); margin-bottom: 1rem;">👥 لوحة إدارة أعضاء الفريق والعمليات</h3>
         
-        <!-- نموذج إسناد مهمة جديدة بالتعبئة التلقائية -->
+        <!-- نموذج إسناد مهمة جديدة (يعرض الأسماء النشطة فقط وبدون ID في القائمة) -->
         <div class="profile-card" style="border: 2px dashed var(--primary-color);">
-          <h4 style="margin-bottom: 1rem; color: var(--primary-color);">➕ إسناد مهمة جديدة لعضو (تعبئة تلقائية)</h4>
+          <h4 style="margin-bottom: 1rem; color: var(--primary-color);">➕ إسناد مهمة جديدة لعضو نشط</h4>
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
             <div class="form-group" style="margin-bottom:0;">
               <label>عنوان المهمة</label>
               <input type="text" id="newTaskName" placeholder="عنوان المهمة...">
             </div>
             <div class="form-group" style="margin-bottom:0;">
-              <label>اختر العضو المسند إليه</label>
+              <label>اختر اسم العضو</label>
               <select id="newTaskAssigneeSelect" onchange="autoFillMemberDetails()">
-                <option value="">جاري تحميل الأعضاء...</option>
+                <option value="">جاري تحميل الأعضاء النشطين...</option>
               </select>
             </div>
             <div class="form-group" style="margin-bottom:0;">
-              <label>رقم العضوية (ID)</label>
+              <label>رقم العضوية (ID) - تعبئة تلقائية</label>
               <input type="text" id="newTaskMemberId" readonly placeholder="يظهر تلقائياً...">
             </div>
             <div class="form-group" style="margin-bottom:0;">
-              <label>القسم</label>
+              <label>القسم - تعبئة تلقائية</label>
               <input type="text" id="newTaskDepartment" readonly placeholder="يظهر تلقائياً...">
             </div>
             <div class="form-group" style="margin-bottom:0;">
@@ -552,6 +552,7 @@
           <button class="btn" onclick="addNewTaskWithAutoFill()">إرسال وإسناد المهمة وإشعار العضو</button>
         </div>
 
+        <!-- جدول الأعضاء (تم حذف عمود الحالة الحالية) -->
         <div class="profile-card">
           <h4 style="margin-bottom: 1rem; color: var(--primary-color);">إدارة أعضاء الفريق</h4>
           <div class="search-box-wrapper">
@@ -565,18 +566,18 @@
                   <th>الاسم</th>
                   <th>المسمى الوظيفي</th>
                   <th>البريد</th>
-                  <th>الحالة الحالية</th>
                 </tr>
               </thead>
               <tbody id="membersTableBody">
-                <tr><td colspan="5" style="text-align:center;">جاري تحميل الأعضاء...</td></tr>
+                <tr><td colspan="4" style="text-align:center;">جاري تحميل الأعضاء...</td></tr>
               </tbody>
             </table>
           </div>
         </div>
 
+        <!-- طلبات الأعضاء الواردة (مع خانة الرد المباشر) -->
         <div class="profile-card">
-          <h4 style="margin-bottom: 1rem; color: var(--primary-color);">طلبات الأعضاء الواردة</h4>
+          <h4 style="margin-bottom: 1rem; color: var(--primary-color);">طلبات الأعضاء الواردة والرد عليها</h4>
           <div style="overflow-x: auto;">
             <table class="data-table">
               <thead>
@@ -585,7 +586,7 @@
                   <th>العضو</th>
                   <th>نوع الطلب</th>
                   <th>التفاصيل</th>
-                  <th>الإجراء والقرار</th>
+                  <th>الرد والمتابعة</th>
                 </tr>
               </thead>
               <tbody id="requestsTableBody">
@@ -595,7 +596,7 @@
           </div>
         </div>
 
-        <!-- لوحة إدارة بلاغات الدعم الفني مع ميزة Handled By -->
+        <!-- لوحة إدارة بلاغات الدعم الفني -->
         <div class="profile-card">
           <h4 style="margin-bottom: 1rem; color: var(--primary-color);">🛠 بلاغات الدعم الفني (Support) الواردة</h4>
           <div style="overflow-x: auto;">
@@ -902,6 +903,7 @@
       }
     }
 
+    // جدول أعضاء الفريق (بدون عمود الحالة الحالية)
     function renderMembersTable(members) {
       const tbody = document.getElementById('membersTableBody');
       tbody.innerHTML = members.map(m => `
@@ -910,7 +912,6 @@
           <td>${m['Full Name'] || m['الاسم الكامل'] || m['Full_Name'] || ''}</td>
           <td>${m['Job Title'] || m['المسمى الوظيفي'] || m['Job_Title'] || ''}</td>
           <td>${m['Email'] || m['البريد الالكتروني'] || ''}</td>
-          <td><span class="badge badge-success">${m['Status'] || m['الحالة'] || 'نشط'}</span></td>
         </tr>
       `).join('');
     }
@@ -926,15 +927,23 @@
       renderMembersTable(filtered);
     }
 
+    // تصفية وعرض الأسماء النشطة فقط في قائمة الإسناد (بدون إظهار اليدوي للأيدي في القائمة)
     function populateNewTaskDropdown(members) {
+      const activeMembers = members.filter(m => {
+        const st = String(m['Status'] || m['الحالة'] || '').trim().toLowerCase();
+        return st === '' || st === 'نشط' || st === 'active' || st === 'مفعل';
+      });
+
       const select = document.getElementById('newTaskAssigneeSelect');
-      select.innerHTML = '<option value="">اختر العضو المسند إليه...</option>' + members.map(m => `
-        <option value="${m['Member ID'] || m['رقم العضوية']}" data-dept="${m['Department'] || m['القسم'] || ''}">
-          ${m['Full Name'] || m['الاسم الكامل'] || m['Full_Name']} (${m['Member ID'] || m['رقم العضوية']})
-        </option>
-      `).join('');
+      select.innerHTML = '<option value="">اختر اسم العضو...</option>' + activeMembers.map(m => {
+        const name = m['Full Name'] || m['الاسم الكامل'] || m['Full_Name'] || '';
+        const id = m['Member ID'] || m['رقم العضوية'] || '';
+        const dept = m['Department'] || m['القسم'] || '';
+        return `<option value="${id}" data-dept="${dept}" data-name="${name}">${name}</option>`;
+      }).join('');
     }
 
+    // تعبئة الأيدي والقسم تلقائياً عند اختيار اسم العضو
     function autoFillMemberDetails() {
       const select = document.getElementById('newTaskAssigneeSelect');
       const opt = select.options[select.selectedIndex];
@@ -949,7 +958,9 @@
       const dept = document.getElementById('newTaskDepartment').value.trim();
       const dueDate = document.getElementById('newTaskDate').value;
       const details = document.getElementById('newTaskDetails').value.trim();
-      const assigneeName = assigneeSelect.options[assigneeSelect.selectedIndex].text.split(' (')[0];
+      
+      const opt = assigneeSelect.options[assigneeSelect.selectedIndex];
+      const assigneeName = opt ? opt.getAttribute('data-name') : '';
 
       if(!taskName || !memberId || !dueDate) {
         showToast("⚠️ يرجى تعبئة الحقول الأساسية للمهمة");
@@ -961,7 +972,7 @@
       
       const res = await callAPI(urlQuery);
       if(res && res.status === "success") {
-        showToast("✅ تمت إضافة وإسناد المهمة وإرسال الإشعار بنجاح!");
+        showToast("✅ تمت إضافة وإسناد المهمة بنجاح!");
         document.getElementById('newTaskName').value = '';
         document.getElementById('newTaskDetails').value = '';
         manualRefreshData();
@@ -970,28 +981,36 @@
       }
     }
 
+    // طلبات الأعضاء مع خانة الرد المباشر
     function renderAdminRequests(requests) {
       const tbody = document.getElementById('requestsTableBody');
-      tbody.innerHTML = requests.length ? requests.map(r => `
-        <tr>
-          <td>${r['Request ID'] || r[0]}</td>
-          <td>${r['Member ID'] || r[1]}</td>
-          <td>${r['Type'] || r[2]}</td>
-          <td>${r['Details'] || r[3]}</td>
-          <td>
-            <select onchange="updateReqStatus('${r['Request ID'] || r[0]}', this.value)" style="padding:4px; border-radius:4px;">
-              <option value="معلق" ${(r['Status']||r[4])==='معلق'?'selected':''}>معلق</option>
-              <option value="تم الموافقة" ${(r['Status']||r[4])==='تم الموافقة'?'selected':''}>موافقة</option>
-              <option value="مرفوض" ${(r['Status']||r[4])==='مرفوض'?'selected':''}>رفض</option>
-            </select>
-          </td>
-        </tr>
-      `).join('') : `<tr><td colspan="5" style="text-align:center;">لا توجد طلبات جديدة</td></tr>`;
+      tbody.innerHTML = requests.length ? requests.map(r => {
+        const reqId = r['Request ID'] || r[0];
+        const currentReply = r['Reply'] || r['الرد'] || r[4] || '';
+        return `
+          <tr>
+            <td>${reqId}</td>
+            <td>${r['Member ID'] || r[1]}</td>
+            <td>${r['Type'] || r[2]}</td>
+            <td>${r['Details'] || r[3]}</td>
+            <td>
+              <input type="text" id="reqReply-${reqId}" value="${currentReply}" placeholder="اكتب رد الإدارة..." style="margin-bottom:5px; width:100%;">
+              <button class="btn" style="padding:4px 10px; font-size:0.8rem; width:auto;" onclick="saveRequestReply('${reqId}')">إرسال الرد</button>
+            </td>
+          </tr>
+        `;
+      }).join('') : `<tr><td colspan="5" style="text-align:center;">لا توجد طلبات جديدة</td></tr>`;
     }
 
-    async function updateReqStatus(reqId, newStatus) {
-      const res = await callAPI(`action=updateRequestStatus&reqId=${encodeURIComponent(reqId)}&status=${encodeURIComponent(newStatus)}`);
-      if(res && res.status === "success") showToast("✅ تم تحديث حالة الطلب بنجاح");
+    async function saveRequestReply(reqId) {
+      const replyText = document.getElementById(`reqReply-${reqId}`).value.trim();
+      const res = await callAPI(`action=updateRequestReply&reqId=${encodeURIComponent(reqId)}&reply=${encodeURIComponent(replyText)}`);
+      if(res && res.status === "success") {
+        showToast("✅ تم حفظ وإرسال الرد بنجاح");
+        manualRefreshData();
+      } else {
+        showToast("❌ حدث خطأ أثناء الحفظ");
+      }
     }
 
     function renderAdminSupport(tickets) {
@@ -1100,7 +1119,6 @@
       }).join('') : `<tr><td colspan="6" style="text-align:center;">لا توجد مهام مطابقة للبحث أو التصفية</td></tr>`;
     }
 
-    // ميزة التحديث السريع لحالة المهمة من اللوحة الشخصية
     async function quickToggleTaskStatus(taskId, newStatus) {
       showToast("جاري تحديث حالة المهمة...");
       const res = await callAPI(`action=updateTaskStatus&taskId=${encodeURIComponent(taskId)}&status=${encodeURIComponent(newStatus)}`);
@@ -1109,7 +1127,6 @@
         await loadTasks();
       } else {
         showToast("⚠️ تم تحديث الحالة محلياً، يرجى التحديث لاحقاً");
-        // تحديث محلي مباشر للتجربة السريعة
         const t = globalTasksCache.find(x => String(x['Task ID'] || x[0]) === String(taskId));
         if(t) {
           t['Status'] = newStatus;
@@ -1162,6 +1179,7 @@
           <div style="background:var(--profile-item-bg); padding:1rem; border-radius:8px; margin-bottom:0.8rem; border:1px solid var(--border-color);">
             <p><strong>النوع:</strong> ${r['Type'] || r[2]} | <strong>الحالة:</strong> <span class="badge badge-warning">${r['Status'] || r[4]}</span></p>
             <p style="margin-top:5px; font-size:0.9rem;">${r['Details'] || r[3]}</p>
+            <p style="margin-top:5px; color:var(--primary-color);"><strong>رد الإدارة:</strong> ${r['Reply'] || r['الرد'] || r[5] || 'قيد المراجعة...'}</p>
           </div>
         `).join('') : '<p>لا توجد طلبات سابقة</p>';
       }
