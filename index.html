@@ -34,7 +34,7 @@
     .toast { background: var(--primary-color); color: white; padding: 12px 20px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); font-size: 0.9rem; animation: slideIn 0.3s ease; }
     @keyframes slideIn { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
-    .login-container { background: var(--card-bg); padding: 2.5rem; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); width: 100%; max-width: 420px; text-align: center; border: 1px solid var(--border-color); }
+    .login-container { background: var(--card-bg); padding: 2.5rem; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); width: 100%; max-width: 440px; text-align: center; border: 1px solid var(--border-color); }
     .login-container h2 { margin-bottom: 1.5rem; color: var(--primary-color); font-weight: 900; }
     .form-group { margin-bottom: 1.2rem; text-align: right; }
     .form-group label { display: block; margin-bottom: 0.4rem; font-weight: 600; font-size: 0.9rem; }
@@ -94,7 +94,7 @@
 
   <div id="toastContainer"></div>
 
-  <!-- شاشة الدخول -->
+  <!-- شاشة الدخول الرئيسية -->
   <div class="login-container" id="loginView">
     <h2>تسجيل دخول أعضاء المكتب</h2>
     <div class="form-group"><label>رقم العضوية (Member ID)</label><input type="text" id="memberId" placeholder="مثال: COO أو MGR-1"></div>
@@ -102,34 +102,56 @@
     <button class="btn" onclick="handleLogin()">دخول النظام</button>
     <div class="error-msg" id="loginError"></div>
     
-    <hr style="margin: 1.5rem 0; border-color: var(--border-color);">
-    <button class="btn" style="background: #0284c7;" onclick="openVisitorModalTab()">🌐 دخول زوار وزوار الكلية (إرسال استفسار)</button>
+    <hr style="margin: 1.2rem 0; border-color: var(--border-color);">
+    <button class="btn" style="background: #0284c7; margin-bottom: 0.6rem;" onclick="showVisitorSection('submit')">🌐 بوابة الزوار: إرسال طلب / استفسار / اقتراح</button>
+    <button class="btn" style="background: #0d9488;" onclick="showVisitorSection('track')">🔍 متابعة حالة طلب أو استفسار سابق</button>
   </div>
 
-  <!-- واجهة تقديم استفسار للزوار -->
-  <div class="dashboard-container" id="visitorView" style="display:none; max-width: 600px;">
-    <div class="profile-card">
-      <h3 style="color:var(--primary-color); margin-bottom:1rem;">🌐 بوابة استقبال استفسارات الزوار والطلاب</h3>
-      <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:1rem;">قم بتقديم استفسارك أو طلبك وسنقوم بالرد عليك في أقرب وقت.</p>
-      
-      <div class="form-group"><label>الاسم الكريم</label><input type="text" id="visitorName" placeholder="أدخل اسمك..."></div>
-      <div class="form-group"><label>البريد الإلكتروني</label><input type="email" id="visitorEmail" placeholder="name@stu.kau.edu.sa"></div>
-      <div class="form-group">
-        <label>نوع الاستفسار</label>
-        <select id="visitorType">
-          <option value="استشارة سلوكية">استشارة سلوكية</option>
-          <option value="إرشاد مهني">إرشاد مهني</option>
-          <option value="استفسار أكاديمي">استفسار أكاديمي</option>
-          <option value="أخرى">أخرى</option>
-        </select>
-      </div>
-      <div class="form-group"><label>تفاصيل الاستفسار</label><textarea id="visitorDetails" rows="4" placeholder="اكتب استفسارك بالتفصيل..."></textarea></div>
-      <button class="btn" onclick="submitVisitorInquiry()">إرسال الاستفسار</button>
-      <button class="btn" style="background:var(--text-muted); margin-top:0.5rem;" onclick="backToLogin()">الرجوع لتسجيل الدخول</button>
+  <!-- واجهة تقديم طلب / استفسار / اقتراح للزوار -->
+  <div class="login-container" id="visitorSubmitView" style="display:none; max-width: 550px; text-align: right;">
+    <h2 style="text-align: center; color: var(--primary-color);">🌐 بوابة الزوار والطلاب</h2>
+    <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:1rem; text-align: center;">قدم طلبك، استفسارك، أو مقترحك وسنقوم بمراجعته والرد عليه.</p>
+    
+    <div class="form-group"><label>الاسم الكريم</label><input type="text" id="visitorName" placeholder="أدخل اسمك الكامل..."></div>
+    <div class="form-group"><label>البريد الإلكتروني</label><input type="email" id="visitorEmail" placeholder="name@stu.kau.edu.sa"></div>
+    <div class="form-group">
+      <label>نوع التقديم</label>
+      <select id="visitorCategory">
+        <option value="استفسار أكاديمي أو مهني">استفسار أكاديمي أو مهني</option>
+        <option value="استشارة سلوكية">استشارة سلوكية</option>
+        <option value="طلب خدمة">طلب خدمة</option>
+        <option value="اقتراح تطويري">اقتراح تطويري</option>
+        <option value="أخرى">أخرى</option>
+      </select>
     </div>
+    <div class="form-group"><label>التفاصيل والموضوع</label><textarea id="visitorDetails" rows="4" placeholder="اكتب التفاصيل هنا..."></textarea></div>
+    <button class="btn" onclick="submitVisitorInquiry()">إرسال التقديم</button>
+    <button class="btn" style="background:var(--text-muted); margin-top:0.6rem;" onclick="backToLogin()">الرجوع لتسجيل الدخول</button>
   </div>
 
-  <!-- لوحة التحكم -->
+  <!-- واجهة متابعة طلبات الزوار برقم المتابعة -->
+  <div class="login-container" id="visitorTrackView" style="display:none; max-width: 550px; text-align: right;">
+    <h2 style="text-align: center; color: var(--primary-color);">🔍 متابعة حالة الطلب / الاستفسار</h2>
+    <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:1rem; text-align: center;">أدخل رقم المتابعة (مثل: VIS-1234) لمعرفة الرد وحالة الطلب.</p>
+    
+    <div class="form-group"><label>رقم المتابعة</label><input type="text" id="trackInquiryId" placeholder="أدخل رقم المتابعة..."></div>
+    <button class="btn" onclick="trackVisitorInquiry()">بحث ومتابعة</button>
+    
+    <div id="trackResultContainer" style="margin-top: 1.5rem; display: none; background: var(--profile-item-bg); padding: 1rem; border-radius: 8px; border: 1px solid var(--border-color);">
+      <p><strong>رقم المتابعة:</strong> <span id="resId">-</span></p>
+      <p><strong>النوع:</strong> <span id="resCategory">-</span></p>
+      <p><strong>الحالة:</strong> <span id="resStatus" class="badge badge-warning">-</span></p>
+      <p><strong>الجهة المحول لها:</strong> <span id="resTransferred">-</span></p>
+      <p><strong>المسؤول عن المتابعة:</strong> <span id="resHandled">-</span></p>
+      <p style="margin-top: 8px;"><strong>تفاصيل الطلب:</strong> <br><span id="resDetails" style="color:var(--text-muted);">-</span></p>
+      <hr style="margin: 10px 0; border-color: var(--border-color);">
+      <p style="color: var(--primary-color);"><strong>رد الإدارة:</strong> <br><span id="resReply">قيد المراجعة...</span></p>
+    </div>
+
+    <button class="btn" style="background:var(--text-muted); margin-top:1rem;" onclick="backToLogin()">الرجوع لتسجيل الدخول</button>
+  </div>
+
+  <!-- لوحة التحكم للإدارة -->
   <div class="dashboard-container" id="dashboardView">
     <header>
       <div>
@@ -148,7 +170,7 @@
     <div class="nav-tabs">
       <button class="tab-btn active" onclick="switchTab('personalDashboardTab', this)">👤 اللوحة الشخصية</button>
       <button class="tab-btn" id="teamTabBtn" style="display:none;" onclick="switchTab('teamManagementTab', this)">👥 إدارة الفريق والعمليات</button>
-      <button class="tab-btn" id="visitorInquiriesTabBtn" style="display:none;" onclick="switchTab('visitorInquiriesTab', this)">🌐 استفسارات الزوار</button>
+      <button class="tab-btn" id="visitorInquiriesTabBtn" style="display:none;" onclick="switchTab('visitorInquiriesTab', this)">🌐 استفسارات وطلبات الزوار</button>
       <button class="tab-btn" onclick="switchTab('sopsTab', this)">📚 أدلة العمل</button>
       <button class="tab-btn" onclick="switchTab('evaluationsTab', this)">⭐ التقييمات</button>
       <button class="tab-btn" onclick="switchTab('requestTabContent', this)">📝 إرسال طلب / متابعة</button>
@@ -257,14 +279,25 @@
       </div>
     </div>
 
-    <!-- 3. استفسارات الزوار -->
+    <!-- 3. استفسارات وطلبات الزوار المشتركة (لك ودكتورة مي) -->
     <div class="tab-content" id="visitorInquiriesTab">
       <div class="profile-card">
-        <h3 style="color:var(--primary-color); margin-bottom:1rem;">🌐 استفسارات الزوار والطلاب الواردة</h3>
+        <h3 style="color:var(--primary-color); margin-bottom:0.5rem;">🌐 صندوق استفسارات، طلبات واقتراحات الزوار المشترك (مهند & د. مي)</h3>
+        <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:1rem;">تستطيع أنت أو دكتورة مي الرد مباشرة أو تحويل الطلب للجهة المختصة، مع ظهور اسم من قام بالعمل لتفادي تكرار الخطوات.</p>
+        
         <div id="visitorInquiriesLoader" class="loader">جاري التحميل...</div>
         <div style="overflow-x: auto;">
           <table class="data-table" id="visitorInquiriesTable" style="display:none;">
-            <thead><tr><th>رقم الاستفسار</th><th>الاسم</th><th>البريد</th><th>النوع</th><th>التفاصيل</th><th>الرد والمتابعة</th></tr></thead>
+            <thead>
+              <tr>
+                <th>رقم المتابعة</th>
+                <th>الزائر / الطالب</th>
+                <th>النوع</th>
+                <th>التفاصيل</th>
+                <th>الحالة والجهة</th>
+                <th>الرد، التحويل والمتابعة</th>
+              </tr>
+            </thead>
             <tbody id="visitorInquiriesBody"></tbody>
           </table>
         </div>
@@ -347,7 +380,7 @@
   </div>
 
   <script>
-    const API_URL = "https://script.google.com/macros/s/AKfycbxgzMZNLgoXysDHOYa-p4IisI8MX7pdzWvK5r8SwUMduWRzEaRh32Y74ZuLmfHOo4xdNw/exec";
+    const API_URL = "https://script.google.com/macros/s/AKfycbyLCMsGAHwX_o65inf6VozPFnVGpO2nYcsu_Qj2xbcwqnK0DbVQAzZfflHqzID_LOIOIA/exec";
     let currentUser = null;
     let globalTasksCache = [];
     let globalMembersCache = [];
@@ -388,30 +421,65 @@
       }
     }
 
-    function openVisitorModalTab() {
+    function showVisitorSection(type) {
       document.getElementById('loginView').style.display = 'none';
-      document.getElementById('visitorView').style.display = 'block';
+      if(type === 'submit') {
+        document.getElementById('visitorSubmitView').style.display = 'block';
+        document.getElementById('visitorTrackView').style.display = 'none';
+      } else {
+        document.getElementById('visitorSubmitView').style.display = 'none';
+        document.getElementById('visitorTrackView').style.display = 'block';
+      }
     }
 
     function backToLogin() {
-      document.getElementById('visitorView').style.display = 'none';
+      document.getElementById('visitorSubmitView').style.display = 'none';
+      document.getElementById('visitorTrackView').style.display = 'none';
       document.getElementById('loginView').style.display = 'block';
     }
 
     async function submitVisitorInquiry() {
       const name = document.getElementById('visitorName').value.trim();
       const email = document.getElementById('visitorEmail').value.trim();
-      const type = document.getElementById('visitorType').value;
+      const category = document.getElementById('visitorCategory').value;
       const details = document.getElementById('visitorDetails').value.trim();
 
-      if(!name || !email || !details) { showToast("يرجى تعبئة الحقول"); return; }
-      showToast("جاري الإرسال...");
-      const res = await callAPI(`action=submitVisitorInquiry&name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&type=${encodeURIComponent(type)}&details=${encodeURIComponent(details)}`);
+      if(!name || !email || !details) { showToast("يرجى تعبئة جميع الحقول"); return; }
+      showToast("جاري إرسال طلبك...");
+      const res = await callAPI(`action=submitVisitorInquiry&name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&category=${encodeURIComponent(category)}&details=${encodeURIComponent(details)}`);
+      
       if(res && res.status === "success") {
-        alert("تم إرسال استفسارك بنجاح!\nرقم المتابعة: " + res.inquiryId);
+        alert("✅ تم إرسال طلبك/استفسارك بنجاح!\n\nرقم المتابعة الخاص بك هو: " + res.inquiryId + "\n(يرجى الاحتفاظ برقم المتابعة لمتابعة الرد لاحقاً من الموقع).");
+        document.getElementById('visitorName').value = '';
+        document.getElementById('visitorEmail').value = '';
+        document.getElementById('visitorDetails').value = '';
         backToLogin();
       } else {
         showToast("حدث خطأ أثناء الإرسال");
+      }
+    }
+
+    async function trackVisitorInquiry() {
+      const inquiryId = document.getElementById('trackInquiryId').value.trim();
+      if(!inquiryId) { showToast("أدخل رقم المتابعة"); return; }
+      
+      showToast("جاري البحث عن الطلب...");
+      const res = await callAPI(`action=trackVisitorInquiry&inquiryId=${encodeURIComponent(inquiryId)}`);
+      
+      const container = document.getElementById('trackResultContainer');
+      if(res && res.status === "success") {
+        const d = res.data;
+        document.getElementById('resId').innerText = d.id;
+        document.getElementById('resCategory').innerText = d.category;
+        document.getElementById('resStatus').innerText = d.status;
+        document.getElementById('resTransferred').innerText = d.transferredTo || 'غير محول';
+        document.getElementById('resHandled').innerText = d.handledBy || 'لم يتم التحديد بعد';
+        document.getElementById('resDetails').innerText = d.details;
+        document.getElementById('resReply').innerText = d.reply || 'قيد المراجعة والدراسة من قبل إدارة المكتب...';
+        container.style.display = 'block';
+      } else {
+        container.style.display = 'none';
+        alert(res ? res.message : "خطأ في البحث");
       }
     }
 
@@ -437,7 +505,8 @@
 
     function renderDashboard() {
       document.getElementById('loginView').style.display = "none";
-      document.getElementById('visitorView').style.display = "none";
+      document.getElementById('visitorSubmitView').style.display = "none";
+      document.getElementById('visitorTrackView').style.display = "none";
       document.getElementById('dashboardView').style.display = "block";
       
       document.getElementById('welcomeText').innerText = `مرحباً، ${currentUser['Full Name'] || currentUser['الاسم'] || ''}`;
@@ -449,7 +518,8 @@
 
       const mId = String(currentUser['Member ID'] || currentUser['رقم العضوية'] || '').toUpperCase();
       const mName = String(currentUser['Full Name'] || currentUser['الاسم'] || '').trim();
-      if (mId === 'COO' || mId === 'MGR-1' || mName.includes('مهند مجرشي')) {
+      
+      if (mId === 'COO' || mId === 'MGR-1' || mName.includes('مهند') || mName.includes('مي') || String(currentUser['Role']||'').toLowerCase() === 'admin') {
         document.getElementById('teamTabBtn').style.display = "inline-block";
         document.getElementById('visitorInquiriesTabBtn').style.display = "inline-block";
         loadAdminPanelData();
@@ -470,22 +540,53 @@
       const supRes = await callAPI(`action=getData&sheet=Support`);
       if(supRes && supRes.status === "success" && supRes.data) renderAdminSupport(supRes.data);
 
-      loadVisitorInquiries();
+      loadVisitorInquiriesAdmin();
     }
 
-    async function loadVisitorInquiries() {
+    async function loadVisitorInquiriesAdmin() {
       const res = await callAPI(`action=getData&sheet=VisitorInquiries`);
       document.getElementById('visitorInquiriesLoader').style.display = "none";
       if(res && res.status === "success" && res.data) {
         document.getElementById('visitorInquiriesTable').style.display = "table";
         document.getElementById('visitorInquiriesBody').innerHTML = res.data.map(i => {
           const id = i['Inquiry ID'] || i[0];
+          const name = i['Name'] || i[1];
+          const email = i['Email'] || i[2];
+          const category = i['Category'] || i[3];
+          const details = i['Details'] || i[4];
+          const status = i['Status'] || i[6] || 'معلق';
+          const reply = i['Reply'] || i[7] || '';
+          const transferredTo = i['Transferred To'] || i[8] || 'غير محول';
+          const handledBy = i['Handled By'] || i[9] || 'لم يتم التحديد';
+
           return `
             <tr>
-              <td>${id}</td><td>${i['Name'] || i[1]}</td><td>${i['Email'] || i[2]}</td><td>${i['Type'] || i[3]}</td><td>${i['Details'] || i[4]}</td>
+              <td><strong>${id}</strong><br><small style="color:var(--text-muted);">${email}</small></td>
+              <td>${name}</td>
+              <td>${category}</td>
+              <td>${details}</td>
               <td>
-                <input type="text" id="inqReply-${id}" value="${i['Reply'] || i[7] || ''}" placeholder="رد الإدارة..." style="margin-bottom:5px; width:100%;">
-                <button class="btn" style="padding:4px 8px; font-size:0.8rem; width:auto;" onclick="saveVisitorReply('${id}')">إرسال الرد</button>
+                <span class="badge ${status === 'تم الرد' ? 'badge-success' : 'badge-warning'}">${status}</span><br>
+                <small style="color:var(--primary-color);">تحويل: ${transferredTo}</small><br>
+                <small>بواسطة: ${handledBy}</small>
+              </td>
+              <td>
+                <input type="text" id="inqReply-${id}" value="${reply}" placeholder="اكتب الرد هنا..." style="width:100%; margin-bottom:5px;">
+                <div style="display:flex; gap:5px; margin-bottom:5px;">
+                  <select id="inqStatus-${id}" style="padding:4px; font-size:0.8rem; flex:1;">
+                    <option value="معلق" ${status==='معلق'?'selected':''}>معلق</option>
+                    <option value="قيد المراجعة" ${status==='قيد المراجعة'?'selected':''}>قيد المراجعة</option>
+                    <option value="تم الرد" ${status==='تم الرد'?'selected':''}>تم الرد</option>
+                  </select>
+                  <select id="inqTransfer-${id}" style="padding:4px; font-size:0.8rem; flex:1;">
+                    <option value="غير محول" ${transferredTo==='غير محول'?'selected':''}>بدون تحويل</option>
+                    <option value="قسم الإرشاد المهني" ${transferredTo.includes('مهني')?'selected':''}>الإرشاد المهني</option>
+                    <option value="القسم الأكاديمي" ${transferredTo.includes('أكاديمي')?'selected':''}>القسم الأكاديمي</option>
+                    <option value="شؤون الطلاب" ${transferredTo.includes('شؤون')?'selected':''}>شؤون الطلاب</option>
+                    <option value="الإدارة العليا" ${transferredTo.includes('العليا')?'selected':''}>الإدارة العليا</option>
+                  </select>
+                </div>
+                <button class="btn" style="padding:4px 10px; font-size:0.8rem; width:auto;" onclick="saveVisitorReplyAdmin('${id}')">حفظ الرد والتحويل</button>
               </td>
             </tr>
           `;
@@ -493,10 +594,20 @@
       }
     }
 
-    async function saveVisitorReply(inqId) {
+    async function saveVisitorReplyAdmin(inqId) {
       const reply = document.getElementById(`inqReply-${inqId}`).value.trim();
-      const res = await callAPI(`action=updateVisitorReply&inqId=${encodeURIComponent(inqId)}&reply=${encodeURIComponent(reply)}`);
-      if(res && res.status === "success") { showToast("✅ تم حفظ الرد بنجاح"); loadVisitorInquiries(); }
+      const status = document.getElementById(`inqStatus-${inqId}`).value;
+      const transferredTo = document.getElementById(`inqTransfer-${inqId}`).value;
+      const handledBy = currentUser['Full Name'] || currentUser['الاسم'] || currentUser['Member ID'];
+
+      const res = await callAPI(`action=updateVisitorReply&inqId=${encodeURIComponent(inqId)}&reply=${encodeURIComponent(reply)}&status=${encodeURIComponent(status)}&transferredTo=${encodeURIComponent(transferredTo)}&handledBy=${encodeURIComponent(handledBy)}`);
+      
+      if(res && res.status === "success") {
+        showToast("✅ تم حفظ التحديث والرد بنجاح (وتم تسجيل اسمك لتجنب التكرار)");
+        loadVisitorInquiriesAdmin();
+      } else {
+        showToast("❌ حدث خطأ أثناء الحفظ");
+      }
     }
 
     function renderMembersTable(members) {
@@ -719,15 +830,8 @@
 
     function manualRefreshData() {
       showToast("🔄 تم التحديث");
-      if(checkIsSuperAdmin(currentUser)) loadAdminPanelData();
+      loadAdminPanelData();
       loadTasks(); loadSOPs(); loadEvaluations(); loadMyRequests(); loadMySupportTickets();
-    }
-
-    function checkIsSuperAdmin(u) {
-      if(!u) return false;
-      const id = String(u['Member ID'] || u['رقم العضوية'] || '').toUpperCase();
-      const name = String(u['Full Name'] || u['الاسم'] || '');
-      return id === 'COO' || id === 'MGR-1' || name.includes('مهند مجرشي');
     }
 
     function switchTab(id, btn) {
