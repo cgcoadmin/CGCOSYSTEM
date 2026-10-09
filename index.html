@@ -462,7 +462,7 @@
       <button class="tab-btn" onclick="switchTab('analyticsTab', this)">📊 التحليلات البيانية</button>
     </div>
 
-    <!-- 1. التبويب الأول: اللوحة الشخصية -->
+    <!-- 1. التبويب الأول: اللوحة الشخصية (المطورة بالكامل) -->
     <div class="tab-content active" id="personalDashboardTab">
       <div class="stats-grid">
         <div class="stat-card"><span>إجمالي المهام المسندة</span><p id="statTotalTasks">0</p></div>
@@ -472,7 +472,7 @@
           <p id="statProgress">0%</p>
           <div class="progress-bar-container"><div class="progress-bar-fill" id="progressBarFill"></div></div>
         </div>
-        <div class="stat-card"><span>أحدث تقييم أداء</span><p id="statLastEval">-</p></div>
+        <div class="stat-card"><span>مؤشر النشاط (المهام المنجزة)</span><p id="statActivityScore">نشط</p></div>
       </div>
 
       <div class="profile-card">
@@ -506,7 +506,7 @@
         <div id="tasksLoader" class="loader">جاري التحميل...</div>
         <div id="tasksTableContainer">
           <table class="data-table" id="tasksTable" style="display:none;">
-            <thead><tr><th>رقم المهمة</th><th>العنوان</th><th>الحالة</th><th>التفاصيل</th><th>التاريخ</th></tr></thead>
+            <thead><tr><th>رقم المهمة</th><th>العنوان</th><th>الحالة</th><th>التفاصيل</th><th>التاريخ</th><th>إجراء سريع</th></tr></thead>
             <tbody id="tasksBody"></tbody>
           </table>
         </div>
@@ -769,7 +769,6 @@
       return String(text).replace(/[\u064B-\u0652]/g, "").replace(/[أإآ]/g, "ا").replace(/ة/g, "ه").trim().toLowerCase();
     }
 
-    // نظام الاتصال الحديث باستخدام Fetch مع دعم إعادة التوجيه
     async function callAPI(queryString) {
       try {
         const response = await fetch(`${API_URL}?${queryString}`, {
@@ -884,9 +883,7 @@
     function openPassModal() { document.getElementById('passModal').style.display = 'flex'; }
     function closePassModal() { document.getElementById('passModal').style.display = 'none'; }
 
-    // جلب وتحميل بيانات الإدارة الكاملة
     async function loadAdminPanelData() {
-      // 1. تحميل الأعضاء
       const memRes = await callAPI(`action=getData&sheet=Members`);
       if(memRes && memRes.status === "success" && memRes.data) {
         globalMembersCache = memRes.data;
@@ -894,13 +891,11 @@
         populateNewTaskDropdown(globalMembersCache);
       }
 
-      // 2. تحميل الطلبات
       const reqRes = await callAPI(`action=getData&sheet=Requests`);
       if(reqRes && reqRes.status === "success" && reqRes.data) {
         renderAdminRequests(reqRes.data);
       }
 
-      // 3. تحميل الدعم الفني
       const supRes = await callAPI(`action=getData&sheet=Support`);
       if(supRes && supRes.status === "success" && supRes.data) {
         renderAdminSupport(supRes.data);
@@ -1033,7 +1028,6 @@
       }
     }
 
-    // إدارة المهام الشخصية والفلاتر
     async function loadTasks() {
       document.getElementById('tasksLoader').style.display = "block";
       const res = await callAPI(`action=getData&sheet=Tasks`);
@@ -1086,15 +1080,43 @@
       const tbody = document.getElementById('tasksBody');
       const table = document.getElementById('tasksTable');
       table.style.display = "table";
-      tbody.innerHTML = tasks.length ? tasks.map(t => `
-        <tr>
-          <td>${t['Task ID'] || t[0]}</td>
-          <td>${t['Task Name'] || t[1]}</td>
-          <td><span class="badge ${(t['Status'] || '').includes('مكتملة') ? 'badge-success' : 'badge-warning'}">${t['Status'] || 'قيد التنفيذ'}</span></td>
-          <td>${t['Details'] || t[6] || ''}</td>
-          <td>${t['Due Date'] || t[5] || ''}</td>
-        </tr>
-      `).join('') : `<tr><td colspan="5" style="text-align:center;">لا توجد مهام مطابقة للبحث أو التصفية</td></tr>`;
+      tbody.innerHTML = tasks.length ? tasks.map(t => {
+        const isCompleted = (t['Status'] || '').includes('مكتملة');
+        const taskId = t['Task ID'] || t[0];
+        return `
+          <tr>
+            <td>${taskId}</td>
+            <td>${t['Task Name'] || t[1]}</td>
+            <td><span class="badge ${isCompleted ? 'badge-success' : 'badge-warning'}">${t['Status'] || 'قيد التنفيذ'}</span></td>
+            <td>${t['Details'] || t[6] || ''}</td>
+            <td>${t['Due Date'] || t[5] || ''}</td>
+            <td>
+              <button class="btn" style="padding:3px 8px; font-size:0.75rem; width:auto; background:${isCompleted?'#6c757d':'var(--success-color)'};" onclick="quickToggleTaskStatus('${taskId}', '${isCompleted ? 'قيد التنفيذ' : 'مكتملة'}')">
+                ${isCompleted ? 'إعادة فتح' : 'إنجاز'}
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('') : `<tr><td colspan="6" style="text-align:center;">لا توجد مهام مطابقة للبحث أو التصفية</td></tr>`;
+    }
+
+    // ميزة التحديث السريع لحالة المهمة من اللوحة الشخصية
+    async function quickToggleTaskStatus(taskId, newStatus) {
+      showToast("جاري تحديث حالة المهمة...");
+      const res = await callAPI(`action=updateTaskStatus&taskId=${encodeURIComponent(taskId)}&status=${encodeURIComponent(newStatus)}`);
+      if(res && res.status === "success") {
+        showToast("✅ تم تحديث حالة المهمة بنجاح");
+        await loadTasks();
+      } else {
+        showToast("⚠️ تم تحديث الحالة محلياً، يرجى التحديث لاحقاً");
+        // تحديث محلي مباشر للتجربة السريعة
+        const t = globalTasksCache.find(x => String(x['Task ID'] || x[0]) === String(taskId));
+        if(t) {
+          t['Status'] = newStatus;
+          applyTasksFilterAndSearch();
+          calculateStats(globalTasksCache);
+        }
+      }
     }
 
     function calculateStats(tasks) {
@@ -1107,9 +1129,13 @@
       document.getElementById('statProgress').innerText = progress + '%';
       document.getElementById('progressBarFill').style.width = progress + '%';
       document.getElementById('analyticsScoreDisplay').innerText = progress + '%';
+      
+      const activityEl = document.getElementById('statActivityScore');
+      if (progress >= 80) activityEl.innerText = "ممتاز جداً 🌟";
+      else if (progress >= 50) activityEl.innerText = "نشط ومنجز 👍";
+      else activityEl.innerText = "يحتاج متابعة ⏱️";
     }
 
-    // إرسال طلب جديد من العضو
     async function submitUserRequest() {
       const type = document.getElementById('reqType').value;
       const details = document.getElementById('reqDetails').value.trim();
@@ -1141,7 +1167,6 @@
       }
     }
 
-    // إرسال ومتابعة بلاغات الدعم الفني
     async function submitSupportTicket() {
       const issue = document.getElementById('supportText').value.trim();
       const myId = currentUser['Member ID'] || currentUser['رقم العضوية'];
