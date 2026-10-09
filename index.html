@@ -164,7 +164,7 @@
     <div id="toastContainer"></div>
 
     <div class="portal-wrapper" id="portalWrapper">
-        <!-- الواجهة الرئيسية -->
+        <!-- الواجهة الرئيسية (مرتبة RTL: الأعضاء يمين، الزوار يسار) -->
         <div id="homeMainView">
             <div class="header-title">
                 <h1>مكتب التوجيه السلوكي والمهني</h1>
@@ -172,18 +172,20 @@
             </div>
 
             <div class="cards-grid">
-                <div class="gateway-card" onclick="openVisitorPortal()">
-                    <div class="icon">🎓</div>
-                    <h3>بوابة الزوار والطلاب</h3>
-                    <p>تقديم الطلبات والاستفسارات، متابعة حالة الطلب برقم المتابعة، والوصول إلى الخدمات الطلابية.</p>
-                    <button class="card-btn">دخول البوابة</button>
-                </div>
-
+                <!-- بوابة أعضاء المكتب (اليمين) -->
                 <div class="gateway-card" onclick="openStaffLogin()">
                     <div class="icon">🔐</div>
                     <h3>بوابة أعضاء المكتب</h3>
                     <p>مخصصة لأعضاء هيئة المكتب والإدارة لتسجيل الدخول بالرقم التعريفي (ID) وكلمة المرور.</p>
                     <button class="card-btn">تسجيل دخول الأعضاء</button>
+                </div>
+
+                <!-- بوابة الزوار والطلاب (اليسار) -->
+                <div class="gateway-card" onclick="openVisitorPortal()">
+                    <div class="icon">🎓</div>
+                    <h3>بوابة الزوار والطلاب</h3>
+                    <p>تقديم الطلبات والاستفسارات، متابعة حالة الطلب برقم المتابعة، والوصول إلى الخدمات الطلابية.</p>
+                    <button class="card-btn">دخول البوابة</button>
                 </div>
             </div>
 
@@ -314,16 +316,14 @@
     </div>
 
     <script>
-        const API_URL = "https://script.google.com/macros/s/AKfycbxv29-I3N3RPGaRN3LksqQrkIG8sQcRPSqoamC3GUeOxyrWHFtxjRAmgKdqjkosJZAoDQ/exec";
+        const API_URL = "https://script.google.com/macros/s/AKfycbzOCVGaeWd3b8s5cGYVjUpjisYxD6XLWmOCviH57gxnp2PcGiJWZr11AWCiK3XvQHn7gA/exec";
         let currentUser = null;
         let globalTasksCache = [];
 
-        // التحقق من الوضع الليلي المحفوظ
         if (localStorage.getItem('darkMode') === 'true') { 
             document.body.classList.add('dark-mode'); 
         }
 
-        // استرجاع الجلسة السابقة إن وجدت
         window.addEventListener('DOMContentLoaded', () => {
             const savedUser = localStorage.getItem('currentUser');
             if(savedUser) {
