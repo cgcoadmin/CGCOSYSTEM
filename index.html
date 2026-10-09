@@ -48,7 +48,6 @@
             margin-bottom: 40px;
         }
 
-        /* المربعين (يمين ويسار) */
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -108,7 +107,57 @@
             background: var(--primary-dark);
         }
 
-        /* زر الدعم الفني السفلي */
+        /* حاويات العرض المتغيرة (تظهر وتختفي بسلاسة) */
+        .section-view {
+            display: none;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(15, 118, 110, 0.08);
+            text-align: right;
+            max-width: 600px;
+            margin: 0 auto;
+            border: 1px solid var(--border-color);
+        }
+
+        .section-view h2 {
+            color: var(--primary);
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        .back-btn {
+            background: #64748b;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
         .support-footer-btn {
             background: none;
             border: none;
@@ -132,47 +181,115 @@
 <body>
 
     <div class="portal-wrapper">
-        <div class="header-title">
-            <h1>مكتب التوجيه السلوكي والمهني</h1>
-            <p>كلية العلوم - جامعة الملك عبد العزيز</p>
+        
+        <!-- الصفحة الرئيسية (المربعين) -->
+        <div id="homeMainView">
+            <div class="header-title">
+                <h1>مكتب التوجيه السلوكي والمهني</h1>
+                <p>كلية العلوم - جامعة الملك عبد العزيز</p>
+            </div>
+
+            <div class="cards-grid">
+                <!-- المربع اليمين: الزوار والطلاب -->
+                <div class="gateway-card" onclick="openVisitorPortal()">
+                    <div class="icon">🎓</div>
+                    <h3>بوابة الزوار والطلاب</h3>
+                    <p>تقديم الطلبات والاستفسارات، متابعة حالة الطلب برقم المتابعة، والوصول إلى الخدمات الطلابية.</p>
+                    <button class="card-btn">دخول البوابة</button>
+                </div>
+
+                <!-- المربع اليسار: أعضاء المكتب -->
+                <div class="gateway-card" onclick="openStaffLogin()">
+                    <div class="icon">🔐</div>
+                    <h3>بوابة أعضاء المكتب</h3>
+                    <p>مخصصة لأعضاء هيئة المكتب والإدارة لتسجيل الدخول بالرقم التعريفي (ID) وكلمة المرور.</p>
+                    <button class="card-btn">تسجيل دخول الأعضاء</button>
+                </div>
+            </div>
+
+            <button class="support-footer-btn" onclick="openSupportModal()">
+                💬 الدعم الفني والاستفسارات التقنية
+            </button>
         </div>
 
-        <!-- المربعين الرئيسيين -->
-        <div class="cards-grid">
+        <!-- واجهة الزوار والطلاب (تفتح فوراً عند الضغط) -->
+        <div id="visitorPortalView" class="section-view">
+            <h2>🎓 بوابة الزوار والطلاب</h2>
+            <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 20px;">قدم طلبك أو استفسارك، واحصل على رقم متابعة فوري.</p>
             
-            <!-- المربع اليمين: الزوار والطلاب -->
-            <div class="gateway-card" onclick="openVisitorPortal()">
-                <div class="icon">🎓</div>
-                <h3>بوابة الزوار والطلاب</h3>
-                <p>مخصصة لتقديم الطلبات والاستفسارات، متابعة حالة الطلب برقم المتابعة، والوصول إلى الإعلانات والخدمات الطلابية.</p>
-                <button class="card-btn">دخول البوابة</button>
+            <div class="form-group">
+                <label>الاسم الكامل</label>
+                <input type="text" id="visitorName" placeholder="أدخل اسمك الكريم...">
+            </div>
+            <div class="form-group">
+                <label>البريد الإلكتروني (لتلقي الرد التلقائي)</label>
+                <input type="email" id="visitorEmail" placeholder="name@stu.kau.edu.sa">
+            </div>
+            <div class="form-group">
+                <label>نوع الطلب</label>
+                <select id="visitorType">
+                    <option value="استفسار سلوكي">استفسار سلوكي</option>
+                    <option value="إرشاد مهني">إرشاد مهني</option>
+                    <option value="شكوى أو مقترح">شكوى أو مقترح</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>تفاصيل الطلب</label>
+                <textarea id="visitorDetails" rows="3" placeholder="اكتب تفاصيل طلبك هنا..."></textarea>
             </div>
 
-            <!-- المربع اليسار: أعضاء المكتب -->
-            <div class="gateway-card" onclick="openStaffLogin()">
-                <div class="icon">🔐</div>
-                <h3>بوابة أعضاء المكتب</h3>
-                <p>مخصصة لأعضاء هيئة المكتب والإدارة لتسجيل الدخول بالرقم التعريفي (ID) وكلمة المرور لإدارة المهام والعمليات.</p>
-                <button class="card-btn">تسجيل دخول الأعضاء</button>
-            </div>
-
+            <button class="card-btn" style="width: 100%; padding: 12px;" onclick="submitVisitorRequest()">إرسال الطلب</button>
+            <button class="back-btn" onclick="goHome()">الرجوع للرئيسية</button>
         </div>
 
-        <!-- زر الدعم الفني في الأسفل -->
-        <button class="support-footer-btn" onclick="openSupportModal()">
-            💬 الدعم الفني والاستفسارات التقنية
-        </button>
+        <!-- واجهة تسجيل دخول أعضاء المكتب (تفتح فوراً عند الضغط) -->
+        <div id="staffLoginView" class="section-view">
+            <h2>🔐 تسجيل دخول أعضاء المكتب</h2>
+            <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 20px;">أدخل الرقم التعريفي الخاص بك وكلمة المرور.</p>
+            
+            <div class="form-group">
+                <label>الرقم التعريفي (ID)</label>
+                <input type="text" id="staffId" placeholder="مثال: MGR-1 أو COO">
+            </div>
+            <div class="form-group">
+                <label>كلمة المرور</label>
+                <input type="password" id="staffPass" placeholder="••••••••">
+            </div>
+
+            <button class="card-btn" style="width: 100%; padding: 12px;" onclick="performStaffLogin()">تسجيل الدخول</button>
+            <button class="back-btn" onclick="goHome()">الرجوع للرئيسية</button>
+        </div>
+
     </div>
 
     <script>
         function openVisitorPortal() {
-            alert("سيتم الانتقال لواجهة الزوار والطلاب (الطلبات، تتبع الحالة، الشكاوى)...");
-            // هنا سنربط الانتقال لواجهة الزوار التي ستطلبها
+            document.getElementById('homeMainView').style.display = 'none';
+            document.getElementById('visitorPortalView').style.display = 'block';
         }
 
         function openStaffLogin() {
-            alert("سيتم الانتقال لنافذة تسجيل الدخول الخاصة بأعضاء المكتب (ID وكلمة المرور)...");
-            // هنا سنربط الانتقال لنافذة تسجيل دخول الأعضاء
+            document.getElementById('homeMainView').style.display = 'none';
+            document.getElementById('staffLoginView').style.display = 'block';
+        }
+
+        function goHome() {
+            document.getElementById('visitorPortalView').style.display = 'none';
+            document.getElementById('staffLoginView').style.display = 'none';
+            document.getElementById('homeMainView').style.display = 'block';
+        }
+
+        function submitVisitorRequest() {
+            let name = document.getElementById('visitorName').value;
+            if(!name) { alert("الرجاء إدخال الاسم"); return; }
+            alert("تم إرسال طلبك بنجاح! رقم المتابعة: REQ-5042");
+            goHome();
+        }
+
+        function performStaffLogin() {
+            let id = document.getElementById('staffId').value;
+            if(!id) { alert("الرجاء إدخال الرقم التعريفي"); return; }
+            alert("تم التحقق بنجاح! جارٍ فتح لوحة التحكم...");
         }
 
         function openSupportModal() {
