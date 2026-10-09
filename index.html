@@ -80,16 +80,29 @@
     .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 1000; }
     .modal-content { background: var(--card-bg); padding: 2rem; border-radius: 12px; width: 90%; max-width: 500px; max-height: 85vh; overflow-y: auto; border: 1px solid var(--border-color); }
 
-    /* تنسيق صندوق المحادثة الاحترافي */
-    .whatsapp-chat-container { background: #efeae2; border-radius: 10px; border: 1px solid var(--border-color); height: 220px; overflow-y: auto; padding: 12px; display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px; }
+    /* تنسيق صندوق المحادثة الاحترافي (نمط الواتساب الحقيقي) مع زر التكبير */
+    .chat-box-wrapper { position: relative; }
+    .whatsapp-chat-container { background: #efeae2; border-radius: 10px; border: 1px solid var(--border-color); height: 210px; overflow-y: auto; padding: 12px; display: flex; flex-direction: column; gap: 8px; margin-bottom: 6px; box-shadow: inset 0 1px 3px rgba(0,0,0,0.05); }
     body.dark-mode .whatsapp-chat-container { background: #0b141a; }
-    .chat-bubble { max-width: 80%; padding: 8px 12px; border-radius: 8px; font-size: 0.85rem; position: relative; line-height: 1.4; word-wrap: break-word; }
+    
+    .chat-bubble { max-width: 82%; padding: 8px 12px; border-radius: 8px; font-size: 0.85rem; position: relative; line-height: 1.4; word-wrap: break-word; }
     .chat-bubble.visitor { background: #ffffff; color: #111b21; align-self: flex-start; border-top-right-radius: 0; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
     body.dark-mode .chat-bubble.visitor { background: #202c33; color: #e9edef; }
     .chat-bubble.admin { background: #d9fdd3; color: #111b21; align-self: flex-end; border-top-left-radius: 0; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
     body.dark-mode .chat-bubble.admin { background: #005c4b; color: #e9edef; }
     .chat-bubble .sender-name { font-size: 0.7rem; font-weight: bold; margin-bottom: 2px; color: var(--primary-color); }
+    body.dark-mode .chat-bubble .sender-name { color: #53bdeb; }
     .chat-bubble .chat-time { font-size: 0.6rem; color: var(--text-muted); text-align: left; margin-top: 3px; display: block; }
+    
+    .expand-chat-btn { position: absolute; top: 8px; left: 8px; background: rgba(0,0,0,0.6); color: white; border: none; border-radius: 6px; padding: 4px 8px; font-size: 0.75rem; cursor: pointer; z-index: 10; display: flex; align-items: center; gap: 4px; transition: background 0.2s; }
+    .expand-chat-btn:hover { background: rgba(0,0,0,0.8); }
+
+    /* نافذة تكبير الشاشة (Modal للشات الموسع) */
+    .chat-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; z-index: 2000; }
+    .chat-modal-content { background: var(--card-bg); width: 92%; max-width: 750px; height: 85vh; border-radius: 14px; display: flex; flex-direction: column; padding: 20px; border: 1px solid var(--border-color); box-shadow: 0 15px 35px rgba(0,0,0,0.25); }
+    .chat-modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; }
+    .chat-modal-body { flex: 1; background: #efeae2; border-radius: 10px; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+    body.dark-mode .chat-modal-body { background: #0b141a; }
   </style>
 </head>
 <body>
@@ -152,6 +165,17 @@
     </div>
 
     <button class="btn" style="background:var(--text-muted); margin-top:1rem;" onclick="backToLogin()">الرجوع لتسجيل الدخول</button>
+  </div>
+
+  <!-- نافذة تكبير الشات (Modal موسع) -->
+  <div class="chat-modal" id="expandedChatModal">
+    <div class="chat-modal-content">
+      <div class="chat-modal-header">
+        <h3 id="modalChatTitle" style="color:var(--primary-color);">محادثة الزائر</h3>
+        <button class="btn" style="width:auto; padding:4px 12px; font-size:0.85rem; background:var(--danger-color);" onclick="closeExpandedChat()">إغلاق ✕</button>
+      </div>
+      <div class="chat-modal-body" id="modalChatLogContainer"></div>
+    </div>
   </div>
 
   <!-- لوحة التحكم للإدارة -->
@@ -286,7 +310,7 @@
     <div class="tab-content" id="visitorInquiriesTab">
       <div class="profile-card">
         <h3 style="color:var(--primary-color); margin-bottom:0.5rem;">💬 غرف محادثات الزوار والطلبات المشتركة</h3>
-        <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:1rem;">تابع غرف المحادثة، ورد مباشرة، أو قم بالتحويل. (لا يمكن التعديل أو الرد إذا كان الطلب بعهدة شخص آخر إلا إذا حوله لك).</p>
+        <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:1rem;">تابع غرف المحادثة بنمط الواتساب، اضغط على زر التكبير لمعاينة الرسائل بحجم أكبر ووضوح تام.</p>
         
         <div id="visitorInquiriesLoader" class="loader">جاري التحميل...</div>
         <div style="overflow-x: auto;">
@@ -382,7 +406,7 @@
   </div>
 
   <script>
-    const API_URL = "https://script.google.com/macros/s/AKfycbyFa_IU-ctWdh8D7j8pihczGsl6IvOXpJgVtnFU1onTdM-rMszW5xzF-ou7U-kzCYOvRw/exec";
+    const API_URL = "https://script.google.com/macros/s/AKfycbypCVgKHk6Qq0Z-niZGRu0t5PEAVEIoc82WKCLkXYOggIl2tEVLzR3GGAZZ76WNl5Ogig/exec";
     let currentUser = null;
     let globalTasksCache = [];
     let globalMembersCache = [];
@@ -466,17 +490,23 @@
       const container = document.getElementById(containerId);
       if(!container) return;
       try {
-        const messages = JSON.parse(chatLogJson || "[]");
+        let messages = [];
+        if (typeof chatLogJson === 'string') {
+          messages = JSON.parse(chatLogJson || "[]");
+        } else if (Array.isArray(chatLogJson)) {
+          messages = chatLogJson;
+        }
+        
         if(messages.length === 0) {
-          container.innerHTML = '<p style="text-align:center; color:var(--text-muted); font-size:0.8rem;">لا توجد رسائل في الغرفة...</p>';
+          container.innerHTML = '<p style="text-align:center; color:var(--text-muted); font-size:0.8rem; margin:auto;">لا توجد رسائل في الغرفة...</p>';
           return;
         }
         container.innerHTML = messages.map(m => {
           const isVisitor = m.type === 'visitor';
           return `
             <div class="chat-bubble ${isVisitor ? 'visitor' : 'admin'}">
-              <div class="sender-name">${m.sender}</div>
-              <div>${m.text}</div>
+              <div class="sender-name">${m.sender || (isVisitor ? 'الزائر' : 'الإدارة')}</div>
+              <div>${m.text || ''}</div>
               <span class="chat-time">${m.time || ''}</span>
             </div>
           `;
@@ -485,6 +515,16 @@
       } catch(e) {
         container.innerHTML = '<div style="white-space:pre-wrap; font-size:0.8rem;">' + chatLogJson + '</div>';
       }
+    }
+
+    function openExpandedChat(chatLogJson, visitorName, inquiryId) {
+      document.getElementById('modalChatTitle').innerText = `محادثة الزائر: ${visitorName} (رقم: ${inquiryId})`;
+      renderChatBubbles(chatLogJson, 'modalChatLogContainer');
+      document.getElementById('expandedChatModal').style.display = 'flex';
+    }
+
+    function closeExpandedChat() {
+      document.getElementById('expandedChatModal').style.display = 'none';
     }
 
     async function trackVisitorInquiry() {
@@ -635,6 +675,10 @@
           const currentUserName = currentUser['Full Name'] || currentUser['الاسم'] || '';
           const isLockedByOther = handledBy !== "" && handledBy !== currentUserName && transferredTo !== currentUserName;
 
+          // ترميز المحادثة آمن لتمريرها لزر التكبير
+          const escapedChatJson = encodeURIComponent(typeof chatLogJson === 'string' ? chatLogJson : JSON.stringify(chatLogJson));
+          const escapedName = encodeURIComponent(name || '');
+
           return `
             <tr>
               <td><strong>${id}</strong><br><span style="font-weight:600; color:var(--primary-color);">${name}</span><br><small style="color:var(--text-muted);">${email}</small></td>
@@ -645,7 +689,14 @@
                 <small style="color:var(--text-muted);">بواسطة: ${handledBy || 'لم يتم البدء'}</small>
                 ${isLockedByOther ? '<br><span class="badge" style="background:#fee2e2; color:#dc2626; margin-top:4px;">🔒 بعهدة عضو آخر</span>' : ''}
               </td>
-              <td><div class="whatsapp-chat-container" id="${chatContainerId}" style="max-height:165px; min-width:210px;"></div></td>
+              <td>
+                <div class="chat-box-wrapper">
+                  <button class="expand-chat-btn" onclick="openExpandedChat(decodeURIComponent('${escapedChatJson}'), decodeURIComponent('${escapedName}'), '${id}')">
+                    <i class="fa-solid fa-expand"></i> تكبير
+                  </button>
+                  <div class="whatsapp-chat-container" id="${chatContainerId}" style="min-width:210px;"></div>
+                </div>
+              </td>
               <td>
                 ${isLockedByOther ? `
                   <div style="background:#fef2f2; border:1px solid #fca5a5; padding:8px; border-radius:6px; text-align:center;">
