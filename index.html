@@ -42,7 +42,6 @@
     input[readonly] { background-color: var(--border-color); opacity: 0.8; cursor: not-allowed; }
     .btn { width: 100%; padding: 0.75rem; background-color: var(--primary-color); color: white; border: none; border-radius: 8px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: background 0.2s; }
     .btn:hover { background-color: var(--secondary-color); }
-    .error-msg { color: var(--danger-color); font-size: 0.85rem; margin-top: 1rem; display: none; }
 
     .dashboard-container { display: none; width: 100%; max-width: 1150px; margin: 0 auto; }
     header { background: var(--primary-color); color: white; padding: 1.5rem; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
@@ -81,7 +80,16 @@
     .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 1000; }
     .modal-content { background: var(--card-bg); padding: 2rem; border-radius: 12px; width: 90%; max-width: 500px; max-height: 85vh; overflow-y: auto; border: 1px solid var(--border-color); }
 
-    .chat-box { background: var(--profile-item-bg); padding: 1rem; border-radius: 8px; border: 1px solid var(--border-color); max-height: 250px; overflow-y: auto; white-space: pre-wrap; font-size: 0.9rem; line-height: 1.6; margin-bottom: 10px; }
+    /* تنسيق غرفة الدردشة الاحترافية (مثل واتساب) */
+    .whatsapp-chat-container { background: #efeae2; border-radius: 10px; border: 1px solid var(--border-color); max-height: 300px; overflow-y: auto; padding: 15px; display: flex; flex-direction: column; gap: 10px; margin-bottom: 10px; }
+    body.dark-mode .whatsapp-chat-container { background: #0b141a; }
+    .chat-bubble { max-width: 80%; padding: 10px 14px; border-radius: 8px; font-size: 0.88rem; position: relative; line-height: 1.5; word-wrap: break-word; }
+    .chat-bubble.visitor { background: #ffffff; color: #111b21; align-self: flex-start; border-top-right-radius: 0; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
+    body.dark-mode .chat-bubble.visitor { background: #202c33; color: #e9edef; }
+    .chat-bubble.admin { background: #d9fdd3; color: #111b21; align-self: flex-end; border-top-left-radius: 0; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
+    body.dark-mode .chat-bubble.admin { background: #005c4b; color: #e9edef; }
+    .chat-bubble .sender-name { font-size: 0.72rem; font-weight: bold; margin-bottom: 3px; color: var(--primary-color); }
+    .chat-bubble .chat-time { font-size: 0.65rem; color: var(--text-muted); text-align: left; margin-top: 4px; display: block; }
   </style>
 </head>
 <body>
@@ -94,7 +102,6 @@
     <div class="form-group"><label>رقم العضوية (Member ID)</label><input type="text" id="memberId" placeholder="مثال: COO أو MGR-1"></div>
     <div class="form-group"><label>كلمة المرور</label><input type="password" id="password" placeholder="••••••••"></div>
     <button class="btn" onclick="handleLogin()">دخول النظام</button>
-    <div class="error-msg" id="loginError"></div>
     
     <hr style="margin: 1.2rem 0; border-color: var(--border-color);">
     <button class="btn" style="background: #0284c7; margin-bottom: 0.6rem;" onclick="showVisitorSection('submit')">🌐 بوابة الزوار: إرسال طلب / استفسار / اقتراح</button>
@@ -123,25 +130,25 @@
     <button class="btn" style="background:var(--text-muted); margin-top:0.6rem;" onclick="backToLogin()">الرجوع لتسجيل الدخول</button>
   </div>
 
-  <!-- واجهة غرفة المتابعة والدردشة الفورية للزوار -->
-  <div class="login-container" id="visitorTrackView" style="display:none; max-width: 600px; text-align: right;">
+  <!-- واجهة غرفة المتابعة والدردشة للزوار -->
+  <div class="login-container" id="visitorTrackView" style="display:none; max-width: 650px; text-align: right;">
     <h2 style="text-align: center; color: var(--primary-color);">💬 غرفة المحادثة ومتابعة الطلب</h2>
-    <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:1rem; text-align: center;">أدخل رقم المتابعة (مثل: VIS-1234) لعرض غرفة الدردشة والتحدث مع الإدارة مباشرة.</p>
+    <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:1rem; text-align: center;">أدخل رقم المتابعة (مثل: VIS-1234) لعرض الدردشة والتحدث مع الإدارة.</p>
     
     <div class="form-group"><label>رقم المتابعة</label><input type="text" id="trackInquiryId" placeholder="أدخل رقم المتابعة..."></div>
     <button class="btn" onclick="trackVisitorInquiry()">دخول غرفة المحادثة</button>
     
     <div id="trackResultContainer" style="margin-top: 1.5rem; display: none;">
-      <p style="margin-bottom:5px;"><strong>الحالة:</strong> <span id="resStatus" class="badge badge-warning">-</span> | <strong>الجهة المحول لها:</strong> <span id="resTransferred">-</span></p>
+      <p style="margin-bottom:8px;"><strong>الحالة:</strong> <span id="resStatus" class="badge badge-warning">-</span> | <strong>الجهة المحول لها:</strong> <span id="resTransferred">-</span></p>
       
-      <label style="display:block; margin-top:10px; font-weight:600; font-size:0.9rem;">سجل المحادثة (الدردشة):</label>
-      <div class="chat-box" id="resChatLog">جاري تحميل المحادثة...</div>
+      <label style="display:block; margin-top:10px; font-weight:600; font-size:0.9rem;">غرفة المحادثة الفورية:</label>
+      <div class="whatsapp-chat-container" id="resChatLogContainer"></div>
       
       <div class="form-group" style="margin-top:10px;">
-        <label>أضف تعقيباً أو رداً إضافياً للإدارة</label>
-        <textarea id="visitorReplyInput" rows="2" placeholder="اكتب ردك أو تعقيبك هنا..."></textarea>
+        <label>اكتب رسالتك أو تعقيبك للإدارة</label>
+        <textarea id="visitorReplyInput" rows="2" placeholder="اكتب ردك هنا..."></textarea>
       </div>
-      <button class="btn" onclick="sendVisitorChatMessage()">إرسال التعقيب للإدارة</button>
+      <button class="btn" onclick="sendVisitorChatMessage()">إرسال الرسالة</button>
     </div>
 
     <button class="btn" style="background:var(--text-muted); margin-top:1rem;" onclick="backToLogin()">الرجوع لتسجيل الدخول</button>
@@ -275,11 +282,11 @@
       </div>
     </div>
 
-    <!-- 3. غرف دردشة الزوار والطلبات (مهند، د. مي، د. سلطان والأقسام) -->
+    <!-- 3. غرف دردشة الزوار والطلبات -->
     <div class="tab-content" id="visitorInquiriesTab">
       <div class="profile-card">
         <h3 style="color:var(--primary-color); margin-bottom:0.5rem;">💬 غرف محادثات الزوار والطلبات المشتركة</h3>
-        <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:1rem;">تابع سجل المحادثة الكامل لكل زائر، ورد عليه مباشرة أو قم بتحويله للدكتور سلطان (MGR-1) أو للأقسام مع توثيق اسم المسؤول.</p>
+        <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:1rem;">تابع غرف المحادثة، ورد مباشرة، أو قم بالتحويل للجهات المخصصة.</p>
         
         <div id="visitorInquiriesLoader" class="loader">جاري التحميل...</div>
         <div style="overflow-x: auto;">
@@ -290,7 +297,7 @@
                 <th>الزائر / الطالب</th>
                 <th>النوع والتفاصيل</th>
                 <th>الحالة والتحويل</th>
-                <th>سجل المحادثة (الدردشة)</th>
+                <th>غرفة الدردشة الفورية</th>
                 <th>إدارة الرد والتحويل</th>
               </tr>
             </thead>
@@ -376,7 +383,7 @@
   </div>
 
   <script>
-    const API_URL = "https://script.google.com/macros/s/AKfycbzWI9Pzr9tdw8tl1Ms_1A_mu5z78zoPL7nPS0qoLpTudFMj8mUTHo3JHFzMAX30CLOd0Q/exec";
+    const API_URL = "https://script.google.com/macros/s/AKfycbyNz0n6ygE4rx-SY0av3YtRe8d9xRy9xSHMHsi8SOk-q3dY3_eFLkqRHslmY4RXWZRZ9w/exec";
     let currentUser = null;
     let globalTasksCache = [];
     let globalMembersCache = [];
@@ -456,6 +463,32 @@
       }
     }
 
+    // دالة لتوليد شكل فقاعات الدردشة (مثل واتساب)
+    function renderChatBubbles(chatLogJson, containerId) {
+      const container = document.getElementById(containerId);
+      if(!container) return;
+      try {
+        const messages = JSON.parse(chatLogJson || "[]");
+        if(messages.length === 0) {
+          container.innerHTML = '<p style="text-align:center; color:var(--text-muted); font-size:0.85rem;">لا توجد رسائل في الغرفة...</p>';
+          return;
+        }
+        container.innerHTML = messages.map(m => {
+          const isVisitor = m.type === 'visitor';
+          return `
+            <div class="chat-bubble ${isVisitor ? 'visitor' : 'admin'}">
+              <div class="sender-name">${m.sender}</div>
+              <div>${m.text}</div>
+              <span class="chat-time">${m.time || ''}</span>
+            </div>
+          `;
+        }).join('');
+        container.scrollTop = container.scrollHeight;
+      } catch(e) {
+        container.innerHTML = '<div style="white-space:pre-wrap; font-size:0.85rem;">' + chatLogJson + '</div>';
+      }
+    }
+
     async function trackVisitorInquiry() {
       const inquiryId = document.getElementById('trackInquiryId').value.trim();
       if(!inquiryId) { showToast("أدخل رقم المتابعة"); return; }
@@ -469,7 +502,7 @@
         currentActiveTrackId = d.id;
         document.getElementById('resStatus').innerText = d.status;
         document.getElementById('resTransferred').innerText = d.transferredTo || 'غير محول';
-        document.getElementById('resChatLog').innerText = d.chatLog || 'لا توجد رسائل بعد...';
+        renderChatBubbles(d.chatLog, 'resChatLogContainer');
         container.style.display = 'block';
       } else {
         container.style.display = 'none';
@@ -479,15 +512,15 @@
 
     async function sendVisitorChatMessage() {
       const msg = document.getElementById('visitorReplyInput').value.trim();
-      if(!msg) { showToast("اكتب ردك أو تعقيبك"); return; }
+      if(!msg) { showToast("اكتب رسالتك"); return; }
       
-      showToast("جاري إرسال التعقيب...");
+      showToast("جاري إرسال الرسالة...");
       const res = await callAPI(`action=visitorAddReply&inquiryId=${encodeURIComponent(currentActiveTrackId)}&message=${encodeURIComponent(msg)}`);
       
       if(res && res.status === "success") {
-        showToast("✅ تم إرسال ردك للإدارة بنجاح");
+        showToast("✅ تم إرسال الرسالة بنجاح");
         document.getElementById('visitorReplyInput').value = '';
-        trackVisitorInquiry(); // تحديث المحادثة
+        trackVisitorInquiry();
       } else {
         showToast("❌ حدث خطأ أثناء الإرسال");
       }
@@ -556,9 +589,28 @@
     async function loadVisitorInquiriesAdmin() {
       const res = await callAPI(`action=getData&sheet=VisitorInquiries`);
       document.getElementById('visitorInquiriesLoader').style.display = "none";
+      
+      const mId = String(currentUser['Member ID'] || '').toUpperCase();
+      const mName = String(currentUser['Full Name'] || currentUser['الاسم'] || '');
+      const isDrSultan = mId === 'MGR-1' || mName.includes('سلطان');
+
+      let transferOptionsHtml = '<option value="غير محول">بدون تحويل</option>';
+      if (isDrSultan) {
+        transferOptionsHtml += `
+          <option value="دكتورة مي">دكتورة مي</option>
+          <option value="مهند مجرشي">مهند مجرشي</option>
+        `;
+      } else {
+        transferOptionsHtml += `
+          <option value="الدكتور سلطان (MGR-1)">د. سلطان (MGR-1)</option>
+          <option value="قسم الإرشاد المهني">الإرشاد المهني</option>
+          <option value="القسم الأكاديمي">القسم الأكاديمي</option>
+        `;
+      }
+
       if(res && res.status === "success" && res.data) {
         document.getElementById('visitorInquiriesTable').style.display = "table";
-        document.getElementById('visitorInquiriesBody').innerHTML = res.data.map(i => {
+        document.getElementById('visitorInquiriesBody').innerHTML = res.data.map((i, index) => {
           const id = i['Inquiry ID'] || i[0];
           const name = i['Name'] || i[1];
           const email = i['Email'] || i[2];
@@ -568,7 +620,10 @@
           const reply = i['Reply'] || i[7] || '';
           const transferredTo = i['Transferred To'] || i[8] || 'غير محول';
           const handledBy = i['Handled By'] || i[9] || 'لم يتم التحديد';
-          const chatLog = i['Chat Log'] || i[10] || details;
+          const chatLogJson = i['Chat Log'] || i[10] || '[]';
+          const chatContainerId = `adminChatBox-${index}`;
+
+          setTimeout(() => renderChatBubbles(chatLogJson, chatContainerId), 100);
 
           return `
             <tr>
@@ -580,9 +635,9 @@
                 <small style="color:var(--primary-color);">تحويل: ${transferredTo}</small><br>
                 <small>بواسطة: ${handledBy}</small>
               </td>
-              <td><div class="chat-box" style="max-height:120px; font-size:0.8rem;">${chatLog}</div></td>
+              <td><div class="whatsapp-chat-container" id="${chatContainerId}" style="max-height:140px; min-width:200px;"></div></td>
               <td>
-                <input type="text" id="inqReply-${id}" value="${reply}" placeholder="رد الإدارة الجديد..." style="width:100%; margin-bottom:5px;">
+                <input type="text" id="inqReply-${id}" value="${reply}" placeholder="اكتب ردك هنا..." style="width:100%; margin-bottom:5px;">
                 <div style="display:flex; gap:5px; margin-bottom:5px;">
                   <select id="inqStatus-${id}" style="padding:4px; font-size:0.8rem; flex:1;">
                     <option value="معلق" ${status==='معلق'?'selected':''}>معلق</option>
@@ -591,12 +646,7 @@
                     <option value="تم الرد" ${status==='تم الرد'?'selected':''}>تم الرد</option>
                   </select>
                   <select id="inqTransfer-${id}" style="padding:4px; font-size:0.8rem; flex:1;">
-                    <option value="غير محول" ${transferredTo==='غير محول'?'selected':''}>بدون تحويل</option>
-                    <option value="الدكتور سلطان (MGR-1)" ${transferredTo.includes('سلطان')?'selected':''}>د. سلطان (MGR-1)</option>
-                    <option value="قسم الإرشاد المهني" ${transferredTo.includes('مهني')?'selected':''}>الإرشاد المهني</option>
-                    <option value="القسم الأكاديمي" ${transferredTo.includes('أكاديمي')?'selected':''}>القسم الأكاديمي</option>
-                    <option value="شؤون الطلاب" ${transferredTo.includes('شؤون')?'selected':''}>شؤون الطلاب</option>
-                    <option value="الإدارة العليا" ${transferredTo.includes('العليا')?'selected':''}>الإدارة العليا</option>
+                    ${transferOptionsHtml}
                   </select>
                 </div>
                 <button class="btn" style="padding:4px 10px; font-size:0.8rem; width:auto;" onclick="saveVisitorReplyAdmin('${id}')">إرسال في الغرفة والتحديث</button>
