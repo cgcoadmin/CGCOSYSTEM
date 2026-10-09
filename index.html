@@ -1,533 +1,183 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>نظام إدارة المكتب الإلكتروني المطور - مكتب التوجيه السلوكي والمهني</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <style>
-    :root {
-      --primary-color: #0f766e;
-      --secondary-color: #115e59;
-      --accent-color: #ccfbf1;
-      --bg-color: #f8fafc;
-      --card-bg: #ffffff;
-      --text-color: #1f2937;
-      --text-muted: #6b7280;
-      --danger-color: #e63946;
-      --warning-color: #f59e0b;
-      --success-color: #14b8a6;
-      --table-header-bg: #f1f5f9;
-      --profile-item-bg: #f8fafc;
-      --border-color: #e2e8f0;
-    }
-    body.dark-mode {
-      --bg-color: #0f172a; 
-      --card-bg: #1e293b; 
-      --text-color: #f1f5f9; 
-      --text-muted: #94a3b8;
-      --table-header-bg: #334155; 
-      --profile-item-bg: #334155; 
-      --border-color: #475569;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; transition: background-color 0.3s, color 0.3s; }
-    body { background-color: var(--bg-color); color: var(--text-color); display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-    
-    #toastContainer { position: fixed; bottom: 20px; left: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
-    .toast { background: var(--primary-color); color: white; padding: 12px 20px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); font-size: 0.9rem; animation: slideIn 0.3s ease, fadeOut 0.3s ease 2.7s forwards; }
-    @keyframes slideIn { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-    @keyframes fadeOut { to { opacity: 0; visibility: hidden; } }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بوابة مكتب التوجيه السلوكي والمهني - كلية العلوم</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0f766e;
+            --primary-dark: #115e59;
+            --accent: #ccfbf1;
+            --bg-gradient: linear-gradient(135deg, #f0fdfa 0%, #e6fcf5 100%);
+            --card-bg: #ffffff;
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --border-color: #e2e8f0;
+        }
 
-    .login-container { background: var(--card-bg); padding: 2.5rem; border-radius: 16px; box-shadow: 0 10px 30px rgba(15,118,110,0.1); width: 100%; max-width: 440px; text-align: center; position: relative; border: 1px solid var(--border-color); }
-    .login-container h2 { margin-bottom: 0.5rem; color: var(--primary-color); font-size: 22px; }
-    .login-container p { color: var(--text-muted); font-size: 13px; margin-bottom: 1.5rem; }
-    .form-group { margin-bottom: 1.2rem; text-align: right; }
-    .form-group label { display: block; margin-bottom: 0.4rem; font-weight: 600; font-size: 0.9rem; }
-    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; font-size: 0.95rem; outline: none; background: var(--card-bg); color: var(--text-color); }
-    input[readonly] { background-color: var(--border-color); opacity: 0.8; cursor: not-allowed; }
-    .btn { width: 100%; padding: 0.75rem; background-color: var(--primary-color); color: white; border: none; border-radius: 8px; font-size: 1rem; font-weight: 700; cursor: pointer; }
-    .btn:hover { background-color: var(--secondary-color); }
-    .btn-secondary { background-color: transparent; border: 2px solid var(--primary-color); color: var(--primary-color); margin-top: 0.8rem; }
-    .btn-secondary:hover { background-color: var(--accent-color); }
-    
-    .support-corner-btn { position: fixed; bottom: 20px; left: 20px; background: var(--primary-color); color: white; padding: 0.7rem 1.2rem; border-radius: 50px; font-size: 0.9rem; font-weight: 700; cursor: pointer; box-shadow: 0 6px 20px rgba(15,118,110,0.3); border: none; z-index: 999; display: flex; align-items: center; gap: 8px; }
-    .support-corner-btn:hover { background: var(--secondary-color); transform: scale(1.05); }
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
 
-    .error-msg { color: var(--danger-color); font-size: 0.85rem; margin-top: 1rem; display: none; }
-    
-    .dashboard-container { display: none; width: 100%; max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
-    header { background: var(--primary-color); color: white; padding: 1.5rem; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; box-shadow: 0 4px 15px rgba(15,118,110,0.2); }
-    .header-btns { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
-    .btn-header { background-color: transparent; border: 1px solid white; color: white; padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer; font-size: 0.85rem; }
-    .btn-header:hover { background-color: rgba(255, 255, 255, 0.2); }
-    .clock-box { font-size: 0.85rem; background: rgba(0,0,0,0.2); padding: 0.4rem 0.8rem; border-radius: 6px; }
-    .notif-badge { position: relative; background: rgba(255,255,255,0.15); padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer; font-size: 0.85rem; }
-    .notif-badge span { background: var(--danger-color); color: white; border-radius: 50%; padding: 0.1rem 0.4rem; font-size: 0.7rem; margin-right: 4px; }
+        .portal-wrapper {
+            max-width: 900px;
+            width: 90%;
+            text-align: center;
+        }
 
-    .master-nav { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
-    .master-nav-btn { background: var(--card-bg); border: 2px solid var(--border-color); color: var(--text-color); padding: 1rem; border-radius: 10px; font-size: 0.95rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
-    .master-nav-btn:hover { border-color: var(--primary-color); background: var(--accent-color); color: var(--primary-color); }
-    .master-nav-btn.active { background: var(--primary-color); color: white; border-color: var(--primary-color); }
+        .header-title h1 {
+            color: var(--primary);
+            font-size: 26px;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
 
-    .view-section { display: none; }
-    .view-section.active { display: block; animation: fadeIn 0.4s ease; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+        .header-title p {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 40px;
+        }
 
-    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
-    .stat-card { background: var(--card-bg); padding: 1.2rem; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-right: 5px solid var(--primary-color); display: flex; flex-direction: column; border-top: 1px solid var(--border-color); border-left: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); }
-    .stat-card span { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.3rem; }
-    .stat-card p { font-size: 1.6rem; font-weight: 700; color: var(--text-color); }
-    
-    .profile-card { background: var(--card-bg); padding: 1.5rem; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 1.5rem; border: 1px solid var(--border-color); }
-    .profile-card h3 { color: var(--primary-color); margin-bottom: 0.5rem; }
-    .profile-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-top: 1rem; }
-    .profile-item { background: var(--profile-item-bg); padding: 0.8rem 1rem; border-radius: 8px; border: 1px solid var(--border-color); }
-    .profile-item span { display: block; font-size: 0.8rem; color: var(--text-muted); }
-    .profile-item p { font-weight: 600; margin-top: 0.2rem; }
-    
-    .data-table { width: 100%; border-collapse: collapse; background: var(--card-bg); border-radius: 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 1.5rem; border: 1px solid var(--border-color); }
-    .data-table th, .data-table td { padding: 0.75rem 1rem; text-align: right; border-bottom: 1px solid var(--border-color); font-size: 0.9rem; }
-    .data-table th { background-color: var(--table-header-bg); color: var(--primary-color); font-weight: 700; }
-    
-    .badge { padding: 0.25rem 0.6rem; border-radius: 50px; font-size: 0.75rem; font-weight: 600; display: inline-block; }
-    .badge-success { background-color: #d4edda; color: #155724; }
-    .badge-warning { background-color: #fff3cd; color: #856404; }
-    
-    .loader { text-align: center; padding: 2rem; color: var(--text-muted); }
-    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(3px); justify-content: center; align-items: center; z-index: 1000; }
-    .modal-content { background: var(--card-bg); padding: 2rem; border-radius: 12px; width: 90%; max-width: 500px; max-height: 85vh; overflow-y: auto; border: 1px solid var(--border-color); }
-    
-    .progress-bar-container { background: var(--border-color); border-radius: 50px; height: 10px; width: 100%; overflow: hidden; margin-top: 8px; }
-    .progress-bar-fill { background: var(--success-color); height: 100%; width: 0%; transition: width 0.5s ease; }
-  </style>
+        /* المربعين (يمين ويسار) */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .gateway-card {
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 20px;
+            padding: 40px 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(15, 118, 110, 0.05);
+            text-align: center;
+        }
+
+        .gateway-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(15, 118, 110, 0.12);
+            background: #f8fafc;
+        }
+
+        .gateway-card .icon {
+            font-size: 45px;
+            margin-bottom: 20px;
+        }
+
+        .gateway-card h3 {
+            color: var(--primary);
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+
+        .gateway-card p {
+            color: var(--text-muted);
+            font-size: 13px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .card-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .gateway-card:hover .card-btn {
+            background: var(--primary-dark);
+        }
+
+        /* زر الدعم الفني السفلي */
+        .support-footer-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 13px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 15px;
+            border-radius: 50px;
+            transition: color 0.2s, background 0.2s;
+        }
+
+        .support-footer-btn:hover {
+            color: var(--primary);
+            background: rgba(15, 118, 110, 0.05);
+        }
+    </style>
 </head>
 <body>
 
-  <div id="toastContainer"></div>
-
-  <!-- زر الاستفسارات والزوار العام -->
-  <button class="support-corner-btn" onclick="showPublicInquiryForm()">
-    🌐 بوابة الطلاب والزوار (الاستفسارات)
-  </button>
-
-  <!-- شاشة الدخول لأعضاء المكتب -->
-  <div class="login-container" id="loginView">
-    <h2>مكتب التوجيه السلوكي والمهني</h2>
-    <p>كلية العلوم - جامعة الملك عبد العزيز</p>
-    <div class="form-group"><label>رقم العضوية (Member ID)</label><input type="text" id="memberId" placeholder="مثال: MGR-1 أو COO"></div>
-    <div class="form-group"><label>كلمة المرور</label><input type="password" id="password" placeholder="••••••••"></div>
-    <button class="btn" onclick="handleLogin()">دخول لوحة التحكم للأعضاء</button>
-    <div class="error-msg" id="loginError"></div>
-  </div>
-
-  <!-- شاشة بوابة الاستفسارات العامة (الزوار والطلاب) -->
-  <div class="login-container" id="publicInquiryView" style="display:none; max-width: 500px; text-align: right;">
-    <h2 id="inquiryFormTitle" style="color: var(--primary-color);">🌐 الاستفسارات والطلبات الطلابية</h2>
-    <p style="margin-bottom: 1rem;">أدخل بياناتك لتوليد رقم متابعة فوري وإرسال الطلب إلى النظام.</p>
-    
-    <div class="form-group"><label>الاسم الكامل</label><input type="text" id="pubName" placeholder="أدخل اسمك الكريم..."></div>
-    <div class="form-group"><label>البريد الإلكتروني (لتلقي إشعار الرد التلقائي)</label><input type="email" id="pubEmail" placeholder="name@stu.kau.edu.sa"></div>
-    <div class="form-group">
-      <label>نوع الطلب</label>
-      <select id="pubType">
-        <option value="استفسار سلوكي">استفسار سلوكي</option>
-        <option value="إرشاد مهني">إرشاد مهني</option>
-        <option value="دعم تقني">دعم تقني</option>
-      </select>
-    </div>
-    <div class="form-group"><label>تفاصيل الاستفسار أو الطلب</label><textarea id="pubDetails" rows="4" placeholder="اكتب تفاصيل استفسارك بوضوح..."></textarea></div>
-    
-    <button class="btn" onclick="submitPublicInquiry()">إرسال الطلب الآن</button>
-    <button class="btn btn-secondary" onclick="backToLoginView()">رجوع لتسجيل دخول الأعضاء</button>
-  </div>
-
-  <!-- لوحة التحكم الرئيسية للأعضاء -->
-  <div class="dashboard-container" id="dashboardView">
-    <header>
-      <div>
-        <h1 id="welcomeText" style="font-size: 20px;">مرحباً بك</h1>
-        <p id="userDept" style="font-size:0.85rem; opacity:0.9; margin-top: 4px;"></p>
-      </div>
-      <div class="header-btns">
-        <div class="clock-box" id="liveClock">--:--:--</div>
-        <button class="btn-header" onclick="manualRefreshData()" title="تحديث البيانات">🔄 تحديث</button>
-        <div class="notif-badge" onclick="openNotifModal()">🔔 تنبيهات <span id="notifCount">0</span></div>
-        <button class="btn-header" onclick="toggleDarkMode()" id="darkModeBtn">🌙 المظهر الداكن</button>
-        <button class="btn-header" onclick="openPassModal()">كلمة المرور</button>
-        <button class="btn-header" onclick="handleLogout()">خروج</button>
-      </div>
-    </header>
-
-    <!-- شريط التنقل الرئيسي -->
-    <div class="master-nav" id="masterNavContainer">
-      <button class="master-nav-btn active" onclick="switchView('viewProfile', this)">👤 اللوحة الشخصية</button>
-      <button class="master-nav-btn" onclick="switchView('viewWork', this)">💼 المهام والعمل</button>
-      <button class="master-nav-btn" onclick="switchView('viewSupport', this)">🛠️ الدعم والرسائل</button>
-      <button class="master-nav-btn" onclick="switchView('viewVault', this)">📂 خزنة التقارير</button>
-    </div>
-
-    <!-- 1. اللوحة الشخصية -->
-    <div class="view-section active" id="viewProfile">
-      <div class="stats-grid">
-        <div class="stat-card"><span>إجمالي المهام المسندة</span><p id="statTotalTasks">0</p></div>
-        <div class="stat-card"><span>المهام المكتملة</span><p id="statCompletedTasks">0</p></div>
-        <div class="stat-card">
-          <span>نسبة الإنجاز البصرية</span>
-          <p id="statProgress">0%</p>
-          <div class="progress-bar-container"><div class="progress-bar-fill" id="progressBarFill"></div></div>
+    <div class="portal-wrapper">
+        <div class="header-title">
+            <h1>مكتب التوجيه السلوكي والمهني</h1>
+            <p>كلية العلوم - جامعة الملك عبد العزيز</p>
         </div>
-        <div class="stat-card"><span>أحدث تقييم أداء</span><p id="statLastEval">-</p></div>
-      </div>
 
-      <div class="profile-card">
-        <h3>النبذة الشخصية والمسمى الوظيفي</h3>
-        <div class="profile-grid">
-          <div class="profile-item"><span>المسمى الوظيفي:</span><p id="jobTitle">-</p></div>
-          <div class="profile-item"><span>البريد الإلكتروني:</span><p id="userEmail">-</p></div>
-          <div class="profile-item"><span>النبذة الشخصية:</span><p id="bioText">-</p></div>
-          <div class="profile-item" style="grid-column: 1 / -1;"><span>المسؤوليات والوصف:</span><p id="jobDescText">-</p></div>
+        <!-- المربعين الرئيسيين -->
+        <div class="cards-grid">
+            
+            <!-- المربع اليمين: الزوار والطلاب -->
+            <div class="gateway-card" onclick="openVisitorPortal()">
+                <div class="icon">🎓</div>
+                <h3>بوابة الزوار والطلاب</h3>
+                <p>مخصصة لتقديم الطلبات والاستفسارات، متابعة حالة الطلب برقم المتابعة، والوصول إلى الإعلانات والخدمات الطلابية.</p>
+                <button class="card-btn">دخول البوابة</button>
+            </div>
+
+            <!-- المربع اليسار: أعضاء المكتب -->
+            <div class="gateway-card" onclick="openStaffLogin()">
+                <div class="icon">🔐</div>
+                <h3>بوابة أعضاء المكتب</h3>
+                <p>مخصصة لأعضاء هيئة المكتب والإدارة لتسجيل الدخول بالرقم التعريفي (ID) وكلمة المرور لإدارة المهام والعمليات.</p>
+                <button class="card-btn">تسجيل دخول الأعضاء</button>
+            </div>
+
         </div>
-      </div>
+
+        <!-- زر الدعم الفني في الأسفل -->
+        <button class="support-footer-btn" onclick="openSupportModal()">
+            💬 الدعم الفني والاستفسارات التقنية
+        </button>
     </div>
 
-    <!-- 2. العمل والأدلة -->
-    <div class="view-section" id="viewWork">
-      <div style="background: var(--card-bg); padding: 1.5rem; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border: 1px solid var(--border-color);">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;">
-          <h3 style="color: var(--primary-color);">قائمة المهام المسندة إليك</h3>
-          <button class="btn" style="width: auto; padding: 0.4rem 1rem; font-size: 0.85rem;" onclick="exportToPDF('tasksTableContainer', 'تقرير_الأداء.pdf')">📥 تصدير تقرير PDF</button>
-        </div>
-        <div id="tasksLoader" class="loader">جاري التحميل...</div>
-        <div id="tasksTableContainer">
-          <table class="data-table" id="tasksTable" style="display:none;">
-            <thead><tr><th>رقم المهمة</th><th>عنوان المهمة</th><th>الحالة</th><th>التفاصيل</th><th>تاريخ الاستحقاق</th></tr></thead>
-            <tbody id="tasksBody"></tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- 3. الدعم والرسائل -->
-    <div class="view-section" id="viewSupport">
-      <div style="background:var(--card-bg); padding:1.5rem; border-radius:10px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border: 1px solid var(--border-color);">
-        <h3 style="color:var(--primary-color); margin-bottom:1rem;">🛠 إرسال بلاغ دعم فني داخلي</h3>
-        <div class="form-group"><label>وصف المشكلة التقنية</label><textarea id="supportText" rows="3" placeholder="اشرح المشكلة التقنية بالتفصيل..."></textarea></div>
-        <button class="btn" onclick="submitSupportTicket()">إرسال البلاغ</button>
-      </div>
-    </div>
-
-    <!-- 4. خزنة التقارير -->
-    <div class="view-section" id="viewVault">
-      <div style="background: var(--card-bg); padding: 1.5rem; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border: 1px solid var(--border-color);">
-        <h3 style="color: var(--primary-color); margin-bottom: 1rem;">📂 خزنة التقارير والروابط</h3>
-        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">شارك روابط التقارير والملفات مع فريق العمل.</p>
-        <div class="form-group"><label>عنوان التقرير</label><input type="text" id="vaultTitle" placeholder="مثال: تقرير الأداء الأسبوعي"></div>
-        <div class="form-group"><label>رابط الملف</label><input type="url" id="vaultLink" placeholder="https://..."></div>
-        <button class="btn" onclick="uploadVaultFile()">حفظ في الخزنة</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- نافذة التنبيهات -->
-  <div class="modal" id="notifModal">
-    <div class="modal-content">
-      <h3 style="color:var(--primary-color); margin-bottom:1rem;">🔔 سجل الإشعارات الفورية</h3>
-      <div id="notifListContainer" style="font-size: 0.9rem; line-height: 1.6;">لا توجد تنبيهات جديدة.</div>
-      <button class="btn" style="margin-top:1.5rem; background:#6c757d;" onclick="closeNotifModal()">إغلاق</button>
-    </div>
-  </div>
-
-  <!-- نافذة كلمة المرور -->
-  <div class="modal" id="passModal">
-    <div class="modal-content">
-      <h3 style="color:var(--primary-color); margin-bottom:1rem;">🔐 تغيير كلمة المرور</h3>
-      <div class="form-group"><label>كلمة المرور الحالية</label><input type="password" id="oldPass"></div>
-      <div class="form-group"><label>كلمة المرور الجديدة</label><input type="password" id="newPass"></div>
-      <button class="btn" onclick="handleChangePassword()">حفظ التغيير</button>
-      <button class="btn" style="background-color: var(--text-muted); margin-top: 0.5rem;" onclick="closePassModal()">إلغاء</button>
-    </div>
-  </div>
-
-  <script>
-    // رابط الـ Web App المحدث والجديد كلياً
-    const API_URL = "https://script.google.com/macros/s/AKfycbxv29-I3N3RPGaRN3LksqQrkIG8sQcRPSqoamC3GUeOxyrWHFtxjRAmgKdqjkosJZAoDQ/exec";
-    let currentUser = null;
-    let globalTasksCache = [];
-
-    if (localStorage.getItem('darkMode') === 'true') { document.body.classList.add('dark-mode'); }
-
-    window.onload = function() {
-      updateDarkModeButtonText();
-      const savedUser = localStorage.getItem('currentUser');
-      if (savedUser) {
-        try {
-          currentUser = JSON.parse(savedUser);
-          renderDashboard();
-          const savedView = localStorage.getItem('activeView');
-          if(savedView) {
-            const btn = document.querySelector(`.master-nav-btn[onclick*="${savedView}"]`);
-            if(btn) switchView(savedView, btn, false);
-          }
-        } catch (e) {
-          localStorage.removeItem('currentUser');
+    <script>
+        function openVisitorPortal() {
+            alert("سيتم الانتقال لواجهة الزوار والطلاب (الطلبات، تتبع الحالة، الشكاوى)...");
+            // هنا سنربط الانتقال لواجهة الزوار التي ستطلبها
         }
-      }
-    };
 
-    function showToast(message) {
-      const container = document.getElementById('toastContainer');
-      const toast = document.createElement('div');
-      toast.className = 'toast';
-      toast.innerText = message;
-      container.appendChild(toast);
-      setTimeout(() => { toast.remove(); }, 3000);
-    }
-
-    setInterval(() => {
-      const now = new Date();
-      const clockBox = document.getElementById('liveClock');
-      if (clockBox) clockBox.innerText = now.toLocaleTimeString('ar-SA');
-    }, 1000);
-
-    function fetchJSONP(url, callback) {
-      const cbName = 'cb_' + Math.round(100000 * Math.random());
-      window[cbName] = function(data) { 
-        delete window[cbName]; 
-        if(script.parentNode) script.parentNode.removeChild(script); 
-        callback(data); 
-      };
-      const script = document.createElement('script');
-      script.src = url + (url.indexOf('?') >= 0 ? '&' : '?') + 'callback=' + cbName;
-      script.onerror = () => { 
-        delete window[cbName]; 
-        if(script.parentNode) script.parentNode.removeChild(script); 
-        showToast("خطأ في الاتصال بالخادم"); 
-      };
-      document.body.appendChild(script);
-    }
-
-    // الانتقال لواجهة الاستفسارات والطلبات (للطلاب والزوار)
-    function showPublicInquiryForm() {
-      document.getElementById('loginView').style.display = 'none';
-      document.getElementById('publicInquiryView').style.display = 'block';
-    }
-
-    function backToLoginView() {
-      document.getElementById('publicInquiryView').style.display = 'none';
-      document.getElementById('loginView').style.display = 'block';
-    }
-
-    // إرسال طلب الزائر/الطالب مع تضمين الإيميل للرد التلقائي
-    function submitPublicInquiry() {
-      const name = document.getElementById('pubName').value.trim();
-      const email = document.getElementById('pubEmail').value.trim();
-      const type = document.getElementById('pubType').value;
-      const details = document.getElementById('pubDetails').value.trim();
-
-      if(!name || !email || !details) {
-        showToast("الرجاء تعبئة كافة الحقول المطلوبة");
-        return;
-      }
-
-      const fullDetails = `[البريد: ${email}] | ${details}`;
-      const url = `${API_URL}?action=submitRequest&memberId=${encodeURIComponent(name)}&type=${encodeURIComponent(type)}&details=${encodeURIComponent(fullDetails)}`;
-
-      showToast("جاري إرسال الطلب...");
-      fetchJSONP(url, function(res) {
-        if(res.status === "success") {
-          alert("تم إرسال طلبك بنجاح!\n\nرقم المتابعة الخاص بك: " + res.requestId + "\nاحتفظ بهذا الرقم للاطلاع على الرد.");
-          document.getElementById('pubName').value = '';
-          document.getElementById('pubEmail').value = '';
-          document.getElementById('pubDetails').value = '';
-          backToLoginView();
-        } else {
-          showToast("حدث خطأ أثناء الإرسال.");
+        function openStaffLogin() {
+            alert("سيتم الانتقال لنافذة تسجيل الدخول الخاصة بأعضاء المكتب (ID وكلمة المرور)...");
+            // هنا سنربط الانتقال لنافذة تسجيل دخول الأعضاء
         }
-      });
-    }
 
-    // تسجيل دخول أعضاء المكتب
-    function handleLogin() {
-      const memberId = document.getElementById('memberId').value.trim();
-      const password = document.getElementById('password').value.trim();
-      const errBox = document.getElementById('loginError');
-
-      if(!memberId) {
-        errBox.innerText = "الرجاء إدخال رقم العضوية";
-        errBox.style.display = 'block';
-        return;
-      }
-
-      const url = `${API_URL}?action=login&memberId=${encodeURIComponent(memberId)}&password=${encodeURIComponent(password)}`;
-      showToast("جاري التحقق من الهوية...");
-
-      fetchJSONP(url, function(res) {
-        if(res.status === "success") {
-          currentUser = res.user;
-          localStorage.setItem('currentUser', JSON.stringify(currentUser));
-          errBox.style.display = 'none';
-          renderDashboard();
-        } else {
-          errBox.innerText = res.message || "بيانات الدخول غير صحيحة";
-          errBox.style.display = 'block';
+        function openSupportModal() {
+            alert("فتح نافذة الدعم الفني المباشر...");
         }
-      });
-    }
-
-    function renderDashboard() {
-      document.getElementById('loginView').style.display = 'none';
-      document.getElementById('publicInquiryView').style.display = 'none';
-      document.getElementById('dashboardView').style.display = 'block';
-
-      const fullName = currentUser['Full_Name'] || currentUser['الاسم'] || 'عضو الفريق';
-      const role = currentUser['Job_Title'] || currentUser['المسمى الوظيفي'] || '';
-      const dept = currentUser['Department'] || currentUser['القسم'] || '';
-
-      document.getElementById('welcomeText').innerText = `مرحباً بك، ${fullName}`;
-      document.getElementById('userDept').innerText = `المسمى: ${role} | القسم: ${dept}`;
-
-      document.getElementById('jobTitle').innerText = role;
-      document.getElementById('userEmail').innerText = currentUser['Email'] || currentUser['البريد الالكتروني'] || '-';
-      document.getElementById('bioText').innerText = currentUser['Bio'] || currentUser['النبذة'] || 'عضو فعال في منظومة مكتب التوجيه السلوكي والمهني.';
-      document.getElementById('jobDescText').innerText = currentUser['Job_Description'] || currentUser['الوصف الوظيفي'] || 'الالتزام بمهام القسم والإسهام في تحسين تجربة الطلاب الإرشادية.';
-
-      loadUserTasks();
-    }
-
-    function memberIdVal() {
-      return currentUser['Member ID'] || currentUser['رقم العضوية'] || '';
-    }
-
-    function loadUserTasks() {
-      const url = `${API_URL}?action=getData&sheet=Tasks`;
-      fetchJSONP(url, function(res) {
-        if(res.status === "success") {
-          globalTasksCache = res.data.filter(t => String(t['Member ID'] || t['رقم العضوية'] || '').trim().toLowerCase() === String(memberIdVal()).trim().toLowerCase());
-          updateTasksStatsAndTable();
-        }
-      });
-    }
-
-    function updateTasksStatsAndTable() {
-      const total = globalTasksCache.length;
-      const completed = globalTasksCache.filter(t => String(t['Status'] || t['الحالة'] || '').includes('مكتملة')).length;
-      const percent = total > 0 ? Math.round((completed / total) * 100) : 0;
-
-      document.getElementById('statTotalTasks').innerText = total;
-      document.getElementById('statCompletedTasks').innerText = completed;
-      document.getElementById('statProgress').innerText = percent + '%';
-      document.getElementById('progressBarFill').style.width = percent + '%';
-      document.getElementById('statLastEval').innerText = "ممتاز";
-
-      document.getElementById('tasksLoader').style.display = 'none';
-      const table = document.getElementById('tasksTable');
-      table.style.display = 'table';
-      
-      const tbody = document.getElementById('tasksBody');
-      tbody.innerHTML = '';
-
-      globalTasksCache.forEach(t => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td>${t['Task ID'] || t['رقم المهمة'] || '-'}</td>
-          <td><b>${t['Task Name'] || t['عنوان المهمة'] || '-'}</b></td>
-          <td><span class="badge ${String(t['Status']||'').includes('مكتملة')?'badge-success':'badge-warning'}">${t['Status'] || t['الحالة'] || 'قيد التنفيذ'}</span></td>
-          <td>${t['Details'] || t['التفاصيل'] || '-'}</td>
-          <td>${t['Due Date'] || t['التاريخ'] || '-'}</td>
-        `;
-        tbody.appendChild(tr);
-      });
-    }
-
-    function switchView(viewId, btnElement, saveState = true) {
-      document.querySelectorAll('.view-section').forEach(sec => sec.classList.remove('active'));
-      document.getElementById(viewId).classList.add('active');
-
-      document.querySelectorAll('.master-nav-btn').forEach(btn => btn.classList.remove('active'));
-      if(btnElement) btnElement.classList.add('active');
-
-      if(saveState) {
-        localStorage.setItem('activeView', viewId);
-      }
-    }
-
-    function toggleDarkMode() {
-      document.body.classList.toggle('dark-mode');
-      const isDark = document.body.classList.contains('dark-mode');
-      localStorage.setItem('darkMode', isDark);
-      updateDarkModeButtonText();
-    }
-
-    function updateDarkModeButtonText() {
-      const btn = document.getElementById('darkModeBtn');
-      if(btn) {
-        btn.innerText = document.body.classList.contains('dark-mode') ? '☀️ المظهر الفاتح' : '🌙 المظهر الداكن';
-      }
-    }
-
-    function handleLogout() {
-      localStorage.removeItem('currentUser');
-      localStorage.removeItem('activeView');
-      location.reload();
-    }
-
-    function manualRefreshData() {
-      showToast("جاري تحديث البيانات...");
-      loadUserTasks();
-    }
-
-    function submitSupportTicket() {
-      const issue = document.getElementById('supportText').value.trim();
-      if(!issue) { showToast("الرجاء كتابة نص البلاغ"); return; }
-      const url = `${API_URL}?action=submitSupport&memberId=${encodeURIComponent(memberIdVal())}&issue=${encodeURIComponent(issue)}`;
-      fetchJSONP(url, function(res) {
-        if(res.status === "success") {
-          showToast("تم إرسال بلاغ الدعم الفني بنجاح");
-          document.getElementById('supportText').value = '';
-        }
-      });
-    }
-
-    function uploadVaultFile() {
-      showToast("تم حفظ التقرير في الخزنة بنجاح");
-      document.getElementById('vaultTitle').value = '';
-      document.getElementById('vaultLink').value = '';
-    }
-
-    function handleChangePassword() {
-      const oldP = document.getElementById('oldPass').value;
-      const newP = document.getElementById('newPass').value;
-      if(!oldP || !newP) { showToast("أدخل كلمة المرور الحالية والجديدة"); return; }
-      const url = `${API_URL}?action=changePassword&memberId=${encodeURIComponent(memberIdVal())}&oldPass=${encodeURIComponent(oldP)}&newPass=${encodeURIComponent(newP)}`;
-      fetchJSONP(url, function(res) {
-        if(res.status === "success") {
-          showToast("تم تغيير كلمة المرور بنجاح");
-          closePassModal();
-        } else {
-          showToast(res.message || "خطأ في تغيير كلمة المرور");
-        }
-      });
-    }
-
-    function openNotifModal() { document.getElementById('notifModal').style.display = 'flex'; }
-    function closeNotifModal() { document.getElementById('notifModal').style.display = 'none'; }
-    function openPassModal() { document.getElementById('passModal').style.display = 'flex'; }
-    function closePassModal() { document.getElementById('passModal').style.display = 'none'; }
-
-    function exportToPDF(containerId, filename) {
-      const element = document.getElementById(containerId);
-      const opt = {
-        margin:       10,
-        filename:     filename,
-        image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2 },
-        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-      };
-      html2pdf().from(element).set(opt).save();
-      showToast("جاري تصدير التقرير كملف PDF...");
-    }
-  </script>
+    </script>
 </body>
 </html>
