@@ -40,7 +40,7 @@
 
         .logo-area h1 {
             color: var(--primary);
-            font-size: 22px;
+            font-size: 20px;
             margin-bottom: 8px;
             font-weight: 700;
         }
@@ -48,15 +48,15 @@
         .logo-area p {
             color: var(--text-muted);
             font-size: 13px;
-            margin-bottom: 35px;
+            margin-bottom: 30px;
         }
 
         .nav-card {
             background: #f8fafc;
             border: 2px solid #e2e8f0;
             border-radius: 14px;
-            padding: 18px 20px;
-            margin-bottom: 15px;
+            padding: 16px 20px;
+            margin-bottom: 12px;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -74,7 +74,7 @@
 
         .nav-card .info h3 {
             margin: 0 0 5px 0;
-            font-size: 16px;
+            font-size: 15px;
             color: var(--text-main);
         }
 
@@ -127,13 +127,15 @@
 
         .modal-box {
             background: white;
-            padding: 30px;
+            padding: 25px 30px;
             border-radius: 16px;
             width: 90%;
             max-width: 420px;
             text-align: right;
             position: relative;
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
         .close-x {
@@ -215,7 +217,6 @@
             background: var(--primary-dark);
         }
 
-        /* تبديل الدعم الفني */
         .tabs-switcher {
             display: flex;
             background: #f1f5f9;
@@ -247,11 +248,11 @@
 
     <div class="main-wrapper">
         <div class="logo-area">
-            <h1>مكتب التوجيه والإرشاد</h1>
+            <h1>مكتب التوجيه السلوكي والمهني</h1>
             <p>كلية العلوم - جامعة الملك عبد العزيز</p>
         </div>
 
-        <!-- الخيار الأول -->
+        <!-- الخيار الأول: الاستفسارات والطلبات -->
         <div class="nav-card" onclick="openModal('inquiriesModal')">
             <div class="info">
                 <h3>الاستفسارات والطلبات</h3>
@@ -259,7 +260,15 @@
             </div>
         </div>
 
-        <!-- الخيار الثاني -->
+        <!-- الخيار الثاني: تتبع الطلب -->
+        <div class="nav-card" onclick="openModal('trackModal')">
+            <div class="info">
+                <h3>تتبع حالة الطلب</h3>
+                <p>أدخل رقم المتابعة (REQ-XXXX) للاطلاع على حالة طلبك والردود</p>
+            </div>
+        </div>
+
+        <!-- الخيار الثالث: الاقتراحات والشكاوى -->
         <div class="nav-card" onclick="openModal('suggestionsModal')">
             <div class="info">
                 <h3>الاقتراحات والشكاوى</h3>
@@ -278,11 +287,15 @@
         <div class="modal-box">
             <button class="close-x" onclick="closeModal('inquiriesModal')">&times;</button>
             <h2>الاستفسارات والطلبات</h2>
-            <div class="modal-desc">أدخل بياناتك وتفاصيل طلبك لإرساله مباشرة بالنظام.</div>
+            <div class="modal-desc">أدخل بياناتك وتفاصيل طلبك للحصول على رقم متابعة فوري.</div>
             <form id="reqForm" onsubmit="submitInquiry(event)">
                 <div class="field">
                     <label>الاسم الكامل أو المعرف</label>
                     <input type="text" id="reqName" required placeholder="أدخل اسمك الكريم">
+                </div>
+                <div class="field">
+                    <label>البريد الإلكتروني (لتلقي إشعار الرد)</label>
+                    <input type="email" id="reqEmail" required placeholder="example@stu.kau.edu.sa">
                 </div>
                 <div class="field">
                     <label>نوع الطلب</label>
@@ -298,6 +311,21 @@
                 </div>
                 <button type="submit" class="submit-btn">إرسال الطلب</button>
             </form>
+        </div>
+    </div>
+
+    <!-- نافذة تتبع الطلب -->
+    <div id="trackModal" class="modal">
+        <div class="modal-box">
+            <button class="close-x" onclick="closeModal('trackModal')">&times;</button>
+            <h2>تتبع حالة الطلب</h2>
+            <div class="modal-desc">أدخل رقم المتابعة الخاص بك (مثل REQ-1234).</div>
+            <div class="field">
+                <label>رقم الطلب</label>
+                <input type="text" id="trackInputId" placeholder="REQ-XXXX">
+            </div>
+            <button type="button" class="submit-btn" onclick="trackRequest()">بحث عن الطلب</button>
+            <div id="trackResultArea" style="margin-top: 15px; font-size: 13px; text-align: right;"></div>
         </div>
     </div>
 
@@ -340,7 +368,7 @@
                 <button id="tabStaffBtn" onclick="switchTab('staff')">عضو مكتب (ID)</button>
             </div>
 
-            <!-- نموذج الطالب (الدعم المباشر مع التحقق من الوقت والبصمة الأمنية) -->
+            <!-- نموذج الطالب -->
             <div id="studentSupportForm">
                 <div style="background: #f0fdfa; padding: 12px; border-radius: 8px; margin-bottom: 12px; font-size: 12px; color: var(--primary);">
                     ℹ️ محادثات الدعم الفني المباشر متاحة يومياً من <strong>1:00 ظهراً إلى 3:00 عصراً</strong>.
@@ -359,11 +387,25 @@
         </div>
     </div>
 
+    <!-- لوحة تحكم عضو المكتب (تفتح بعد تسجيل الدخول الناجح) -->
+    <div id="staffDashboardModal" class="modal">
+        <div class="modal-box" style="max-width: 500px;">
+            <button class="close-x" onclick="closeModal('staffDashboardModal')">&times;</button>
+            <h2 id="staffWelcomeTitle">لوحة تحكم عضو المكتب</h2>
+            <div class="modal-desc" id="staffRoleDesc">إدارة الطلبات والمهام الخاصة بالقسم.</div>
+            
+            <div style="background: #f8fafc; padding: 15px; border-radius: 10px; border: 1px solid #e2e8f0; margin-bottom: 15px;">
+                <h3 style="margin-top: 0; font-size: 14px; color: var(--primary);">الطلبات الواردة</h3>
+                <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 10px;">يمكنك الاطلاع على الطلبات والرد عليها لتحديث حالتها تلقائياً.</p>
+                <button type="button" class="submit-btn" style="background: #0284c7; padding: 8px;" onclick="loadStaffRequests()">تحميل وعرض الطلبات</button>
+                <div id="requestsContainer" style="margin-top: 10px; max-height: 200px; overflow-y: auto; font-size: 12px;"></div>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // رابط الـ Web App المحدث والجديد
         const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyx65zGvnjwgaEUqk9YLzR-pDI3XaenXTXmzPZrsFsUy6_DyasYx0xGhs0x-sw35_g3OA/exec";
 
-        // توليد بصمة بسيطة للجهاز للأمان ومنع التجاوزات
         function getDeviceFingerprint() {
             let rawData = navigator.userAgent + navigator.language + screen.width + 'x' + screen.height;
             let hash = 0;
@@ -407,12 +449,12 @@
             e.target.reset();
         }
 
-        // إرسال الاستفسار والطلبات للـ Google Sheets باستخدام JSONP
         function submitInquiry(e) {
             e.preventDefault();
             let name = document.getElementById('reqName').value;
+            let email = document.getElementById('reqEmail').value;
             let type = document.getElementById('reqType').value;
-            let details = document.getElementById('reqDetails').value;
+            let details = document.getElementById('reqDetails').value + " [البريد: " + email + "]";
 
             let url = WEB_APP_URL + "?action=submitRequest&memberId=" + encodeURIComponent(name) + "&type=" + encodeURIComponent(type) + "&details=" + encodeURIComponent(details) + "&callback=handleResponse";
             
@@ -423,7 +465,7 @@
 
         function handleResponse(res) {
             if (res.status === "success") {
-                alert("تم إرسال طلبك بنجاح! رقم المتابعة: " + res.requestId);
+                alert("تم إرسال طلبك بنجاح! رقم المتابعة الخاص بك هو: " + res.requestId);
                 document.getElementById('reqForm').reset();
                 document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
             } else {
@@ -431,7 +473,37 @@
             }
         }
 
-        // التحقق من أوقات الدعم المباشر (1 إلى 3 ظهراً)
+        function trackRequest() {
+            let reqId = document.getElementById('trackInputId').value.trim();
+            if(!reqId) {
+                alert("الرجاء إدخال رقم الطلب");
+                return;
+            }
+            let url = WEB_APP_URL + "?action=getData&sheet=Requests&callback=trackResponse";
+            let script = document.createElement('script');
+            script.src = url;
+            document.body.appendChild(script);
+            window.searchedReqId = reqId;
+        }
+
+        function trackResponse(res) {
+            let area = document.getElementById('trackResultArea');
+            if (res.status === "success") {
+                let found = res.data.find(row => String(row['Request ID'] || '').trim() === window.searchedReqId);
+                if (found) {
+                    area.innerHTML = `<div style="background: #f0fdfa; padding: 10px; border-radius: 6px; border: 1px solid #14b8a6;">
+                        <strong>حالة الطلب:</strong> ${found['Status'] || 'قيد المعالجة'}<br>
+                        <strong>نوع الطلب:</strong> ${found['Type'] || ''}<br>
+                        <strong>التاريخ:</strong> ${found['Date'] || ''}
+                    </div>`;
+                } else {
+                    area.innerHTML = `<span style="color: red;">عذراً، لم يتم العثور على طلب بهذا الرقم.</span>`;
+                }
+            } else {
+                area.innerHTML = `<span style="color: red;">خطأ في جلب البيانات.</span>`;
+            }
+        }
+
         function checkLiveSupportTime() {
             let now = new Date();
             let hour = now.getHours();
@@ -440,7 +512,7 @@
             if (hour >= 13 && hour < 15) {
                 alert("تم التحقق من الجهاز (بصمة أمنية مفعلة: " + fp + "). جارٍ فتح غرفة الدعم المباشر الآن...");
             } else {
-                alert("عذراً، أوقات الدعم الفني المباشر هي من الساعة 1:00 ظهراً إلى 3:00 عصراً. يمكنك إرسال استفسارك عبر نموذج الاستفسارات والطلبات في أي وقت.");
+                alert("عذراً، أوقات الدعم الفني المباشر هي من الساعة 1:00 ظهراً إلى 3:00 عصراً. يمكنك إرسال استفسارك عبر نموذج الاستفسارات في أي وقت.");
             }
         }
 
@@ -456,11 +528,41 @@
 
         function staffLoginResponse(res) {
             if (res.status === "success") {
-                alert("مرحباً بك " + (res.user['Full_Name'] || 'عضو المكتب') + " (" + res.user['Job_Title'] + ")! تم التحقق بنجاح.");
                 document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
-                // هنا سيتم توجيهه للوحة التحكم الخاصة به قريباً
+                document.getElementById('staffWelcomeTitle').innerText = "مرحباً بك، " + (res.user['Full_Name'] || 'عضو المكتب');
+                document.getElementById('staffRoleDesc').innerText = "المنصب: " + (res.user['Job_Title'] || '') + " | القسم: " + (res.user['Department'] || '');
+                openModal('staffDashboardModal');
             } else {
                 alert(res.message || "الرقم التعريفي غير صحيح.");
+            }
+        }
+
+        function loadStaffRequests() {
+            let container = document.getElementById('requestsContainer');
+            container.innerHTML = "جاري التحميل...";
+            let url = WEB_APP_URL + "?action=getData&sheet=Requests&callback=renderStaffRequests";
+            let script = document.createElement('script');
+            script.src = url;
+            document.body.appendChild(script);
+        }
+
+        function renderStaffRequests(res) {
+            let container = document.getElementById('requestsContainer');
+            if (res.status === "success" && res.data.length > 0) {
+                let html = "";
+                res.data.forEach(row => {
+                    let id = row['Request ID'] || '';
+                    if(id) {
+                        html += `<div style="background: white; padding: 8px; margin-bottom: 6px; border-radius: 6px; border: 1px solid #cbd5e1;">
+                            <b>${id}</b> - ${row['Member ID'] || ''}<br>
+                            الحالة: <span style="color: #0f766e;">${row['Status'] || ''}</span><br>
+                            التفاصيل: ${row['Details'] || ''}
+                        </div>`;
+                    }
+                });
+                container.innerHTML = html || "لا توجد طلبات مسجلة حالياً.";
+            } else {
+                container.innerHTML = "لا توجد طلبات مسجلة.";
             }
         }
 
