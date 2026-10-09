@@ -3,297 +3,454 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بوابة مكتب التوجيه السلوكي والمهني - كلية العلوم</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>مكتب التوجيه السلوكي والمهني | كلية العلوم</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #0f766e;
-            --primary-dark: #115e59;
-            --accent: #ccfbf1;
-            --bg-gradient: linear-gradient(135deg, #f0fdfa 0%, #e6fcf5 100%);
+            --primary: #1b3b36;
+            --secondary: #2c5e55;
+            --accent: #d4af37;
+            --bg-light: #f8f9fa;
+            --text-light: #333333;
             --card-bg: #ffffff;
-            --text-main: #1f2937;
-            --text-muted: #6b7280;
-            --border-color: #e2e8f0;
+            --nav-bg: rgba(27, 59, 54, 0.95);
+            --shadow: rgba(0, 0, 0, 0.08);
+        }
+
+        [data-theme="dark"] {
+            --primary: #121f1d;
+            --secondary: #1b3b36;
+            --accent: #e5c158;
+            --bg-light: #0d1312;
+            --text-light: #f1f1f1;
+            --card-bg: #162422;
+            --nav-bg: rgba(18, 31, 29, 0.95);
+            --shadow: rgba(0, 0, 0, 0.4);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
         }
 
         body {
-            font-family: 'Cairo', sans-serif;
-            background: var(--bg-gradient);
-            color: var(--text-main);
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            background-color: var(--bg-light);
+            color: var(--text-light);
+            line-height: 1.6;
         }
 
-        .portal-wrapper {
-            max-width: 900px;
-            width: 90%;
+        /* شريط التنقل */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: var(--nav-bg);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 4px 15px var(--shadow);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .btn-action {
+            background: var(--accent);
+            color: #1b3b36;
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .btn-action:hover {
+            opacity: 0.9;
+        }
+
+        /* القسم الرئيسي */
+        .hero {
+            padding: 160px 20px 80px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #fff;
             text-align: center;
         }
 
-        .header-title h1 {
-            color: var(--primary);
-            font-size: 26px;
-            margin-bottom: 8px;
-            font-weight: 700;
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            font-weight: 900;
         }
 
-        .header-title p {
-            color: var(--text-muted);
-            font-size: 14px;
+        .hero p {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+
+        /* الحاويات العامة */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 50px 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+            position: relative;
+        }
+
+        [data-theme="dark"] .section-title {
+            color: var(--accent);
+        }
+
+        /* الهيكل التنظيمي */
+        .hierarchy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
             margin-bottom: 40px;
         }
 
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 25px;
-            margin-bottom: 30px;
-        }
-
-        .gateway-card {
+        .card {
             background: var(--card-bg);
-            border: 2px solid var(--border-color);
-            border-radius: 20px;
-            padding: 40px 30px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 25px rgba(15, 118, 110, 0.05);
-            text-align: center;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 6px 20px var(--shadow);
+            border-top: 5px solid var(--accent);
+            position: relative;
         }
 
-        .gateway-card:hover {
-            border-color: var(--primary);
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(15, 118, 110, 0.12);
-            background: #f8fafc;
+        .card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--primary);
         }
 
-        .gateway-card .icon {
-            font-size: 45px;
+        [data-theme="dark"] .card h3 {
+            color: #fff;
+        }
+
+        .card p {
+            font-size: 0.9rem;
+            opacity: 0.8;
             margin-bottom: 20px;
         }
 
-        .gateway-card h3 {
-            color: var(--primary);
-            font-size: 20px;
-            margin-bottom: 12px;
+        .card-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
 
-        .gateway-card p {
-            color: var(--text-muted);
-            font-size: 13px;
-            line-height: 1.6;
-            margin-bottom: 25px;
+        .link-btn {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--bg-light);
+            padding: 10px 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-light);
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: all 0.2s;
         }
 
-        .card-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 10px 25px;
-            border-radius: 10px;
-            font-weight: 700;
-            font-size: 14px;
-            cursor: pointer;
-            transition: background 0.2s;
+        .link-btn:hover {
+            background: var(--accent);
+            color: #1b3b36;
         }
 
-        .gateway-card:hover .card-btn {
-            background: var(--primary-dark);
-        }
-
-        /* حاويات العرض المتغيرة (تظهر وتختفي بسلاسة) */
-        .section-view {
+        /* نافذة تسجيل الدخول المنبثقة */
+        .modal {
             display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
             background: var(--card-bg);
             padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(15, 118, 110, 0.08);
-            text-align: right;
-            max-width: 600px;
-            margin: 0 auto;
-            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            text-align: center;
         }
 
-        .section-view h2 {
+        .modal-content h2 {
+            margin-bottom: 20px;
             color: var(--primary);
-            font-size: 20px;
-            margin-bottom: 15px;
+        }
+
+        [data-theme="dark"] .modal-content h2 {
+            color: #fff;
         }
 
         .form-group {
             margin-bottom: 15px;
+            text-align: right;
         }
 
         .form-group label {
             display: block;
             margin-bottom: 5px;
             font-weight: 600;
-            font-size: 13px;
+            font-size: 0.9rem;
         }
 
-        .form-group input, .form-group textarea, .form-group select {
+        .form-group input {
             width: 100%;
-            padding: 10px;
-            border: 1px solid var(--border-color);
+            padding: 10px 15px;
             border-radius: 8px;
-            font-size: 14px;
-            outline: none;
-            box-sizing: border-box;
+            border: 1px solid #ccc;
+            background: var(--bg-light);
+            color: var(--text-light);
         }
 
-        .back-btn {
-            background: #64748b;
-            color: white;
+        .close-modal {
+            margin-top: 15px;
+            background: transparent;
             border: none;
-            padding: 8px 20px;
-            border-radius: 8px;
+            color: #e74c3c;
             cursor: pointer;
             font-weight: 600;
-            margin-top: 10px;
         }
 
-        .support-footer-btn {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            font-size: 13px;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 8px 15px;
-            border-radius: 50px;
-            transition: color 0.2s, background 0.2s;
+        /* التذييل */
+        footer {
+            background: var(--primary);
+            color: #fff;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 50px;
+            font-size: 0.9rem;
         }
 
-        .support-footer-btn:hover {
-            color: var(--primary);
-            background: rgba(15, 118, 110, 0.05);
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero h1 { font-size: 2rem; }
         }
     </style>
 </head>
-<body>
+<body data-theme="light">
 
-    <div class="portal-wrapper">
+    <!-- شريط التنقل العلوي -->
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <span>مكتب التوجيه السلوكي والمهني</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#hierarchy">الهيكل التنظيمي</a></li>
+                <li><a href="#hub">سجلات العمل (Sheets)</a></li>
+                <li><a href="#drives">مجلدات الأقسام (Drive)</a></li>
+                <li><button class="btn-action" onclick="toggleTheme()"><i class="fa-solid fa-moon"></i></button></li>
+                <li><button class="btn-action" onclick="openLogin()">بوابة الأعضاء</button></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- الواجهة الرئيسية -->
+    <section class="hero">
+        <h1>النظام الإلكتروني الموحد</h1>
+        <p>المنصة المركزية لإدارة العمليات، السجلات، وتنسيق الأقسام بكل احترافية في كلية العلوم - جامعة الملك عبد العزيز.</p>
+        <button class="btn-action" style="padding: 12px 30px; font-size: 1.1rem;" onclick="openLogin()">تسجيل دخول الأعضاء</button>
+    </section>
+
+    <!-- الهيكل التنظيمي والسجلات -->
+    <div class="container" id="hierarchy">
+        <h2 class="section-title">الهيكل التنظيمي والوصول السريع</h2>
         
-        <!-- الصفحة الرئيسية (المربعين) -->
-        <div id="homeMainView">
-            <div class="header-title">
-                <h1>مكتب التوجيه السلوكي والمهني</h1>
-                <p>كلية العلوم - جامعة الملك عبد العزيز</p>
-            </div>
-
-            <div class="cards-grid">
-                <!-- المربع اليمين: الزوار والطلاب -->
-                <div class="gateway-card" onclick="openVisitorPortal()">
-                    <div class="icon">🎓</div>
-                    <h3>بوابة الزوار والطلاب</h3>
-                    <p>تقديم الطلبات والاستفسارات، متابعة حالة الطلب برقم المتابعة، والوصول إلى الخدمات الطلابية.</p>
-                    <button class="card-btn">دخول البوابة</button>
-                </div>
-
-                <!-- المربع اليسار: أعضاء المكتب -->
-                <div class="gateway-card" onclick="openStaffLogin()">
-                    <div class="icon">🔐</div>
-                    <h3>بوابة أعضاء المكتب</h3>
-                    <p>مخصصة لأعضاء هيئة المكتب والإدارة لتسجيل الدخول بالرقم التعريفي (ID) وكلمة المرور.</p>
-                    <button class="card-btn">تسجيل دخول الأعضاء</button>
+        <div class="hierarchy-grid">
+            <!-- القيادة العليا -->
+            <div class="card">
+                <h3>القيادة العليا</h3>
+                <p>مدير المكتب ونائب مدير المكتب لإدارة التوجهات الاستراتيجية والاعتمادات.</p>
+                <div class="card-links">
+                    <a href="https://docs.google.com/spreadsheets/d/1STEyNS4Xz0_Ilf-ZmNsnggnwfnWQrOfS0g0pHFuS9s" target="_blank" class="link-btn">
+                        <span>قائمة الأعضاء القيادية</span>
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </a>
                 </div>
             </div>
 
-            <button class="support-footer-btn" onclick="openSupportModal()">
-                💬 الدعم الفني والاستفسارات التقنية
-            </button>
+            <!-- الإدارة التنفيذية والتشغيلية -->
+            <div class="card">
+                <h3>الإدارة التنفيذية والعمليات</h3>
+                <p>متابعة سير العمل بين الأقسام، التسجيل، والمهام اليومية.</p>
+                <div class="card-links">
+                    <a href="https://docs.google.com/spreadsheets/d/1STEyNS4Xz0_Ilf-ZmNsnggnwfnWQrOfS0g0pHFuS9s" target="_blank" class="link-btn">
+                        <span>لوحة المهام (Tasks)</span>
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </a>
+                    <a href="https://docs.google.com/spreadsheets/d/1STEyNS4Xz0_Ilf-ZmNsnggnwfnWQrOfS0g0pHFuS9s" target="_blank" class="link-btn">
+                        <span>الطلبات الإدارية (Requests)</span>
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- قسم البرامج والفعاليات -->
+            <div class="card">
+                <h3>قسم البرامج والفعاليات</h3>
+                <p>تصميم وتنفيذ البرامج والمبادرات التوجيهية والتدريبية للمكتب.</p>
+                <div class="card-links">
+                    <a href="#" target="_blank" class="link-btn">
+                        <span>مجلد ملفات القسم (Drive)</span>
+                        <i class="fa-solid fa-folder-open"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- قسم الخدمة المجتمعية والتطوير -->
+            <div class="card">
+                <h3>الخدمة المجتمعية والتطوير</h3>
+                <p>إدارة المبادرات التطوعية وتطوير الخدمات وقياس الأثر.</p>
+                <div class="card-links">
+                    <a href="#" target="_blank" class="link-btn">
+                        <span>مجلد ملفات القسم (Drive)</span>
+                        <i class="fa-solid fa-folder-open"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- قسم الإبداع والمواهب -->
+            <div class="card">
+                <h3>قسم الإبداع والمواهب</h3>
+                <p>اكتشاف المواهب الإبداعية وتنميتها وتوفير الفرص لاستثمارها.</p>
+                <div class="card-links">
+                    <a href="#" target="_blank" class="link-btn">
+                        <span>مجلد ملفات القسم (Drive)</span>
+                        <i class="fa-solid fa-folder-open"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- الدعم الفني -->
+            <div class="card">
+                <h3>الدعم الفني والسجلات</h3>
+                <p>متابعة تذاكر الاستفسارات والبلاغات الفنية للمكتب.</p>
+                <div class="card-links">
+                    <a href="https://docs.google.com/spreadsheets/d/1STEyNS4Xz0_Ilf-ZmNsnggnwfnWQrOfS0g0pHFuS9s" target="_blank" class="link-btn">
+                        <span>سجل الدعم الفني (Support)</span>
+                        <i class="fa-solid fa-headset"></i>
+                    </a>
+                </div>
+            </div>
         </div>
+    </div>
 
-        <!-- واجهة الزوار والطلاب (تفتح فوراً عند الضغط) -->
-        <div id="visitorPortalView" class="section-view">
-            <h2>🎓 بوابة الزوار والطلاب</h2>
-            <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 20px;">قدم طلبك أو استفسارك، واحصل على رقم متابعة فوري.</p>
-            
+    <!-- نافذة تسجيل الدخول -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <h2>تسجيل دخول الأعضاء</h2>
             <div class="form-group">
-                <label>الاسم الكامل</label>
-                <input type="text" id="visitorName" placeholder="أدخل اسمك الكريم...">
-            </div>
-            <div class="form-group">
-                <label>البريد الإلكتروني (لتلقي الرد التلقائي)</label>
-                <input type="email" id="visitorEmail" placeholder="name@stu.kau.edu.sa">
-            </div>
-            <div class="form-group">
-                <label>نوع الطلب</label>
-                <select id="visitorType">
-                    <option value="استفسار سلوكي">استفسار سلوكي</option>
-                    <option value="إرشاد مهني">إرشاد مهني</option>
-                    <option value="شكوى أو مقترح">شكوى أو مقترح</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>تفاصيل الطلب</label>
-                <textarea id="visitorDetails" rows="3" placeholder="اكتب تفاصيل طلبك هنا..."></textarea>
-            </div>
-
-            <button class="card-btn" style="width: 100%; padding: 12px;" onclick="submitVisitorRequest()">إرسال الطلب</button>
-            <button class="back-btn" onclick="goHome()">الرجوع للرئيسية</button>
-        </div>
-
-        <!-- واجهة تسجيل دخول أعضاء المكتب (تفتح فوراً عند الضغط) -->
-        <div id="staffLoginView" class="section-view">
-            <h2>🔐 تسجيل دخول أعضاء المكتب</h2>
-            <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 20px;">أدخل الرقم التعريفي الخاص بك وكلمة المرور.</p>
-            
-            <div class="form-group">
-                <label>الرقم التعريفي (ID)</label>
-                <input type="text" id="staffId" placeholder="مثال: MGR-1 أو COO">
+                <label>معرف العضو (Member ID)</label>
+                <input type="text" id="memberId" placeholder="مثال: MGR-1, COO, VP-1">
             </div>
             <div class="form-group">
                 <label>كلمة المرور</label>
-                <input type="password" id="staffPass" placeholder="••••••••">
+                <input type="password" id="password" placeholder="أدخل كلمة المرور الخاصة بك">
             </div>
-
-            <button class="card-btn" style="width: 100%; padding: 12px;" onclick="performStaffLogin()">تسجيل الدخول</button>
-            <button class="back-btn" onclick="goHome()">الرجوع للرئيسية</button>
+            <button class="btn-action" style="width: 100%; padding: 10px;" onclick="handleLogin()">دخول النظام</button>
+            <button class="close-modal" onclick="closeLogin()">إلغاء</button>
         </div>
-
     </div>
 
+    <!-- التذييل -->
+    <footer>
+        <p>جميع الحقوق محفوظة © 2026 - مكتب التوجيه السلوكي والمهني | كلية العلوم - جامعة الملك عبد العزيز</p>
+    </footer>
+
     <script>
-        function openVisitorPortal() {
-            document.getElementById('homeMainView').style.display = 'none';
-            document.getElementById('visitorPortalView').style.display = 'block';
+        // تبديل الوضع الليلي / الفاتح
+        function toggleTheme() {
+            const body = document.body;
+            if (body.getAttribute('data-theme') === 'light') {
+                body.setAttribute('data-theme', 'dark');
+            } else {
+                body.setAttribute('data-theme', 'light');
+            }
         }
 
-        function openStaffLogin() {
-            document.getElementById('homeMainView').style.display = 'none';
-            document.getElementById('staffLoginView').style.display = 'block';
+        // نافذة تسجيل الدخول
+        function openLogin() {
+            document.getElementById('loginModal').style.display = 'flex';
         }
 
-        function goHome() {
-            document.getElementById('visitorPortalView').style.display = 'none';
-            document.getElementById('staffLoginView').style.display = 'none';
-            document.getElementById('homeMainView').style.display = 'block';
+        function closeLogin() {
+            document.getElementById('loginModal').style.display = 'none';
         }
 
-        function submitVisitorRequest() {
-            let name = document.getElementById('visitorName').value;
-            if(!name) { alert("الرجاء إدخال الاسم"); return; }
-            alert("تم إرسال طلبك بنجاح! رقم المتابعة: REQ-5042");
-            goHome();
-        }
-
-        function performStaffLogin() {
-            let id = document.getElementById('staffId').value;
-            if(!id) { alert("الرجاء إدخال الرقم التعريفي"); return; }
-            alert("تم التحقق بنجاح! جارٍ فتح لوحة التحكم...");
-        }
-
-        function openSupportModal() {
-            alert("فتح نافذة الدعم الفني المباشر...");
+        function handleLogin() {
+            const id = document.getElementById('memberId').value;
+            if(id) {
+                alert('مرحباً بك يا مهند! جاري التحقق من الصلاحيات...');
+                closeLogin();
+            } else {
+                alert('الرجاء إدخال معرف العضو.');
+            }
         }
     </script>
 </body>
