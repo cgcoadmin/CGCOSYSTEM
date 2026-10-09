@@ -286,7 +286,7 @@
     <div class="tab-content" id="visitorInquiriesTab">
       <div class="profile-card">
         <h3 style="color:var(--primary-color); margin-bottom:0.5rem;">💬 غرف محادثات الزوار والطلبات المشتركة</h3>
-        <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:1rem;">تابع غرف المحادثة، ورد مباشرة، أو قم بالتحويل للجهات المخصصة.</p>
+        <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:1rem;">تابع غرف المحادثة، ورد مباشرة، أو قم بالتحويل للجهات المخصصة (تتحدث الحالة تلقائياً مع الإجراء).</p>
         
         <div id="visitorInquiriesLoader" class="loader">جاري التحميل...</div>
         <div style="overflow-x: auto;">
@@ -383,7 +383,7 @@
   </div>
 
   <script>
-    const API_URL = "https://script.google.com/macros/s/AKfycbyNz0n6ygE4rx-SY0av3YtRe8d9xRy9xSHMHsi8SOk-q3dY3_eFLkqRHslmY4RXWZRZ9w/exec";
+    const API_URL = "https://script.google.com/macros/s/AKfycbyFa_IU-ctWdh8D7j8pihczGsl6IvOXpJgVtnFU1onTdM-rMszW5xzF-ou7U-kzCYOvRw/exec";
     let currentUser = null;
     let globalTasksCache = [];
     let globalMembersCache = [];
@@ -463,7 +463,6 @@
       }
     }
 
-    // دالة لتوليد شكل فقاعات الدردشة (مثل واتساب)
     function renderChatBubbles(chatLogJson, containerId) {
       const container = document.getElementById(containerId);
       if(!container) return;
@@ -638,18 +637,12 @@
               <td><div class="whatsapp-chat-container" id="${chatContainerId}" style="max-height:140px; min-width:200px;"></div></td>
               <td>
                 <input type="text" id="inqReply-${id}" value="${reply}" placeholder="اكتب ردك هنا..." style="width:100%; margin-bottom:5px;">
-                <div style="display:flex; gap:5px; margin-bottom:5px;">
-                  <select id="inqStatus-${id}" style="padding:4px; font-size:0.8rem; flex:1;">
-                    <option value="معلق" ${status==='معلق'?'selected':''}>معلق</option>
-                    <option value="قيد المراجعة" ${status==='قيد المراجعة'?'selected':''}>قيد المراجعة</option>
-                    <option value="بانتظار رد الإدارة" ${status==='بانتظار رد الإدارة'?'selected':''}>بانتظار رد الإدارة</option>
-                    <option value="تم الرد" ${status==='تم الرد'?'selected':''}>تم الرد</option>
-                  </select>
-                  <select id="inqTransfer-${id}" style="padding:4px; font-size:0.8rem; flex:1;">
+                <div style="margin-bottom:5px;">
+                  <select id="inqTransfer-${id}" style="padding:6px; font-size:0.85rem; width:100%;">
                     ${transferOptionsHtml}
                   </select>
                 </div>
-                <button class="btn" style="padding:4px 10px; font-size:0.8rem; width:auto;" onclick="saveVisitorReplyAdmin('${id}')">إرسال في الغرفة والتحديث</button>
+                <button class="btn" style="padding:5px 10px; font-size:0.85rem;" onclick="saveVisitorReplyAdmin('${id}')">إرسال وتحديث الحالة تلقائياً</button>
               </td>
             </tr>
           `;
@@ -659,14 +652,13 @@
 
     async function saveVisitorReplyAdmin(inqId) {
       const reply = document.getElementById(`inqReply-${inqId}`).value.trim();
-      const status = document.getElementById(`inqStatus-${inqId}`).value;
       const transferredTo = document.getElementById(`inqTransfer-${inqId}`).value;
       const handledBy = currentUser['Full Name'] || currentUser['الاسم'] || currentUser['Member ID'];
 
-      const res = await callAPI(`action=updateVisitorReply&inqId=${encodeURIComponent(inqId)}&reply=${encodeURIComponent(reply)}&status=${encodeURIComponent(status)}&transferredTo=${encodeURIComponent(transferredTo)}&handledBy=${encodeURIComponent(handledBy)}`);
+      const res = await callAPI(`action=updateVisitorReply&inqId=${encodeURIComponent(inqId)}&reply=${encodeURIComponent(reply)}&transferredTo=${encodeURIComponent(transferredTo)}&handledBy=${encodeURIComponent(handledBy)}`);
       
       if(res && res.status === "success") {
-        showToast("✅ تم إرسال الرد في غرفة المحادثة بنجاح");
+        showToast("✅ تم إرسال الرد وتحديث الحالة في الغرفة بنجاح");
         loadVisitorInquiriesAdmin();
       } else {
         showToast("❌ حدث خطأ أثناء الحفظ");
@@ -914,4 +906,4 @@
     function exportToPDF(id, filename) { html2pdf().from(document.getElementById(id)).save(filename); }
   </script>
 </body>
-</html>
+</html>    
