@@ -3,454 +3,526 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مكتب التوجيه السلوكي والمهني | كلية العلوم</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <title>بوابة مكتب التوجيه السلوكي والمهني - كلية العلوم</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
         :root {
-            --primary: #1b3b36;
-            --secondary: #2c5e55;
-            --accent: #d4af37;
-            --bg-light: #f8f9fa;
-            --text-light: #333333;
+            --primary: #0f766e;
+            --primary-dark: #115e59;
+            --accent: #ccfbf1;
+            --bg-gradient: linear-gradient(135deg, #f0fdfa 0%, #e6fcf5 100%);
             --card-bg: #ffffff;
-            --nav-bg: rgba(27, 59, 54, 0.95);
-            --shadow: rgba(0, 0, 0, 0.08);
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --border-color: #e2e8f0;
+            --table-header-bg: #f1f5f9;
+            --profile-item-bg: #f8fafc;
         }
 
-        [data-theme="dark"] {
-            --primary: #121f1d;
-            --secondary: #1b3b36;
-            --accent: #e5c158;
-            --bg-light: #0d1312;
-            --text-light: #f1f1f1;
-            --card-bg: #162422;
-            --nav-bg: rgba(18, 31, 29, 0.95);
-            --shadow: rgba(0, 0, 0, 0.4);
+        body.dark-mode {
+            --bg-gradient: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+            --table-header-bg: #334155;
+            --profile-item-bg: #334155;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Cairo', sans-serif;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; transition: background-color 0.3s, color 0.3s; }
+        
         body {
-            background-color: var(--bg-light);
-            color: var(--text-light);
-            line-height: 1.6;
-        }
-
-        /* شريط التنقل */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background: var(--nav-bg);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            box-shadow: 0 4px 15px var(--shadow);
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
+            background: var(--bg-gradient);
+            color: var(--text-main);
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 20px;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: #fff;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 1.2rem;
-        }
-
-        .logo i {
-            font-size: 1.8rem;
-            color: var(--accent);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 20px;
-            list-style: none;
-            align-items: center;
-        }
-
-        .nav-links a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: color 0.2s;
-        }
-
-        .nav-links a:hover {
-            color: var(--accent);
-        }
-
-        .btn-action {
-            background: var(--accent);
-            color: #1b3b36;
-            padding: 8px 18px;
-            border-radius: 50px;
-            font-weight: 700;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-
-        .btn-action:hover {
-            opacity: 0.9;
-        }
-
-        /* القسم الرئيسي */
-        .hero {
-            padding: 160px 20px 80px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: #fff;
-            text-align: center;
-        }
-
-        .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            font-weight: 900;
-        }
-
-        .hero p {
-            font-size: 1.1rem;
-            max-width: 700px;
-            margin: 0 auto 30px;
-            opacity: 0.9;
-        }
-
-        /* الحاويات العامة */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 50px 20px;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 40px;
-            font-size: 2rem;
-            font-weight: 800;
-            color: var(--primary);
-            position: relative;
-        }
-
-        [data-theme="dark"] .section-title {
-            color: var(--accent);
-        }
-
-        /* الهيكل التنظيمي */
-        .hierarchy-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin-bottom: 40px;
-        }
-
-        .card {
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 25px;
-            box-shadow: 0 6px 20px var(--shadow);
-            border-top: 5px solid var(--accent);
-            position: relative;
-        }
-
-        .card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 10px;
-            color: var(--primary);
-        }
-
-        [data-theme="dark"] .card h3 {
-            color: #fff;
-        }
-
-        .card p {
-            font-size: 0.9rem;
-            opacity: 0.8;
-            margin-bottom: 20px;
-        }
-
-        .card-links {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .link-btn {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: var(--bg-light);
-            padding: 10px 15px;
-            border-radius: 8px;
-            text-decoration: none;
-            color: var(--text-light);
-            font-weight: 600;
-            font-size: 0.9rem;
-            border: 1px solid rgba(0,0,0,0.05);
-            transition: all 0.2s;
-        }
-
-        .link-btn:hover {
-            background: var(--accent);
-            color: #1b3b36;
-        }
-
-        /* نافذة تسجيل الدخول المنبثقة */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.6);
-            z-index: 2000;
             justify-content: center;
             align-items: center;
+            min-height: 100vh;
+            padding: 20px;
         }
 
-        .modal-content {
+        #toastContainer { position: fixed; bottom: 20px; left: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
+        .toast { background: var(--primary); color: white; padding: 12px 20px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); font-size: 0.9rem; animation: slideIn 0.3s ease, fadeOut 0.3s ease 2.7s forwards; }
+        @keyframes slideIn { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes fadeOut { to { opacity: 0; visibility: hidden; } }
+
+        .portal-wrapper { max-width: 900px; width: 100%; text-align: center; }
+
+        .header-title h1 { color: var(--primary); font-size: 28px; margin-bottom: 8px; font-weight: 900; }
+        .header-title p { color: var(--text-muted); font-size: 14px; margin-bottom: 40px; }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .gateway-card {
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 20px;
+            padding: 40px 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(15, 118, 110, 0.05);
+            text-align: center;
+        }
+
+        .gateway-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(15, 118, 110, 0.12);
+        }
+
+        .gateway-card .icon { font-size: 45px; margin-bottom: 20px; }
+        .gateway-card h3 { color: var(--primary); font-size: 20px; margin-bottom: 12px; }
+        .gateway-card p { color: var(--text-muted); font-size: 13px; line-height: 1.6; margin-bottom: 25px; }
+
+        .card-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.2s;
+            width: 100%;
+        }
+        .gateway-card:hover .card-btn { background: var(--primary-dark); }
+
+        .section-view {
+            display: none;
             background: var(--card-bg);
             padding: 30px;
-            border-radius: 16px;
-            width: 100%;
-            max-width: 400px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            text-align: center;
-        }
-
-        .modal-content h2 {
-            margin-bottom: 20px;
-            color: var(--primary);
-        }
-
-        [data-theme="dark"] .modal-content h2 {
-            color: #fff;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(15, 118, 110, 0.08);
             text-align: right;
+            max-width: 600px;
+            margin: 0 auto;
+            border: 1px solid var(--border-color);
+        }
+        .section-view h2 { color: var(--primary); font-size: 20px; margin-bottom: 15px; }
+
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 13px; }
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%; padding: 10px; border: 1px solid var(--border-color);
+            border-radius: 8px; font-size: 14px; outline: none; background: var(--card-bg); color: var(--text-main);
         }
 
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
+        .back-btn { background: #64748b; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; margin-top: 10px; width: 100%; }
 
-        .form-group input {
-            width: 100%;
-            padding: 10px 15px;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-            background: var(--bg-light);
-            color: var(--text-light);
+        .support-footer-btn {
+            background: none; border: none; color: var(--text-muted); font-size: 13px; cursor: pointer;
+            display: inline-flex; align-items: center; gap: 6px; padding: 8px 15px; border-radius: 50px;
         }
+        .support-footer-btn:hover { color: var(--primary); background: rgba(15, 118, 110, 0.05); }
 
-        .close-modal {
-            margin-top: 15px;
-            background: transparent;
-            border: none;
-            color: #e74c3c;
-            cursor: pointer;
-            font-weight: 600;
-        }
+        /* لوحة التحكم للأعضاء المطورّة */
+        .dashboard-container { display: none; width: 100%; max-width: 1100px; margin: 0 auto; text-align: right; }
+        header.dash-header { background: var(--primary); color: white; padding: 1.2rem 1.5rem; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; }
+        .header-btns { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
+        .btn-header { background-color: transparent; border: 1px solid white; color: white; padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer; font-size: 0.85rem; }
+        .btn-header:hover { background-color: rgba(255, 255, 255, 0.2); }
+        .clock-box { font-size: 0.85rem; background: rgba(0,0,0,0.2); padding: 0.4rem 0.8rem; border-radius: 6px; }
 
-        /* التذييل */
-        footer {
-            background: var(--primary);
-            color: #fff;
-            text-align: center;
-            padding: 30px 20px;
-            margin-top: 50px;
-            font-size: 0.9rem;
-        }
+        .master-nav { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+        .master-nav-btn { background: var(--card-bg); border: 2px solid var(--border-color); color: var(--text-main); padding: 1rem; border-radius: 10px; font-size: 0.95rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .master-nav-btn:hover { border-color: var(--primary); background: var(--accent); color: var(--primary); }
+        .master-nav-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
 
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .hero h1 { font-size: 2rem; }
-        }
+        .view-section { display: none; }
+        .view-section.active { display: block; }
+
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+        .stat-card { background: var(--card-bg); padding: 1.2rem; border-radius: 10px; border-right: 5px solid var(--primary); border: 1px solid var(--border-color); }
+        .stat-card span { font-size: 0.85rem; color: var(--text-muted); display: block; margin-bottom: 0.3rem; }
+        .stat-card p { font-size: 1.5rem; font-weight: 700; }
+
+        .profile-card { background: var(--card-bg); padding: 1.5rem; border-radius: 10px; border: 1px solid var(--border-color); margin-bottom: 1.5rem; }
+        .profile-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-top: 1rem; }
+        .profile-item { background: var(--profile-item-bg); padding: 0.8rem 1rem; border-radius: 8px; border: 1px solid var(--border-color); }
+        .profile-item span { display: block; font-size: 0.8rem; color: var(--text-muted); }
+        .profile-item p { font-weight: 600; margin-top: 0.2rem; }
+
+        .data-table { width: 100%; border-collapse: collapse; background: var(--card-bg); border-radius: 8px; overflow: hidden; border: 1px solid var(--border-color); margin-top: 10px; }
+        .data-table th, .data-table td { padding: 0.75rem 1rem; text-align: right; border-bottom: 1px solid var(--border-color); font-size: 0.9rem; }
+        .data-table th { background-color: var(--table-header-bg); color: var(--primary); font-weight: 700; }
+        .badge { padding: 0.25rem 0.6rem; border-radius: 50px; font-size: 0.75rem; font-weight: 600; display: inline-block; }
+        .badge-success { background-color: #d4edda; color: #155724; }
+        .badge-warning { background-color: #fff3cd; color: #856404; }
+        .loader { text-align: center; padding: 2rem; color: var(--text-muted); }
     </style>
 </head>
-<body data-theme="light">
+<body>
 
-    <!-- شريط التنقل العلوي -->
-    <header>
-        <div class="nav-container">
-            <a href="#" class="logo">
-                <i class="fa-solid fa-graduation-cap"></i>
-                <span>مكتب التوجيه السلوكي والمهني</span>
-            </a>
-            <ul class="nav-links">
-                <li><a href="#hierarchy">الهيكل التنظيمي</a></li>
-                <li><a href="#hub">سجلات العمل (Sheets)</a></li>
-                <li><a href="#drives">مجلدات الأقسام (Drive)</a></li>
-                <li><button class="btn-action" onclick="toggleTheme()"><i class="fa-solid fa-moon"></i></button></li>
-                <li><button class="btn-action" onclick="openLogin()">بوابة الأعضاء</button></li>
-            </ul>
+    <div id="toastContainer"></div>
+
+    <div class="portal-wrapper" id="portalWrapper">
+        <!-- الواجهة الرئيسية -->
+        <div id="homeMainView">
+            <div class="header-title">
+                <h1>مكتب التوجيه السلوكي والمهني</h1>
+                <p>كلية العلوم - جامعة الملك عبد العزيز</p>
+            </div>
+
+            <div class="cards-grid">
+                <div class="gateway-card" onclick="openVisitorPortal()">
+                    <div class="icon">🎓</div>
+                    <h3>بوابة الزوار والطلاب</h3>
+                    <p>تقديم الطلبات والاستفسارات، متابعة حالة الطلب برقم المتابعة، والوصول إلى الخدمات الطلابية.</p>
+                    <button class="card-btn">دخول البوابة</button>
+                </div>
+
+                <div class="gateway-card" onclick="openStaffLogin()">
+                    <div class="icon">🔐</div>
+                    <h3>بوابة أعضاء المكتب</h3>
+                    <p>مخصصة لأعضاء هيئة المكتب والإدارة لتسجيل الدخول بالرقم التعريفي (ID) وكلمة المرور.</p>
+                    <button class="card-btn">تسجيل دخول الأعضاء</button>
+                </div>
+            </div>
+
+            <button class="support-footer-btn" onclick="openSupportModal()">
+                💬 الدعم الفني والاستفسارات التقنية
+            </button>
         </div>
-    </header>
 
-    <!-- الواجهة الرئيسية -->
-    <section class="hero">
-        <h1>النظام الإلكتروني الموحد</h1>
-        <p>المنصة المركزية لإدارة العمليات، السجلات، وتنسيق الأقسام بكل احترافية في كلية العلوم - جامعة الملك عبد العزيز.</p>
-        <button class="btn-action" style="padding: 12px 30px; font-size: 1.1rem;" onclick="openLogin()">تسجيل دخول الأعضاء</button>
-    </section>
-
-    <!-- الهيكل التنظيمي والسجلات -->
-    <div class="container" id="hierarchy">
-        <h2 class="section-title">الهيكل التنظيمي والوصول السريع</h2>
-        
-        <div class="hierarchy-grid">
-            <!-- القيادة العليا -->
-            <div class="card">
-                <h3>القيادة العليا</h3>
-                <p>مدير المكتب ونائب مدير المكتب لإدارة التوجهات الاستراتيجية والاعتمادات.</p>
-                <div class="card-links">
-                    <a href="https://docs.google.com/spreadsheets/d/1STEyNS4Xz0_Ilf-ZmNsnggnwfnWQrOfS0g0pHFuS9s" target="_blank" class="link-btn">
-                        <span>قائمة الأعضاء القيادية</span>
-                        <i class="fa-solid fa-arrow-left"></i>
-                    </a>
-                </div>
-            </div>
-
-            <!-- الإدارة التنفيذية والتشغيلية -->
-            <div class="card">
-                <h3>الإدارة التنفيذية والعمليات</h3>
-                <p>متابعة سير العمل بين الأقسام، التسجيل، والمهام اليومية.</p>
-                <div class="card-links">
-                    <a href="https://docs.google.com/spreadsheets/d/1STEyNS4Xz0_Ilf-ZmNsnggnwfnWQrOfS0g0pHFuS9s" target="_blank" class="link-btn">
-                        <span>لوحة المهام (Tasks)</span>
-                        <i class="fa-solid fa-arrow-left"></i>
-                    </a>
-                    <a href="https://docs.google.com/spreadsheets/d/1STEyNS4Xz0_Ilf-ZmNsnggnwfnWQrOfS0g0pHFuS9s" target="_blank" class="link-btn">
-                        <span>الطلبات الإدارية (Requests)</span>
-                        <i class="fa-solid fa-arrow-left"></i>
-                    </a>
-                </div>
-            </div>
-
-            <!-- قسم البرامج والفعاليات -->
-            <div class="card">
-                <h3>قسم البرامج والفعاليات</h3>
-                <p>تصميم وتنفيذ البرامج والمبادرات التوجيهية والتدريبية للمكتب.</p>
-                <div class="card-links">
-                    <a href="#" target="_blank" class="link-btn">
-                        <span>مجلد ملفات القسم (Drive)</span>
-                        <i class="fa-solid fa-folder-open"></i>
-                    </a>
-                </div>
-            </div>
-
-            <!-- قسم الخدمة المجتمعية والتطوير -->
-            <div class="card">
-                <h3>الخدمة المجتمعية والتطوير</h3>
-                <p>إدارة المبادرات التطوعية وتطوير الخدمات وقياس الأثر.</p>
-                <div class="card-links">
-                    <a href="#" target="_blank" class="link-btn">
-                        <span>مجلد ملفات القسم (Drive)</span>
-                        <i class="fa-solid fa-folder-open"></i>
-                    </a>
-                </div>
-            </div>
-
-            <!-- قسم الإبداع والمواهب -->
-            <div class="card">
-                <h3>قسم الإبداع والمواهب</h3>
-                <p>اكتشاف المواهب الإبداعية وتنميتها وتوفير الفرص لاستثمارها.</p>
-                <div class="card-links">
-                    <a href="#" target="_blank" class="link-btn">
-                        <span>مجلد ملفات القسم (Drive)</span>
-                        <i class="fa-solid fa-folder-open"></i>
-                    </a>
-                </div>
-            </div>
-
-            <!-- الدعم الفني -->
-            <div class="card">
-                <h3>الدعم الفني والسجلات</h3>
-                <p>متابعة تذاكر الاستفسارات والبلاغات الفنية للمكتب.</p>
-                <div class="card-links">
-                    <a href="https://docs.google.com/spreadsheets/d/1STEyNS4Xz0_Ilf-ZmNsnggnwfnWQrOfS0g0pHFuS9s" target="_blank" class="link-btn">
-                        <span>سجل الدعم الفني (Support)</span>
-                        <i class="fa-solid fa-headset"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- نافذة تسجيل الدخول -->
-    <div class="modal" id="loginModal">
-        <div class="modal-content">
-            <h2>تسجيل دخول الأعضاء</h2>
+        <!-- واجهة الزوار والطلاب -->
+        <div id="visitorPortalView" class="section-view">
+            <h2>🎓 بوابة الزوار والطلاب</h2>
+            <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 20px;">قدم طلبك أو استفسارك، واحصل على رقم متابعة فوري.</p>
+            
             <div class="form-group">
-                <label>معرف العضو (Member ID)</label>
-                <input type="text" id="memberId" placeholder="مثال: MGR-1, COO, VP-1">
+                <label>الاسم الكامل</label>
+                <input type="text" id="visitorName" placeholder="أدخل اسمك الكريم...">
+            </div>
+            <div class="form-group">
+                <label>البريد الإلكتروني</label>
+                <input type="email" id="visitorEmail" placeholder="name@stu.kau.edu.sa">
+            </div>
+            <div class="form-group">
+                <label>نوع الطلب</label>
+                <select id="visitorType">
+                    <option value="استفسار سلوكي">استفسار سلوكي</option>
+                    <option value="إرشاد مهني">إرشاد مهني</option>
+                    <option value="شكوى أو مقترح">شكوى أو مقترح</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>تفاصيل الطلب</label>
+                <textarea id="visitorDetails" rows="3" placeholder="اكتب تفاصيل طلبك هنا..."></textarea>
+            </div>
+
+            <button class="card-btn" onclick="submitVisitorRequest()">إرسال الطلب الآن</button>
+            <button class="back-btn" onclick="goHome()">الرجوع للرئيسية</button>
+        </div>
+
+        <!-- واجهة تسجيل دخول أعضاء المكتب -->
+        <div id="staffLoginView" class="section-view">
+            <h2>🔐 تسجيل دخول أعضاء المكتب</h2>
+            <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 20px;">أدخل الرقم التعريفي الخاص بك (ID) وكلمة المرور.</p>
+            
+            <div class="form-group">
+                <label>الرقم التعريفي (ID)</label>
+                <input type="text" id="staffId" placeholder="مثال: MGR-1 أو COO">
             </div>
             <div class="form-group">
                 <label>كلمة المرور</label>
-                <input type="password" id="password" placeholder="أدخل كلمة المرور الخاصة بك">
+                <input type="password" id="staffPass" placeholder="••••••••">
             </div>
-            <button class="btn-action" style="width: 100%; padding: 10px;" onclick="handleLogin()">دخول النظام</button>
-            <button class="close-modal" onclick="closeLogin()">إلغاء</button>
+
+            <button class="card-btn" onclick="performStaffLogin()">تسجيل الدخول</button>
+            <button class="back-btn" onclick="goHome()">الرجوع للرئيسية</button>
         </div>
     </div>
 
-    <!-- التذييل -->
-    <footer>
-        <p>جميع الحقوق محفوظة © 2026 - مكتب التوجيه السلوكي والمهني | كلية العلوم - جامعة الملك عبد العزيز</p>
-    </footer>
+    <!-- لوحة تحكم أعضاء المكتب -->
+    <div class="dashboard-container" id="dashboardView">
+        <header class="dash-header">
+            <div>
+                <h1 id="welcomeText" style="font-size: 18px;">مرحباً بك</h1>
+                <p id="userDept" style="font-size:0.8rem; opacity:0.9; margin-top: 2px;"></p>
+            </div>
+            <div class="header-btns">
+                <div class="clock-box" id="liveClock">--:--:--</div>
+                <button class="btn-header" onclick="manualRefreshData()">🔄 تحديث</button>
+                <button class="btn-header" onclick="toggleDarkMode()" id="darkModeBtn">🌙 المظهر</button>
+                <button class="btn-header" onclick="handleLogout()">خروج</button>
+            </div>
+        </header>
+
+        <div class="master-nav">
+            <button class="master-nav-btn active" onclick="switchView('viewProfile', this)">👤 اللوحة الشخصية</button>
+            <button class="master-nav-btn" onclick="switchView('viewWork', this)">💼 المهام المسندة</button>
+            <button class="master-nav-btn" onclick="switchView('viewHierarchy', this)">🏛️ الهيكل والسجلات</button>
+        </div>
+
+        <!-- اللوحة الشخصية -->
+        <div class="view-section active" id="viewProfile">
+            <div class="stats-grid">
+                <div class="stat-card"><span>إجمالي المهام</span><p id="statTotalTasks">0</p></div>
+                <div class="stat-card"><span>المهام المكتملة</span><p id="statCompletedTasks">0</p></div>
+                <div class="stat-card"><span>نسبة الإنجاز</span><p id="statProgress">0%</p></div>
+            </div>
+            <div class="profile-card">
+                <h3 style="color: var(--primary); margin-bottom: 10px;">البيانات والنبذة الوظيفية</h3>
+                <div class="profile-grid">
+                    <div class="profile-item"><span>المسمى الوظيفي:</span><p id="jobTitle">-</p></div>
+                    <div class="profile-item"><span>البريد الإلكتروني:</span><p id="userEmail">-</p></div>
+                    <div class="profile-item" style="grid-column: 1 / -1;"><span>الوصف والمسؤوليات:</span><p id="jobDescText">-</p></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- المهام المسندة -->
+        <div class="view-section" id="viewWork">
+            <div class="profile-card">
+                <h3 style="color: var(--primary); margin-bottom: 10px;">قائمة المهام والعمل التشغيلي</h3>
+                <div id="tasksLoader" class="loader">جاري التحميل...</div>
+                <table class="data-table" id="tasksTable" style="display:none;">
+                    <thead><tr><th>رقم المهمة</th><th>العنوان</th><th>الحالة</th><th>التفاصيل</th><th>تاريخ الاستحقاق</th></tr></thead>
+                    <tbody id="tasksBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- الهيكل التنظيمي والروابط -->
+        <div class="view-section" id="viewHierarchy">
+            <div class="profile-card">
+                <h3 style="color: var(--primary); margin-bottom: 15px;">الهيكل التنظيمي وروابط العمل</h3>
+                <div class="profile-grid">
+                    <div class="profile-item">
+                        <span>القيادة العليا:</span>
+                        <p>مدير المكتب ونائب مدير المكتب</p>
+                    </div>
+                    <div class="profile-item">
+                        <span>الإدارة التنفيذية والعمليات:</span>
+                        <p>إدارة العمليات، التسجيل، والضبط التنظيمي</p>
+                    </div>
+                    <div class="profile-item">
+                        <span>الأقسام التخصصية:</span>
+                        <p>قسم البرامج، الخدمة المجتمعية، والإبداع والمواهب</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
-        // تبديل الوضع الليلي / الفاتح
-        function toggleTheme() {
-            const body = document.body;
-            if (body.getAttribute('data-theme') === 'light') {
-                body.setAttribute('data-theme', 'dark');
-            } else {
-                body.setAttribute('data-theme', 'light');
+        const API_URL = "https://script.google.com/macros/s/AKfycbxv29-I3N3RPGaRN3LksqQrkIG8sQcRPSqoamC3GUeOxyrWHFtxjRAmgKdqjkosJZAoDQ/exec";
+        let currentUser = null;
+        let globalTasksCache = [];
+
+        // التحقق من الوضع الليلي المحفوظ
+        if (localStorage.getItem('darkMode') === 'true') { 
+            document.body.classList.add('dark-mode'); 
+        }
+
+        // استرجاع الجلسة السابقة إن وجدت
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedUser = localStorage.getItem('currentUser');
+            if(savedUser) {
+                try {
+                    currentUser = JSON.parse(savedUser);
+                    renderDashboard();
+                } catch(e) {
+                    localStorage.removeItem('currentUser');
+                }
             }
+        });
+
+        setInterval(() => {
+            const now = new Date();
+            const clockBox = document.getElementById('liveClock');
+            if (clockBox) clockBox.innerText = now.toLocaleTimeString('ar-SA');
+        }, 1000);
+
+        function showToast(message) {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerText = message;
+            container.appendChild(toast);
+            setTimeout(() => { toast.remove(); }, 3000);
         }
 
-        // نافذة تسجيل الدخول
-        function openLogin() {
-            document.getElementById('loginModal').style.display = 'flex';
+        function fetchJSONP(url, callback) {
+            const cbName = 'cb_' + Math.round(100000 * Math.random());
+            window[cbName] = function(data) { 
+                delete window[cbName]; 
+                if(script.parentNode) script.parentNode.removeChild(script); 
+                callback(data); 
+            };
+            const script = document.createElement('script');
+            script.src = url + (url.indexOf('?') >= 0 ? '&' : '?') + 'callback=' + cbName;
+            script.onerror = () => { 
+                delete window[cbName]; 
+                if(script.parentNode) script.parentNode.removeChild(script); 
+                showToast("خطأ في الاتصال بالخادم"); 
+            };
+            document.body.appendChild(script);
         }
 
-        function closeLogin() {
-            document.getElementById('loginModal').style.display = 'none';
+        function openVisitorPortal() {
+            document.getElementById('homeMainView').style.display = 'none';
+            document.getElementById('visitorPortalView').style.display = 'block';
         }
 
-        function handleLogin() {
-            const id = document.getElementById('memberId').value;
-            if(id) {
-                alert('مرحباً بك يا مهند! جاري التحقق من الصلاحيات...');
-                closeLogin();
-            } else {
-                alert('الرجاء إدخال معرف العضو.');
+        function openStaffLogin() {
+            document.getElementById('homeMainView').style.display = 'none';
+            document.getElementById('staffLoginView').style.display = 'block';
+        }
+
+        function goHome() {
+            document.getElementById('visitorPortalView').style.display = 'none';
+            document.getElementById('staffLoginView').style.display = 'none';
+            document.getElementById('homeMainView').style.display = 'block';
+        }
+
+        function openSupportModal() {
+            alert("أوقات الدعم المباشر والتقني: من 1:00 ظهراً إلى 3:00 عصراً.");
+        }
+
+        function submitVisitorRequest() {
+            const name = document.getElementById('visitorName').value.trim();
+            const email = document.getElementById('visitorEmail').value.trim();
+            const type = document.getElementById('visitorType').value;
+            const details = document.getElementById('visitorDetails').value.trim();
+
+            if(!name || !email || !details) {
+                showToast("الرجاء تعبئة كافة الحقول المطلوبة");
+                return;
             }
+
+            const fullDetails = `[البريد: ${email}] | ${details}`;
+            const url = `${API_URL}?action=submitRequest&memberId=${encodeURIComponent(name)}&type=${encodeURIComponent(type)}&details=${encodeURIComponent(fullDetails)}`;
+
+            showToast("جاري إرسال الطلب...");
+            fetchJSONP(url, function(res) {
+                if(res.status === "success") {
+                    alert("تم إرسال طلبك بنجاح!\n\nرقم المتابعة الخاص بك: " + res.requestId);
+                    document.getElementById('visitorName').value = '';
+                    document.getElementById('visitorEmail').value = '';
+                    document.getElementById('visitorDetails').value = '';
+                    goHome();
+                } else {
+                    showToast("حدث خطأ أثناء الإرسال.");
+                }
+            });
+        }
+
+        function performStaffLogin() {
+            const memberId = document.getElementById('staffId').value.trim();
+            const password = document.getElementById('staffPass').value.trim();
+
+            if(!memberId) {
+                showToast("الرجاء إدخال الرقم التعريفي");
+                return;
+            }
+
+            const url = `${API_URL}?action=login&memberId=${encodeURIComponent(memberId)}&password=${encodeURIComponent(password)}`;
+            showToast("جاري التحقق من الهوية...");
+
+            fetchJSONP(url, function(res) {
+                if(res.status === "success") {
+                    currentUser = res.user;
+                    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                    renderDashboard();
+                    showToast("تم تسجيل الدخول بنجاح");
+                } else {
+                    alert(res.message || "الرقم التعريفي أو كلمة المرور غير صحيحة");
+                }
+            });
+        }
+
+        function renderDashboard() {
+            document.getElementById('portalWrapper').style.display = 'none';
+            document.getElementById('dashboardView').style.display = 'block';
+
+            const fullName = currentUser['Full_Name'] || currentUser['الاسم'] || 'عضو الفريق';
+            const role = currentUser['Job_Title'] || currentUser['المسمى الوظيفي'] || '';
+            const dept = currentUser['Department'] || currentUser['القسم'] || '';
+
+            document.getElementById('welcomeText').innerText = `مرحباً بك، ${fullName}`;
+            document.getElementById('userDept').innerText = `المسمى: ${role} | القسم: ${dept}`;
+
+            document.getElementById('jobTitle').innerText = role;
+            document.getElementById('userEmail').innerText = currentUser['Email'] || currentUser['البريد الالكتروني'] || '-';
+            document.getElementById('jobDescText').innerText = currentUser['Job_Description'] || currentUser['الوصف الوظيفي'] || 'الالتزام بمهام القسم والإسهام في تحسين العمليات الإرشادية.';
+
+            loadUserTasks();
+        }
+
+        function loadUserTasks() {
+            const memberId = currentUser['Member ID'] || currentUser['رقم العضوية'] || '';
+            const url = `${API_URL}?action=getData&sheet=Tasks`;
+            fetchJSONP(url, function(res) {
+                if(res.status === "success" && res.data) {
+                    globalTasksCache = res.data.filter(t => String(t['Member ID'] || t['رقم العضوية'] || '').trim().toLowerCase() === String(memberId).trim().toLowerCase());
+                    updateTasksStatsAndTable();
+                }
+            });
+        }
+
+        function updateTasksStatsAndTable() {
+            const total = globalTasksCache.length;
+            const completed = globalTasksCache.filter(t => String(t['Status'] || t['الحالة'] || '').includes('مكتملة')).length;
+            const percent = total > 0 ? Math.round((completed / total) * 100) : 0;
+
+            document.getElementById('statTotalTasks').innerText = total;
+            document.getElementById('statCompletedTasks').innerText = completed;
+            document.getElementById('statProgress').innerText = percent + '%';
+
+            document.getElementById('tasksLoader').style.display = 'none';
+            const table = document.getElementById('tasksTable');
+            table.style.display = 'table';
+            
+            const tbody = document.getElementById('tasksBody');
+            tbody.innerHTML = '';
+
+            if(globalTasksCache.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: var(--text-muted);">لا توجد مهام مسندة حالياً.</td></tr>`;
+                return;
+            }
+
+            globalTasksCache.forEach(t => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${t['Task ID'] || t['رقم المهمة'] || '-'}</td>
+                    <td><b>${t['Task Name'] || t['عنوان المهمة'] || '-'}</b></td>
+                    <td><span class="badge ${String(t['Status']||'').includes('مكتملة')?'badge-success':'badge-warning'}">${t['Status'] || t['الحالة'] || 'قيد التنفيذ'}</span></td>
+                    <td>${t['Details'] || t['التفاصيل'] || '-'}</td>
+                    <td>${t['Due Date'] || t['التاريخ'] || '-'}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function switchView(viewId, btnElement) {
+            document.querySelectorAll('.view-section').forEach(sec => sec.classList.remove('active'));
+            document.getElementById(viewId).classList.add('active');
+            document.querySelectorAll('.master-nav-btn').forEach(btn => btn.classList.remove('active'));
+            if(btnElement) btnElement.classList.add('active');
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+        }
+
+        function handleLogout() {
+            localStorage.removeItem('currentUser');
+            location.reload();
+        }
+
+        function manualRefreshData() {
+            showToast("جاري التحديث...");
+            loadUserTasks();
         }
     </script>
 </body>
