@@ -110,7 +110,7 @@
   <!-- واجهة تقديم طلب / استفسار / اقتراح للزوار -->
   <div class="login-container" id="visitorSubmitView" style="display:none; max-width: 550px; text-align: right;">
     <h2 style="text-align: center; color: var(--primary-color);">🌐 بوابة الزوار والطلاب</h2>
-    <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:1rem; text-align: center;">قدم طلبك، استفسارك، أو مقترحك وسنقوم بمراجعته والرد عليه.</p>
+    <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:1rem; text-align: center;">قدم طلبك، استفسارك، أو مقترحك وسنرسل لك إيميل فوراً برقم المتابعة ورابط المراجعة.</p>
     
     <div class="form-group"><label>الاسم الكريم</label><input type="text" id="visitorName" placeholder="أدخل اسمك الكامل..."></div>
     <div class="form-group"><label>البريد الإلكتروني</label><input type="email" id="visitorEmail" placeholder="name@stu.kau.edu.sa"></div>
@@ -279,11 +279,11 @@
       </div>
     </div>
 
-    <!-- 3. استفسارات وطلبات الزوار المشتركة (لك ودكتورة مي) -->
+    <!-- 3. استفسارات وطلبات الزوار المشتركة (مهند & د. مي) مع تحويل د. سلطان والأقسام -->
     <div class="tab-content" id="visitorInquiriesTab">
       <div class="profile-card">
         <h3 style="color:var(--primary-color); margin-bottom:0.5rem;">🌐 صندوق استفسارات، طلبات واقتراحات الزوار المشترك (مهند & د. مي)</h3>
-        <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:1rem;">تستطيع أنت أو دكتورة مي الرد مباشرة أو تحويل الطلب للجهة المختصة، مع ظهور اسم من قام بالعمل لتفادي تكرار الخطوات.</p>
+        <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:1rem;">تستطيع أنت أو دكتورة مي الرد مباشرة أو تحويل الطلب للدكتور سلطان (MGR-1) أو للأقسام، مع توثيق اسم من قام بالعمل.</p>
         
         <div id="visitorInquiriesLoader" class="loader">جاري التحميل...</div>
         <div style="overflow-x: auto;">
@@ -380,7 +380,7 @@
   </div>
 
   <script>
-    const API_URL = "https://script.google.com/macros/s/AKfycbyLCMsGAHwX_o65inf6VozPFnVGpO2nYcsu_Qj2xbcwqnK0DbVQAzZfflHqzID_LOIOIA/exec";
+    const API_URL = "https://script.google.com/macros/s/AKfycbzhxgBVId6s7PsIB1rKQlUl_9MkDwH_xew_E9uM_i8VGNqM_8ZO9mY3sSLPU2LEVA3D6w/exec";
     let currentUser = null;
     let globalTasksCache = [];
     let globalMembersCache = [];
@@ -445,11 +445,11 @@
       const details = document.getElementById('visitorDetails').value.trim();
 
       if(!name || !email || !details) { showToast("يرجى تعبئة جميع الحقول"); return; }
-      showToast("جاري إرسال طلبك...");
+      showToast("جاري إرسال طلبك وإرسال إيميل التأكيد...");
       const res = await callAPI(`action=submitVisitorInquiry&name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&category=${encodeURIComponent(category)}&details=${encodeURIComponent(details)}`);
       
       if(res && res.status === "success") {
-        alert("✅ تم إرسال طلبك/استفسارك بنجاح!\n\nرقم المتابعة الخاص بك هو: " + res.inquiryId + "\n(يرجى الاحتفاظ برقم المتابعة لمتابعة الرد لاحقاً من الموقع).");
+        alert("✅ تم إرسال طلبك بنجاح!\n\n📧 تم إرسال بريد إلكتروني برقم المتابعة ورابط الموقع إلى بريدك.\n\nرقم المتابعة الخاص بك: " + res.inquiryId);
         document.getElementById('visitorName').value = '';
         document.getElementById('visitorEmail').value = '';
         document.getElementById('visitorDetails').value = '';
@@ -580,6 +580,7 @@
                   </select>
                   <select id="inqTransfer-${id}" style="padding:4px; font-size:0.8rem; flex:1;">
                     <option value="غير محول" ${transferredTo==='غير محول'?'selected':''}>بدون تحويل</option>
+                    <option value="الدكتور سلطان (MGR-1)" ${transferredTo.includes('سلطان')?'selected':''}>د. سلطان (MGR-1)</option>
                     <option value="قسم الإرشاد المهني" ${transferredTo.includes('مهني')?'selected':''}>الإرشاد المهني</option>
                     <option value="القسم الأكاديمي" ${transferredTo.includes('أكاديمي')?'selected':''}>القسم الأكاديمي</option>
                     <option value="شؤون الطلاب" ${transferredTo.includes('شؤون')?'selected':''}>شؤون الطلاب</option>
