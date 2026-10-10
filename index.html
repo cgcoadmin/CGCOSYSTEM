@@ -584,7 +584,8 @@
     }
 
     async function trackVisitorInquiry() {
-      const inquiryId = document.getElementById('trackInquiryId').value.trim();
+      const inquiryIdInput = document.getElementById('trackInquiryId');
+      const inquiryId = inquiryIdInput ? inquiryIdInput.value.trim() : "";
       if(!inquiryId) { showToast("أدخل رقم المتابعة"); return; }
       
       const res = await callAPI(`action=trackVisitorInquiry&inquiryId=${encodeURIComponent(inquiryId)}`);
@@ -602,14 +603,24 @@
     }
 
     async function sendVisitorChatMessage() {
-      const msg = document.getElementById('visitorReplyInput').value.trim();
-      if(!msg) { showToast("اكتب رسالتك"); return; }
+      const msgInput = document.getElementById('visitorReplyInput');
+      const msg = msgInput ? msgInput.value.trim() : "";
       
-      const res = await callAPI(`action=visitorAddReply&inquiryId=${encodeURIComponent(currentActiveTrackId)}&message=${encodeURIComponent(msg)}`);
+      // التقاط رقم المتابعة تلقائياً إذا لم يثبت
+      const inqIdInput = document.getElementById('trackInquiryId');
+      const activeInqId = currentActiveTrackId || (inqIdInput ? inqIdInput.value.trim() : "");
+
+      if(!msg) { showToast("اكتب رسالتك أولاً"); return; }
+      if(!activeInqId) { showToast("يرجى إدخال رقم المتابعة أولاً"); return; }
+      
+      showToast("جاري إرسال الرسالة...");
+      const res = await callAPI(`action=visitorAddReply&inquiryId=${encodeURIComponent(activeInqId)}&message=${encodeURIComponent(msg)}`);
       if(res && res.status === "success") {
-        showToast("✅ تم إرسال الرسالة");
-        document.getElementById('visitorReplyInput').value = '';
+        showToast("✅ تم إرسال الرسالة بنجاح");
+        if(msgInput) msgInput.value = '';
         trackVisitorInquiry();
+      } else {
+        alert(res ? res.message : "تعذر إرسال الرسالة");
       }
     }
 
