@@ -418,7 +418,7 @@
     let currentUser = null;
     let globalTasksCache = [];
     let globalMembersCache = [];
-    let globalInquiriesCache = []; // حفظ كافية الاستفسارات بالذاكرة لتفادي أخطاء التكبير
+    let globalInquiriesCache = [];
     let currentStatusFilter = 'all';
     let currentActiveTrackId = '';
 
@@ -526,7 +526,6 @@
       }
     }
 
-    // فتح شاشة التكبير بقراءة بيانات الشات المباشرة من الذاكرة بالـ Inquiry ID
     function openExpandedChatByInquiryId(inquiryId) {
       const target = globalInquiriesCache.find(item => {
         const itemId = item['Inquiry ID'] || item[0];
@@ -644,8 +643,26 @@
       document.getElementById('visitorInquiriesLoader').style.display = "none";
 
       if(res && res.status === "success" && res.data) {
-        globalInquiriesCache = res.data; // تخزين البيانات عالمياً لمنع أخطاء التكبير
-        const active = res.data.filter(i => (i['Status'] || i[6]) !== "مغلقة / منجزة");
+        globalInquiriesCache = res.data;
+        
+        const mName = String(currentUser['Full Name'] || currentUser['الاسم'] || '').trim();
+        const mId = String(currentUser['Member ID'] || currentUser['رقم العضوية'] || '').trim().toUpperCase();
+        
+        // شرط الصلاحية القيادية: د. سلطان يرى المحولة إليه فقط، بينما مهند ود. مي يريان جميع الطلبات النشطة
+        const isDrSultan = mName.includes('سلطان') || mId === 'MGR-1';
+
+        const active = res.data.filter(i => {
+          const status = String(i['Status'] || i[6] || '');
+          const transferredTo = String(i['Transferred To'] || i[8] || '');
+          
+          if (status === "مغلقة / منجزة") return false;
+          
+          if (isDrSultan) {
+            return status.includes("سلطان") || transferredTo.includes("سلطان");
+          }
+          return true; // إظهار الكل لمهند مجرشي ود. مي
+        });
+
         const closed = res.data.filter(i => (i['Status'] || i[6]) === "مغلقة / منجزة");
 
         // جدول النقاشات النشطة
@@ -675,11 +692,12 @@
               <td>
                 <input type="text" id="inqReply-${id}" value="${reply}" placeholder="اكتب ردك..." style="width:100%; margin-bottom:5px;">
                 <button class="btn" style="padding:5px; font-size:0.85rem;" onclick="saveVisitorReplyAdmin('${id}')">إرسال الرد</button>
+                <button class="btn" style="padding:5px; font-size:0.85rem; background:#0284c7; margin-top:4px;" onclick="transferInquiryToSultan('${id}')">➡️ تحويل لدكتور سلطان</button>
                 <button class="btn" style="padding:5px; font-size:0.85rem; background:var(--danger-color); margin-top:4px;" onclick="closeInquiryAdmin('${id}')">📁 إغلاق لنقل للأرشيف</button>
               </td>
             </tr>
           `;
-        }).join('');
+        }).join('') || `<tr><td colspan="4" style="text-align:center;">لا توجد محادثات نشطة موجهة حالياً</td></tr>`;
 
         // جدول النقاشات المنجزة (الأرشيف)
         document.getElementById('closedInquiriesBody').innerHTML = closed.map((i) => {
@@ -705,6 +723,17 @@
       const res = await callAPI(`action=updateVisitorReply&inqId=${encodeURIComponent(inqId)}&reply=${encodeURIComponent(reply)}&handledBy=${encodeURIComponent(handledBy)}`);
       if(res && res.status === "success") {
         showToast("✅ تم إرسال الرد وتحديث الشات");
+        loadVisitorInquiriesAdmin();
+      }
+    }
+
+    async function transferInquiryToSultan(inqId) {
+      if(!confirm("هل ترغب في تحويل الطلب رسمياً إلى سعادة د. سلطان سنبل؟")) return;
+      const handledBy = currentUser['Full Name'] || currentUser['الاسم'] || currentUser['Member ID'];
+
+      const res = await callAPI(`action=updateVisitorReply&inqId=${encodeURIComponent(inqId)}&transferredTo=${encodeURIComponent('د. سلطان سنبل')}&handledBy=${encodeURIComponent(handledBy)}`);
+      if(res && res.status === "success") {
+        showToast("➡️ تم تحويل الطلب لدكتور سلطان بنجاح");
         loadVisitorInquiriesAdmin();
       }
     }
