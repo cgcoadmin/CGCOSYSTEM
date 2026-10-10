@@ -495,48 +495,71 @@
       }
     }
 
-    function renderChatBubbles(chatLogJson, containerId) {
-      const container = document.getElementById(containerId);
-      if(!container) return;
+    // دالة تحليل الرسائل الذكية لمنع ظهور "لا توجد رسائل"
+    function parseChatMessages(rawLog) {
+      if (!rawLog) return [];
+      if (Array.isArray(rawLog)) return rawLog;
+      if (typeof rawLog === 'object') return [rawLog];
+
+      // محاولة تحليل JSON القياسي
       try {
-        let messages = [];
-        if (typeof chatLogJson === 'string') {
-          messages = JSON.parse(chatLogJson || "[]");
-        } else if (Array.isArray(chatLogJson)) {
-          messages = chatLogJson;
-        }
-        
-        if(messages.length === 0) {
-          container.innerHTML = '<p style="text-align:center; color:var(--text-muted); font-size:0.85rem; margin:auto;">لا توجد رسائل...</p>';
-          return;
-        }
-        container.innerHTML = messages.map(m => {
-          const isVisitor = m.type === 'visitor';
-          return `
-            <div class="chat-bubble ${isVisitor ? 'visitor' : 'admin'}">
-              <div class="sender-name">${m.sender || (isVisitor ? 'الزائر' : 'الإدارة')}</div>
-              <div>${m.text || ''}</div>
-              <span class="chat-time">${m.time || ''}</span>
-            </div>
-          `;
-        }).join('');
-        container.scrollTop = container.scrollHeight;
-      } catch(e) {
-        container.innerHTML = '<div style="white-space:pre-wrap; font-size:0.8rem;">' + chatLogJson + '</div>';
+        const parsed = JSON.parse(rawLog);
+        if (Array.isArray(parsed)) return parsed;
+        if (typeof parsed === 'object') return [parsed];
+      } catch (e) {}
+
+      // إذا كان الشات مخزناً كنص عادي مفصول بأسطر
+      const lines = String(rawLog).split('\n').filter(l => l.trim().length > 0);
+      if (lines.length > 0) {
+        return lines.map(line => {
+          if (line.includes(':')) {
+            const parts = line.split(':');
+            return { sender: parts[0].trim(), text: parts.slice(1).join(':').trim(), type: 'visitor', time: '' };
+          }
+          return { sender: 'الرسالة', text: line.trim(), type: 'visitor', time: '' };
+        });
       }
+
+      return [];
     }
 
+    function renderChatBubbles(chatLogRaw, containerId) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+
+      const messages = parseChatMessages(chatLogRaw);
+
+      if (messages.length === 0) {
+        container.innerHTML = '<p style="text-align:center; color:var(--text-muted); font-size:0.85rem; margin:auto;">لا توجد رسائل...</p>';
+        return;
+      }
+
+      container.innerHTML = messages.map(m => {
+        const sender = m.sender || m.Name || m['الاسم'] || '';
+        const isVisitor = m.type === 'visitor' || !sender.includes('د.') && !sender.includes('مكتب') && !sender.includes('مهند');
+        return `
+          <div class="chat-bubble ${isVisitor ? 'visitor' : 'admin'}">
+            <div class="sender-name">${sender || (isVisitor ? 'الزائر' : 'الإدارة')}</div>
+            <div>${m.text || m.message || m['الرسالة'] || ''}</div>
+            <span class="chat-time">${m.time || m.Date || ''}</span>
+          </div>
+        `;
+      }).join('');
+      container.scrollTop = container.scrollHeight;
+    }
+
+    // فتح شاشة التكبير بقراءة بيانات الشات المباشرة من الذاكرة بالـ Inquiry ID
     function openExpandedChatByInquiryId(inquiryId) {
       const target = globalInquiriesCache.find(item => {
-        const itemId = item['Inquiry ID'] || item[0];
+        const itemId = item['Inquiry ID'] || item['رقم المتابعة'] || item[0];
         return String(itemId).trim().toUpperCase() === String(inquiryId).trim().toUpperCase();
       });
 
-      if(target) {
-        const name = target['Name'] || target[1] || 'الزائر';
-        const chatLogJson = target['Chat Log'] || target[10] || "[]";
+      if (target) {
+        const name = target['Name'] || target['الاسم'] || target[1] || 'الزائر';
+        const chatLogRaw = target['Chat Log'] || target['سجل المحادثة'] || target[10] || target[7] || "[]";
         document.getElementById('modalChatTitle').innerText = `محادثة: ${name} (${inquiryId})`;
-        renderChatBubbles(chatLogJson, 'modalChatLogContainer');
+        renderChatBubbles(chatLogRaw, 'modalChatLogContainer');
         document.getElementById('expandedChatModal').style.display = 'flex';
       } else {
         showToast("تعذر جلب المحادثة");
@@ -555,8 +578,8 @@
       const container = document.getElementById('trackResultContainer');
       if(res && res.status === "success") {
         const d = res.data;
-        currentActiveTrackId = d.id;
-        document.getElementById('resStatus').innerText = d.status;
+        currentActiveTrackId = d.id || inquiryId;
+        document.getElementById('resStatus').innerText = d.status || 'نشط';
         renderChatBubbles(d.chatLog, 'resChatLogContainer');
         container.style.display = 'block';
       } else {
@@ -648,34 +671,40 @@
         const mName = String(currentUser['Full Name'] || currentUser['الاسم'] || '').trim();
         const mId = String(currentUser['Member ID'] || currentUser['رقم العضوية'] || '').trim().toUpperCase();
         
-        // شرط الصلاحية القيادية: د. سلطان يرى المحولة إليه فقط، بينما مهند ود. مي يريان جميع الطلبات النشطة
+        // التحقق الذكي من شخصية د. سلطان (سواء دخل برقم MGR-1 أو باسمه)
         const isDrSultan = mName.includes('سلطان') || mId === 'MGR-1';
 
         const active = res.data.filter(i => {
-          const status = String(i['Status'] || i[6] || '');
-          const transferredTo = String(i['Transferred To'] || i[8] || '');
+          const status = String(i['Status'] || i['الحالة'] || i[6] || '');
+          const transferredTo = String(i['Transferred To'] || i['المحول إليه'] || i[8] || '');
           
-          if (status === "مغلقة / منجزة") return false;
+          if (status.includes("مغلقة") || status.includes("منجزة")) return false;
           
+          // إذا كان المستخدم د. سلطان: تظهر فقط الطلبات التي تم تحويلها إليه
           if (isDrSultan) {
             return status.includes("سلطان") || transferredTo.includes("سلطان");
           }
-          return true; // إظهار الكل لمهند مجرشي ود. مي
+          
+          // مهند مجرشي ود. مي تظهر لديهما جميع الطلبات النشطة
+          return true;
         });
 
-        const closed = res.data.filter(i => (i['Status'] || i[6]) === "مغلقة / منجزة");
+        const closed = res.data.filter(i => {
+          const status = String(i['Status'] || i['الحالة'] || i[6] || '');
+          return status.includes("مغلقة") || status.includes("منجزة");
+        });
 
         // جدول النقاشات النشطة
         document.getElementById('visitorInquiriesTable').style.display = "table";
         document.getElementById('visitorInquiriesBody').innerHTML = active.map((i, index) => {
-          const id = i['Inquiry ID'] || i[0];
-          const name = i['Name'] || i[1];
-          const details = i['Details'] || i[4];
-          const reply = i['Reply'] || i[7] || '';
-          const chatLogJson = i['Chat Log'] || i[10] || '[]';
+          const id = i['Inquiry ID'] || i['رقم المتابعة'] || i[0];
+          const name = i['Name'] || i['الاسم'] || i[1];
+          const details = i['Details'] || i['التفاصيل'] || i[4];
+          const reply = i['Reply'] || i['الرد'] || i[7] || '';
+          const chatLogRaw = i['Chat Log'] || i['سجل المحادثة'] || i[10] || i[7] || '[]';
           const chatContainerId = `adminChatBox-${index}`;
 
-          setTimeout(() => renderChatBubbles(chatLogJson, chatContainerId), 100);
+          setTimeout(() => renderChatBubbles(chatLogRaw, chatContainerId), 100);
 
           return `
             <tr>
@@ -701,15 +730,15 @@
 
         // جدول النقاشات المنجزة (الأرشيف)
         document.getElementById('closedInquiriesBody').innerHTML = closed.map((i) => {
-          const id = i['Inquiry ID'] || i[0];
-          const name = i['Name'] || i[1];
+          const id = i['Inquiry ID'] || i['رقم المتابعة'] || i[0];
+          const name = i['Name'] || i['الاسم'] || i[1];
 
           return `
             <tr>
               <td><strong>${id}</strong><br>${name}</td>
-              <td>${i['Details'] || i[4]}<br><small>${i['Date'] || i[5]}</small></td>
+              <td>${i['Details'] || i['التفاصيل'] || i[4]}<br><small>${i['Date'] || i['التاريخ'] || i[5]}</small></td>
               <td><button class="btn" style="padding:4px 8px; width:auto;" onclick="openExpandedChatByInquiryId('${id}')">عرض السجل 💬</button></td>
-              <td><span class="badge badge-closed">${i['Handled By'] || i[9] || 'المكتب'}</span></td>
+              <td><span class="badge badge-closed">${i['Handled By'] || i['تم بواسطة'] || i[9] || 'المكتب'}</span></td>
             </tr>
           `;
         }).join('') || `<tr><td colspan="4" style="text-align:center;">لا توجد محادثات منجزة حالياً</td></tr>`;
