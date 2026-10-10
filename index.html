@@ -414,7 +414,7 @@
   </div>
 
   <script>
-    // رابط الـ API الجديد المحدث
+    // رابط الـ API المحدث
     const API_URL = "https://script.google.com/macros/s/AKfycbwLKK_ocd7fX7xCNgZl-Q_Feqi3h042DfII0nqzu_NfBw0-o61BcLzxnakHnEIY-QjEJA/exec";
     let currentUser = null;
     let globalTasksCache = [];
@@ -697,7 +697,29 @@
           const chatLogRaw = i['Chat Log'] || i['سجل المحادثة'] || i[10] || i[7] || '[]';
           const chatContainerId = `adminChatBox-${index}`;
 
+          // تحديد المسؤول الحقيقي للحوكمة لمنع التداخل
+          const handledBy = String(i['Handled By'] || i['تم بواسطة'] || i[9] || '').trim();
+          const transferredTo = String(i['Transferred To'] || i['المحول إليه'] || i[8] || '').trim();
+          const effectiveOwner = transferredTo !== "" ? transferredTo : handledBy;
+
+          // فحص هل المحادثة ممسوكة من موظف آخر
+          const isLockedByOther = effectiveOwner !== "" && !effectiveOwner.includes(mName) && !mName.includes(effectiveOwner);
+
           setTimeout(() => renderChatBubbles(chatLogRaw, chatContainerId), 100);
+
+          let replyControlsHtml = '';
+          if (isLockedByOther) {
+            replyControlsHtml = `
+              <div style="background:#fee2e2; color:#991b1b; padding:8px; border-radius:6px; font-size:0.8rem; font-weight:bold; margin-bottom:6px; text-align:center;">
+                🔒 تدار بواسطة (${effectiveOwner}). متاح للاطلاع والتحويل فقط.
+              </div>
+            `;
+          } else {
+            replyControlsHtml = `
+              <input type="text" id="inqReply-${id}" value="${reply}" placeholder="اكتب ردك..." style="width:100%; margin-bottom:5px;">
+              <button class="btn" style="padding:5px; font-size:0.85rem;" onclick="saveVisitorReplyAdmin('${id}')">إرسال الرد</button>
+            `;
+          }
 
           return `
             <tr>
@@ -712,9 +734,9 @@
                 </div>
               </td>
               <td>
-                <input type="text" id="inqReply-${id}" value="${reply}" placeholder="اكتب ردك..." style="width:100%; margin-bottom:5px;">
-                <button class="btn" style="padding:5px; font-size:0.85rem;" onclick="saveVisitorReplyAdmin('${id}')">إرسال الرد</button>
+                ${replyControlsHtml}
                 <button class="btn" style="padding:5px; font-size:0.85rem; background:#0284c7; margin-top:4px;" onclick="transferInquiryToSultan('${id}')">➡️ تحويل لدكتور سلطان</button>
+                <button class="btn" style="padding:5px; font-size:0.85rem; background:var(--primary-color); margin-top:4px;" onclick="transferInquiryToMay('${id}')">➡️ تحويل لدكتورة مي</button>
                 <button class="btn" style="padding:5px; font-size:0.85rem; background:var(--danger-color); margin-top:4px;" onclick="closeInquiryAdmin('${id}')">📁 إغلاق لنقل للأرشيف</button>
               </td>
             </tr>
@@ -738,13 +760,17 @@
     }
 
     async function saveVisitorReplyAdmin(inqId) {
-      const reply = document.getElementById(`inqReply-${inqId}`).value.trim();
+      const replyInput = document.getElementById(`inqReply-${inqId}`);
+      if (!replyInput) return;
+      const reply = replyInput.value.trim();
       const handledBy = currentUser['Full Name'] || currentUser['الاسم'] || currentUser['Member ID'];
 
       const res = await callAPI(`action=updateVisitorReply&inqId=${encodeURIComponent(inqId)}&reply=${encodeURIComponent(reply)}&handledBy=${encodeURIComponent(handledBy)}`);
       if(res && res.status === "success") {
         showToast("✅ تم إرسال الرد وتحديث الشات");
         loadVisitorInquiriesAdmin();
+      } else {
+        alert(res ? res.message : "حدث خطأ أثناء حفظ الرد");
       }
     }
 
@@ -755,6 +781,17 @@
       const res = await callAPI(`action=updateVisitorReply&inqId=${encodeURIComponent(inqId)}&transferredTo=${encodeURIComponent('د. سلطان سنبل')}&handledBy=${encodeURIComponent(handledBy)}`);
       if(res && res.status === "success") {
         showToast("➡️ تم تحويل الطلب لدكتور سلطان بنجاح");
+        loadVisitorInquiriesAdmin();
+      }
+    }
+
+    async function transferInquiryToMay(inqId) {
+      if(!confirm("هل ترغب في تحويل الطلب رسمياً إلى دكتورة مي القرشي؟")) return;
+      const handledBy = currentUser['Full Name'] || currentUser['الاسم'] || currentUser['Member ID'];
+
+      const res = await callAPI(`action=updateVisitorReply&inqId=${encodeURIComponent(inqId)}&transferredTo=${encodeURIComponent('د. مي القرشي')}&handledBy=${encodeURIComponent(handledBy)}`);
+      if(res && res.status === "success") {
+        showToast("➡️ تم تحويل الطلب لدكتورة مي بنجاح");
         loadVisitorInquiriesAdmin();
       }
     }
