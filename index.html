@@ -697,27 +697,42 @@
           const chatLogRaw = i['Chat Log'] || i['سجل المحادثة'] || i[10] || i[7] || '[]';
           const chatContainerId = `adminChatBox-${index}`;
 
-          // تحديد المسؤول الحقيقي للحوكمة لمنع التداخل
+          // حوكمة المسؤول الفعلي
           const handledBy = String(i['Handled By'] || i['تم بواسطة'] || i[9] || '').trim();
           const transferredTo = String(i['Transferred To'] || i['المحول إليه'] || i[8] || '').trim();
           const effectiveOwner = transferredTo !== "" ? transferredTo : handledBy;
 
-          // فحص هل المحادثة ممسوكة من موظف آخر
           const isLockedByOther = effectiveOwner !== "" && !effectiveOwner.includes(mName) && !mName.includes(effectiveOwner);
 
           setTimeout(() => renderChatBubbles(chatLogRaw, chatContainerId), 100);
 
           let replyControlsHtml = '';
+          let actionButtonsHtml = '';
+
           if (isLockedByOther) {
+            // إذا كانت المحادثة مملوكة لموظف آخر: اقفل الرد وأخف أزرار الأرشيف والتحويل العكسي الخاطئ، واترك زر إتاحة التحويل لمن يمتلكها أو العكس
             replyControlsHtml = `
               <div style="background:#fee2e2; color:#991b1b; padding:8px; border-radius:6px; font-size:0.8rem; font-weight:bold; margin-bottom:6px; text-align:center;">
-                🔒 تدار بواسطة (${effectiveOwner}). متاح للاطلاع والتحويل فقط.
+                🔒 تدار بواسطة (${effectiveOwner}). متاح للاطلاع فقط.
               </div>
             `;
+            
+            // إذا كنت أنت لست المالك، أظهر فقط زر تحويلها لك أو لدكتور سلطان إذا لزم الأمر، لكن امنع إغلاقها من قبلك
+            actionButtonsHtml = `
+              <button class="btn" style="padding:5px; font-size:0.85rem; background:#0284c7; margin-top:4px;" onclick="transferInquiryToMe('${id}')">↩️ سحب و تحويل إليّ (مهند)</button>
+              <button class="btn" style="padding:5px; font-size:0.85rem; background:#0f766e; margin-top:4px;" onclick="transferInquiryToSultan('${id}')">➡️ تحويل لدكتور سلطان</button>
+            `;
           } else {
+            // إذا كنت أنت المسؤول عنها
             replyControlsHtml = `
               <input type="text" id="inqReply-${id}" value="${reply}" placeholder="اكتب ردك..." style="width:100%; margin-bottom:5px;">
               <button class="btn" style="padding:5px; font-size:0.85rem;" onclick="saveVisitorReplyAdmin('${id}')">إرسال الرد</button>
+            `;
+
+            actionButtonsHtml = `
+              <button class="btn" style="padding:5px; font-size:0.85rem; background:#0284c7; margin-top:4px;" onclick="transferInquiryToSultan('${id}')">➡️ تحويل لدكتور سلطان</button>
+              <button class="btn" style="padding:5px; font-size:0.85rem; background:#10b981; margin-top:4px;" onclick="transferInquiryToMay('${id}')">➡️ تحويل لدكتورة مي</button>
+              <button class="btn" style="padding:5px; font-size:0.85rem; background:var(--danger-color); margin-top:4px;" onclick="closeInquiryAdmin('${id}')">📁 إغلاق لنقل للأرشيف</button>
             `;
           }
 
@@ -735,9 +750,7 @@
               </td>
               <td>
                 ${replyControlsHtml}
-                <button class="btn" style="padding:5px; font-size:0.85rem; background:#0284c7; margin-top:4px;" onclick="transferInquiryToSultan('${id}')">➡️ تحويل لدكتور سلطان</button>
-                <button class="btn" style="padding:5px; font-size:0.85rem; background:var(--primary-color); margin-top:4px;" onclick="transferInquiryToMay('${id}')">➡️ تحويل لدكتورة مي</button>
-                <button class="btn" style="padding:5px; font-size:0.85rem; background:var(--danger-color); margin-top:4px;" onclick="closeInquiryAdmin('${id}')">📁 إغلاق لنقل للأرشيف</button>
+                ${actionButtonsHtml}
               </td>
             </tr>
           `;
@@ -792,6 +805,17 @@
       const res = await callAPI(`action=updateVisitorReply&inqId=${encodeURIComponent(inqId)}&transferredTo=${encodeURIComponent('د. مي القرشي')}&handledBy=${encodeURIComponent(handledBy)}`);
       if(res && res.status === "success") {
         showToast("➡️ تم تحويل الطلب لدكتورة مي بنجاح");
+        loadVisitorInquiriesAdmin();
+      }
+    }
+
+    async function transferInquiryToMe(inqId) {
+      const myName = currentUser['Full Name'] || currentUser['الاسم'] || 'مهند مجرشي';
+      if(!confirm(`هل ترغب في استلام وسحب المحادثة لتصبح تحت مسؤوليتك (${myName})؟`)) return;
+
+      const res = await callAPI(`action=updateVisitorReply&inqId=${encodeURIComponent(inqId)}&transferredTo=${encodeURIComponent(myName)}&handledBy=${encodeURIComponent(myName)}`);
+      if(res && res.status === "success") {
+        showToast("↩️ تم سحب وتحويل المحادثة لصالحك بنجاح");
         loadVisitorInquiriesAdmin();
       }
     }
@@ -956,7 +980,7 @@
       const details = document.getElementById('reqDetails').value.trim();
       if(!details) { showToast("أدخل التفاصيل"); return; }
       const res = await callAPI(`action=submitRequest&memberId=${encodeURIComponent(currentUser['Member ID']||currentUser['رقم العضوية'])}&type=${encodeURIComponent(type)}&details=${encodeURIComponent(details)}`);
-      if(res && res.status === "success") { showToast("✅ تم إرسال الطلب"); document.getElementById('reqDetails').value = ''; loadMyRequests(); }
+      if(res && res.status === "success") { showToast("✅ تم إرسال الطلب"); document.getElementById('reqDetails'].value = ''; loadMyRequests(); }
     }
 
     async function loadMyRequests() {
