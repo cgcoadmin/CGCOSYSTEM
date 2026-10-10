@@ -11,7 +11,6 @@
     :root {
       --primary-color: #0f766e;
       --secondary-color: #115e59;
-      --accent-color: #ccfbf1;
       --bg-color: #f8f9fa;
       --card-bg: #ffffff;
       --text-color: #1f2937;
@@ -419,6 +418,7 @@
     let currentUser = null;
     let globalTasksCache = [];
     let globalMembersCache = [];
+    let globalInquiriesCache = []; // حفظ كافية الاستفسارات بالذاكرة لتفادي أخطاء التكبير
     let currentStatusFilter = 'all';
     let currentActiveTrackId = '';
 
@@ -526,12 +526,22 @@
       }
     }
 
-    function openExpandedChat(storageKey, encodedName, inquiryId) {
-      const visitorName = decodeURIComponent(encodedName);
-      const chatData = window[storageKey] || "[]";
-      document.getElementById('modalChatTitle').innerText = `محادثة: ${visitorName} (${inquiryId})`;
-      renderChatBubbles(chatData, 'modalChatLogContainer');
-      document.getElementById('expandedChatModal').style.display = 'flex';
+    // فتح شاشة التكبير بقراءة بيانات الشات المباشرة من الذاكرة بالـ Inquiry ID
+    function openExpandedChatByInquiryId(inquiryId) {
+      const target = globalInquiriesCache.find(item => {
+        const itemId = item['Inquiry ID'] || item[0];
+        return String(itemId).trim().toUpperCase() === String(inquiryId).trim().toUpperCase();
+      });
+
+      if(target) {
+        const name = target['Name'] || target[1] || 'الزائر';
+        const chatLogJson = target['Chat Log'] || target[10] || "[]";
+        document.getElementById('modalChatTitle').innerText = `محادثة: ${name} (${inquiryId})`;
+        renderChatBubbles(chatLogJson, 'modalChatLogContainer');
+        document.getElementById('expandedChatModal').style.display = 'flex';
+      } else {
+        showToast("تعذر جلب المحادثة");
+      }
     }
 
     function closeExpandedChat() {
@@ -634,6 +644,7 @@
       document.getElementById('visitorInquiriesLoader').style.display = "none";
 
       if(res && res.status === "success" && res.data) {
+        globalInquiriesCache = res.data; // تخزين البيانات عالمياً لمنع أخطاء التكبير
         const active = res.data.filter(i => (i['Status'] || i[6]) !== "مغلقة / منجزة");
         const closed = res.data.filter(i => (i['Status'] || i[6]) === "مغلقة / منجزة");
 
@@ -648,7 +659,6 @@
           const chatContainerId = `adminChatBox-${index}`;
 
           setTimeout(() => renderChatBubbles(chatLogJson, chatContainerId), 100);
-          window[`chatData_${id}`] = chatLogJson;
 
           return `
             <tr>
@@ -656,7 +666,7 @@
               <td><p style="font-size:0.85rem;">${details}</p></td>
               <td>
                 <div class="chat-box-wrapper">
-                  <button class="expand-chat-btn" onclick="openExpandedChat('chatData_${id}', '${encodeURIComponent(name || '')}', '${id}')">
+                  <button class="expand-chat-btn" onclick="openExpandedChatByInquiryId('${id}')">
                     <i class="fa-solid fa-expand"></i> تكبير
                   </button>
                   <div class="whatsapp-chat-container" id="${chatContainerId}" style="min-width:210px;"></div>
@@ -675,14 +685,12 @@
         document.getElementById('closedInquiriesBody').innerHTML = closed.map((i) => {
           const id = i['Inquiry ID'] || i[0];
           const name = i['Name'] || i[1];
-          const chatLogJson = i['Chat Log'] || i[10] || '[]';
-          window[`closedChatData_${id}`] = chatLogJson;
 
           return `
             <tr>
               <td><strong>${id}</strong><br>${name}</td>
               <td>${i['Details'] || i[4]}<br><small>${i['Date'] || i[5]}</small></td>
-              <td><button class="btn" style="padding:4px 8px; width:auto;" onclick="openExpandedChat('closedChatData_${id}', '${encodeURIComponent(name || '')}', '${id}')">عرض السجل 💬</button></td>
+              <td><button class="btn" style="padding:4px 8px; width:auto;" onclick="openExpandedChatByInquiryId('${id}')">عرض السجل 💬</button></td>
               <td><span class="badge badge-closed">${i['Handled By'] || i[9] || 'المكتب'}</span></td>
             </tr>
           `;
