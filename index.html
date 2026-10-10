@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>بوابة مكتب التوجيه السلوكي والمهني - كلية العلوم</title>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -26,58 +26,61 @@
       --bg-color: #0f172a; --card-bg: #1e293b; --text-color: #f1f5f9; --text-muted: #94a3b8;
       --table-header-bg: #334155; --profile-item-bg: #334155; --border-color: #475569;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; transition: background-color 0.3s, color 0.3s; }
-    body { background-color: var(--bg-color); color: var(--text-color); display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; -webkit-tap-highlight-color: transparent; }
+    body { background-color: var(--bg-color); color: var(--text-color); display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 10px; }
     
     #toastContainer { position: fixed; bottom: 20px; left: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
     .toast { background: var(--primary-color); color: white; padding: 12px 20px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); font-size: 0.9rem; animation: slideIn 0.3s ease; }
     @keyframes slideIn { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
-    .login-container { background: var(--card-bg); padding: 2.5rem; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); width: 100%; max-width: 440px; text-align: center; border: 1px solid var(--border-color); }
+    .login-container { background: var(--card-bg); padding: 2rem; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); width: 100%; max-width: 440px; text-align: center; border: 1px solid var(--border-color); }
     .login-container h2 { margin-bottom: 1.5rem; color: var(--primary-color); font-weight: 900; }
     .form-group { margin-bottom: 1.2rem; text-align: right; }
     .form-group label { display: block; margin-bottom: 0.4rem; font-weight: 600; font-size: 0.9rem; }
     .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; font-size: 1rem; outline: none; background: var(--card-bg); color: var(--text-color); }
     input[readonly] { background-color: var(--border-color); opacity: 0.8; cursor: not-allowed; }
-    .btn { width: 100%; padding: 0.75rem; background-color: var(--primary-color); color: white; border: none; border-radius: 8px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: background 0.2s; }
+    
+    .btn { width: 100%; padding: 0.75rem; background-color: var(--primary-color); color: white; border: none; border-radius: 8px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: background 0.2s; touch-action: manipulation; }
+    .btn:active { transform: scale(0.98); }
     .btn:hover { background-color: var(--secondary-color); }
 
     .dashboard-container { display: none; width: 100%; max-width: 1150px; margin: 0 auto; }
-    header { background: var(--primary-color); color: white; padding: 1.5rem; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+    header { background: var(--primary-color); color: white; padding: 1.2rem; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
     .header-btns { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
-    .btn-header { background-color: transparent; border: 1px solid white; color: white; padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer; font-size: 0.85rem; }
+    .btn-header { background-color: transparent; border: 1px solid white; color: white; padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer; font-size: 0.85rem; touch-action: manipulation; }
     .btn-header:hover { background-color: rgba(255, 255, 255, 0.2); }
     .clock-box { font-size: 0.85rem; background: rgba(0,0,0,0.2); padding: 0.4rem 0.8rem; border-radius: 6px; }
 
-    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
     .stat-card { background: var(--card-bg); padding: 1.2rem; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-right: 5px solid var(--primary-color); display: flex; flex-direction: column; border: 1px solid var(--border-color); }
     .stat-card span { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.3rem; }
     .stat-card p { font-size: 1.6rem; font-weight: 700; color: var(--text-color); }
     .progress-bar-container { background: var(--border-color); border-radius: 10px; height: 8px; width: 100%; margin-top: 8px; overflow: hidden; }
     .progress-bar-fill { background: var(--success-color); height: 100%; width: 0%; transition: width 0.4s ease; }
 
-    .profile-card { background: var(--card-bg); padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 1.5rem; border: 1px solid var(--border-color); }
+    .profile-card { background: var(--card-bg); padding: 1.2rem; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 1.5rem; border: 1px solid var(--border-color); }
     .profile-card h3 { color: var(--primary-color); margin-bottom: 0.5rem; }
-    .profile-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-top: 1rem; }
+    .profile-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-top: 1rem; }
     .profile-item { background: var(--profile-item-bg); padding: 0.8rem 1rem; border-radius: 8px; border: 1px solid var(--border-color); }
     .profile-item span { display: block; font-size: 0.8rem; color: var(--text-muted); }
     .profile-item p { font-weight: 600; margin-top: 0.2rem; }
 
     .filter-pills { display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
-    .pill-btn { padding: 0.4rem 1rem; border-radius: 50px; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-color); cursor: pointer; font-size: 0.85rem; }
+    .pill-btn { padding: 0.4rem 1rem; border-radius: 50px; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-color); cursor: pointer; font-size: 0.85rem; touch-action: manipulation; }
     .pill-btn.active { background: var(--primary-color); color: white; border-color: var(--primary-color); }
 
     .search-box-wrapper { margin-bottom: 1rem; }
     .search-box-wrapper input { width: 100%; padding: 0.6rem 1rem; border: 1px solid var(--border-color); border-radius: 8px; background: var(--card-bg); color: var(--text-color); }
 
-    .nav-tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; border-bottom: 2px solid var(--border-color); flex-wrap: wrap; }
-    .tab-btn { padding: 0.75rem 1.2rem; border: none; background: none; font-size: 0.95rem; font-weight: 600; cursor: pointer; color: var(--text-muted); border-bottom: 3px solid transparent; }
+    .nav-tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; border-bottom: 2px solid var(--border-color); overflow-x: auto; padding-bottom: 5px; -webkit-overflow-scrolling: touch; }
+    .tab-btn { padding: 0.6rem 1rem; border: none; background: none; font-size: 0.9rem; font-weight: 600; cursor: pointer; color: var(--text-muted); border-bottom: 3px solid transparent; white-space: nowrap; touch-action: manipulation; }
     .tab-btn.active { color: var(--primary-color); border-bottom-color: var(--primary-color); }
     .tab-content { display: none; }
     .tab-content.active { display: block; }
 
-    .data-table { width: 100%; border-collapse: collapse; background: var(--card-bg); border-radius: 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 1.5rem; border: 1px solid var(--border-color); }
-    .data-table th, .data-table td { padding: 0.75rem 1rem; text-align: right; border-bottom: 1px solid var(--border-color); font-size: 0.9rem; }
+    .table-responsive { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 1.5rem; }
+    .data-table { width: 100%; border-collapse: collapse; background: var(--card-bg); border-radius: 8px; overflow: hidden; border: 1px solid var(--border-color); min-width: 600px; }
+    .data-table th, .data-table td { padding: 0.75rem 0.8rem; text-align: right; border-bottom: 1px solid var(--border-color); font-size: 0.85rem; }
     .data-table th { background-color: var(--table-header-bg); color: var(--primary-color); font-weight: 700; }
 
     .badge { padding: 0.25rem 0.6rem; border-radius: 50px; font-size: 0.75rem; font-weight: 600; display: inline-block; }
@@ -87,14 +90,13 @@
     
     .loader { text-align: center; padding: 2rem; color: var(--text-muted); }
     .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 1000; }
-    .modal-content { background: var(--card-bg); padding: 2rem; border-radius: 12px; width: 90%; max-width: 500px; max-height: 85vh; overflow-y: auto; border: 1px solid var(--border-color); }
+    .modal-content { background: var(--card-bg); padding: 1.5rem; border-radius: 12px; width: 92%; max-width: 500px; max-height: 85vh; overflow-y: auto; border: 1px solid var(--border-color); }
 
-    /* تنسيق الشات والتصميم */
     .chat-box-wrapper { position: relative; }
-    .whatsapp-chat-container { background: #efeae2; border-radius: 10px; border: 1px solid var(--border-color); height: 210px; overflow-y: auto; padding: 12px; display: flex; flex-direction: column; gap: 8px; margin-bottom: 6px; }
+    .whatsapp-chat-container { background: #efeae2; border-radius: 10px; border: 1px solid var(--border-color); height: 200px; overflow-y: auto; padding: 10px; display: flex; flex-direction: column; gap: 8px; margin-bottom: 6px; -webkit-overflow-scrolling: touch; }
     body.dark-mode .whatsapp-chat-container { background: #0b141a; }
     
-    .chat-bubble { max-width: 82%; padding: 8px 12px; border-radius: 8px; font-size: 0.85rem; position: relative; line-height: 1.4; word-wrap: break-word; }
+    .chat-bubble { max-width: 85%; padding: 8px 12px; border-radius: 8px; font-size: 0.85rem; position: relative; line-height: 1.4; word-wrap: break-word; }
     .chat-bubble.visitor { background: #ffffff; color: #111b21; align-self: flex-start; border-top-right-radius: 0; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
     body.dark-mode .chat-bubble.visitor { background: #202c33; color: #e9edef; }
     .chat-bubble.admin { background: #d9fdd3; color: #111b21; align-self: flex-end; border-top-left-radius: 0; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
@@ -106,7 +108,7 @@
     .expand-chat-btn { position: absolute; top: 8px; left: 8px; background: rgba(0,0,0,0.6); color: white; border: none; border-radius: 6px; padding: 4px 8px; font-size: 0.75rem; cursor: pointer; z-index: 10; display: flex; align-items: center; gap: 4px; }
 
     .chat-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; z-index: 2000; }
-    .chat-modal-content { background: var(--card-bg); width: 92%; max-width: 750px; height: 85vh; border-radius: 14px; display: flex; flex-direction: column; padding: 20px; border: 1px solid var(--border-color); }
+    .chat-modal-content { background: var(--card-bg); width: 95%; max-width: 750px; height: 85vh; border-radius: 14px; display: flex; flex-direction: column; padding: 15px; border: 1px solid var(--border-color); }
   </style>
 </head>
 <body>
@@ -244,7 +246,7 @@
         </div>
 
         <div id="tasksLoader" class="loader">جاري التحميل...</div>
-        <div id="tasksTableContainer">
+        <div id="tasksTableContainer" class="table-responsive">
           <table class="data-table" id="tasksTable" style="display:none;">
             <thead><tr><th>رقم المهمة</th><th>العنوان</th><th>الحالة</th><th>التفاصيل</th><th>التاريخ</th><th>إجراء سريع</th></tr></thead>
             <tbody id="tasksBody"></tbody>
@@ -257,7 +259,7 @@
     <div class="tab-content" id="teamManagementTab">
       <div class="profile-card" style="border: 2px dashed var(--primary-color);">
         <h4 style="margin-bottom: 1rem; color: var(--primary-color);">➕ إسناد مهمة جديدة لعضو نشط</h4>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
           <div class="form-group" style="margin-bottom:0;"><label>عنوان المهمة</label><input type="text" id="newTaskName"></div>
           <div class="form-group" style="margin-bottom:0;">
             <label>اختر اسم العضو</label>
@@ -274,26 +276,32 @@
       <div class="profile-card">
         <h4 style="margin-bottom: 1rem; color: var(--primary-color);">إدارة أعضاء الفريق</h4>
         <div class="search-box-wrapper"><input type="text" id="memberSearchInput" placeholder="🔍 ابحث بالاسم..." oninput="filterMembersTable()"></div>
-        <table class="data-table">
-          <thead><tr><th>رقم العضوية</th><th>الاسم</th><th>المسمى الوظيفي</th><th>البريد</th></tr></thead>
-          <tbody id="membersTableBody"><tr><td colspan="4" style="text-align:center;">جاري التحميل...</td></tr></tbody>
-        </table>
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead><tr><th>رقم العضوية</th><th>الاسم</th><th>المسمى الوظيفي</th><th>البريد</th></tr></thead>
+            <tbody id="membersTableBody"><tr><td colspan="4" style="text-align:center;">جاري التحميل...</td></tr></tbody>
+          </table>
+        </div>
       </div>
 
       <div class="profile-card">
         <h4 style="margin-bottom: 1rem; color: var(--primary-color);">طلبات الأعضاء الواردة</h4>
-        <table class="data-table">
-          <thead><tr><th>رقم الطلب</th><th>العضو</th><th>نوع الطلب</th><th>التفاصيل</th><th>الرد والمتابعة</th></tr></thead>
-          <tbody id="requestsTableBody"><tr><td colspan="5" style="text-align:center;">جاري التحميل...</td></tr></tbody>
-        </table>
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead><tr><th>رقم الطلب</th><th>العضو</th><th>نوع الطلب</th><th>التفاصيل</th><th>الرد والمتابعة</th></tr></thead>
+            <tbody id="requestsTableBody"><tr><td colspan="5" style="text-align:center;">جاري التحميل...</td></tr></tbody>
+          </table>
+        </div>
       </div>
 
       <div class="profile-card">
         <h4 style="margin-bottom: 1rem; color: var(--primary-color);">🛠 بلاغات الدعم الفني</h4>
-        <table class="data-table">
-          <thead><tr><th>رقم البلاغ</th><th>العضو</th><th>المشكلة</th><th>المسؤول عن الحل</th><th>الرد والحالة</th></tr></thead>
-          <tbody id="adminSupportTableBody"><tr><td colspan="5" style="text-align:center;">جاري التحميل...</td></tr></tbody>
-        </table>
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead><tr><th>رقم البلاغ</th><th>العضو</th><th>المشكلة</th><th>المسؤول عن الحل</th><th>الرد والحالة</th></tr></thead>
+            <tbody id="adminSupportTableBody"><tr><td colspan="5" style="text-align:center;">جاري التحميل...</td></tr></tbody>
+          </table>
+        </div>
       </div>
     </div>
 
@@ -304,17 +312,19 @@
         <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:1rem;">تابع غرف المحادثة بنمط الواتساب مباشرة.</p>
         
         <div id="visitorInquiriesLoader" class="loader">جاري التحميل...</div>
-        <table class="data-table" id="visitorInquiriesTable" style="display:none;">
-          <thead>
-            <tr>
-              <th>الزائر ورقم المتابعة</th>
-              <th>نوع الطلب والتفاصيل</th>
-              <th>غرفة الدردشة المباشرة</th>
-              <th>إدارة الرد والإغلاق</th>
-            </tr>
-          </thead>
-          <tbody id="visitorInquiriesBody"></tbody>
-        </table>
+        <div class="table-responsive">
+          <table class="data-table" id="visitorInquiriesTable" style="display:none;">
+            <thead>
+              <tr>
+                <th>الزائر ورقم المتابعة</th>
+                <th>نوع الطلب والتفاصيل</th>
+                <th>غرفة الدردشة المباشرة</th>
+                <th>إدارة الرد والإغلاق</th>
+              </tr>
+            </thead>
+            <tbody id="visitorInquiriesBody"></tbody>
+          </table>
+        </div>
       </div>
     </div>
 
@@ -324,17 +334,19 @@
         <h3 style="color:var(--primary-color); margin-bottom:0.5rem;">📁 سجل النقاشات المنجزة (الأرشيف)</h3>
         <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:1rem;">سجل كامل بالمحادثات التي تم إغلاقها والانتهاء منها بكافة تفاصيلها.</p>
         
-        <table class="data-table">
-          <thead>
-            <tr>
-              <th>الزائر ورقم المتابعة</th>
-              <th>التفاصيل والتاريخ</th>
-              <th>سجل المحادثة</th>
-              <th>تم بواسطة</th>
-            </tr>
-          </thead>
-          <tbody id="closedInquiriesBody"><tr><td colspan="4" style="text-align:center;">لا توجد محادثات منجزة حالياً</td></tr></tbody>
-        </table>
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>الزائر ورقم المتابعة</th>
+                <th>التفاصيل والتاريخ</th>
+                <th>سجل المحادثة</th>
+                <th>تم بواسطة</th>
+              </tr>
+            </thead>
+            <tbody id="closedInquiriesBody"><tr><td colspan="4" style="text-align:center;">لا توجد محادثات منجزة حالياً</td></tr></tbody>
+          </table>
+        </div>
       </div>
     </div>
 
@@ -343,10 +355,12 @@
       <div class="profile-card">
         <h3 style="color:var(--primary-color); margin-bottom:1rem;">📚 أدلة العمل (SOPs)</h3>
         <div id="sopsLoader" class="loader">جاري التحميل...</div>
-        <table class="data-table" id="sopsTable" style="display:none;">
-          <thead><tr><th>رمز الدليل</th><th>العنوان</th><th>القسم</th><th>الوصف</th><th>الرابط</th></tr></thead>
-          <tbody id="sopsBody"></tbody>
-        </table>
+        <div class="table-responsive">
+          <table class="data-table" id="sopsTable" style="display:none;">
+            <thead><tr><th>رمز الدليل</th><th>العنوان</th><th>القسم</th><th>الوصف</th><th>الرابط</th></tr></thead>
+            <tbody id="sopsBody"></tbody>
+          </table>
+        </div>
       </div>
     </div>
 
@@ -355,10 +369,12 @@
       <div class="profile-card">
         <h3 style="color:var(--primary-color); margin-bottom:1rem;">⭐ سجل التقييمات</h3>
         <div id="evalsLoader" class="loader">جاري التحميل...</div>
-        <table class="data-table" id="evalsTable" style="display:none;">
-          <thead><tr><th>رمز التقييم</th><th>درجة الجودة</th><th>الانضباط</th><th>ملاحظات</th><th>التاريخ</th></tr></thead>
-          <tbody id="evalsBody"></tbody>
-        </table>
+        <div class="table-responsive">
+          <table class="data-table" id="evalsTable" style="display:none;">
+            <thead><tr><th>رمز التقييم</th><th>درجة الجودة</th><th>الانضباط</th><th>ملاحظات</th><th>التاريخ</th></tr></thead>
+            <tbody id="evalsBody"></tbody>
+          </table>
+        </div>
       </div>
     </div>
 
@@ -414,7 +430,6 @@
   </div>
 
   <script>
-    // رابط الـ API المحدث
     const API_URL = "https://script.google.com/macros/s/AKfycbwLKK_ocd7fX7xCNgZl-Q_Feqi3h042DfII0nqzu_NfBw0-o61BcLzxnakHnEIY-QjEJA/exec";
     let currentUser = null;
     let globalTasksCache = [];
@@ -437,10 +452,11 @@
 
     function showToast(msg) {
       const c = document.getElementById('toastContainer');
+      if (!c) return;
       const t = document.createElement('div');
       t.className = 'toast'; t.innerText = msg;
       c.appendChild(t);
-      setTimeout(() => t.remove(), 3000);
+      setTimeout(() => { if(t) t.remove(); }, 3000);
     }
 
     setInterval(() => {
@@ -675,11 +691,9 @@
           const transferredTo = String(i['Transferred To'] || i['المحول إليه'] || i[8] || '');
           
           if (status.includes("مغلقة") || status.includes("منجزة")) return false;
-          
           if (isDrSultan) {
             return status.includes("سلطان") || transferredTo.includes("سلطان");
           }
-          
           return true;
         });
 
@@ -697,7 +711,6 @@
           const chatLogRaw = i['Chat Log'] || i['سجل المحادثة'] || i[10] || i[7] || '[]';
           const chatContainerId = `adminChatBox-${index}`;
 
-          // حوكمة المسؤول الفعلي
           const handledBy = String(i['Handled By'] || i['تم بواسطة'] || i[9] || '').trim();
           const transferredTo = String(i['Transferred To'] || i['المحول إليه'] || i[8] || '').trim();
           const effectiveOwner = transferredTo !== "" ? transferredTo : handledBy;
@@ -710,25 +723,20 @@
           let actionButtonsHtml = '';
 
           if (isLockedByOther) {
-            // إذا كانت المحادثة مملوكة لموظف آخر: اقفل الرد وأخف أزرار الأرشيف والتحويل العكسي الخاطئ، واترك زر إتاحة التحويل لمن يمتلكها أو العكس
             replyControlsHtml = `
               <div style="background:#fee2e2; color:#991b1b; padding:8px; border-radius:6px; font-size:0.8rem; font-weight:bold; margin-bottom:6px; text-align:center;">
                 🔒 تدار بواسطة (${effectiveOwner}). متاح للاطلاع فقط.
               </div>
             `;
-            
-            // إذا كنت أنت لست المالك، أظهر فقط زر تحويلها لك أو لدكتور سلطان إذا لزم الأمر، لكن امنع إغلاقها من قبلك
             actionButtonsHtml = `
               <button class="btn" style="padding:5px; font-size:0.85rem; background:#0284c7; margin-top:4px;" onclick="transferInquiryToMe('${id}')">↩️ سحب و تحويل إليّ (مهند)</button>
               <button class="btn" style="padding:5px; font-size:0.85rem; background:#0f766e; margin-top:4px;" onclick="transferInquiryToSultan('${id}')">➡️ تحويل لدكتور سلطان</button>
             `;
           } else {
-            // إذا كنت أنت المسؤول عنها
             replyControlsHtml = `
               <input type="text" id="inqReply-${id}" value="${reply}" placeholder="اكتب ردك..." style="width:100%; margin-bottom:5px;">
               <button class="btn" style="padding:5px; font-size:0.85rem;" onclick="saveVisitorReplyAdmin('${id}')">إرسال الرد</button>
             `;
-
             actionButtonsHtml = `
               <button class="btn" style="padding:5px; font-size:0.85rem; background:#0284c7; margin-top:4px;" onclick="transferInquiryToSultan('${id}')">➡️ تحويل لدكتور سلطان</button>
               <button class="btn" style="padding:5px; font-size:0.85rem; background:#10b981; margin-top:4px;" onclick="transferInquiryToMay('${id}')">➡️ تحويل لدكتورة مي</button>
@@ -980,7 +988,7 @@
       const details = document.getElementById('reqDetails').value.trim();
       if(!details) { showToast("أدخل التفاصيل"); return; }
       const res = await callAPI(`action=submitRequest&memberId=${encodeURIComponent(currentUser['Member ID']||currentUser['رقم العضوية'])}&type=${encodeURIComponent(type)}&details=${encodeURIComponent(details)}`);
-      if(res && res.status === "success") { showToast("✅ تم إرسال الطلب"); document.getElementById('reqDetails'].value = ''; loadMyRequests(); }
+      if(res && res.status === "success") { showToast("✅ تم إرسال الطلب"); document.getElementById('reqDetails').value = ''; loadMyRequests(); }
     }
 
     async function loadMyRequests() {
@@ -1069,7 +1077,13 @@
 
     function openPassModal() { document.getElementById('passModal').style.display = 'flex'; }
     function closePassModal() { document.getElementById('passModal').style.display = 'none'; }
-    function exportToPDF(id, filename) { html2pdf().from(document.getElementById(id)).save(filename); }
+    function exportToPDF(id, filename) { 
+      if (typeof html2pdf !== 'undefined') {
+        html2pdf().from(document.getElementById(id)).save(filename);
+      } else {
+        alert("جاري تحميل مكتبة PDF، يرجى المحاولة بعد قليل");
+      }
+    }
   </script>
 </body>
 </html>
