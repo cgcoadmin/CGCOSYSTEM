@@ -414,7 +414,9 @@
   </div>
 
   <script>
-    const API_URL = "https://script.google.com/macros/s/AKfycby8XF0HU7UImUgSKmSvE_ZHMfMmSp1e8h6nZrJJ2yndkHG2ez9_wk_yr2NjXuEBUw18Pw/exec";
+    // رابط الـ API الجديد الخاص بك
+    const API_URL = "https://script.google.com/macros/s/AKfycbxBzTK8zAXHqOyFU0rM7H-bqaukN5rFutpleURX5ayK9fS-oM0Er0ZZGGEPKcVXuyss9g/exec";
+    
     let currentUser = null;
     let globalTasksCache = [];
     let globalMembersCache = [];
@@ -501,14 +503,12 @@
       if (Array.isArray(rawLog)) return rawLog;
       if (typeof rawLog === 'object') return [rawLog];
 
-      // محاولة تحليل JSON القياسي
       try {
         const parsed = JSON.parse(rawLog);
         if (Array.isArray(parsed)) return parsed;
         if (typeof parsed === 'object') return [parsed];
       } catch (e) {}
 
-      // إذا كان الشات مخزناً كنص عادي مفصول بأسطر
       const lines = String(rawLog).split('\n').filter(l => l.trim().length > 0);
       if (lines.length > 0) {
         return lines.map(line => {
@@ -536,7 +536,7 @@
 
       container.innerHTML = messages.map(m => {
         const sender = m.sender || m.Name || m['الاسم'] || '';
-        const isVisitor = m.type === 'visitor' || !sender.includes('د.') && !sender.includes('مكتب') && !sender.includes('مهند');
+        const isVisitor = m.type === 'visitor' || (!sender.includes('د.') && !sender.includes('مكتب') && !sender.includes('مهند'));
         return `
           <div class="chat-bubble ${isVisitor ? 'visitor' : 'admin'}">
             <div class="sender-name">${sender || (isVisitor ? 'الزائر' : 'الإدارة')}</div>
@@ -548,7 +548,6 @@
       container.scrollTop = container.scrollHeight;
     }
 
-    // فتح شاشة التكبير بقراءة بيانات الشات المباشرة من الذاكرة بالـ Inquiry ID
     function openExpandedChatByInquiryId(inquiryId) {
       const target = globalInquiriesCache.find(item => {
         const itemId = item['Inquiry ID'] || item['رقم المتابعة'] || item[0];
@@ -671,7 +670,6 @@
         const mName = String(currentUser['Full Name'] || currentUser['الاسم'] || '').trim();
         const mId = String(currentUser['Member ID'] || currentUser['رقم العضوية'] || '').trim().toUpperCase();
         
-        // التحقق الذكي من شخصية د. سلطان (سواء دخل برقم MGR-1 أو باسمه)
         const isDrSultan = mName.includes('سلطان') || mId === 'MGR-1';
 
         const active = res.data.filter(i => {
@@ -680,12 +678,10 @@
           
           if (status.includes("مغلقة") || status.includes("منجزة")) return false;
           
-          // إذا كان المستخدم د. سلطان: تظهر فقط الطلبات التي تم تحويلها إليه
           if (isDrSultan) {
             return status.includes("سلطان") || transferredTo.includes("سلطان");
           }
           
-          // مهند مجرشي ود. مي تظهر لديهما جميع الطلبات النشطة
           return true;
         });
 
@@ -694,7 +690,6 @@
           return status.includes("مغلقة") || status.includes("منجزة");
         });
 
-        // جدول النقاشات النشطة
         document.getElementById('visitorInquiriesTable').style.display = "table";
         document.getElementById('visitorInquiriesBody').innerHTML = active.map((i, index) => {
           const id = i['Inquiry ID'] || i['رقم المتابعة'] || i[0];
@@ -728,7 +723,6 @@
           `;
         }).join('') || `<tr><td colspan="4" style="text-align:center;">لا توجد محادثات نشطة موجهة حالياً</td></tr>`;
 
-        // جدول النقاشات المنجزة (الأرشيف)
         document.getElementById('closedInquiriesBody').innerHTML = closed.map((i) => {
           const id = i['Inquiry ID'] || i['رقم المتابعة'] || i[0];
           const name = i['Name'] || i['الاسم'] || i[1];
