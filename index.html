@@ -414,8 +414,8 @@
   </div>
 
   <script>
-    // رابط الـ API الجديد الخاص بك
-    const API_URL = "https://script.google.com/macros/s/AKfycbxBzTK8zAXHqOyFU0rM7H-bqaukN5rFutpleURX5ayK9fS-oM0Er0ZZGGEPKcVXuyss9g/exec";
+    // رابط الـ API الجديد المحدث
+    const API_URL = "https://script.google.com/macros/s/AKfycbyGNRDQOn3vijIM4hTrAtY0UUJ9A7a-xkXbXvONSUOepgnwn3cwJsxP9HvlzJcV37J-2A/exec";
     
     let currentUser = null;
     let globalTasksCache = [];
@@ -497,7 +497,6 @@
       }
     }
 
-    // دالة تحليل الرسائل الذكية لمنع ظهور "لا توجد رسائل"
     function parseChatMessages(rawLog) {
       if (!rawLog) return [];
       if (Array.isArray(rawLog)) return rawLog;
