@@ -21,7 +21,7 @@
       --danger-color: #e63946;
       --warning-color: #f4a261;
       --success-color: #14b8a6;
-      --shadow: 0 10px 25px -5px rgba(0,0,0,0.05), 0 8px 10px -6px rgba(0,0,0,0.01);
+      --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
     }
     
     body.dark-mode {
@@ -35,12 +35,10 @@
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
     body { background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; }
 
-    /* Toast Container */
     #toastContainer { position: fixed; bottom: 20px; left: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
     .toast { background: var(--primary-color); color: white; padding: 12px 20px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); font-size: 0.9rem; animation: slideIn 0.3s ease; }
     @keyframes slideIn { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
-    /* Header & Nav */
     header { background: var(--card-bg); border-bottom: 3px solid var(--secondary-color); position: sticky; top: 0; z-index: 1000; box-shadow: var(--shadow); }
     .nav-container { max-width: 1280px; margin: 0 auto; padding: 0.8rem 1.5rem; display: flex; justify-content: space-between; align-items: center; }
     .logo-box { display: flex; align-items: center; gap: 12px; }
@@ -54,7 +52,6 @@
     .btn-portal { background: var(--primary-color); color: white !important; border-radius: 8px; }
     .btn-portal:hover { background: var(--primary-hover) !important; }
 
-    /* Hero Section */
     .hero { background: linear-gradient(135deg, var(--primary-color) 0%, #062c1b 100%); color: white; padding: 4rem 1.5rem; text-align: center; position: relative; overflow: hidden; }
     .hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 8px; background: var(--secondary-color); }
     .hero-content { max-width: 900px; margin: 0 auto; }
@@ -62,13 +59,11 @@
     .hero h2 { font-size: 2.2rem; font-weight: 900; margin-bottom: 1rem; line-height: 1.3; }
     .hero p { font-size: 1.05rem; opacity: 0.9; margin-bottom: 2rem; max-width: 750px; margin-left: auto; margin-right: auto; }
     .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-    .btn-hero { padding: 0.8rem 1.8rem; border-radius: 8px; font-weight: 700; text-decoration: none; transition: transform 0.2s; cursor: pointer; border: none; font-size: 0.95rem; }
+    .btn-hero { padding: 0.8rem 1.8rem; border-radius: 8px; font-weight: 700; text-decoration: none; transition: transform 0.2s; cursor: pointer; border: none; font-size: 0.95rem; display: inline-flex; align-items: center; gap: 8px; }
     .btn-hero-primary { background: var(--secondary-color); color: #000; }
     .btn-hero-disabled { background: rgba(255,255,255,0.2); color: #cbd5e1; cursor: not-allowed; border: 1px dashed rgba(255,255,255,0.4); }
-    .btn-hero-secondary { background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.3); }
     .btn-hero:hover:not(.btn-hero-disabled) { transform: translateY(-2px); }
 
-    /* Global Section Styles */
     section { padding: 4rem 1.5rem; max-width: 1280px; margin: 0 auto; }
     .section-title { text-align: center; margin-bottom: 3rem; }
     .section-title h3 { font-size: 1.8rem; color: var(--primary-color); font-weight: 900; }
@@ -76,7 +71,6 @@
     .section-title p { color: var(--text-muted); font-size: 0.95rem; margin-top: 0.4rem; }
     .title-line { width: 60px; height: 4px; background: var(--secondary-color); margin: 0.8rem auto 0 auto; border-radius: 2px; }
 
-    /* Cards & Grids */
     .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
     .card { background: var(--card-bg); border-radius: 12px; padding: 1.8rem; border: 1px solid var(--border-color); box-shadow: var(--shadow); transition: transform 0.2s; }
     .card:hover { transform: translateY(-4px); }
@@ -85,7 +79,6 @@
     body.dark-mode .card h4 { color: var(--secondary-color); }
     .card p { color: var(--text-muted); font-size: 0.9rem; }
 
-    /* Programs Section */
     .programs-wrapper { margin-bottom: 2.5rem; }
     .program-header { background: var(--primary-color); color: white; padding: 1rem 1.5rem; border-radius: 12px 12px 0 0; display: flex; align-items: center; gap: 10px; }
     .program-grid { background: var(--card-bg); padding: 1.5rem; border: 1px solid var(--border-color); border-top: none; border-radius: 0 0 12px 12px; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem; }
@@ -94,7 +87,6 @@
     body.dark-mode .sub-program-card h5 { color: var(--secondary-color); }
     .sub-program-card p { font-size: 0.85rem; color: var(--text-muted); }
 
-    /* Workflow Steps */
     .steps-container { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
     .step-box { flex: 1; min-width: 180px; background: var(--card-bg); border: 1px solid var(--border-color); padding: 1.2rem; border-radius: 10px; text-align: center; position: relative; }
     .step-num { width: 35px; height: 35px; background: var(--secondary-color); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; margin: 0 auto 0.8rem auto; }
@@ -102,7 +94,6 @@
     body.dark-mode .step-box h5 { color: var(--secondary-color); }
     .step-box p { font-size: 0.8rem; color: var(--text-muted); }
 
-    /* Team Directory */
     .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.2rem; }
     .member-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 10px; padding: 1.2rem; box-shadow: var(--shadow); position: relative; }
     .member-role { font-size: 0.75rem; background: rgba(197, 160, 89, 0.15); color: #8a6d29; font-weight: 800; padding: 0.2rem 0.6rem; border-radius: 4px; display: inline-block; margin-bottom: 0.5rem; }
@@ -111,9 +102,8 @@
     .member-card p { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.3rem; }
     .contact-trigger { margin-top: 0.8rem; font-size: 0.8rem; color: var(--accent-color); font-weight: 700; display: block; background: rgba(2, 132, 199, 0.08); padding: 0.4rem; border-radius: 6px; text-align: center; }
 
-    /* Portal Login & Dashboard Section */
     .portal-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; z-index: 2000; padding: 15px; }
-    .login-container { background: var(--card-bg); padding: 2rem; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); width: 100%; max-width: 460px; text-align: center; border: 1px solid var(--border-color); position: relative; }
+    .login-container { background: var(--card-bg); padding: 2rem; border-radius: 16px; box-shadow: var(--shadow); width: 100%; max-width: 460px; text-align: center; border: 1px solid var(--border-color); position: relative; }
     .login-container h2 { margin-bottom: 1.2rem; color: var(--primary-color); font-weight: 900; }
     .form-group { margin-bottom: 1rem; text-align: right; }
     .form-group label { display: block; margin-bottom: 0.4rem; font-weight: 600; font-size: 0.88rem; }
@@ -122,31 +112,28 @@
     .btn { width: 100%; padding: 0.75rem; background-color: var(--primary-color); color: white; border: none; border-radius: 8px; font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: background 0.2s; }
     .btn:hover { background-color: var(--primary-hover); }
 
-    /* Dashboard Interface */
     .dashboard-container { display: none; width: 100%; max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
-    .dashboard-header { background: var(--primary-color); color: white; padding: 1.2rem; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; }
-    .header-btns { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
-    .btn-header { background-color: transparent; border: 1px solid white; color: white; padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer; font-size: 0.85rem; }
+    .dashboard-header { background: var(--primary-color); color: white; padding: 1.5rem; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; box-shadow: var(--shadow); }
+    .header-btns { display: flex; gap: 0.6rem; align-items: center; flex-wrap: wrap; }
+    .btn-header { background-color: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; font-size: 0.85rem; font-weight: 600; transition: background 0.2s; }
+    .btn-header:hover { background-color: rgba(255,255,255,0.25); }
 
-    .nav-tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; border-bottom: 2px solid var(--border-color); overflow-x: auto; padding-bottom: 5px; }
-    .tab-btn { padding: 0.6rem 1rem; border: none; background: none; font-size: 0.9rem; font-weight: 700; cursor: pointer; color: var(--text-muted); border-bottom: 3px solid transparent; white-space: nowrap; }
-    .tab-btn.active { color: var(--primary-color); border-bottom-color: var(--primary-color); }
-    body.dark-mode .tab-btn.active { color: var(--secondary-color); border-bottom-color: var(--secondary-color); }
-    .tab-content { display: none; }
-    .tab-content.active { display: block; }
+    .dash-nav-tabs { display: flex; gap: 0.8rem; margin-bottom: 1.5rem; background: var(--card-bg); padding: 0.5rem; border-radius: 10px; border: 1px solid var(--border-color); overflow-x: auto; box-shadow: var(--shadow); }
+    .dash-tab-btn { padding: 0.7rem 1.2rem; border: none; background: transparent; font-size: 0.9rem; font-weight: 700; cursor: pointer; color: var(--text-muted); border-radius: 6px; white-space: nowrap; transition: all 0.2s; }
+    .dash-tab-btn.active { background: var(--primary-color); color: white; }
+    .dash-tab-content { display: none; }
+    .dash-tab-content.active { display: block; }
 
-    /* Tables */
-    .table-responsive { width: 100%; overflow-x: auto; margin-bottom: 1.5rem; }
+    .table-responsive { width: 100%; overflow-x: auto; margin-bottom: 1rem; }
     .data-table { width: 100%; border-collapse: collapse; background: var(--card-bg); border-radius: 8px; overflow: hidden; border: 1px solid var(--border-color); min-width: 600px; }
-    .data-table th, .data-table td { padding: 0.75rem 0.8rem; text-align: right; border-bottom: 1px solid var(--border-color); font-size: 0.85rem; }
+    .data-table th, .data-table td { padding: 0.9rem 1rem; text-align: right; border-bottom: 1px solid var(--border-color); font-size: 0.88rem; }
     .data-table th { background-color: var(--bg-color); color: var(--primary-color); font-weight: 800; }
 
-    .badge { padding: 0.25rem 0.6rem; border-radius: 50px; font-size: 0.75rem; font-weight: 700; display: inline-block; }
+    .badge { padding: 0.3rem 0.7rem; border-radius: 50px; font-size: 0.75rem; font-weight: 700; display: inline-block; }
     .badge-success { background-color: #d4edda; color: #155724; }
     .badge-warning { background-color: #fff3cd; color: #856404; }
 
-    /* Chat Elements */
-    .whatsapp-chat-container { background: #efeae2; border-radius: 10px; border: 1px solid var(--border-color); height: 180px; overflow-y: auto; padding: 10px; display: flex; flex-direction: column; gap: 8px; }
+    .whatsapp-chat-container { background: #efeae2; border-radius: 8px; border: 1px solid var(--border-color); height: 180px; overflow-y: auto; padding: 10px; display: flex; flex-direction: column; gap: 8px; }
     body.dark-mode .whatsapp-chat-container { background: #0b141a; }
     .chat-bubble { max-width: 85%; padding: 8px 12px; border-radius: 8px; font-size: 0.85rem; line-height: 1.4; word-wrap: break-word; }
     .chat-bubble.visitor { background: #ffffff; color: #111b21; align-self: flex-start; }
@@ -154,7 +141,6 @@
     .chat-bubble.admin { background: #d9fdd3; color: #111b21; align-self: flex-end; }
     body.dark-mode .chat-bubble.admin { background: #005c4b; color: #e9edef; }
 
-    /* Footer */
     footer { background: #062c1b; color: white; padding: 3rem 1.5rem 1.5rem 1.5rem; font-size: 0.85rem; border-top: 4px solid var(--secondary-color); margin-top: 4rem; }
     .footer-container { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; margin-bottom: 2rem; }
     .footer-col h5 { font-size: 1rem; color: var(--secondary-color); margin-bottom: 1rem; font-weight: 800; }
@@ -185,7 +171,6 @@
         <li><a href="#programs">البرامج والمبادرات</a></li>
         <li><a href="#workflow">آلية العمل</a></li>
         <li><a href="#team">دليل الفريق</a></li>
-        <li><button class="nav-btn" onclick="openPortalModal('visitor')">💬 بوابة الزوار والمتابعة</button></li>
         <li><button class="nav-btn btn-portal" onclick="openPortalModal('admin')"><i class="fa-solid fa-user-lock"></i> دخول الكادر</button></li>
       </ul>
     </div>
@@ -197,15 +182,13 @@
     <section class="hero">
       <div class="hero-content">
         <div class="hero-badge">CGCO - Career Guidance & Counseling Office</div>
-        <h2>تمكين الطلاب لبناء مستقبل أكاديمي ومهني واعد</h2>
+        <h2>صناعة المستقبل: تمكين الطلبة وتطوير جاهزيتهم الأكاديمية والمهنية</h2>
         <p>نساعدك في اكتشاف قدراتك، فهم ذاتك، وتحديد مسارك الأكاديمي والمهني بما يتوافق مع أحدث التقييمات العالمية ومستهدفات رؤية المملكة 2030.</p>
         <div class="hero-btns">
-          <!-- التسجيل عبر القروب (خاص بطلاب كلية العلوم) -->
-          <a href="https://forms.gle/f8e2vDnjxerB7SdL9" target="_blank" class="btn-hero btn-hero-primary"><i class="fa-solid fa-users"></i> التقديم في القروب (لطلاب كلية العلوم)</a>
+          <!-- التقديم في القروب (رابط الفورمز المخصص للطلبات والاستفسارات) -->
+          <a href="https://forms.gle/f8e2vDnjxerB7SdL9" target="_blank" class="btn-hero btn-hero-primary"><i class="fa-solid fa-users"></i> التقديم في القروب (لطلاب كلية العلوم)[cite: 37]</a>
           <!-- التسجيل العام في البرامج (غير متاح حالياً) -->
           <button class="btn-hero btn-hero-disabled" disabled><i class="fa-solid fa-lock"></i> التسجيل في البرامج (غير متاح حالياً)</button>
-          <!-- متابعة الاستفسارات -->
-          <button onclick="openPortalModal('visitor')" class="btn-hero btn-hero-secondary"><i class="fa-solid fa-comments"></i> متابعة الاستفسارات</button>
         </div>
       </div>
     </section>
@@ -222,17 +205,17 @@
         <div class="card">
           <div class="card-icon"><i class="fa-solid fa-eye"></i></div>
           <h4>رؤيتنا</h4>
-          <p>أن نكون المرجع الرائد في تمكين الطلبة من اكتشاف ذواتهم وتعزيز جاهزيتهم الأكاديمية والمهنية واتخاذ قرارات واعية وفق رؤية 2030.</p>
+          <p>أن نكون المرجع الرائد في تمكين الطلبة من اكتشاف ذواتهم وتعزيز جاهزيتهم الأكاديمية والمهنية واتخاذ قرارات واعية وفق رؤية 2030[cite: 3].</p>
         </div>
         <div class="card">
           <div class="card-icon"><i class="fa-solid fa-bullseye"></i></div>
           <h4>رسالتنا</h4>
-          <p>تقديم خدمات توجيهية واستشارية وتطويرية عالية الجودة من خلال برامج متخصصة، وشراكات استراتيجية، وأدوات تقييم عالمية مثل بيركمان.</p>
+          <p>تقديم خدمات توجيهية واستشارية وتطويرية عالية الجودة من خلال برامج متخصصة، وشراكات استراتيجية، وأدوات تقييم عالمية مثل بيركمان[cite: 4, 14].</p>
         </div>
         <div class="card">
           <div class="card-icon"><i class="fa-solid fa-gem"></i></div>
           <h4>قيمنا وفلسفتنا</h4>
-          <p>التمكين، الاحترافية، السرية التامة، الموثوقية، والتطوير المستمر. نؤمن بأن أفضل القرارات الناجحة تبدأ دائماً بفهم الذات.</p>
+          <p>التمكين، الاحترافية، السرية التامة، الموثوقية، والتطوير المستمر. نؤمن بأن أفضل القرارات الناجحة تبدأ دائماً بفهم الذات[cite: 5, 6, 7].</p>
         </div>
       </div>
     </section>
@@ -250,26 +233,26 @@
         <div class="program-header">
           <i class="fa-solid fa-route" style="font-size:1.5rem; color:var(--secondary-color);"></i>
           <div>
-            <h4>برنامج "وجهني" (Wajjehni)</h4>
-            <p style="font-size:0.85rem; opacity:0.9;">المظلة الرئيسية لكافة الخدمات التوجيهية بالمكتب</p>
+            <h4>برنامج "وجهني" (Wajjehni)[cite: 19]</h4>
+            <p style="font-size:0.85rem; opacity:0.9;">المظلة الرئيسية لكافة الخدمات التوجيهية بالمكتب[cite: 19]</p>
           </div>
         </div>
         <div class="program-grid">
           <div class="sub-program-card">
-            <h5>1. اللقاءات المفتوحة</h5>
-            <p>لقاءات دورية تفاعلية لمناقشة الموضوعات الأكاديمية والمهنية والإجابة المباشرة عن استفسارات الطلاب.</p>
+            <h5>1. اللقاءات المفتوحة[cite: 20]</h5>
+            <p>لقاءات دورية تفاعلية لمناقشة الموضوعات الأكاديمية والمهنية والإجابة المباشرة عن استفسارات الطلاب[cite: 20].</p>
           </div>
           <div class="sub-program-card">
-            <h5>2. الاستشارات السلوكية والمهنية</h5>
-            <p>جلسات ومحاضرات إثرائية مساعدة في تخطي التحديات والتخطيط المباشر للمسارات المستقبلية.</p>
+            <h5>2. الاستشارات السلوكية والمهنية[cite: 21]</h5>
+            <p>جلسات ومحاضرات إثرائية مساعدة في تخطي التحديات والتخطيط المباشر للمسارات المستقبلية[cite: 21].</p>
           </div>
           <div class="sub-program-card">
-            <h5>3. ورش العمل التطويرية</h5>
-            <p>تنمية مهارات التخطيط، الذكاء العاطفي، بناء الهوية المهنية، كتابة السيرة الذاتية، واجتياز المقابلات.</p>
+            <h5>3. ورش العمل التطويرية[cite: 22]</h5>
+            <p>تنمية مهارات التخطيط، الذكاء العاطفي، بناء الهوية المهنية، كتابة السيرة الذاتية، واجتياز المقابلات[cite: 13, 22].</p>
           </div>
           <div class="sub-program-card">
-            <h5>4. تقييم بيركمان العالمي</h5>
-            <p>تحليل الميول والسلوك الاعتيادي ومسببات الضغط والجلسات مع مستشار معتمد لشرح التقرير.</p>
+            <h5>4. تقييم بيركمان العالمي[cite: 23]</h5>
+            <p>تحليل الميول والسلوك الاعتيادي ومسببات الضغط والجلسات مع مستشار معتمد لشرح التقرير[cite: 14, 23].</p>
           </div>
         </div>
       </div>
@@ -279,26 +262,26 @@
         <div class="program-header" style="background: #083e27;">
           <i class="fa-solid fa-lightbulb" style="font-size:1.5rem; color:var(--secondary-color);"></i>
           <div>
-            <h4>مختبر الابتكار (Innovation Laboratory)</h4>
-            <p style="font-size:0.85rem; opacity:0.9;">منتج ابتكاري متدرج لتحويل الفرص العلمية إلى مشاريع ريادية</p>
+            <h4>مختبر الابتكار (Innovation Laboratory)[cite: 24]</h4>
+            <p style="font-size:0.85rem; opacity:0.9;">منتج ابتكاري متدرج لتحويل الفرص العلمية إلى مشاريع ريادية[cite: 24]</p>
           </div>
         </div>
         <div class="program-grid">
           <div class="sub-program-card">
-            <h5>ما قبل الاحتضان (TRL 1)</h5>
-            <p>استكشاف المشكلات وفهم أصحاب المصلحة وتوليد مفاهيم الحلول الابتكارية.</p>
+            <h5>ما قبل الاحتضان (TRL 1)[cite: 25]</h5>
+            <p>استكشاف المشكلات وفهم أصحاب المصلحة وتوليد مفاهيم الحلول الابتكارية[cite: 25].</p>
           </div>
           <div class="sub-program-card">
-            <h5>إصدار الاحتضان (TRL 1-3)</h5>
-            <p>بناء الأساس العلمي، صياغة المفهوم التقني، وتصميم الاختبارات المبدئية للحل.</p>
+            <h5>إصدار الاحتضان (TRL 1-3)[cite: 26]</h5>
+            <p>بناء الأساس العلمي، صياغة المفهوم التقني، وتصميم الاختبارات المبدئية للحل[cite: 26].</p>
           </div>
           <div class="sub-program-card">
-            <h5>البحث والتطوير (TRL 4-6)</h5>
-            <p>بناء النموذج الأولي، التحقق من ملاءمته، ودورات التحسين والتطبيق الفعلي.</p>
+            <h5>البحث والتطوير (TRL 4-6)[cite: 27]</h5>
+            <p>بناء النموذج الأولي، التحقق من ملاءمته، ودورات التحسين والتطبيق الفعلي[cite: 27].</p>
           </div>
           <div class="sub-program-card">
-            <h5>إصدار ريادة الأعمال (TRL 7-9)</h5>
-            <p>تطوير نموذج الأعمال، حماية الملكية الفكرية، تهيئة المشروع للتتجير والاستدامة.</p>
+            <h5>إصدار ريادة الأعمال (TRL 7-9)[cite: 28]</h5>
+            <p>تطوير نموذج الأعمال، حماية الملكية الفكرية، تهيئة المشروع للتتجير والاستدامة[cite: 28].</p>
           </div>
         </div>
       </div>
@@ -308,35 +291,35 @@
     <section id="workflow">
       <div class="section-title">
         <h3>آلية العمل مع المستفيد</h3>
-        <p>خمس مراحل متكاملة تضمن تقديم أفضل خدمة نوعية للطالب</p>
+        <p>خمس مراحل متكاملة تضمن تقديم أفضل خدمة نوعية للطالب[cite: 15]</p>
         <div class="title-line"></div>
       </div>
 
       <div class="steps-container">
         <div class="step-box">
           <div class="step-num">1</div>
-          <h5>التسجيل</h5>
-          <p>التعرف على الخدمات والتسجيل عبر النماذج الرسمية.</p>
+          <h5>التسجيل[cite: 15]</h5>
+          <p>التعرف على الخدمات والتسجيل عبر النماذج الرسمية[cite: 15].</p>
         </div>
         <div class="step-box">
           <div class="step-num">2</div>
-          <h5>التشخيص</h5>
-          <p>تحديد الاحتياجات الجوهرية والتقييم الأولي.</p>
+          <h5>التشخيص[cite: 15]</h5>
+          <p>تحديد الاحتياجات الجوهرية والتقييم الأولي[cite: 15].</p>
         </div>
         <div class="step-box">
           <div class="step-num">3</div>
-          <h5>التوجيه</h5>
-          <p>المشاركة في الجلسات الاستشارية والورش العملياتية.</p>
+          <h5>التوجيه[cite: 16]</h5>
+          <p>المشاركة في الجلسات الاستشارية والورش العملياتية[cite: 16].</p>
         </div>
         <div class="step-box">
           <div class="step-num">4</div>
-          <h5>التطوير</h5>
-          <p>بناء خطة تطوير شخصية وأكاديمية ومتابعتها.</p>
+          <h5>التطوير[cite: 16]</h5>
+          <p>بناء خطة تطوير شخصية وأكاديمية ومتابعتها[cite: 16].</p>
         </div>
         <div class="step-box">
           <div class="step-num">5</div>
-          <h5>المتابعة</h5>
-          <p>تقديم الدعم المستمر لضمان تحقيق الأثر المستدام.</p>
+          <h5>المتابعة[cite: 16]</h5>
+          <p>تقديم الدعم المستمر لضمان تحقيق الأثر المستدام[cite: 16].</p>
         </div>
       </div>
     </section>
@@ -345,59 +328,58 @@
     <section id="team" style="background: var(--bg-color);">
       <div class="section-title">
         <h3>دليل التواصل مع فريق المكتب</h3>
-        <p>من المسؤول عن ماذا؟ وإلى من تتوجه عند الحاجة للدعم؟</p>
+        <p>من المسؤول عن ماذا؟ وإلى من تتوجه عند الحاجة للدعم؟[cite: 29]</p>
         <div class="title-line"></div>
       </div>
 
       <div class="team-grid">
         <div class="member-card">
           <span class="member-role">الإدارة العليا</span>
-          <h5>مدير المكتب (د. سلطان سنبل)</h5>
-          <p>القيادة الاستراتيجية واعتماد الخطط والشراكات والشؤون المؤسسية.</p>
-          <span class="contact-trigger">متى تتواصل؟ للاعتمادات النهائية والملفات الاستراتيجية</span>
+          <h5>مدير المكتب (د. سلطان سنبل)[cite: 30, 37]</h5>
+          <p>القيادة الاستراتيجية واعتماد الخطط والشراكات والشؤون المؤسسية[cite: 30].</p>
+          <span class="contact-trigger">متى تتواصل؟ للاعتمادات النهائية والملفات الاستراتيجية[cite: 30]</span>
         </div>
 
         <div class="member-card">
           <span class="member-role">الإدارة العليا</span>
-          <h5>نائب مدير المكتب (د. مي القرشي)</h5>
-          <p>المساندة الاستراتيجية والإشراف على الملفات المفوضة قيادياً.</p>
-          <span class="contact-trigger">متى تتواصل؟ عند نيابة الإدارة والقرارات التنفيذية</span>
+          <h5>نائب مدير المكتب (د. مي القرشي)[cite: 31, 37]</h5>
+          <p>المساندة الاستراتيجية والإشراف على الملفات المفوضة قيادياً[cite: 31].</p>
+          <span class="contact-trigger">متى تتواصل؟ عند نيابة الإدارة والقرارات التنفيذية[cite: 31]</span>
         </div>
 
         <div class="member-card">
           <span class="member-role">التشغيل الميداني</span>
-          <h5>مدير العمليات</h5>
-          <p>إدارة النظام التشغيلي، الجداول، المواعيد، ومعالجة التعثرات.</p>
-          <span class="contact-trigger">متى تتواصل؟ للإجراءات التشغيلية ومتابعة المهام</span>
+          <h5>مدير العمليات[cite: 30]</h5>
+          <p>إدارة النظام التشغيلي، الجداول، المواعيد، ومعالجة التعثرات[cite: 30].</p>
+          <span class="contact-trigger">متى تتواصل؟ للإجراءات التشغيلية ومتابعة المهام[cite: 30]</span>
         </div>
 
         <div class="member-card">
           <span class="member-role">شطر الطلاب والطالبات</span>
-          <h5>قائد شطر الطلاب / الطالبات</h5>
-          <p>متابعة التزام المشاركين، التواصل العام، والاندماج في أنشطة المكتب.</p>
-          <span class="contact-trigger">متى تتواصل؟ للدعم المتعلق بالمشاركة والالتزام</span>
+          <h5>قائد شطر الطلاب / الطالبات[cite: 31]</h5>
+          <p>متابعة التزام المشاركين، التواصل العام، والاندماج في أنشطة المكتب[cite: 31].</p>
+          <span class="contact-trigger">متى تتواصل؟ للدعم المتعلق بالمشاركة والالتزام[cite: 31]</span>
         </div>
 
         <div class="member-card">
           <span class="member-role">قسم البرامج والفعاليات</span>
-          <h5>مشرف قسم البرامج</h5>
-          <p>تصميم وتطوير الفعاليات وتكامل المحتوى البرامجي الميداني.</p>
-          <span class="contact-trigger">متى تتواصل؟ لاقتراح برنامج أو استكشاف مبادرة</span>
+          <h5>مشرف قسم البرامج[cite: 33]</h5>
+          <p>تصميم وتطوير الفعاليات وتكامل المحتوى البرامجي الميداني[cite: 33].</p>
+          <span class="contact-trigger">متى تتواصل؟ لاقتراح برنامج أو استكشاف مبادرة[cite: 33]</span>
         </div>
 
         <div class="member-card">
           <span class="member-role">قسم الإبداع والمواهب</span>
-          <h5>مسؤول استقطاب الموهوبين</h5>
-          <p>اكتشاف ورعاية مواهب الخطابة، التصميم، والابتكار لدى الطلاب.</p>
-          <span class="contact-trigger">متى تتواصل؟ لترشيح نفسك أو عرض موهبتك الخاصة</span>
+          <h5>مسؤول استقطاب الموهوبين[cite: 35]</h5>
+          <p>اكتشاف ورعاية مواهب الخطابة، التصميم، والابتكار لدى الطلاب[cite: 35].</p>
+          <span class="contact-trigger">متى تتواصل؟ لترشيح نفسك أو عرض موهبتك الخاصة[cite: 35]</span>
         </div>
       </div>
     </section>
   </div>
 
-  <!-- Modal View for Portal Login & Visitor Submissions -->
+  <!-- Modal View for Portal Login -->
   <div class="portal-modal" id="portalModal">
-    <!-- Admin Login -->
     <div class="login-container" id="adminLoginView">
       <button onclick="closePortalModal()" style="position:absolute; top:15px; left:15px; background:none; border:none; font-size:1.2rem; cursor:pointer;">✕</button>
       <h2>تسجيل دخول الكادر والأعضاء</h2>
@@ -405,72 +387,33 @@
       <div class="form-group"><label>كلمة المرور</label><input type="password" id="password" placeholder="••••••••"></div>
       <button class="btn" onclick="handleLogin()">دخول النظام</button>
     </div>
-
-    <!-- Visitor Submission & Chat -->
-    <div class="login-container" id="visitorPortalView" style="display:none; max-width: 550px; text-align: right;">
-      <button onclick="closePortalModal()" style="position:absolute; top:15px; left:15px; background:none; border:none; font-size:1.2rem; cursor:pointer;">✕</button>
-      <h2 style="text-align: center; color: var(--primary-color);">💬 بوابة متابعة الاستفسارات</h2>
-      
-      <div class="nav-tabs" style="margin-bottom: 1rem;">
-        <button class="tab-btn active" id="vTab1" onclick="switchVisitorTab('submit')">إرسال طلب جديد</button>
-        <button class="tab-btn" id="vTab2" onclick="switchVisitorTab('track')">متابعة طلب سابق</button>
-      </div>
-
-      <div id="vSubmitSec">
-        <div class="form-group"><label>الاسم الكامل</label><input type="text" id="visitorName" placeholder="أدخل اسمك الكريم..."></div>
-        <div class="form-group"><label>البريد الإلكتروني</label><input type="email" id="visitorEmail" placeholder="name@domain.com"></div>
-        <div class="form-group">
-          <label>نوع الطلب</label>
-          <select id="visitorCategory">
-            <option value="استفسار أكاديمي أو مهني">استفسار أكاديمي أو مهني</option>
-            <option value="استشارة سلوكية">استشارة سلوكية</option>
-            <option value="طلب خدمة">طلب خدمة</option>
-            <option value="اقتراح تطويري">اقتراح تطويري</option>
-          </select>
-        </div>
-        <div class="form-group"><label>التفاصيل والموضوع</label><textarea id="visitorDetails" rows="3" placeholder="اكتب التفاصيل هنا..."></textarea></div>
-        <button class="btn" onclick="submitVisitorInquiry()">إرسال التقديم</button>
-      </div>
-
-      <div id="vTrackSec" style="display:none;">
-        <div class="form-group"><label>رقم المتابعة</label><input type="text" id="trackInquiryId" placeholder="مثال: VIS-102"></div>
-        <button class="btn" onclick="trackVisitorInquiry()">دخول غرفة المحادثة</button>
-        <div id="trackResultContainer" style="margin-top: 1rem; display: none;">
-          <p style="margin-bottom:6px; font-size:0.85rem;"><strong>الحالة:</strong> <span id="resStatus" class="badge badge-warning">-</span></p>
-          <div class="whatsapp-chat-container" id="resChatLogContainer"></div>
-          <div class="form-group" style="margin-top:8px;">
-            <input type="text" id="visitorReplyInput" placeholder="اكتب رسالتك للإدارة...">
-          </div>
-          <button class="btn" onclick="sendVisitorChatMessage()">إرسال الرسالة</button>
-        </div>
-      </div>
-    </div>
   </div>
 
   <!-- Internal Admin Dashboard View -->
   <div class="dashboard-container" id="dashboardView">
     <div class="dashboard-header">
       <div>
-        <h2 id="welcomeText" style="font-size: 1.2rem;">مرحباً بك</h2>
-        <p id="userDept" style="font-size:0.85rem; opacity:0.9;"></p>
+        <h2 id="welcomeText" style="font-size: 1.3rem; font-weight: 900;">مرحباً بك</h2>
+        <p id="userDept" style="font-size:0.88rem; opacity:0.9; margin-top:2px;"></p>
       </div>
       <div class="header-btns">
-        <button class="btn-header" onclick="manualRefreshData()">🔄 تحديث</button>
-        <button class="btn-header" onclick="toggleDarkMode()">🌙 المظهر</button>
-        <button class="btn-header" onclick="handleLogout()">خروج</button>
+        <button class="btn-header" onclick="manualRefreshData()"><i class="fa-solid fa-rotate"></i> تحديث البيانات</button>
+        <button class="btn-header" onclick="toggleDarkMode()"><i class="fa-solid fa-moon"></i> المظهر</button>
+        <button class="btn-header" style="background-color: rgba(230, 57, 70, 0.2); border-color: rgba(230, 57, 70, 0.4);" onclick="handleLogout()"><i class="fa-solid fa-right-from-bracket"></i> خروج</button>
       </div>
     </div>
 
-    <div class="nav-tabs">
-      <button class="tab-btn active" onclick="switchDashboardTab('tasksTab', this)">👤 قائمة المهام</button>
-      <button class="tab-btn" id="teamTabBtn" style="display:none;" onclick="switchDashboardTab('teamTab', this)">👥 إدارة العمليات والفريق</button>
-      <button class="tab-btn" id="inquiriesTabBtn" style="display:none;" onclick="switchDashboardTab('inquiriesTab', this)">💬 محادثات الزوار النشطة</button>
+    <!-- القوائم المرتبة للواجهة الداخلية -->
+    <div class="dash-nav-tabs">
+      <button class="dash-tab-btn active" onclick="switchDashboardTab('tasksTab', this)"><i class="fa-solid fa-list-check"></i> قائمة المهام الشخصية</button>
+      <button class="dash-tab-btn" id="teamTabBtn" style="display:none;" onclick="switchDashboardTab('teamTab', this)"><i class="fa-solid fa-users-gear"></i> إدارة العمليات والفريق</button>
+      <button class="dash-tab-btn" id="inquiriesTabBtn" style="display:none;" onclick="switchDashboardTab('inquiriesTab', this)"><i class="fa-solid fa-comments"></i> طلبات واستفسارات الزوار (Sheets)</button>
     </div>
 
     <!-- Tasks Tab -->
-    <div class="tab-content active" id="tasksTab">
-      <div class="card" style="margin-bottom:1rem;">
-        <h4 style="margin-bottom:0.8rem;">قائمة المهام الشخصية المسندة</h4>
+    <div class="dash-tab-content active" id="tasksTab">
+      <div class="card">
+        <h4 style="margin-bottom:1rem; color: var(--primary-color); display:flex; align-items:center; gap:8px;"><i class="fa-solid fa-clipboard-list"></i> المهام المسندة إليك</h4>
         <div class="table-responsive">
           <table class="data-table">
             <thead><tr><th>رقم المهمة</th><th>العنوان</th><th>الحالة</th><th>التفاصيل</th><th>تاريخ الاستحقاق</th><th>إجراء</th></tr></thead>
@@ -481,28 +424,28 @@
     </div>
 
     <!-- Team Management Tab -->
-    <div class="tab-content" id="teamTab">
-      <div class="card" style="margin-bottom:1rem;">
-        <h4 style="margin-bottom:0.8rem;">إسناد مهمة جديدة</h4>
-        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap:0.8rem; margin-bottom:0.8rem;">
-          <input type="text" id="newTaskName" placeholder="عنوان المهمة...">
-          <select id="newTaskAssigneeSelect" onchange="autoFillMemberDetails()"><option value="">اختر العضو...</option></select>
-          <input type="text" id="newTaskMemberId" placeholder="رقم العضوية" readonly>
-          <input type="date" id="newTaskDate">
+    <div class="dash-tab-content" id="teamTab">
+      <div class="card">
+        <h4 style="margin-bottom:1rem; color: var(--primary-color); display:flex; align-items:center; gap:8px;"><i class="fa-solid fa-circle-plus"></i> إسناد مهمة جديدة لعضو في الفريق</h4>
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:1rem; margin-bottom:1rem;">
+          <div class="form-group" style="margin-bottom:0;"><label>عنوان المهمة</label><input type="text" id="newTaskName" placeholder="عنوان المهمة..."></div>
+          <div class="form-group" style="margin-bottom:0;"><label>اختر العضو</label><select id="newTaskAssigneeSelect" onchange="autoFillMemberDetails()"><option value="">اختر العضو...</option></select></div>
+          <div class="form-group" style="margin-bottom:0;"><label>رقم العضوية</label><input type="text" id="newTaskMemberId" placeholder="رقم العضوية" readonly></div>
+          <div class="form-group" style="margin-bottom:0;"><label>تاريخ الاستحقاق</label><input type="date" id="newTaskDate"></div>
         </div>
-        <textarea id="newTaskDetails" rows="2" placeholder="تفاصيل المهمة..." style="width:100%; margin-bottom:0.8rem;"></textarea>
-        <button class="btn" onclick="addNewTaskWithAutoFill()">إسناد المهمة فوراً</button>
+        <div class="form-group"><label>تفاصيل المهمة</label><textarea id="newTaskDetails" rows="2" placeholder="اكتب التفاصيل التوجيهية..."></textarea></div>
+        <button class="btn" onclick="addNewTaskWithAutoFill()" style="max-width: 250px;">إسناد المهمة فوراً</button>
       </div>
     </div>
 
     <!-- Active Inquiries Tab -->
-    <div class="tab-content" id="inquiriesTab">
+    <div class="dash-tab-content" id="inquiriesTab">
       <div class="card">
-        <h4 style="margin-bottom:0.8rem;">محادثات واستفسارات الزوار</h4>
+        <h4 style="margin-bottom:1rem; color: var(--primary-color); display:flex; align-items:center; gap:8px;"><i class="fa-solid fa-inbox"></i> متابعة طلبات واستفسارات الزوار ( Google Sheets )</h4>
         <div class="table-responsive">
           <table class="data-table">
-            <thead><tr><th>الزائر</th><th>الطلب</th><th>المحادثة المباشرة</th><th>الإجراء</th></tr></thead>
-            <tbody id="visitorInquiriesBody"><tr><td colspan="4" style="text-align:center;">جاري التحميل...</td></tr></tbody>
+            <thead><tr><th>بيانات الزائر</th><th>نوع الطلب والتفاصيل</th><th>غرفة المحادثة والتواصل</th><th>الإجراء الإداري</th></tr></thead>
+            <tbody id="visitorInquiriesBody"><tr><td colspan="4" style="text-align:center;">جاري تحميل الطلبات والاستفسارات...</td></tr></tbody>
           </table>
         </div>
       </div>
@@ -518,13 +461,13 @@
       </div>
       <div class="footer-col">
         <h5>مقر المكتب</h5>
-        <p><i class="fa-solid fa-location-dot"></i> الدور الثالث</p>
-        <p><i class="fa-solid fa-door-closed"></i> مكتب رقم: 3610</p>
+        <p><i class="fa-solid fa-location-dot"></i> الدور الثالث[cite: 37]</p>
+        <p><i class="fa-solid fa-door-closed"></i> مكتب رقم: 3610[cite: 37]</p>
       </div>
       <div class="footer-col">
         <h5>الشركاء الاستراتيجيون</h5>
-        <p>• مركز المبدعون</p>
-        <p>• شركة Masters Legacy (Birkman)</p>
+        <p>• مركز المبدعون[cite: 17]</p>
+        <p>• شركة Masters Legacy (Birkman)[cite: 18]</p>
       </div>
     </div>
     <div class="footer-bottom">
@@ -538,7 +481,6 @@
     let globalTasksCache = [];
     let globalMembersCache = [];
     let globalInquiriesCache = [];
-    let currentActiveTrackId = '';
 
     if (localStorage.getItem('darkMode') === 'true') document.body.classList.add('dark-mode');
 
@@ -573,64 +515,10 @@
 
     function openPortalModal(type) {
       document.getElementById('portalModal').style.display = 'flex';
-      if(type === 'admin') {
-        document.getElementById('adminLoginView').style.display = 'block';
-        document.getElementById('visitorPortalView').style.display = 'none';
-      } else {
-        document.getElementById('adminLoginView').style.display = 'none';
-        document.getElementById('visitorPortalView').style.display = 'block';
-      }
     }
 
     function closePortalModal() {
       document.getElementById('portalModal').style.display = 'none';
-    }
-
-    function switchVisitorTab(tab) {
-      if(tab === 'submit') {
-        document.getElementById('vSubmitSec').style.display = 'block';
-        document.getElementById('vTrackSec').style.display = 'none';
-        document.getElementById('vTab1').classList.add('active');
-        document.getElementById('vTab2').classList.remove('active');
-      } else {
-        document.getElementById('vSubmitSec').style.display = 'none';
-        document.getElementById('vTrackSec').style.display = 'block';
-        document.getElementById('vTab1').classList.remove('active');
-        document.getElementById('vTab2').classList.add('active');
-      }
-    }
-
-    async function submitVisitorInquiry() {
-      const name = document.getElementById('visitorName').value.trim();
-      const email = document.getElementById('visitorEmail').value.trim();
-      const category = document.getElementById('visitorCategory').value;
-      const details = document.getElementById('visitorDetails').value.trim();
-
-      if(!name || !email || !details) { showToast("يرجى تعبئة كافة الحقول"); return; }
-      showToast("جاري إرسال الطلب...");
-      const res = await callAPI(`action=submitVisitorInquiry&name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&category=${encodeURIComponent(category)}&details=${encodeURIComponent(details)}`);
-      if(res && res.status === "success") {
-        alert("✅ تم إرسال طلبك بنجاح!\nرقم المتابعة الخاص بك: " + res.inquiryId);
-        document.getElementById('visitorName').value = '';
-        document.getElementById('visitorEmail').value = '';
-        document.getElementById('visitorDetails').value = '';
-        closePortalModal();
-      }
-    }
-
-    async function trackVisitorInquiry() {
-      const id = document.getElementById('trackInquiryId').value.trim();
-      if(!id) { showToast("أدخل رقم المتابعة"); return; }
-      showToast("جاري البحث...");
-      const res = await callAPI(`action=trackVisitorInquiry&inquiryId=${encodeURIComponent(id)}`);
-      if(res && res.status === "success") {
-        currentActiveTrackId = id;
-        document.getElementById('trackResultContainer').style.display = 'block';
-        document.getElementById('resStatus').innerText = res.data.status;
-        renderChatBubbles(res.data.chatLog, 'resChatLogContainer');
-      } else {
-        showToast("رقم المتابعة غير صحيح");
-      }
     }
 
     function renderChatBubbles(chatLogRaw, containerId) {
@@ -643,7 +531,7 @@
       if(!Array.isArray(messages)) messages = [];
 
       if(messages.length === 0) {
-        container.innerHTML = '<div style="text-align:center; color:var(--text-muted); font-size:0.8rem; padding:10px;">لا توجد رسائل بعد...</div>';
+        container.innerHTML = '<div style="text-align:center; color:var(--text-muted); font-size:0.8rem; padding:10px;">لا توجد رسائل مسجلة بعد...</div>';
         return;
       }
 
@@ -655,18 +543,6 @@
         container.appendChild(bubble);
       });
       container.scrollTop = container.scrollHeight;
-    }
-
-    async function sendVisitorChatMessage() {
-      const input = document.getElementById('visitorReplyInput');
-      const text = input.value.trim();
-      if(!text || !currentActiveTrackId) return;
-
-      const res = await callAPI(`action=visitorReplyChat&inquiryId=${encodeURIComponent(currentActiveTrackId)}&message=${encodeURIComponent(text)}`);
-      if(res && res.status === "success") {
-        input.value = '';
-        renderChatBubbles(res.chatLog, 'resChatLogContainer');
-      }
     }
 
     async function handleLogin() {
@@ -699,8 +575,8 @@
     }
 
     function switchDashboardTab(tabId, btn) {
-      document.querySelectorAll('#dashboardView .tab-content').forEach(el => el.classList.remove('active'));
-      document.querySelectorAll('#dashboardView .tab-btn').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('#dashboardView .dash-tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('#dashboardView .dash-tab-btn').forEach(el => el.classList.remove('active'));
       document.getElementById(tabId).classList.add('active');
       if(btn) btn.classList.add('active');
     }
@@ -709,8 +585,8 @@
       document.getElementById('websiteView').style.display = 'none';
       document.getElementById('dashboardView').style.display = 'block';
 
-      document.getElementById('welcomeText').innerText = `مرحباً، ${currentUser.name}`;
-      document.getElementById('userDept').innerText = `القسم: ${currentUser.department} | الدور: ${currentUser.role}`;
+      document.getElementById('welcomeText').innerText = `مرحباً بك، ${currentUser.name}`;
+      document.getElementById('userDept').innerText = `القسم: ${currentUser.department} | الصلاحية والدور: ${currentUser.role}`;
 
       if(currentUser.role === 'مدير' || currentUser.role === 'مشرف عام' || currentUser.role === 'رئيس') {
         document.getElementById('teamTabBtn').style.display = 'block';
@@ -740,7 +616,7 @@
               <td><span class="badge ${t.status==='مكتملة'?'badge-success':'badge-warning'}">${t.status}</span></td>
               <td>${t.details || '-'}</td>
               <td>${t.dueDate || '-'}</td>
-              <td>${t.status !== 'مكتملة' ? `<button class="btn" style="padding:3px 8px; font-size:0.75rem;" onclick="completeTask('${t.taskId}')">إنجاز</button>` : 'مكتملة'}</td>
+              <td>${t.status !== 'مكتملة' ? `<button class="btn" style="padding:4px 10px; font-size:0.8rem;" onclick="completeTask('${t.taskId}')">إنجاز</button>` : 'مكتملة'}</td>
             </tr>
           `;
         });
@@ -750,7 +626,7 @@
     async function completeTask(taskId) {
       const res = await callAPI(`action=completeTask&taskId=${encodeURIComponent(taskId)}&memberId=${encodeURIComponent(currentUser.memberId)}`);
       if(res && res.status === "success") {
-        showToast("تم إنجاز المهمة");
+        showToast("تم إنجاز المهمة بنجاح");
         loadPersonalTasks();
       }
     }
@@ -779,7 +655,7 @@
       const dueDate = document.getElementById('newTaskDate').value;
       const details = document.getElementById('newTaskDetails').value.trim();
 
-      if(!name || !memberId || !dueDate) { showToast("أدخل بيانات المهمة الأساسية"); return; }
+      if(!name || !memberId || !dueDate) { showToast("يرجى تعبئة الحقول الأساسية للمهمة"); return; }
       const res = await callAPI(`action=assignTask&taskName=${encodeURIComponent(name)}&memberId=${encodeURIComponent(memberId)}&dueDate=${encodeURIComponent(dueDate)}&details=${encodeURIComponent(details)}`);
       if(res && res.status === "success") {
         showToast("تم إسناد المهمة بنجاح");
@@ -794,19 +670,23 @@
         globalInquiriesCache = res.inquiries || [];
         const tbody = document.getElementById('visitorInquiriesBody');
         tbody.innerHTML = '';
+        if(globalInquiriesCache.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;">لا توجد طلبات أو استفسارات واردة حالياً من قوقل شيت</td></tr>';
+          return;
+        }
         globalInquiriesCache.forEach(i => {
           tbody.innerHTML += `
             <tr>
-              <td><strong>${i.name}</strong><br><small>${i.inquiryId}</small></td>
-              <td>${i.details}</td>
-              <td style="width:250px;">
+              <td><strong>${i.name}</strong><br><small style="color:var(--text-muted);">${i.email || ''}</small><br><span class="badge badge-warning" style="margin-top:4px;">${i.inquiryId}</span></td>
+              <td><strong>${i.category}</strong><p style="font-size:0.83rem; margin-top:4px; color:var(--text-muted);">${i.details}</p></td>
+              <td style="width:280px;">
                 <div class="whatsapp-chat-container" id="adminChat_${i.inquiryId}"></div>
-                <div style="display:flex; gap:4px; margin-top:4px;">
-                  <input type="text" id="adminInput_${i.inquiryId}" placeholder="رد..." style="font-size:0.78rem;">
-                  <button class="btn" style="width:auto; padding:2px 8px;" onclick="sendAdminChatMessage('${i.inquiryId}')">إرسال</button>
+                <div style="display:flex; gap:4px; margin-top:6px;">
+                  <input type="text" id="adminInput_${i.inquiryId}" placeholder="اكتب الرد..." style="font-size:0.8rem; padding:5px;">
+                  <button class="btn" style="width:auto; padding:4px 10px; font-size:0.8rem;" onclick="sendAdminChatMessage('${i.inquiryId}')">إرسال</button>
                 </div>
               </td>
-              <td><button class="btn" style="background:var(--danger-color); padding:3px 8px; font-size:0.75rem;" onclick="closeInquiry('${i.inquiryId}')">إغلاق</button></td>
+              <td><button class="btn" style="background:var(--danger-color); padding:5px 10px; font-size:0.78rem;" onclick="closeInquiry('${i.inquiryId}')"><i class="fa-solid fa-check"></i> إغلاق الطلب</button></td>
             </tr>
           `;
           renderChatBubbles(i.chatLog, `adminChat_${i.inquiryId}`);
@@ -826,16 +706,16 @@
     }
 
     async function closeInquiry(inquiryId) {
-      if(!confirm("إغلاق المحادثة؟")) return;
+      if(!confirm("هل أنت متأكد من إغلاق هذا الطلب/الاستفسار؟")) return;
       const res = await callAPI(`action=closeInquiry&inquiryId=${encodeURIComponent(inquiryId)}&adminName=${encodeURIComponent(currentUser.name)}`);
       if(res && res.status === "success") {
-        showToast("تم الإغلاق");
+        showToast("تم إغلاق الطلب بنجاح");
         loadVisitorInquiries();
       }
     }
 
     function manualRefreshData() {
-      showToast("جاري التحديث...");
+      showToast("جاري تحديث البيانات...");
       renderDashboard();
     }
   </script>
