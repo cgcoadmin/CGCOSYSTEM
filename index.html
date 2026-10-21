@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>بوابة مكتب التوجيه السلوكي والمهني - كلية العلوم | جامعة الملك عبد العزيز</title>
+  <title>بوابة مكتب التوجيه السلوكي والمهني</title>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
@@ -45,9 +45,8 @@
     .nav-container { max-width: 1280px; margin: 0 auto; padding: 0.8rem 1.5rem; display: flex; justify-content: space-between; align-items: center; }
     .logo-box { display: flex; align-items: center; gap: 12px; }
     .logo-icon { width: 45px; height: 45px; background: var(--primary-color); color: var(--secondary-color); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
-    .logo-text h1 { font-size: 1.1rem; color: var(--primary-color); font-weight: 900; line-height: 1.2; }
+    .logo-text h1 { font-size: 1.2rem; color: var(--primary-color); font-weight: 900; line-height: 1.2; }
     body.dark-mode .logo-text h1 { color: #22c55e; }
-    .logo-text p { font-size: 0.8rem; color: var(--text-muted); font-weight: 600; }
 
     .nav-links { display: flex; gap: 0.8rem; list-style: none; align-items: center; }
     .nav-links a, .nav-btn { text-decoration: none; color: var(--text-color); font-weight: 700; font-size: 0.88rem; padding: 0.5rem 0.8rem; border-radius: 6px; transition: all 0.2s; cursor: pointer; border: none; background: transparent; }
@@ -65,8 +64,9 @@
     .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
     .btn-hero { padding: 0.8rem 1.8rem; border-radius: 8px; font-weight: 700; text-decoration: none; transition: transform 0.2s; cursor: pointer; border: none; font-size: 0.95rem; }
     .btn-hero-primary { background: var(--secondary-color); color: #000; }
+    .btn-hero-disabled { background: rgba(255,255,255,0.2); color: #cbd5e1; cursor: not-allowed; border: 1px dashed rgba(255,255,255,0.4); }
     .btn-hero-secondary { background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.3); }
-    .btn-hero:hover { transform: translateY(-2px); }
+    .btn-hero:hover:not(.btn-hero-disabled) { transform: translateY(-2px); }
 
     /* Global Section Styles */
     section { padding: 4rem 1.5rem; max-width: 1280px; margin: 0 auto; }
@@ -178,7 +178,6 @@
         <div class="logo-icon"><i class="fa-solid fa-compass"></i></div>
         <div class="logo-text">
           <h1>مكتب التوجيه السلوكي والمهني</h1>
-          <p>كلية العلوم - جامعة الملك عبد العزيز</p>
         </div>
       </div>
       <ul class="nav-links">
@@ -198,11 +197,15 @@
     <section class="hero">
       <div class="hero-content">
         <div class="hero-badge">CGCO - Career Guidance & Counseling Office</div>
-        <h2>تمكين طلاب كلية العلوم لبناء مستقبل أكاديمي ومهني واعد</h2>
+        <h2>تمكين الطلاب لبناء مستقبل أكاديمي ومهني واعد</h2>
         <p>نساعدك في اكتشاف قدراتك، فهم ذاتك، وتحديد مسارك الأكاديمي والمهني بما يتوافق مع أحدث التقييمات العالمية ومستهدفات رؤية المملكة 2030.</p>
         <div class="hero-btns">
-          <a href="https://forms.gle/xBCDowG69nu1MvY7A" target="_blank" class="btn-hero btn-hero-primary"><i class="fa-solid fa-user-plus"></i> التسجيل في البرامج</a>
-          <button onclick="openPortalModal('visitor')" class="btn-hero btn-hero-secondary"><i class="fa-solid fa-comments"></i> تقديم / متابعة استفسار</button>
+          <!-- التسجيل عبر القروب (خاص بطلاب كلية العلوم) -->
+          <a href="https://forms.gle/f8e2vDnjxerB7SdL9" target="_blank" class="btn-hero btn-hero-primary"><i class="fa-solid fa-users"></i> التقديم في القروب (لطلاب كلية العلوم)</a>
+          <!-- التسجيل العام في البرامج (غير متاح حالياً) -->
+          <button class="btn-hero btn-hero-disabled" disabled><i class="fa-solid fa-lock"></i> التسجيل في البرامج (غير متاح حالياً)</button>
+          <!-- متابعة الاستفسارات -->
+          <button onclick="openPortalModal('visitor')" class="btn-hero btn-hero-secondary"><i class="fa-solid fa-comments"></i> متابعة الاستفسارات</button>
         </div>
       </div>
     </section>
@@ -211,7 +214,7 @@
     <section id="about">
       <div class="section-title">
         <h3>عن المكتب وفلسفتنا</h3>
-        <p>إحدى المبادرات النوعية الرائدة للتوجيه الشامل بكلية العلوم</p>
+        <p>إحدى المبادرات النوعية الرائدة للتوجيه الشامل</p>
         <div class="title-line"></div>
       </div>
 
@@ -219,7 +222,7 @@
         <div class="card">
           <div class="card-icon"><i class="fa-solid fa-eye"></i></div>
           <h4>رؤيتنا</h4>
-          <p>أن نكون المرجع الرائد في تمكين طلبة كلية العلوم من اكتشاف ذواتهم وتعزيز جاهزيتهم الأكاديمية والمهنية واتخاذ قرارات واعية وفق رؤية 2030.</p>
+          <p>أن نكون المرجع الرائد في تمكين الطلبة من اكتشاف ذواتهم وتعزيز جاهزيتهم الأكاديمية والمهنية واتخاذ قرارات واعية وفق رؤية 2030.</p>
         </div>
         <div class="card">
           <div class="card-icon"><i class="fa-solid fa-bullseye"></i></div>
@@ -397,7 +400,7 @@
     <!-- Admin Login -->
     <div class="login-container" id="adminLoginView">
       <button onclick="closePortalModal()" style="position:absolute; top:15px; left:15px; background:none; border:none; font-size:1.2rem; cursor:pointer;">✕</button>
-      <h2>تسجيل دخول أعضاء المكتب</h2>
+      <h2>تسجيل دخول الكادر والأعضاء</h2>
       <div class="form-group"><label>رقم العضوية (Member ID)</label><input type="text" id="memberId" placeholder="مثال: COO أو MGR-1"></div>
       <div class="form-group"><label>كلمة المرور</label><input type="password" id="password" placeholder="••••••••"></div>
       <button class="btn" onclick="handleLogin()">دخول النظام</button>
@@ -406,7 +409,7 @@
     <!-- Visitor Submission & Chat -->
     <div class="login-container" id="visitorPortalView" style="display:none; max-width: 550px; text-align: right;">
       <button onclick="closePortalModal()" style="position:absolute; top:15px; left:15px; background:none; border:none; font-size:1.2rem; cursor:pointer;">✕</button>
-      <h2 style="text-align: center; color: var(--primary-color);">🌐 بوابة الزوار والمتابعة</h2>
+      <h2 style="text-align: center; color: var(--primary-color);">💬 بوابة متابعة الاستفسارات</h2>
       
       <div class="nav-tabs" style="margin-bottom: 1rem;">
         <button class="tab-btn active" id="vTab1" onclick="switchVisitorTab('submit')">إرسال طلب جديد</button>
@@ -415,7 +418,7 @@
 
       <div id="vSubmitSec">
         <div class="form-group"><label>الاسم الكامل</label><input type="text" id="visitorName" placeholder="أدخل اسمك الكريم..."></div>
-        <div class="form-group"><label>البريد الإلكتروني</label><input type="email" id="visitorEmail" placeholder="name@stu.kau.edu.sa"></div>
+        <div class="form-group"><label>البريد الإلكتروني</label><input type="email" id="visitorEmail" placeholder="name@domain.com"></div>
         <div class="form-group">
           <label>نوع الطلب</label>
           <select id="visitorCategory">
@@ -511,21 +514,21 @@
     <div class="footer-container">
       <div class="footer-col">
         <h5>مكتب التوجيه السلوكي والمهني</h5>
-        <p>إحدى المبادرات النوعية بكلية العلوم بجامعة الملك عبد العزيز لتمكين الطلبة مهنياً وسلوكياً.</p>
+        <p>إحدى المبادرات النوعية لتمكين الطلبة مهنياً وسلوكياً.</p>
       </div>
       <div class="footer-col">
         <h5>مقر المكتب</h5>
-        <p><i class="fa-solid fa-location-dot"></i> كلية العلوم - الدور الثالث</p>
+        <p><i class="fa-solid fa-location-dot"></i> الدور الثالث</p>
         <p><i class="fa-solid fa-door-closed"></i> مكتب رقم: 3610</p>
       </div>
       <div class="footer-col">
         <h5>الشركاء الاستراتيجيون</h5>
-        <p>• مركز المبدعون (جامعة الملك عبد العزيز)</p>
+        <p>• مركز المبدعون</p>
         <p>• شركة Masters Legacy (Birkman)</p>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>جميع الحقوق محفوظة © مكتب التوجيه السلوكي والمهني - كلية العلوم | جامعة الملك عبد العزيز 2026</p>
+      <p>جميع الحقوق محفوظة © مكتب التوجيه السلوكي والمهني 2026</p>
     </div>
   </footer>
 
