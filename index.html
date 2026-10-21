@@ -21,13 +21,10 @@
       --table-header-bg: #f1f5f9;
       --profile-item-bg: #f8fafc;
       --border-color: #e2e8f0;
-      --kanban-bg: #f1f5f9;
-      --kanban-col-bg: #e2e8f0;
     }
     body.dark-mode {
       --bg-color: #0f172a; --card-bg: #1e293b; --text-color: #f1f5f9; --text-muted: #94a3b8;
       --table-header-bg: #334155; --profile-item-bg: #334155; --border-color: #475569;
-      --kanban-bg: #0f172a; --kanban-col-bg: #1e293b;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; -webkit-tap-highlight-color: transparent; }
     body { background-color: var(--bg-color); color: var(--text-color); display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 10px; }
@@ -41,63 +38,145 @@
     .form-group { margin-bottom: 1.2rem; text-align: right; }
     .form-group label { display: block; margin-bottom: 0.4rem; font-weight: 600; font-size: 0.9rem; }
     .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; font-size: 1rem; outline: none; background: var(--card-bg); color: var(--text-color); }
+    input[readonly] { background-color: var(--border-color); opacity: 0.8; cursor: not-allowed; }
     
     .btn { width: 100%; padding: 0.75rem; background-color: var(--primary-color); color: white; border: none; border-radius: 8px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: background 0.2s; touch-action: manipulation; }
+    .btn:active { transform: scale(0.98); }
     .btn:hover { background-color: var(--secondary-color); }
 
-    .dashboard-container { display: none; width: 100%; max-width: 1200px; margin: 0 auto; }
+    .dashboard-container { display: none; width: 100%; max-width: 1150px; margin: 0 auto; }
     header { background: var(--primary-color); color: white; padding: 1.2rem; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
     .header-btns { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
-    .btn-header { background-color: transparent; border: 1px solid white; color: white; padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer; font-size: 0.85rem; }
-    
+    .btn-header { background-color: transparent; border: 1px solid white; color: white; padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer; font-size: 0.85rem; touch-action: manipulation; }
+    .btn-header:hover { background-color: rgba(255, 255, 255, 0.2); }
+    .clock-box { font-size: 0.85rem; background: rgba(0,0,0,0.2); padding: 0.4rem 0.8rem; border-radius: 6px; }
+
     .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
-    .stat-card { background: var(--card-bg); padding: 1.2rem; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-right: 5px solid var(--primary-color); border: 1px solid var(--border-color); }
-    .stat-card span { font-size: 0.85rem; color: var(--text-muted); }
+    .stat-card { background: var(--card-bg); padding: 1.2rem; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-right: 5px solid var(--primary-color); display: flex; flex-direction: column; border: 1px solid var(--border-color); }
+    .stat-card span { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.3rem; }
     .stat-card p { font-size: 1.6rem; font-weight: 700; color: var(--text-color); }
     .progress-bar-container { background: var(--border-color); border-radius: 10px; height: 8px; width: 100%; margin-top: 8px; overflow: hidden; }
     .progress-bar-fill { background: var(--success-color); height: 100%; width: 0%; transition: width 0.4s ease; }
 
-    .nav-tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; border-bottom: 2px solid var(--border-color); overflow-x: auto; padding-bottom: 5px; }
-    .tab-btn { padding: 0.6rem 1rem; border: none; background: none; font-size: 0.9rem; font-weight: 600; cursor: pointer; color: var(--text-muted); border-bottom: 3px solid transparent; white-space: nowrap; }
+    .profile-card { background: var(--card-bg); padding: 1.2rem; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 1.5rem; border: 1px solid var(--border-color); }
+    .profile-card h3 { color: var(--primary-color); margin-bottom: 0.5rem; }
+    .profile-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-top: 1rem; }
+    .profile-item { background: var(--profile-item-bg); padding: 0.8rem 1rem; border-radius: 8px; border: 1px solid var(--border-color); }
+    .profile-item span { display: block; font-size: 0.8rem; color: var(--text-muted); }
+    .profile-item p { font-weight: 600; margin-top: 0.2rem; }
+
+    .filter-pills { display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
+    .pill-btn { padding: 0.4rem 1rem; border-radius: 50px; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-color); cursor: pointer; font-size: 0.85rem; touch-action: manipulation; }
+    .pill-btn.active { background: var(--primary-color); color: white; border-color: var(--primary-color); }
+
+    .search-box-wrapper { margin-bottom: 1rem; }
+    .search-box-wrapper input { width: 100%; padding: 0.6rem 1rem; border: 1px solid var(--border-color); border-radius: 8px; background: var(--card-bg); color: var(--text-color); }
+
+    .nav-tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; border-bottom: 2px solid var(--border-color); overflow-x: auto; padding-bottom: 5px; -webkit-overflow-scrolling: touch; }
+    .tab-btn { padding: 0.6rem 1rem; border: none; background: none; font-size: 0.9rem; font-weight: 600; cursor: pointer; color: var(--text-muted); border-bottom: 3px solid transparent; white-space: nowrap; touch-action: manipulation; }
     .tab-btn.active { color: var(--primary-color); border-bottom-color: var(--primary-color); }
     .tab-content { display: none; }
     .tab-content.active { display: block; }
 
-    /* ===== KANBAN BOARD STYLES ===== */
-    .kanban-board { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem; margin-top: 1rem; }
-    .kanban-column { background: var(--kanban-col-bg); border-radius: 12px; padding: 1rem; min-height: 450px; display: flex; flex-direction: column; gap: 0.8rem; border: 1px solid var(--border-color); }
-    .kanban-column-header { display: flex; justify-content: space-between; align-items: center; font-weight: 700; padding-bottom: 0.5rem; border-bottom: 2px solid var(--border-color); }
-    .kanban-count { background: var(--primary-color); color: white; font-size: 0.75rem; padding: 2px 8px; border-radius: 12px; }
-    
-    .kanban-cards-container { flex: 1; display: flex; flex-direction: column; gap: 0.8rem; padding: 0.2rem; min-height: 380px; }
-    .kanban-card { background: var(--card-bg); padding: 1rem; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border: 1px solid var(--border-color); cursor: grab; transition: transform 0.2s, box-shadow 0.2s; position: relative; }
-    .kanban-card:active { cursor: grabbing; transform: scale(0.98); }
-    .kanban-card.dragging { opacity: 0.5; border: 2px dashed var(--primary-color); }
-    .kanban-card h5 { font-size: 0.95rem; margin-bottom: 0.4rem; color: var(--text-color); }
-    .kanban-card p { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.6rem; }
-    .kanban-card-footer { display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; border-top: 1px dashed var(--border-color); padding-top: 0.5rem; }
-    
-    .priority-badge { font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; font-weight: bold; }
-    .priority-high { background: #fee2e2; color: #991b1b; }
-    .priority-med { background: #fef3c7; color: #92400e; }
-    .priority-low { background: #e0f2fe; color: #075985; }
+    .table-responsive { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 1.5rem; }
+    .data-table { width: 100%; border-collapse: collapse; background: var(--card-bg); border-radius: 8px; overflow: hidden; border: 1px solid var(--border-color); min-width: 600px; }
+    .data-table th, .data-table td { padding: 0.75rem 0.8rem; text-align: right; border-bottom: 1px solid var(--border-color); font-size: 0.85rem; }
+    .data-table th { background-color: var(--table-header-bg); color: var(--primary-color); font-weight: 700; }
 
-    .view-toggle { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+    .badge { padding: 0.25rem 0.6rem; border-radius: 50px; font-size: 0.75rem; font-weight: 600; display: inline-block; }
+    .badge-success { background-color: #d4edda; color: #155724; }
+    .badge-warning { background-color: #fff3cd; color: #856404; }
+    .badge-closed { background-color: #e2e8f0; color: #475569; }
+    
+    .loader { text-align: center; padding: 2rem; color: var(--text-muted); }
+    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 1000; }
+    .modal-content { background: var(--card-bg); padding: 1.5rem; border-radius: 12px; width: 92%; max-width: 500px; max-height: 85vh; overflow-y: auto; border: 1px solid var(--border-color); }
+
+    .chat-box-wrapper { position: relative; }
+    .whatsapp-chat-container { background: #efeae2; border-radius: 10px; border: 1px solid var(--border-color); height: 200px; overflow-y: auto; padding: 10px; display: flex; flex-direction: column; gap: 8px; margin-bottom: 6px; -webkit-overflow-scrolling: touch; }
+    body.dark-mode .whatsapp-chat-container { background: #0b141a; }
+    
+    .chat-bubble { max-width: 85%; padding: 8px 12px; border-radius: 8px; font-size: 0.85rem; position: relative; line-height: 1.4; word-wrap: break-word; }
+    .chat-bubble.visitor { background: #ffffff; color: #111b21; align-self: flex-start; border-top-right-radius: 0; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
+    body.dark-mode .chat-bubble.visitor { background: #202c33; color: #e9edef; }
+    .chat-bubble.admin { background: #d9fdd3; color: #111b21; align-self: flex-end; border-top-left-radius: 0; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
+    body.dark-mode .chat-bubble.admin { background: #005c4b; color: #e9edef; }
+    .chat-bubble .sender-name { font-size: 0.7rem; font-weight: bold; margin-bottom: 2px; color: var(--primary-color); }
+    body.dark-mode .chat-bubble .sender-name { color: #53bdeb; }
+    .chat-bubble .chat-time { font-size: 0.6rem; color: var(--text-muted); text-align: left; margin-top: 3px; display: block; }
+    
+    .expand-chat-btn { position: absolute; top: 8px; left: 8px; background: rgba(0,0,0,0.6); color: white; border: none; border-radius: 6px; padding: 4px 8px; font-size: 0.75rem; cursor: pointer; z-index: 10; display: flex; align-items: center; gap: 4px; }
+
+    .chat-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; z-index: 2000; }
+    .chat-modal-content { background: var(--card-bg); width: 95%; max-width: 750px; height: 85vh; border-radius: 14px; display: flex; flex-direction: column; padding: 15px; border: 1px solid var(--border-color); }
   </style>
 </head>
 <body>
 
   <div id="toastContainer"></div>
 
-  <!-- تسجيل الدخول -->
+  <!-- شاشة الدخول الرئيسية -->
   <div class="login-container" id="loginView">
     <h2>تسجيل دخول أعضاء المكتب</h2>
-    <div class="form-group"><label>رقم العضوية (Member ID)</label><input type="text" id="memberId" placeholder="COO أو MGR-1"></div>
+    <div class="form-group"><label>رقم العضوية (Member ID)</label><input type="text" id="memberId" placeholder="مثال: COO أو MGR-1"></div>
     <div class="form-group"><label>كلمة المرور</label><input type="password" id="password" placeholder="••••••••"></div>
     <button class="btn" onclick="handleLogin()">دخول النظام</button>
+    
+    <hr style="margin: 1.2rem 0; border-color: var(--border-color);">
+    <button class="btn" style="background: #0284c7; margin-bottom: 0.6rem;" onclick="showVisitorSection('submit')">🌐 بوابة الزوار: تقديم طلب / استفسار</button>
+    <button class="btn" style="background: #0d9488;" onclick="showVisitorSection('track')">🔍 غرفة متابعة الطلب والدردشة</button>
   </div>
 
-  <!-- لوحة التحكم الإدارية -->
+  <!-- واجهة تقديم طلب للزوار -->
+  <div class="login-container" id="visitorSubmitView" style="display:none; max-width: 550px; text-align: right;">
+    <h2 style="text-align: center; color: var(--primary-color);">🌐 بوابة الزوار والطلاب</h2>
+    <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:1rem; text-align: center;">قدم طلبك وسنرسل لك إيميل فوراً برقم المتابعة الخاص بك.</p>
+    
+    <div class="form-group"><label>الاسم الكريم</label><input type="text" id="visitorName" placeholder="أدخل اسمك الكامل..."></div>
+    <div class="form-group"><label>البريد الإلكتروني</label><input type="email" id="visitorEmail" placeholder="name@stu.kau.edu.sa"></div>
+    <div class="form-group">
+      <label>نوع التقديم</label>
+      <select id="visitorCategory">
+        <option value="استفسار أكاديمي أو مهني">استفسار أكاديمي أو مهني</option>
+        <option value="استشارة سلوكية">استشارة سلوكية</option>
+        <option value="طلب خدمة">طلب خدمة</option>
+        <option value="اقتراح تطويري">اقتراح تطويري</option>
+      </select>
+    </div>
+    <div class="form-group"><label>التفاصيل والموضوع</label><textarea id="visitorDetails" rows="4" placeholder="اكتب التفاصيل..."></textarea></div>
+    <button class="btn" onclick="submitVisitorInquiry()">إرسال التقديم</button>
+    <button class="btn" style="background:var(--text-muted); margin-top:0.6rem;" onclick="backToLogin()">الرجوع</button>
+  </div>
+
+  <!-- غرفة متابعة الزوار -->
+  <div class="login-container" id="visitorTrackView" style="display:none; max-width: 650px; text-align: right;">
+    <h2 style="text-align: center; color: var(--primary-color);">💬 غرفة المحادثة والمتابعة للزائر</h2>
+    <div class="form-group"><label>رقم المتابعة</label><input type="text" id="trackInquiryId" placeholder="VIS-1234"></div>
+    <button class="btn" onclick="trackVisitorInquiry()">دخول غرفة المحادثة</button>
+    
+    <div id="trackResultContainer" style="margin-top: 1.5rem; display: none;">
+      <p style="margin-bottom:8px;"><strong>الحالة:</strong> <span id="resStatus" class="badge badge-warning">-</span></p>
+      <div class="whatsapp-chat-container" id="resChatLogContainer"></div>
+      <div class="form-group" style="margin-top:10px;">
+        <input type="text" id="visitorReplyInput" placeholder="اكتب رسالتك للإدارة...">
+      </div>
+      <button class="btn" onclick="sendVisitorChatMessage()">إرسال الرسالة</button>
+    </div>
+    <button class="btn" style="background:var(--text-muted); margin-top:1rem;" onclick="backToLogin()">الرجوع</button>
+  </div>
+
+  <!-- نافذة تكبير الشات -->
+  <div class="chat-modal" id="expandedChatModal">
+    <div class="chat-modal-content">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+        <h3 id="modalChatTitle" style="color:var(--primary-color);">محادثة الزائر</h3>
+        <button class="btn" style="width:auto; padding:4px 12px; background:var(--danger-color);" onclick="closeExpandedChat()">إغلاق ✕</button>
+      </div>
+      <div class="whatsapp-chat-container" id="modalChatLogContainer" style="flex:1;"></div>
+    </div>
+  </div>
+
+  <!-- لوحة التحكم للإدارة -->
   <div class="dashboard-container" id="dashboardView">
     <header>
       <div>
@@ -106,173 +185,795 @@
       </div>
       <div class="header-btns">
         <div class="clock-box" id="liveClock">--:--:--</div>
+        <button class="btn-header" onclick="manualRefreshData()">🔄 تحديث</button>
         <button class="btn-header" onclick="toggleDarkMode()">🌙 المظهر</button>
+        <button class="btn-header" onclick="openPassModal()">كلمة المرور</button>
         <button class="btn-header" onclick="handleLogout()">خروج</button>
       </div>
     </header>
 
     <div class="nav-tabs">
-      <button class="tab-btn active" onclick="switchTab('kanbanTab', this)">📋 لوحة المهام التفاعلية (Kanban)</button>
-      <button class="tab-btn" onclick="switchTab('analyticsTab', this)">📊 التحليلات والتقارير</button>
+      <button class="tab-btn active" onclick="switchTab('personalDashboardTab', this)">👤 اللوحة الشخصية</button>
+      <button class="tab-btn" id="teamTabBtn" style="display:none;" onclick="switchTab('teamManagementTab', this)">👥 إدارة الفريق والعمليات</button>
+      <button class="tab-btn" id="visitorInquiriesTabBtn" style="display:none;" onclick="switchTab('visitorInquiriesTab', this)">💬 غرف النقاشات النشطة</button>
+      <button class="tab-btn" id="closedInquiriesTabBtn" style="display:none;" onclick="switchTab('closedInquiriesTab', this)">📁 النقاشات المنجزة (الأرشيف)</button>
+      <button class="tab-btn" onclick="switchTab('sopsTab', this)">📚 أدلة العمل</button>
+      <button class="tab-btn" onclick="switchTab('evaluationsTab', this)">⭐ التقييمات</button>
+      <button class="tab-btn" onclick="switchTab('requestTabContent', this)">📝 إرسال طلب / متابعة</button>
+      <button class="tab-btn" onclick="switchTab('supportTabContent', this)">🛠️ الدعم الفني</button>
+      <button class="tab-btn" onclick="switchTab('analyticsTab', this)">📊 التحليلات</button>
     </div>
 
-    <!-- 1. لوحة المهام الكانبان -->
-    <div class="tab-content active" id="kanbanTab">
+    <!-- 1. اللوحة الشخصية -->
+    <div class="tab-content active" id="personalDashboardTab">
       <div class="stats-grid">
-        <div class="stat-card"><span>إجمالي المهام</span><p id="statTotalTasks">0</p></div>
+        <div class="stat-card"><span>إجمالي المهام المسندة</span><p id="statTotalTasks">0</p></div>
         <div class="stat-card"><span>المهام المكتملة</span><p id="statCompletedTasks">0</p></div>
         <div class="stat-card">
-          <span>نسبة الإنجاز</span>
+          <span>نسبة الإنجاز البصرية</span>
           <p id="statProgress">0%</p>
           <div class="progress-bar-container"><div class="progress-bar-fill" id="progressBarFill"></div></div>
         </div>
+        <div class="stat-card"><span>مؤشر النشاط</span><p id="statActivityScore">نشط</p></div>
       </div>
 
-      <!-- أعمدة الكانبان للسحب والإفلات -->
-      <div class="kanban-board">
-        <!-- عمود: جديدة -->
-        <div class="kanban-column" ondragover="allowDrop(event)" ondrop="drop(event, 'جديدة')">
-          <div class="kanban-column-header">
-            <span>📌 جديدة (To Do)</span>
-            <span class="kanban-count" id="count-todo">0</span>
-          </div>
-          <div class="kanban-cards-container" id="col-todo"></div>
+      <div class="profile-card">
+        <h3>النبذة الشخصية والمسمى الوظيفي</h3>
+        <div class="profile-grid">
+          <div class="profile-item"><span>المسمى الوظيفي:</span><p id="jobTitle">-</p></div>
+          <div class="profile-item"><span>البريد الإلكتروني:</span><p id="userEmail">-</p></div>
+          <div class="profile-item"><span>النبذة الشخصية:</span><p id="bioText">-</p></div>
+          <div class="profile-item" style="grid-column: 1 / -1;"><span>المسؤوليات والوصف:</span><p id="jobDescText">-</p></div>
+        </div>
+      </div>
+
+      <div class="profile-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;">
+          <h3 style="color: var(--primary-color);">قائمة المهام الشخصية</h3>
+          <button class="btn" style="width: auto; padding: 0.4rem 1rem; font-size: 0.85rem;" onclick="exportToPDF('tasksTableContainer', 'تقرير_المهام.pdf')">📥 تصدير PDF</button>
         </div>
 
-        <!-- عمود: قيد التنفيذ -->
-        <div class="kanban-column" ondragover="allowDrop(event)" ondrop="drop(event, 'قيد التنفيذ')">
-          <div class="kanban-column-header">
-            <span>⏳ قيد التنفيذ (In Progress)</span>
-            <span class="kanban-count" id="count-inprogress">0</span>
-          </div>
-          <div class="kanban-cards-container" id="col-inprogress"></div>
+        <div class="filter-pills">
+          <button class="pill-btn active" onclick="filterTasks('all', this)">الكل</button>
+          <button class="pill-btn" onclick="filterTasks('قيد التنفيذ', this)">قيد التنفيذ</button>
+          <button class="pill-btn" onclick="filterTasks('مكتملة', this)">مكتملة (أرشيف)</button>
+          <button class="pill-btn" onclick="filterTasks('اليوم', this)">📅 مهام اليوم</button>
+          <button class="pill-btn" onclick="filterTasks('متأخرة', this)">⚠️ مهام متأخرة</button>
         </div>
 
-        <!-- عمود: مكتملة -->
-        <div class="kanban-column" ondragover="allowDrop(event)" ondrop="drop(event, 'مكتملة')">
-          <div class="kanban-column-header">
-            <span>✅ مكتملة (Done)</span>
-            <span class="kanban-count" id="count-done">0</span>
-          </div>
-          <div class="kanban-cards-container" id="col-done"></div>
+        <div class="search-box-wrapper">
+          <input type="text" id="taskSearchInput" placeholder="🔍 بحث فوري في المهام..." oninput="applyTasksFilterAndSearch()">
+        </div>
+
+        <div id="tasksLoader" class="loader">جاري التحميل...</div>
+        <div id="tasksTableContainer" class="table-responsive">
+          <table class="data-table" id="tasksTable" style="display:none;">
+            <thead><tr><th>رقم المهمة</th><th>العنوان</th><th>الحالة</th><th>التفاصيل</th><th>التاريخ</th><th>إجراء سريع</th></tr></thead>
+            <tbody id="tasksBody"></tbody>
+          </table>
         </div>
       </div>
     </div>
 
-    <!-- 2. التحليلات -->
-    <div class="tab-content" id="analyticsTab">
-      <div class="stat-card" style="text-align:center; padding: 2rem;">
-        <h3>📊 ملخص أداء الفريق والمهام</h3>
-        <p style="margin-top:1rem; font-size:1.2rem;">يتم تحديث التقارير تلقائياً عند تغيير حالات المهام داخل لوحة الكانبان.</p>
+    <!-- 2. إدارة الفريق والعمليات -->
+    <div class="tab-content" id="teamManagementTab">
+      <div class="profile-card" style="border: 2px dashed var(--primary-color);">
+        <h4 style="margin-bottom: 1rem; color: var(--primary-color);">➕ إسناد مهمة جديدة لعضو نشط</h4>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
+          <div class="form-group" style="margin-bottom:0;"><label>عنوان المهمة</label><input type="text" id="newTaskName"></div>
+          <div class="form-group" style="margin-bottom:0;">
+            <label>اختر اسم العضو</label>
+            <select id="newTaskAssigneeSelect" onchange="autoFillMemberDetails()"><option value="">جاري التحميل...</option></select>
+          </div>
+          <div class="form-group" style="margin-bottom:0;"><label>رقم العضوية (ID)</label><input type="text" id="newTaskMemberId" readonly></div>
+          <div class="form-group" style="margin-bottom:0;"><label>القسم</label><input type="text" id="newTaskDepartment" readonly></div>
+          <div class="form-group" style="margin-bottom:0;"><label>تاريخ الاستحقاق</label><input type="date" id="newTaskDate"></div>
+        </div>
+        <div class="form-group" style="margin-bottom:1rem;"><label>تفاصيل إضافية</label><input type="text" id="newTaskDetails"></div>
+        <button class="btn" onclick="addNewTaskWithAutoFill()">إسناد المهمة وإشعار العضو</button>
       </div>
+
+      <div class="profile-card">
+        <h4 style="margin-bottom: 1rem; color: var(--primary-color);">إدارة أعضاء الفريق</h4>
+        <div class="search-box-wrapper"><input type="text" id="memberSearchInput" placeholder="🔍 ابحث بالاسم..." oninput="filterMembersTable()"></div>
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead><tr><th>رقم العضوية</th><th>الاسم</th><th>المسمى الوظيفي</th><th>البريد</th></tr></thead>
+            <tbody id="membersTableBody"><tr><td colspan="4" style="text-align:center;">جاري التحميل...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="profile-card">
+        <h4 style="margin-bottom: 1rem; color: var(--primary-color);">طلبات الأعضاء الواردة</h4>
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead><tr><th>رقم الطلب</th><th>العضو</th><th>نوع الطلب</th><th>التفاصيل</th><th>الرد والمتابعة</th></tr></thead>
+            <tbody id="requestsTableBody"><tr><td colspan="5" style="text-align:center;">جاري التحميل...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="profile-card">
+        <h4 style="margin-bottom: 1rem; color: var(--primary-color);">🛠 بلاغات الدعم الفني</h4>
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead><tr><th>رقم البلاغ</th><th>العضو</th><th>المشكلة</th><th>المسؤول عن الحل</th><th>الرد والحالة</th></tr></thead>
+            <tbody id="adminSupportTableBody"><tr><td colspan="5" style="text-align:center;">جاري التحميل...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. غرف النقاشات النشطة -->
+    <div class="tab-content" id="visitorInquiriesTab">
+      <div class="profile-card">
+        <h3 style="color:var(--primary-color); margin-bottom:0.5rem;">💬 غرف محادثات الزوار والطلبات النشطة</h3>
+        <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:1rem;">تابع غرف المحادثة بنمط الواتساب مباشرة.</p>
+        
+        <div id="visitorInquiriesLoader" class="loader">جاري التحميل...</div>
+        <div class="table-responsive">
+          <table class="data-table" id="visitorInquiriesTable" style="display:none;">
+            <thead>
+              <tr>
+                <th>الزائر ورقم المتابعة</th>
+                <th>نوع الطلب والتفاصيل</th>
+                <th>غرفة الدردشة المباشرة</th>
+                <th>إدارة الرد والإغلاق</th>
+              </tr>
+            </thead>
+            <tbody id="visitorInquiriesBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. سجل النقاشات المنجزة (الأرشيف) -->
+    <div class="tab-content" id="closedInquiriesTab">
+      <div class="profile-card">
+        <h3 style="color:var(--primary-color); margin-bottom:0.5rem;">📁 سجل النقاشات المنجزة (الأرشيف)</h3>
+        <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:1rem;">سجل كامل بالمحادثات التي تم إغلاقها والانتهاء منها بكافة تفاصيلها.</p>
+        
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>الزائر ورقم المتابعة</th>
+                <th>التفاصيل والتاريخ</th>
+                <th>سجل المحادثة</th>
+                <th>تم بواسطة</th>
+              </tr>
+            </thead>
+            <tbody id="closedInquiriesBody"><tr><td colspan="4" style="text-align:center;">لا توجد محادثات منجزة حالياً</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- أدلة العمل -->
+    <div class="tab-content" id="sopsTab">
+      <div class="profile-card">
+        <h3 style="color:var(--primary-color); margin-bottom:1rem;">📚 أدلة العمل (SOPs)</h3>
+        <div id="sopsLoader" class="loader">جاري التحميل...</div>
+        <div class="table-responsive">
+          <table class="data-table" id="sopsTable" style="display:none;">
+            <thead><tr><th>رمز الدليل</th><th>العنوان</th><th>القسم</th><th>الوصف</th><th>الرابط</th></tr></thead>
+            <tbody id="sopsBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- التقييمات -->
+    <div class="tab-content" id="evaluationsTab">
+      <div class="profile-card">
+        <h3 style="color:var(--primary-color); margin-bottom:1rem;">⭐ سجل التقييمات</h3>
+        <div id="evalsLoader" class="loader">جاري التحميل...</div>
+        <div class="table-responsive">
+          <table class="data-table" id="evalsTable" style="display:none;">
+            <thead><tr><th>رمز التقييم</th><th>درجة الجودة</th><th>الانضباط</th><th>ملاحظات</th><th>التاريخ</th></tr></thead>
+            <tbody id="evalsBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- إرسال طلب -->
+    <div class="tab-content" id="requestTabContent">
+      <div class="profile-card" style="max-width:700px; margin:0 auto 1.5rem auto;">
+        <h3 style="color:var(--primary-color); margin-bottom:1rem;">إرسال طلب رسمي للإدارة</h3>
+        <div class="form-group"><label>نوع الطلب</label><select id="reqType"><option value="إجازة رسمية">إجازة رسمية</option><option value="استئذان طارئ">استئذان طارئ</option><option value="تقرير إنجاز">تقرير إنجاز</option></select></div>
+        <div class="form-group"><label>التفاصيل</label><textarea id="reqDetails" rows="4"></textarea></div>
+        <button class="btn" onclick="submitUserRequest()">إرسال الطلب</button>
+      </div>
+      <div class="profile-card" style="max-width:700px; margin:0 auto;">
+        <h3 style="color:var(--primary-color); margin-bottom:1rem;">متابعة طلباتي</h3>
+        <div id="myRequestsLoader" class="loader">جاري التحميل...</div>
+        <div id="myRequestsContainer"></div>
+      </div>
+    </div>
+
+    <!-- الدعم الفني -->
+    <div class="tab-content" id="supportTabContent">
+      <div class="profile-card" style="max-width:700px; margin:0 auto 1.5rem auto;">
+        <h3 style="color:var(--primary-color); margin-bottom:1rem;">🛠️ إرسال بلاغ دعم فني</h3>
+        <div class="form-group"><label>وصف المشكلة</label><textarea id="supportText" rows="4"></textarea></div>
+        <button class="btn" onclick="submitSupportTicket()">إرسال البلاغ</button>
+      </div>
+      <div class="profile-card" style="max-width:700px; margin:0 auto;">
+        <h3 style="color:var(--primary-color); margin-bottom:1rem;">سجل بلاغاتي</h3>
+        <div id="mySupportLoader" class="loader">جاري التحميل...</div>
+        <div id="mySupportContainer"></div>
+      </div>
+    </div>
+
+    <!-- التحليلات -->
+    <div class="tab-content" id="analyticsTab">
+      <div class="profile-card" style="text-align:center; max-width:700px; margin:0 auto;">
+        <h3 style="color:var(--primary-color); margin-bottom:1rem;">📊 التحليلات البيانية</h3>
+        <div style="font-size: 2.5rem; font-weight: bold; color: var(--success-color);" id="analyticsScoreDisplay">0%</div>
+        <p style="margin-top: 0.5rem;">معدل الأداء والإنجاز العام للمهام.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- نافذة تغيير كلمة المرور -->
+  <div class="modal" id="passModal">
+    <div class="modal-content">
+      <h3 style="color:var(--primary-color); margin-bottom:1rem;">🔐 تغيير كلمة المرور</h3>
+      <div class="form-group"><label>كلمة المرور الحالية</label><input type="password" id="oldPass"></div>
+      <div class="form-group"><label>كلمة المرور الجديدة</label><input type="password" id="newPass"></div>
+      <button class="btn" onclick="handleChangePassword()">حفظ</button>
+      <button class="btn" style="background-color: var(--text-muted); margin-top: 0.5rem;" onclick="closePassModal()">إلغاء</button>
     </div>
   </div>
 
   <script>
-    // بيانات المهام التجريبية
-    let tasks = [
-      { id: 'T-101', title: 'مراجعة خطة توجيه الطلاب', desc: 'إعداد الجدول الزمني للقاء التعريفي', status: 'جديدة', priority: 'high', date: '2026-10-25' },
-      { id: 'T-102', title: 'تجهيز نموذج الاستشارات', desc: 'تحديث رابط التسجيل وإزالة المكرر', status: 'قيد التنفيذ', priority: 'med', date: '2026-10-22' },
-      { id: 'T-103', title: 'تصميم بوستر الفعالية', desc: 'التنسيق مع فريق الإعلام والتصوير', status: 'مكتملة', priority: 'low', date: '2026-10-20' }
-    ];
+    const API_URL = "https://script.google.com/macros/s/AKfycbwLKK_ocd7fX7xCNgZl-Q_Feqi3h042DfII0nqzu_NfBw0-o61BcLzxnakHnEIY-QjEJA/exec";
+    let currentUser = null;
+    let globalTasksCache = [];
+    let globalMembersCache = [];
+    let globalInquiriesCache = [];
+    let currentStatusFilter = 'all';
+    let currentActiveTrackId = '';
 
-    function handleLogin() {
+    if (localStorage.getItem('darkMode') === 'true') document.body.classList.add('dark-mode');
+
+    window.onload = function() {
+      const savedUser = localStorage.getItem('currentUser');
+      if (savedUser) {
+        try {
+          currentUser = JSON.parse(savedUser);
+          renderDashboard();
+        } catch (e) { localStorage.removeItem('currentUser'); }
+      }
+    };
+
+    function showToast(msg) {
+      const c = document.getElementById('toastContainer');
+      if (!c) return;
+      const t = document.createElement('div');
+      t.className = 'toast'; t.innerText = msg;
+      c.appendChild(t);
+      setTimeout(() => { if(t) t.remove(); }, 3000);
+    }
+
+    setInterval(() => {
+      const clockBox = document.getElementById('liveClock');
+      if (clockBox) clockBox.innerText = new Date().toLocaleTimeString('ar-SA');
+    }, 1000);
+
+    async function callAPI(query) {
+      try {
+        const res = await fetch(`${API_URL}?${query}`, { method: 'GET', redirect: 'follow' });
+        return await res.json();
+      } catch (e) {
+        showToast("خطأ في الاتصال بالخادم");
+        return null;
+      }
+    }
+
+    function showVisitorSection(type) {
       document.getElementById('loginView').style.display = 'none';
-      document.getElementById('dashboardView').style.display = 'block';
-      renderKanban();
+      if(type === 'submit') {
+        document.getElementById('visitorSubmitView').style.display = 'block';
+        document.getElementById('visitorTrackView').style.display = 'none';
+      } else {
+        document.getElementById('visitorSubmitView').style.display = 'none';
+        document.getElementById('visitorTrackView').style.display = 'block';
+      }
+    }
+
+    function backToLogin() {
+      document.getElementById('visitorSubmitView').style.display = 'none';
+      document.getElementById('visitorTrackView').style.display = 'none';
+      document.getElementById('loginView').style.display = 'block';
+    }
+
+    async function submitVisitorInquiry() {
+      const name = document.getElementById('visitorName').value.trim();
+      const email = document.getElementById('visitorEmail').value.trim();
+      const category = document.getElementById('visitorCategory').value;
+      const details = document.getElementById('visitorDetails').value.trim();
+
+      if(!name || !email || !details) { showToast("يرجى تعبئة جميع الحقول"); return; }
+      showToast("جاري إرسال الطلب وإرسال البريد...");
+      const res = await callAPI(`action=submitVisitorInquiry&name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&category=${encodeURIComponent(category)}&details=${encodeURIComponent(details)}`);
+      
+      if(res && res.status === "success") {
+        alert("✅ تم إرسال طلبك بنجاح!\nرقم المتابعة الخاص بك: " + res.inquiryId);
+        document.getElementById('visitorName').value = '';
+        document.getElementById('visitorEmail').value = '';
+        document.getElementById('visitorDetails').value = '';
+        backToLogin();
+      } else {
+        showToast("حدث خطأ أثناء الإرسال");
+      }
+    }
+
+    function parseChatMessages(rawLog) {
+      if (!rawLog) return [];
+      if (Array.isArray(rawLog)) return rawLog;
+      if (typeof rawLog === 'object') return [rawLog];
+
+      try {
+        const parsed = JSON.parse(rawLog);
+        if (Array.isArray(parsed)) return parsed;
+        if (typeof parsed === 'object') return [parsed];
+      } catch (e) {}
+
+      const lines = String(rawLog).split('\n').filter(l => l.trim().length > 0);
+      if (lines.length > 0) {
+        return lines.map(line => {
+          if (line.includes(':')) {
+            const parts = line.split(':');
+            return { sender: parts[0].trim(), text: parts.slice(1).join(':').trim(), type: 'visitor', time: '' };
+          }
+          return { sender: 'الرسالة', text: line.trim(), type: 'visitor', time: '' };
+        });
+      }
+
+      return [];
+    }
+
+    function renderChatBubbles(chatLogRaw, containerId) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      container.innerHTML = '';
+
+      const messages = parseChatMessages(chatLogRaw);
+      if (messages.length === 0) {
+        container.innerHTML = '<div style="text-align:center; color:var(--text-muted); font-size:0.8rem; padding:20px;">لا توجد رسائل بعد... ابدأ المحادثة</div>';
+        return;
+      }
+
+      messages.forEach(msg => {
+        const bubble = document.createElement('div');
+        const isVisitor = msg.type === 'visitor' || msg.sender === 'الزائر';
+        bubble.className = `chat-bubble ${isVisitor ? 'visitor' : 'admin'}`;
+        
+        let html = `<div class="sender-name">${msg.sender || (isVisitor ? 'الزائر' : 'الإدارة')}</div>`;
+        html += `<div>${msg.text || ''}</div>`;
+        if (msg.time) html += `<span class="chat-time">${msg.time}</span>`;
+        
+        bubble.innerHTML = html;
+        container.appendChild(bubble);
+      });
+      container.scrollTop = container.scrollHeight;
+    }
+
+    async function trackVisitorInquiry() {
+      const id = document.getElementById('trackInquiryId').value.trim();
+      if(!id) { showToast("أدخل رقم المتابعة"); return; }
+      showToast("جاري البحث...");
+      const res = await callAPI(`action=trackVisitorInquiry&inquiryId=${encodeURIComponent(id)}`);
+      if(res && res.status === "success") {
+        currentActiveTrackId = id;
+        document.getElementById('trackResultContainer').style.display = 'block';
+        document.getElementById('resStatus').innerText = res.data.status;
+        renderChatBubbles(res.data.chatLog, 'resChatLogContainer');
+      } else {
+        showToast("رقم المتابعة غير صحيح");
+      }
+    }
+
+    async function sendVisitorChatMessage() {
+      const input = document.getElementById('visitorReplyInput');
+      const text = input.value.trim();
+      if(!text || !currentActiveTrackId) return;
+
+      const res = await callAPI(`action=visitorReplyChat&inquiryId=${encodeURIComponent(currentActiveTrackId)}&message=${encodeURIComponent(text)}`);
+      if(res && res.status === "success") {
+        input.value = '';
+        renderChatBubbles(res.chatLog, 'resChatLogContainer');
+      } else {
+        showToast("فشل إرسال الرسالة");
+      }
+    }
+
+    function openExpandedChat(inquiryId, title) {
+      const inquiry = globalInquiriesCache.find(i => i.inquiryId === inquiryId);
+      if(!inquiry) return;
+      document.getElementById('modalChatTitle').innerText = `محادثة: ${inquiry.name} (${inquiryId})`;
+      renderChatBubbles(inquiry.chatLog, 'modalChatLogContainer');
+      document.getElementById('expandedChatModal').style.display = 'flex';
+    }
+
+    function closeExpandedChat() {
+      document.getElementById('expandedChatModal').style.display = 'none';
+    }
+
+    async function handleLogin() {
+      const memberId = document.getElementById('memberId').value.trim();
+      const password = document.getElementById('password').value.trim();
+      if(!memberId || !password) { showToast("أدخل بيانات الدخول"); return; }
+
+      showToast("جاري التحقق...");
+      const res = await callAPI(`action=login&memberId=${encodeURIComponent(memberId)}&password=${encodeURIComponent(password)}`);
+      if(res && res.status === "success") {
+        currentUser = res.user;
+        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+        renderDashboard();
+      } else {
+        showToast("بيانات الدخول غير صحيحة");
+      }
     }
 
     function handleLogout() {
+      localStorage.removeItem('currentUser');
+      currentUser = null;
       document.getElementById('dashboardView').style.display = 'none';
       document.getElementById('loginView').style.display = 'block';
     }
 
     function toggleDarkMode() {
       document.body.classList.toggle('dark-mode');
+      localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
     }
 
     function switchTab(tabId, btn) {
-      document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
       document.getElementById(tabId).classList.add('active');
-      btn.classList.add('active');
+      if(btn) btn.classList.add('active');
     }
 
-    // === محرك السحب والإفلات (Drag & Drop Engine) ===
-    function renderKanban() {
-      const colTodo = document.getElementById('col-todo');
-      const colInProgress = document.getElementById('col-inprogress');
-      const colDone = document.getElementById('col-done');
+    function renderDashboard() {
+      document.getElementById('loginView').style.display = 'none';
+      document.getElementById('dashboardView').style.display = 'block';
 
-      colTodo.innerHTML = ''; colInProgress.innerHTML = ''; colDone.innerHTML = '';
+      document.getElementById('welcomeText').innerText = `مرحباً، ${currentUser.name}`;
+      document.getElementById('userDept').innerText = `القسم: ${currentUser.department} | الدور: ${currentUser.role}`;
 
-      let doneCount = 0;
+      document.getElementById('jobTitle').innerText = currentUser.jobTitle || '-';
+      document.getElementById('userEmail').innerText = currentUser.email || '-';
+      document.getElementById('bioText').innerText = currentUser.bio || '-';
+      document.getElementById('jobDescText').innerText = currentUser.jobDescription || '-';
 
-      tasks.forEach(task => {
-        const card = document.createElement('div');
-        card.className = 'kanban-card';
-        card.draggable = true;
-        card.id = task.id;
-        card.ondragstart = (e) => drag(e, task.id);
+      if(currentUser.role === 'مدير' || currentUser.role === 'مشرف عام' || currentUser.role === 'رئيس') {
+        document.getElementById('teamTabBtn').style.display = 'block';
+        document.getElementById('visitorInquiriesTabBtn').style.display = 'block';
+        document.getElementById('closedInquiriesTabBtn').style.display = 'block';
+        loadTeamData();
+        loadVisitorInquiries();
+      }
 
-        let priorityClass = task.priority === 'high' ? 'priority-high' : task.priority === 'med' ? 'priority-med' : 'priority-low';
-        let priorityLabel = task.priority === 'high' ? 'عالي' : task.priority === 'med' ? 'متوسط' : 'منخفض';
+      loadPersonalTasks();
+      loadSops();
+      loadEvals();
+      loadMyRequests();
+      loadMySupport();
+    }
 
-        card.innerHTML = `
-          <h5>${task.title}</h5>
-          <p>${task.desc}</p>
-          <div class="kanban-card-footer">
-            <span>📅 ${task.date}</span>
-            <span class="priority-badge ${priorityClass}">${priorityLabel}</span>
-          </div>
-        `;
+    async function loadPersonalTasks() {
+      const res = await callAPI(`action=getTasks&memberId=${encodeURIComponent(currentUser.memberId)}`);
+      if(res && res.status === "success") {
+        globalTasksCache = res.tasks || [];
+        applyTasksFilterAndSearch();
+        updateStats();
+      }
+      document.getElementById('tasksLoader').style.display = 'none';
+      document.getElementById('tasksTable').style.display = 'table';
+    }
 
-        if (task.status === 'جديدة') colTodo.appendChild(card);
-        else if (task.status === 'قيد التنفيذ') colInProgress.appendChild(card);
-        else if (task.status === 'مكتملة') {
-          colDone.appendChild(card);
-          doneCount++;
+    function updateStats() {
+      const total = globalTasksCache.length;
+      const completed = globalTasksCache.filter(t => t.status === 'مكتملة').length;
+      const pct = total > 0 ? Math.round((completed / total) * 100) : 0;
+
+      document.getElementById('statTotalTasks').innerText = total;
+      document.getElementById('statCompletedTasks').innerText = completed;
+      document.getElementById('statProgress').innerText = pct + '%';
+      document.getElementById('progressBarFill').style.width = pct + '%';
+      document.getElementById('analyticsScoreDisplay').innerText = pct + '%';
+    }
+
+    function filterTasks(status, btn) {
+      currentStatusFilter = status;
+      if(btn) {
+        document.querySelectorAll('.filter-pills .pill-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      }
+      applyTasksFilterAndSearch();
+    }
+
+    function applyTasksFilterAndSearch() {
+      const q = document.getElementById('taskSearchInput').value.toLowerCase();
+      const tbody = document.getElementById('tasksBody');
+      tbody.innerHTML = '';
+
+      const filtered = globalTasksCache.filter(t => {
+        const matchText = (t.taskName + ' ' + t.details + ' ' + t.taskId).toLowerCase().includes(q);
+        if(!matchText) return false;
+
+        if(currentStatusFilter === 'all') return true;
+        if(currentStatusFilter === 'قيد التنفيذ') return t.status !== 'مكتملة';
+        if(currentStatusFilter === 'مكتملة') return t.status === 'مكتملة';
+        if(currentStatusFilter === 'اليوم') {
+          const today = new Date().toISOString().split('T')[0];
+          return t.dueDate === today;
         }
+        if(currentStatusFilter === 'متأخرة') {
+          const today = new Date().toISOString().split('T')[0];
+          return t.dueDate < today && t.status !== 'مكتملة';
+        }
+        return true;
       });
 
-      // تحديث العدادات والإحصائيات
-      document.getElementById('count-todo').innerText = tasks.filter(t => t.status === 'جديدة').length;
-      document.getElementById('count-inprogress').innerText = tasks.filter(t => t.status === 'قيد التنفيذ').length;
-      document.getElementById('count-done').innerText = doneCount;
+      if(filtered.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;">لا توجد مهام مطابقة</td></tr>';
+        return;
+      }
 
-      document.getElementById('statTotalTasks').innerText = tasks.length;
-      document.getElementById('statCompletedTasks').innerText = doneCount;
-      
-      let progress = tasks.length ? Math.round((doneCount / tasks.length) * 100) : 0;
-      document.getElementById('statProgress').innerText = `${progress}%`;
-      document.getElementById('progressBarFill').style.width = `${progress}%`;
+      filtered.forEach(t => {
+        const tr = document.createElement('tr');
+        const badgeClass = t.status === 'مكتملة' ? 'badge-success' : 'badge-warning';
+        tr.innerHTML = `
+          <td>${t.taskId}</td>
+          <td><strong>${t.taskName}</strong></td>
+          <td><span class="badge ${badgeClass}">${t.status}</span></td>
+          <td>${t.details || '-'}</td>
+          <td>${t.dueDate || '-'}</td>
+          <td>
+            ${t.status !== 'مكتملة' ? `<button class="btn" style="padding:4px 8px; font-size:0.75rem;" onclick="completeTask('${t.taskId}')">إنجاز</button>` : 'مكتملة'}
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
     }
 
-    function allowDrop(ev) {
-      ev.preventDefault();
-    }
-
-    function drag(ev, id) {
-      ev.dataTransfer.setData("taskId", id);
-    }
-
-    function drop(ev, newStatus) {
-      ev.preventDefault();
-      const taskId = ev.dataTransfer.getData("taskId");
-      const task = tasks.find(t => t.id === taskId);
-      if (task) {
-        task.status = newStatus;
-        renderKanban();
-        showToast(`تم نقل المهمة إلى: ${newStatus}`);
+    async function completeTask(taskId) {
+      showToast("جاري التحديث...");
+      const res = await callAPI(`action=completeTask&taskId=${encodeURIComponent(taskId)}&memberId=${encodeURIComponent(currentUser.memberId)}`);
+      if(res && res.status === "success") {
+        showToast("تم إنجاز المهمة بنجاح");
+        loadPersonalTasks();
       }
     }
 
-    function showToast(msg) {
-      const c = document.getElementById('toastContainer');
-      const t = document.createElement('div');
-      t.className = 'toast'; t.innerText = msg;
-      c.appendChild(t);
-      setTimeout(() => t.remove(), 2500);
+    async function loadTeamData() {
+      const res = await callAPI(`action=getTeamData`);
+      if(res && res.status === "success") {
+        globalMembersCache = res.members || [];
+        const select = document.getElementById('newTaskAssigneeSelect');
+        select.innerHTML = '<option value="">اختر العضو...</option>';
+        globalMembersCache.forEach(m => {
+          select.innerHTML += `<option value="${m.name}" data-id="${m.memberId}" data-dept="${m.department}">${m.name} (${m.department})</option>`;
+        });
+
+        const mBody = document.getElementById('membersTableBody');
+        mBody.innerHTML = '';
+        globalMembersCache.forEach(m => {
+          mBody.innerHTML += `<tr><td>${m.memberId}</td><td>${m.name}</td><td>${m.jobTitle}</td><td>${m.email}</td></tr>`;
+        });
+      }
+    }
+
+    function autoFillMemberDetails() {
+      const select = document.getElementById('newTaskAssigneeSelect');
+      const opt = select.options[select.selectedIndex];
+      document.getElementById('newTaskMemberId').value = opt.getAttribute('data-id') || '';
+      document.getElementById('newTaskDepartment').value = opt.getAttribute('data-dept') || '';
+    }
+
+    async function addNewTaskWithAutoFill() {
+      const name = document.getElementById('newTaskName').value.trim();
+      const memberId = document.getElementById('newTaskMemberId').value.trim();
+      const dueDate = document.getElementById('newTaskDate').value;
+      const details = document.getElementById('newTaskDetails').value.trim();
+
+      if(!name || !memberId || !dueDate) { showToast("يرجى تعبئة الحقول الأساسية"); return; }
+
+      showToast("جاري إسناد المهمة...");
+      const res = await callAPI(`action=assignTask&taskName=${encodeURIComponent(name)}&memberId=${encodeURIComponent(memberId)}&dueDate=${encodeURIComponent(dueDate)}&details=${encodeURIComponent(details)}`);
+      if(res && res.status === "success") {
+        showToast("تم إسناد المهمة بنجاح");
+        document.getElementById('newTaskName').value = '';
+        document.getElementById('newTaskDetails').value = '';
+      }
+    }
+
+    async function loadVisitorInquiries() {
+      const res = await callAPI(`action=getVisitorInquiries`);
+      if(res && res.status === "success") {
+        globalInquiriesCache = res.inquiries || [];
+        const activeBody = document.getElementById('visitorInquiriesBody');
+        const closedBody = document.getElementById('closedInquiriesBody');
+        activeBody.innerHTML = '';
+        closedBody.innerHTML = '';
+
+        const activeList = globalInquiriesCache.filter(i => i.status !== 'مغلق');
+        const closedList = globalInquiriesCache.filter(i => i.status === 'مغلق');
+
+        if(activeList.length === 0) {
+          activeBody.innerHTML = '<tr><td colspan="4" style="text-align:center;">لا توجد محادثات نشطة حالياً</td></tr>';
+        } else {
+          activeList.forEach(i => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+              <td><strong>${i.name}</strong><br><span style="font-size:0.75rem; color:var(--text-muted);">${i.inquiryId}</span></td>
+              <td><span class="badge badge-warning">${i.category}</span><br>${i.details}</td>
+              <td style="width:280px; position:relative;">
+                <button class="expand-chat-btn" onclick="openExpandedChat('${i.inquiryId}')"><i class="fa-solid fa-expand"></i> تكبير</button>
+                <div class="whatsapp-chat-container" id="adminChatLog_${i.inquiryId}" style="height:120px;"></div>
+                <div style="display:flex; gap:4px; margin-top:4px;">
+                  <input type="text" id="adminReplyInput_${i.inquiryId}" placeholder="رد كإدارة..." style="font-size:0.8rem; padding:4px;">
+                  <button class="btn" style="width:auto; padding:4px 10px; font-size:0.8rem;" onclick="sendAdminChatMessage('${i.inquiryId}')">إرسال</button>
+                </div>
+              </td>
+              <td>
+                <button class="btn" style="background:var(--danger-color); padding:4px 8px; font-size:0.75rem; margin-top:4px;" onclick="closeInquiry('${i.inquiryId}')">إغلاق المحادثة</button>
+              </td>
+            `;
+            activeBody.appendChild(tr);
+            renderChatBubbles(i.chatLog, `adminChatLog_${i.inquiryId}`);
+          });
+        }
+
+        if(closedList.length === 0) {
+          closedBody.innerHTML = '<tr><td colspan="4" style="text-align:center;">لا توجد محادثات منجزة حالياً</td></tr>';
+        } else {
+          closedList.forEach(i => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+              <td><strong>${i.name}</strong><br><span style="font-size:0.75rem; color:var(--text-muted);">${i.inquiryId}</span></td>
+              <td>${i.details}<br><span style="font-size:0.75rem; color:var(--text-muted);">${i.timestamp || ''}</span></td>
+              <td><button class="btn" style="width:auto; padding:4px 8px; font-size:0.75rem;" onclick="openExpandedChat('${i.inquiryId}')">عرض السجل</button></td>
+              <td>${i.closedBy || 'الإدارة'}</td>
+            `;
+            closedBody.appendChild(tr);
+          });
+        }
+
+        document.getElementById('visitorInquiriesLoader').style.display = 'none';
+        document.getElementById('visitorInquiriesTable').style.display = 'table';
+      }
+    }
+
+    async function sendAdminChatMessage(inquiryId) {
+      const input = document.getElementById(`adminReplyInput_${inquiryId}`);
+      const text = input.value.trim();
+      if(!text) return;
+
+      const res = await callAPI(`action=adminReplyChat&inquiryId=${encodeURIComponent(inquiryId)}&message=${encodeURIComponent(text)}&adminName=${encodeURIComponent(currentUser.name)}`);
+      if(res && res.status === "success") {
+        input.value = '';
+        loadVisitorInquiries();
+      } else {
+        showToast("فشل الإرسال");
+      }
+    }
+
+    async function closeInquiry(inquiryId) {
+      if(!confirm("هل أنت متأكد من إغلاق المحادثة ونقلها للأرشيف؟")) return;
+      const res = await callAPI(`action=closeInquiry&inquiryId=${encodeURIComponent(inquiryId)}&adminName=${encodeURIComponent(currentUser.name)}`);
+      if(res && res.status === "success") {
+        showToast("تم إغلاق المحادثة بنجاح");
+        loadVisitorInquiries();
+      }
+    }
+
+    async function loadSops() {
+      const res = await callAPI(`action=getSops`);
+      if(res && res.status === "success") {
+        const tbody = document.getElementById('sopsBody');
+        tbody.innerHTML = '';
+        (res.sops || []).forEach(s => {
+          tbody.innerHTML += `<tr><td>${s.sopCode}</td><td><strong>${s.title}</strong></td><td>${s.department}</td><td>${s.description}</td><td><a href="${s.link}" target="_blank">رابط الدليل</a></td></tr>`;
+        });
+        document.getElementById('sopsLoader').style.display = 'none';
+        document.getElementById('sopsTable').style.display = 'table';
+      }
+    }
+
+    async function loadEvals() {
+      const res = await callAPI(`action=getEvaluations&memberId=${encodeURIComponent(currentUser.memberId)}`);
+      if(res && res.status === "success") {
+        const tbody = document.getElementById('evalsBody');
+        tbody.innerHTML = '';
+        (res.evaluations || []).forEach(e => {
+          tbody.innerHTML += `<tr><td>${e.evalCode}</td><td>${e.qualityScore}</td><td>${e.disciplineScore}</td><td>${e.notes}</td><td>${e.timestamp}</td></tr>`;
+        });
+        document.getElementById('evalsLoader').style.display = 'none';
+        document.getElementById('evalsTable').style.display = 'table';
+      }
+    }
+
+    async function submitUserRequest() {
+      const type = document.getElementById('reqType').value;
+      const details = document.getElementById('reqDetails').value.trim();
+      if(!details) { showToast("أدخل تفاصيل الطلب"); return; }
+
+      const res = await callAPI(`action=submitRequest&memberId=${encodeURIComponent(currentUser.memberId)}&reqType=${encodeURIComponent(type)}&details=${encodeURIComponent(details)}`);
+      if(res && res.status === "success") {
+        showToast("تم إرسال الطلب بنجاح");
+        document.getElementById('reqDetails').value = '';
+        loadMyRequests();
+      }
+    }
+
+    async function loadMyRequests() {
+      const res = await callAPI(`action=getMyRequests&memberId=${encodeURIComponent(currentUser.memberId)}`);
+      if(res && res.status === "success") {
+        const container = document.getElementById('myRequestsContainer');
+        container.innerHTML = '';
+        (res.requests || []).forEach(r => {
+          container.innerHTML += `<div class="profile-item" style="margin-bottom:8px;"><strong>${r.reqType}</strong> - <span class="badge badge-warning">${r.status}</span><p>${r.details}</p></div>`;
+        });
+        document.getElementById('myRequestsLoader').style.display = 'none';
+      }
+    }
+
+    async function submitSupportTicket() {
+      const text = document.getElementById('supportText').value.trim();
+      if(!text) { showToast("أدخل وصف المشكلة"); return; }
+
+      const res = await callAPI(`action=submitSupport&memberId=${encodeURIComponent(currentUser.memberId)}&details=${encodeURIComponent(text)}`);
+      if(res && res.status === "success") {
+        showToast("تم إرسال البلاغ بنجاح");
+        document.getElementById('supportText').value = '';
+        loadMySupport();
+      }
+    }
+
+    async function loadMySupport() {
+      const res = await callAPI(`action=getMySupport&memberId=${encodeURIComponent(currentUser.memberId)}`);
+      if(res && res.status === "success") {
+        const container = document.getElementById('mySupportContainer');
+        container.innerHTML = '';
+        (res.tickets || []).forEach(t => {
+          container.innerHTML += `<div class="profile-item" style="margin-bottom:8px;"><strong>بلاغ #${t.ticketId}</strong> - <span class="badge badge-warning">${t.status}</span><p>${t.details}</p></div>`;
+        });
+        document.getElementById('mySupportLoader').style.display = 'none';
+      }
+    }
+
+    function exportToPDF(containerId, filename) {
+      const element = document.getElementById(containerId);
+      html2pdf().from(element).save(filename);
+    }
+
+    function manualRefreshData() {
+      showToast("جاري التحديث...");
+      renderDashboard();
+    }
+
+    function openPassModal() { document.getElementById('passModal').style.display = 'flex'; }
+    function closePassModal() { document.getElementById('passModal').style.display = 'none'; }
+
+    async function handleChangePassword() {
+      const oldPass = document.getElementById('oldPass').value.trim();
+      const newPass = document.getElementById('newPass').value.trim();
+      if(!oldPass || !newPass) { showToast("أدخل كلمة المرور الحالية والجديدة"); return; }
+
+      const res = await callAPI(`action=changePassword&memberId=${encodeURIComponent(currentUser.memberId)}&oldPass=${encodeURIComponent(oldPass)}&newPass=${encodeURIComponent(newPass)}`);
+      if(res && res.status === "success") {
+        showToast("تم تغيير كلمة المرور بنجاح");
+        closePassModal();
+      } else {
+        showToast("كلمة المرور الحالية غير صحيحة");
+      }
     }
   </script>
 </body>
