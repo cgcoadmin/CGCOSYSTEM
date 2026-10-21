@@ -21,10 +21,13 @@
       --table-header-bg: #f1f5f9;
       --profile-item-bg: #f8fafc;
       --border-color: #e2e8f0;
+      --kanban-bg: #f1f5f9;
+      --kanban-col-bg: #e2e8f0;
     }
     body.dark-mode {
       --bg-color: #0f172a; --card-bg: #1e293b; --text-color: #f1f5f9; --text-muted: #94a3b8;
       --table-header-bg: #334155; --profile-item-bg: #334155; --border-color: #475569;
+      --kanban-bg: #0f172a; --kanban-col-bg: #1e293b;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; -webkit-tap-highlight-color: transparent; }
     body { background-color: var(--bg-color); color: var(--text-color); display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 10px; }
@@ -38,145 +41,63 @@
     .form-group { margin-bottom: 1.2rem; text-align: right; }
     .form-group label { display: block; margin-bottom: 0.4rem; font-weight: 600; font-size: 0.9rem; }
     .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; font-size: 1rem; outline: none; background: var(--card-bg); color: var(--text-color); }
-    input[readonly] { background-color: var(--border-color); opacity: 0.8; cursor: not-allowed; }
     
     .btn { width: 100%; padding: 0.75rem; background-color: var(--primary-color); color: white; border: none; border-radius: 8px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: background 0.2s; touch-action: manipulation; }
-    .btn:active { transform: scale(0.98); }
     .btn:hover { background-color: var(--secondary-color); }
 
-    .dashboard-container { display: none; width: 100%; max-width: 1150px; margin: 0 auto; }
+    .dashboard-container { display: none; width: 100%; max-width: 1200px; margin: 0 auto; }
     header { background: var(--primary-color); color: white; padding: 1.2rem; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
     .header-btns { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
-    .btn-header { background-color: transparent; border: 1px solid white; color: white; padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer; font-size: 0.85rem; touch-action: manipulation; }
-    .btn-header:hover { background-color: rgba(255, 255, 255, 0.2); }
-    .clock-box { font-size: 0.85rem; background: rgba(0,0,0,0.2); padding: 0.4rem 0.8rem; border-radius: 6px; }
-
+    .btn-header { background-color: transparent; border: 1px solid white; color: white; padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer; font-size: 0.85rem; }
+    
     .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
-    .stat-card { background: var(--card-bg); padding: 1.2rem; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-right: 5px solid var(--primary-color); display: flex; flex-direction: column; border: 1px solid var(--border-color); }
-    .stat-card span { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.3rem; }
+    .stat-card { background: var(--card-bg); padding: 1.2rem; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-right: 5px solid var(--primary-color); border: 1px solid var(--border-color); }
+    .stat-card span { font-size: 0.85rem; color: var(--text-muted); }
     .stat-card p { font-size: 1.6rem; font-weight: 700; color: var(--text-color); }
     .progress-bar-container { background: var(--border-color); border-radius: 10px; height: 8px; width: 100%; margin-top: 8px; overflow: hidden; }
     .progress-bar-fill { background: var(--success-color); height: 100%; width: 0%; transition: width 0.4s ease; }
 
-    .profile-card { background: var(--card-bg); padding: 1.2rem; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 1.5rem; border: 1px solid var(--border-color); }
-    .profile-card h3 { color: var(--primary-color); margin-bottom: 0.5rem; }
-    .profile-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-top: 1rem; }
-    .profile-item { background: var(--profile-item-bg); padding: 0.8rem 1rem; border-radius: 8px; border: 1px solid var(--border-color); }
-    .profile-item span { display: block; font-size: 0.8rem; color: var(--text-muted); }
-    .profile-item p { font-weight: 600; margin-top: 0.2rem; }
-
-    .filter-pills { display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
-    .pill-btn { padding: 0.4rem 1rem; border-radius: 50px; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-color); cursor: pointer; font-size: 0.85rem; touch-action: manipulation; }
-    .pill-btn.active { background: var(--primary-color); color: white; border-color: var(--primary-color); }
-
-    .search-box-wrapper { margin-bottom: 1rem; }
-    .search-box-wrapper input { width: 100%; padding: 0.6rem 1rem; border: 1px solid var(--border-color); border-radius: 8px; background: var(--card-bg); color: var(--text-color); }
-
-    .nav-tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; border-bottom: 2px solid var(--border-color); overflow-x: auto; padding-bottom: 5px; -webkit-overflow-scrolling: touch; }
-    .tab-btn { padding: 0.6rem 1rem; border: none; background: none; font-size: 0.9rem; font-weight: 600; cursor: pointer; color: var(--text-muted); border-bottom: 3px solid transparent; white-space: nowrap; touch-action: manipulation; }
+    .nav-tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; border-bottom: 2px solid var(--border-color); overflow-x: auto; padding-bottom: 5px; }
+    .tab-btn { padding: 0.6rem 1rem; border: none; background: none; font-size: 0.9rem; font-weight: 600; cursor: pointer; color: var(--text-muted); border-bottom: 3px solid transparent; white-space: nowrap; }
     .tab-btn.active { color: var(--primary-color); border-bottom-color: var(--primary-color); }
     .tab-content { display: none; }
     .tab-content.active { display: block; }
 
-    .table-responsive { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 1.5rem; }
-    .data-table { width: 100%; border-collapse: collapse; background: var(--card-bg); border-radius: 8px; overflow: hidden; border: 1px solid var(--border-color); min-width: 600px; }
-    .data-table th, .data-table td { padding: 0.75rem 0.8rem; text-align: right; border-bottom: 1px solid var(--border-color); font-size: 0.85rem; }
-    .data-table th { background-color: var(--table-header-bg); color: var(--primary-color); font-weight: 700; }
-
-    .badge { padding: 0.25rem 0.6rem; border-radius: 50px; font-size: 0.75rem; font-weight: 600; display: inline-block; }
-    .badge-success { background-color: #d4edda; color: #155724; }
-    .badge-warning { background-color: #fff3cd; color: #856404; }
-    .badge-closed { background-color: #e2e8f0; color: #475569; }
+    /* ===== KANBAN BOARD STYLES ===== */
+    .kanban-board { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem; margin-top: 1rem; }
+    .kanban-column { background: var(--kanban-col-bg); border-radius: 12px; padding: 1rem; min-height: 450px; display: flex; flex-direction: column; gap: 0.8rem; border: 1px solid var(--border-color); }
+    .kanban-column-header { display: flex; justify-content: space-between; align-items: center; font-weight: 700; padding-bottom: 0.5rem; border-bottom: 2px solid var(--border-color); }
+    .kanban-count { background: var(--primary-color); color: white; font-size: 0.75rem; padding: 2px 8px; border-radius: 12px; }
     
-    .loader { text-align: center; padding: 2rem; color: var(--text-muted); }
-    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 1000; }
-    .modal-content { background: var(--card-bg); padding: 1.5rem; border-radius: 12px; width: 92%; max-width: 500px; max-height: 85vh; overflow-y: auto; border: 1px solid var(--border-color); }
-
-    .chat-box-wrapper { position: relative; }
-    .whatsapp-chat-container { background: #efeae2; border-radius: 10px; border: 1px solid var(--border-color); height: 200px; overflow-y: auto; padding: 10px; display: flex; flex-direction: column; gap: 8px; margin-bottom: 6px; -webkit-overflow-scrolling: touch; }
-    body.dark-mode .whatsapp-chat-container { background: #0b141a; }
+    .kanban-cards-container { flex: 1; display: flex; flex-direction: column; gap: 0.8rem; padding: 0.2rem; min-height: 380px; }
+    .kanban-card { background: var(--card-bg); padding: 1rem; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border: 1px solid var(--border-color); cursor: grab; transition: transform 0.2s, box-shadow 0.2s; position: relative; }
+    .kanban-card:active { cursor: grabbing; transform: scale(0.98); }
+    .kanban-card.dragging { opacity: 0.5; border: 2px dashed var(--primary-color); }
+    .kanban-card h5 { font-size: 0.95rem; margin-bottom: 0.4rem; color: var(--text-color); }
+    .kanban-card p { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.6rem; }
+    .kanban-card-footer { display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; border-top: 1px dashed var(--border-color); padding-top: 0.5rem; }
     
-    .chat-bubble { max-width: 85%; padding: 8px 12px; border-radius: 8px; font-size: 0.85rem; position: relative; line-height: 1.4; word-wrap: break-word; }
-    .chat-bubble.visitor { background: #ffffff; color: #111b21; align-self: flex-start; border-top-right-radius: 0; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
-    body.dark-mode .chat-bubble.visitor { background: #202c33; color: #e9edef; }
-    .chat-bubble.admin { background: #d9fdd3; color: #111b21; align-self: flex-end; border-top-left-radius: 0; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
-    body.dark-mode .chat-bubble.admin { background: #005c4b; color: #e9edef; }
-    .chat-bubble .sender-name { font-size: 0.7rem; font-weight: bold; margin-bottom: 2px; color: var(--primary-color); }
-    body.dark-mode .chat-bubble .sender-name { color: #53bdeb; }
-    .chat-bubble .chat-time { font-size: 0.6rem; color: var(--text-muted); text-align: left; margin-top: 3px; display: block; }
-    
-    .expand-chat-btn { position: absolute; top: 8px; left: 8px; background: rgba(0,0,0,0.6); color: white; border: none; border-radius: 6px; padding: 4px 8px; font-size: 0.75rem; cursor: pointer; z-index: 10; display: flex; align-items: center; gap: 4px; }
+    .priority-badge { font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; font-weight: bold; }
+    .priority-high { background: #fee2e2; color: #991b1b; }
+    .priority-med { background: #fef3c7; color: #92400e; }
+    .priority-low { background: #e0f2fe; color: #075985; }
 
-    .chat-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; z-index: 2000; }
-    .chat-modal-content { background: var(--card-bg); width: 95%; max-width: 750px; height: 85vh; border-radius: 14px; display: flex; flex-direction: column; padding: 15px; border: 1px solid var(--border-color); }
+    .view-toggle { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
   </style>
 </head>
 <body>
 
   <div id="toastContainer"></div>
 
-  <!-- شاشة الدخول الرئيسية -->
+  <!-- تسجيل الدخول -->
   <div class="login-container" id="loginView">
     <h2>تسجيل دخول أعضاء المكتب</h2>
-    <div class="form-group"><label>رقم العضوية (Member ID)</label><input type="text" id="memberId" placeholder="مثال: COO أو MGR-1"></div>
+    <div class="form-group"><label>رقم العضوية (Member ID)</label><input type="text" id="memberId" placeholder="COO أو MGR-1"></div>
     <div class="form-group"><label>كلمة المرور</label><input type="password" id="password" placeholder="••••••••"></div>
     <button class="btn" onclick="handleLogin()">دخول النظام</button>
-    
-    <hr style="margin: 1.2rem 0; border-color: var(--border-color);">
-    <button class="btn" style="background: #0284c7; margin-bottom: 0.6rem;" onclick="showVisitorSection('submit')">🌐 بوابة الزوار: تقديم طلب / استفسار</button>
-    <button class="btn" style="background: #0d9488;" onclick="showVisitorSection('track')">🔍 غرفة متابعة الطلب والدردشة</button>
   </div>
 
-  <!-- واجهة تقديم طلب للزوار -->
-  <div class="login-container" id="visitorSubmitView" style="display:none; max-width: 550px; text-align: right;">
-    <h2 style="text-align: center; color: var(--primary-color);">🌐 بوابة الزوار والطلاب</h2>
-    <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:1rem; text-align: center;">قدم طلبك وسنرسل لك إيميل فوراً برقم المتابعة الخاص بك.</p>
-    
-    <div class="form-group"><label>الاسم الكريم</label><input type="text" id="visitorName" placeholder="أدخل اسمك الكامل..."></div>
-    <div class="form-group"><label>البريد الإلكتروني</label><input type="email" id="visitorEmail" placeholder="name@stu.kau.edu.sa"></div>
-    <div class="form-group">
-      <label>نوع التقديم</label>
-      <select id="visitorCategory">
-        <option value="استفسار أكاديمي أو مهني">استفسار أكاديمي أو مهني</option>
-        <option value="استشارة سلوكية">استشارة سلوكية</option>
-        <option value="طلب خدمة">طلب خدمة</option>
-        <option value="اقتراح تطويري">اقتراح تطويري</option>
-      </select>
-    </div>
-    <div class="form-group"><label>التفاصيل والموضوع</label><textarea id="visitorDetails" rows="4" placeholder="اكتب التفاصيل..."></textarea></div>
-    <button class="btn" onclick="submitVisitorInquiry()">إرسال التقديم</button>
-    <button class="btn" style="background:var(--text-muted); margin-top:0.6rem;" onclick="backToLogin()">الرجوع</button>
-  </div>
-
-  <!-- غرفة متابعة الزوار -->
-  <div class="login-container" id="visitorTrackView" style="display:none; max-width: 650px; text-align: right;">
-    <h2 style="text-align: center; color: var(--primary-color);">💬 غرفة المحادثة والمتابعة للزائر</h2>
-    <div class="form-group"><label>رقم المتابعة</label><input type="text" id="trackInquiryId" placeholder="VIS-1234"></div>
-    <button class="btn" onclick="trackVisitorInquiry()">دخول غرفة المحادثة</button>
-    
-    <div id="trackResultContainer" style="margin-top: 1.5rem; display: none;">
-      <p style="margin-bottom:8px;"><strong>الحالة:</strong> <span id="resStatus" class="badge badge-warning">-</span></p>
-      <div class="whatsapp-chat-container" id="resChatLogContainer"></div>
-      <div class="form-group" style="margin-top:10px;">
-        <input type="text" id="visitorReplyInput" placeholder="اكتب رسالتك للإدارة...">
-      </div>
-      <button class="btn" onclick="sendVisitorChatMessage()">إرسال الرسالة</button>
-    </div>
-    <button class="btn" style="background:var(--text-muted); margin-top:1rem;" onclick="backToLogin()">الرجوع</button>
-  </div>
-
-  <!-- نافذة تكبير الشات -->
-  <div class="chat-modal" id="expandedChatModal">
-    <div class="chat-modal-content">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-        <h3 id="modalChatTitle" style="color:var(--primary-color);">محادثة الزائر</h3>
-        <button class="btn" style="width:auto; padding:4px 12px; background:var(--danger-color);" onclick="closeExpandedChat()">إغلاق ✕</button>
-      </div>
-      <div class="whatsapp-chat-container" id="modalChatLogContainer" style="flex:1;"></div>
-    </div>
-  </div>
-
-  <!-- لوحة التحكم للإدارة -->
+  <!-- لوحة التحكم الإدارية -->
   <div class="dashboard-container" id="dashboardView">
     <header>
       <div>
@@ -185,913 +106,173 @@
       </div>
       <div class="header-btns">
         <div class="clock-box" id="liveClock">--:--:--</div>
-        <button class="btn-header" onclick="manualRefreshData()">🔄 تحديث</button>
         <button class="btn-header" onclick="toggleDarkMode()">🌙 المظهر</button>
-        <button class="btn-header" onclick="openPassModal()">كلمة المرور</button>
         <button class="btn-header" onclick="handleLogout()">خروج</button>
       </div>
     </header>
 
     <div class="nav-tabs">
-      <button class="tab-btn active" onclick="switchTab('personalDashboardTab', this)">👤 اللوحة الشخصية</button>
-      <button class="tab-btn" id="teamTabBtn" style="display:none;" onclick="switchTab('teamManagementTab', this)">👥 إدارة الفريق والعمليات</button>
-      <button class="tab-btn" id="visitorInquiriesTabBtn" style="display:none;" onclick="switchTab('visitorInquiriesTab', this)">💬 غرف النقاشات النشطة</button>
-      <button class="tab-btn" id="closedInquiriesTabBtn" style="display:none;" onclick="switchTab('closedInquiriesTab', this)">📁 النقاشات المنجزة (الأرشيف)</button>
-      <button class="tab-btn" onclick="switchTab('sopsTab', this)">📚 أدلة العمل</button>
-      <button class="tab-btn" onclick="switchTab('evaluationsTab', this)">⭐ التقييمات</button>
-      <button class="tab-btn" onclick="switchTab('requestTabContent', this)">📝 إرسال طلب / متابعة</button>
-      <button class="tab-btn" onclick="switchTab('supportTabContent', this)">🛠️ الدعم الفني</button>
-      <button class="tab-btn" onclick="switchTab('analyticsTab', this)">📊 التحليلات</button>
+      <button class="tab-btn active" onclick="switchTab('kanbanTab', this)">📋 لوحة المهام التفاعلية (Kanban)</button>
+      <button class="tab-btn" onclick="switchTab('analyticsTab', this)">📊 التحليلات والتقارير</button>
     </div>
 
-    <!-- 1. اللوحة الشخصية -->
-    <div class="tab-content active" id="personalDashboardTab">
+    <!-- 1. لوحة المهام الكانبان -->
+    <div class="tab-content active" id="kanbanTab">
       <div class="stats-grid">
-        <div class="stat-card"><span>إجمالي المهام المسندة</span><p id="statTotalTasks">0</p></div>
+        <div class="stat-card"><span>إجمالي المهام</span><p id="statTotalTasks">0</p></div>
         <div class="stat-card"><span>المهام المكتملة</span><p id="statCompletedTasks">0</p></div>
         <div class="stat-card">
-          <span>نسبة الإنجاز البصرية</span>
+          <span>نسبة الإنجاز</span>
           <p id="statProgress">0%</p>
           <div class="progress-bar-container"><div class="progress-bar-fill" id="progressBarFill"></div></div>
         </div>
-        <div class="stat-card"><span>مؤشر النشاط</span><p id="statActivityScore">نشط</p></div>
       </div>
 
-      <div class="profile-card">
-        <h3>النبذة الشخصية والمسمى الوظيفي</h3>
-        <div class="profile-grid">
-          <div class="profile-item"><span>المسمى الوظيفي:</span><p id="jobTitle">-</p></div>
-          <div class="profile-item"><span>البريد الإلكتروني:</span><p id="userEmail">-</p></div>
-          <div class="profile-item"><span>النبذة الشخصية:</span><p id="bioText">-</p></div>
-          <div class="profile-item" style="grid-column: 1 / -1;"><span>المسؤوليات والوصف:</span><p id="jobDescText">-</p></div>
-        </div>
-      </div>
-
-      <div class="profile-card">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;">
-          <h3 style="color: var(--primary-color);">قائمة المهام الشخصية</h3>
-          <button class="btn" style="width: auto; padding: 0.4rem 1rem; font-size: 0.85rem;" onclick="exportToPDF('tasksTableContainer', 'تقرير_المهام.pdf')">📥 تصدير PDF</button>
-        </div>
-
-        <div class="filter-pills">
-          <button class="pill-btn active" onclick="filterTasks('all', this)">الكل</button>
-          <button class="pill-btn" onclick="filterTasks('قيد التنفيذ', this)">قيد التنفيذ</button>
-          <button class="pill-btn" onclick="filterTasks('مكتملة', this)">مكتملة (أرشيف)</button>
-          <button class="pill-btn" onclick="filterTasks('اليوم', this)">📅 مهام اليوم</button>
-          <button class="pill-btn" onclick="filterTasks('متأخرة', this)">⚠️ مهام متأخرة</button>
-        </div>
-
-        <div class="search-box-wrapper">
-          <input type="text" id="taskSearchInput" placeholder="🔍 بحث فوري في المهام..." oninput="applyTasksFilterAndSearch()">
-        </div>
-
-        <div id="tasksLoader" class="loader">جاري التحميل...</div>
-        <div id="tasksTableContainer" class="table-responsive">
-          <table class="data-table" id="tasksTable" style="display:none;">
-            <thead><tr><th>رقم المهمة</th><th>العنوان</th><th>الحالة</th><th>التفاصيل</th><th>التاريخ</th><th>إجراء سريع</th></tr></thead>
-            <tbody id="tasksBody"></tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- 2. إدارة الفريق والعمليات -->
-    <div class="tab-content" id="teamManagementTab">
-      <div class="profile-card" style="border: 2px dashed var(--primary-color);">
-        <h4 style="margin-bottom: 1rem; color: var(--primary-color);">➕ إسناد مهمة جديدة لعضو نشط</h4>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
-          <div class="form-group" style="margin-bottom:0;"><label>عنوان المهمة</label><input type="text" id="newTaskName"></div>
-          <div class="form-group" style="margin-bottom:0;">
-            <label>اختر اسم العضو</label>
-            <select id="newTaskAssigneeSelect" onchange="autoFillMemberDetails()"><option value="">جاري التحميل...</option></select>
+      <!-- أعمدة الكانبان للسحب والإفلات -->
+      <div class="kanban-board">
+        <!-- عمود: جديدة -->
+        <div class="kanban-column" ondragover="allowDrop(event)" ondrop="drop(event, 'جديدة')">
+          <div class="kanban-column-header">
+            <span>📌 جديدة (To Do)</span>
+            <span class="kanban-count" id="count-todo">0</span>
           </div>
-          <div class="form-group" style="margin-bottom:0;"><label>رقم العضوية (ID)</label><input type="text" id="newTaskMemberId" readonly></div>
-          <div class="form-group" style="margin-bottom:0;"><label>القسم</label><input type="text" id="newTaskDepartment" readonly></div>
-          <div class="form-group" style="margin-bottom:0;"><label>تاريخ الاستحقاق</label><input type="date" id="newTaskDate"></div>
+          <div class="kanban-cards-container" id="col-todo"></div>
         </div>
-        <div class="form-group" style="margin-bottom:1rem;"><label>تفاصيل إضافية</label><input type="text" id="newTaskDetails"></div>
-        <button class="btn" onclick="addNewTaskWithAutoFill()">إسناد المهمة وإشعار العضو</button>
-      </div>
 
-      <div class="profile-card">
-        <h4 style="margin-bottom: 1rem; color: var(--primary-color);">إدارة أعضاء الفريق</h4>
-        <div class="search-box-wrapper"><input type="text" id="memberSearchInput" placeholder="🔍 ابحث بالاسم..." oninput="filterMembersTable()"></div>
-        <div class="table-responsive">
-          <table class="data-table">
-            <thead><tr><th>رقم العضوية</th><th>الاسم</th><th>المسمى الوظيفي</th><th>البريد</th></tr></thead>
-            <tbody id="membersTableBody"><tr><td colspan="4" style="text-align:center;">جاري التحميل...</td></tr></tbody>
-          </table>
+        <!-- عمود: قيد التنفيذ -->
+        <div class="kanban-column" ondragover="allowDrop(event)" ondrop="drop(event, 'قيد التنفيذ')">
+          <div class="kanban-column-header">
+            <span>⏳ قيد التنفيذ (In Progress)</span>
+            <span class="kanban-count" id="count-inprogress">0</span>
+          </div>
+          <div class="kanban-cards-container" id="col-inprogress"></div>
         </div>
-      </div>
 
-      <div class="profile-card">
-        <h4 style="margin-bottom: 1rem; color: var(--primary-color);">طلبات الأعضاء الواردة</h4>
-        <div class="table-responsive">
-          <table class="data-table">
-            <thead><tr><th>رقم الطلب</th><th>العضو</th><th>نوع الطلب</th><th>التفاصيل</th><th>الرد والمتابعة</th></tr></thead>
-            <tbody id="requestsTableBody"><tr><td colspan="5" style="text-align:center;">جاري التحميل...</td></tr></tbody>
-          </table>
-        </div>
-      </div>
-
-      <div class="profile-card">
-        <h4 style="margin-bottom: 1rem; color: var(--primary-color);">🛠 بلاغات الدعم الفني</h4>
-        <div class="table-responsive">
-          <table class="data-table">
-            <thead><tr><th>رقم البلاغ</th><th>العضو</th><th>المشكلة</th><th>المسؤول عن الحل</th><th>الرد والحالة</th></tr></thead>
-            <tbody id="adminSupportTableBody"><tr><td colspan="5" style="text-align:center;">جاري التحميل...</td></tr></tbody>
-          </table>
+        <!-- عمود: مكتملة -->
+        <div class="kanban-column" ondragover="allowDrop(event)" ondrop="drop(event, 'مكتملة')">
+          <div class="kanban-column-header">
+            <span>✅ مكتملة (Done)</span>
+            <span class="kanban-count" id="count-done">0</span>
+          </div>
+          <div class="kanban-cards-container" id="col-done"></div>
         </div>
       </div>
     </div>
 
-    <!-- 3. غرف النقاشات النشطة -->
-    <div class="tab-content" id="visitorInquiriesTab">
-      <div class="profile-card">
-        <h3 style="color:var(--primary-color); margin-bottom:0.5rem;">💬 غرف محادثات الزوار والطلبات النشطة</h3>
-        <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:1rem;">تابع غرف المحادثة بنمط الواتساب مباشرة.</p>
-        
-        <div id="visitorInquiriesLoader" class="loader">جاري التحميل...</div>
-        <div class="table-responsive">
-          <table class="data-table" id="visitorInquiriesTable" style="display:none;">
-            <thead>
-              <tr>
-                <th>الزائر ورقم المتابعة</th>
-                <th>نوع الطلب والتفاصيل</th>
-                <th>غرفة الدردشة المباشرة</th>
-                <th>إدارة الرد والإغلاق</th>
-              </tr>
-            </thead>
-            <tbody id="visitorInquiriesBody"></tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- 4. سجل النقاشات المنجزة (الأرشيف) -->
-    <div class="tab-content" id="closedInquiriesTab">
-      <div class="profile-card">
-        <h3 style="color:var(--primary-color); margin-bottom:0.5rem;">📁 سجل النقاشات المنجزة (الأرشيف)</h3>
-        <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:1rem;">سجل كامل بالمحادثات التي تم إغلاقها والانتهاء منها بكافة تفاصيلها.</p>
-        
-        <div class="table-responsive">
-          <table class="data-table">
-            <thead>
-              <tr>
-                <th>الزائر ورقم المتابعة</th>
-                <th>التفاصيل والتاريخ</th>
-                <th>سجل المحادثة</th>
-                <th>تم بواسطة</th>
-              </tr>
-            </thead>
-            <tbody id="closedInquiriesBody"><tr><td colspan="4" style="text-align:center;">لا توجد محادثات منجزة حالياً</td></tr></tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- أدلة العمل -->
-    <div class="tab-content" id="sopsTab">
-      <div class="profile-card">
-        <h3 style="color:var(--primary-color); margin-bottom:1rem;">📚 أدلة العمل (SOPs)</h3>
-        <div id="sopsLoader" class="loader">جاري التحميل...</div>
-        <div class="table-responsive">
-          <table class="data-table" id="sopsTable" style="display:none;">
-            <thead><tr><th>رمز الدليل</th><th>العنوان</th><th>القسم</th><th>الوصف</th><th>الرابط</th></tr></thead>
-            <tbody id="sopsBody"></tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- التقييمات -->
-    <div class="tab-content" id="evaluationsTab">
-      <div class="profile-card">
-        <h3 style="color:var(--primary-color); margin-bottom:1rem;">⭐ سجل التقييمات</h3>
-        <div id="evalsLoader" class="loader">جاري التحميل...</div>
-        <div class="table-responsive">
-          <table class="data-table" id="evalsTable" style="display:none;">
-            <thead><tr><th>رمز التقييم</th><th>درجة الجودة</th><th>الانضباط</th><th>ملاحظات</th><th>التاريخ</th></tr></thead>
-            <tbody id="evalsBody"></tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- إرسال طلب -->
-    <div class="tab-content" id="requestTabContent">
-      <div class="profile-card" style="max-width:700px; margin:0 auto 1.5rem auto;">
-        <h3 style="color:var(--primary-color); margin-bottom:1rem;">إرسال طلب رسمي للإدارة</h3>
-        <div class="form-group"><label>نوع الطلب</label><select id="reqType"><option value="إجازة رسمية">إجازة رسمية</option><option value="استئذان طارئ">استئذان طارئ</option><option value="تقرير إنجاز">تقرير إنجاز</option></select></div>
-        <div class="form-group"><label>التفاصيل</label><textarea id="reqDetails" rows="4"></textarea></div>
-        <button class="btn" onclick="submitUserRequest()">إرسال الطلب</button>
-      </div>
-      <div class="profile-card" style="max-width:700px; margin:0 auto;">
-        <h3 style="color:var(--primary-color); margin-bottom:1rem;">متابعة طلباتي</h3>
-        <div id="myRequestsLoader" class="loader">جاري التحميل...</div>
-        <div id="myRequestsContainer"></div>
-      </div>
-    </div>
-
-    <!-- الدعم الفني -->
-    <div class="tab-content" id="supportTabContent">
-      <div class="profile-card" style="max-width:700px; margin:0 auto 1.5rem auto;">
-        <h3 style="color:var(--primary-color); margin-bottom:1rem;">🛠️ إرسال بلاغ دعم فني</h3>
-        <div class="form-group"><label>وصف المشكلة</label><textarea id="supportText" rows="4"></textarea></div>
-        <button class="btn" onclick="submitSupportTicket()">إرسال البلاغ</button>
-      </div>
-      <div class="profile-card" style="max-width:700px; margin:0 auto;">
-        <h3 style="color:var(--primary-color); margin-bottom:1rem;">سجل بلاغاتي</h3>
-        <div id="mySupportLoader" class="loader">جاري التحميل...</div>
-        <div id="mySupportContainer"></div>
-      </div>
-    </div>
-
-    <!-- التحليلات -->
+    <!-- 2. التحليلات -->
     <div class="tab-content" id="analyticsTab">
-      <div class="profile-card" style="text-align:center; max-width:700px; margin:0 auto;">
-        <h3 style="color:var(--primary-color); margin-bottom:1rem;">📊 التحليلات البيانية</h3>
-        <div style="font-size: 2.5rem; font-weight: bold; color: var(--success-color);" id="analyticsScoreDisplay">0%</div>
-        <p style="margin-top: 0.5rem;">معدل الأداء والإنجاز العام للمهام.</p>
+      <div class="stat-card" style="text-align:center; padding: 2rem;">
+        <h3>📊 ملخص أداء الفريق والمهام</h3>
+        <p style="margin-top:1rem; font-size:1.2rem;">يتم تحديث التقارير تلقائياً عند تغيير حالات المهام داخل لوحة الكانبان.</p>
       </div>
-    </div>
-
-  </div>
-
-  <!-- نافذة تغيير كلمة المرور -->
-  <div class="modal" id="passModal">
-    <div class="modal-content">
-      <h3 style="color:var(--primary-color); margin-bottom:1rem;">🔐 تغيير كلمة المرور</h3>
-      <div class="form-group"><label>كلمة المرور الحالية</label><input type="password" id="oldPass"></div>
-      <div class="form-group"><label>كلمة المرور الجديدة</label><input type="password" id="newPass"></div>
-      <button class="btn" onclick="handleChangePassword()">حفظ</button>
-      <button class="btn" style="background-color: var(--text-muted); margin-top: 0.5rem;" onclick="closePassModal()">إلغاء</button>
     </div>
   </div>
 
   <script>
-    const API_URL = "https://script.google.com/macros/s/AKfycbwLKK_ocd7fX7xCNgZl-Q_Feqi3h042DfII0nqzu_NfBw0-o61BcLzxnakHnEIY-QjEJA/exec";
-    let currentUser = null;
-    let globalTasksCache = [];
-    let globalMembersCache = [];
-    let globalInquiriesCache = [];
-    let currentStatusFilter = 'all';
-    let currentActiveTrackId = '';
+    // بيانات المهام التجريبية
+    let tasks = [
+      { id: 'T-101', title: 'مراجعة خطة توجيه الطلاب', desc: 'إعداد الجدول الزمني للقاء التعريفي', status: 'جديدة', priority: 'high', date: '2026-10-25' },
+      { id: 'T-102', title: 'تجهيز نموذج الاستشارات', desc: 'تحديث رابط التسجيل وإزالة المكرر', status: 'قيد التنفيذ', priority: 'med', date: '2026-10-22' },
+      { id: 'T-103', title: 'تصميم بوستر الفعالية', desc: 'التنسيق مع فريق الإعلام والتصوير', status: 'مكتملة', priority: 'low', date: '2026-10-20' }
+    ];
 
-    if (localStorage.getItem('darkMode') === 'true') document.body.classList.add('dark-mode');
-
-    window.onload = function() {
-      const savedUser = localStorage.getItem('currentUser');
-      if (savedUser) {
-        try {
-          currentUser = JSON.parse(savedUser);
-          renderDashboard();
-        } catch (e) { localStorage.removeItem('currentUser'); }
-      }
-    };
-
-    function showToast(msg) {
-      const c = document.getElementById('toastContainer');
-      if (!c) return;
-      const t = document.createElement('div');
-      t.className = 'toast'; t.innerText = msg;
-      c.appendChild(t);
-      setTimeout(() => { if(t) t.remove(); }, 3000);
-    }
-
-    setInterval(() => {
-      const clockBox = document.getElementById('liveClock');
-      if (clockBox) clockBox.innerText = new Date().toLocaleTimeString('ar-SA');
-    }, 1000);
-
-    async function callAPI(query) {
-      try {
-        const res = await fetch(`${API_URL}?${query}`, { method: 'GET', redirect: 'follow' });
-        return await res.json();
-      } catch (e) {
-        showToast("خطأ في الاتصال بالخادم");
-        return null;
-      }
-    }
-
-    function showVisitorSection(type) {
+    function handleLogin() {
       document.getElementById('loginView').style.display = 'none';
-      if(type === 'submit') {
-        document.getElementById('visitorSubmitView').style.display = 'block';
-        document.getElementById('visitorTrackView').style.display = 'none';
-      } else {
-        document.getElementById('visitorSubmitView').style.display = 'none';
-        document.getElementById('visitorTrackView').style.display = 'block';
-      }
-    }
-
-    function backToLogin() {
-      document.getElementById('visitorSubmitView').style.display = 'none';
-      document.getElementById('visitorTrackView').style.display = 'none';
-      document.getElementById('loginView').style.display = 'block';
-    }
-
-    async function submitVisitorInquiry() {
-      const name = document.getElementById('visitorName').value.trim();
-      const email = document.getElementById('visitorEmail').value.trim();
-      const category = document.getElementById('visitorCategory').value;
-      const details = document.getElementById('visitorDetails').value.trim();
-
-      if(!name || !email || !details) { showToast("يرجى تعبئة جميع الحقول"); return; }
-      showToast("جاري إرسال الطلب وإرسال البريد...");
-      const res = await callAPI(`action=submitVisitorInquiry&name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&category=${encodeURIComponent(category)}&details=${encodeURIComponent(details)}`);
-      
-      if(res && res.status === "success") {
-        alert("✅ تم إرسال طلبك بنجاح!\nرقم المتابعة الخاص بك: " + res.inquiryId);
-        document.getElementById('visitorName').value = '';
-        document.getElementById('visitorEmail').value = '';
-        document.getElementById('visitorDetails').value = '';
-        backToLogin();
-      } else {
-        showToast("حدث خطأ أثناء الإرسال");
-      }
-    }
-
-    function parseChatMessages(rawLog) {
-      if (!rawLog) return [];
-      if (Array.isArray(rawLog)) return rawLog;
-      if (typeof rawLog === 'object') return [rawLog];
-
-      try {
-        const parsed = JSON.parse(rawLog);
-        if (Array.isArray(parsed)) return parsed;
-        if (typeof parsed === 'object') return [parsed];
-      } catch (e) {}
-
-      const lines = String(rawLog).split('\n').filter(l => l.trim().length > 0);
-      if (lines.length > 0) {
-        return lines.map(line => {
-          if (line.includes(':')) {
-            const parts = line.split(':');
-            return { sender: parts[0].trim(), text: parts.slice(1).join(':').trim(), type: 'visitor', time: '' };
-          }
-          return { sender: 'الرسالة', text: line.trim(), type: 'visitor', time: '' };
-        });
-      }
-
-      return [];
-    }
-
-    function renderChatBubbles(chatLogRaw, containerId) {
-      const container = document.getElementById(containerId);
-      if (!container) return;
-
-      const messages = parseChatMessages(chatLogRaw);
-
-      if (messages.length === 0) {
-        container.innerHTML = '<p style="text-align:center; color:var(--text-muted); font-size:0.85rem; margin:auto;">لا توجد رسائل...</p>';
-        return;
-      }
-
-      container.innerHTML = messages.map(m => {
-        const sender = m.sender || m.Name || m['الاسم'] || '';
-        const isVisitor = m.type === 'visitor' || (!sender.includes('د.') && !sender.includes('مكتب') && !sender.includes('مهند'));
-        return `
-          <div class="chat-bubble ${isVisitor ? 'visitor' : 'admin'}">
-            <div class="sender-name">${sender || (isVisitor ? 'الزائر' : 'الإدارة')}</div>
-            <div>${m.text || m.message || m['الرسالة'] || ''}</div>
-            <span class="chat-time">${m.time || m.Date || ''}</span>
-          </div>
-        `;
-      }).join('');
-      container.scrollTop = container.scrollHeight;
-    }
-
-    function openExpandedChatByInquiryId(inquiryId) {
-      const target = globalInquiriesCache.find(item => {
-        const itemId = item['Inquiry ID'] || item['رقم المتابعة'] || item[0];
-        return String(itemId).trim().toUpperCase() === String(inquiryId).trim().toUpperCase();
-      });
-
-      if (target) {
-        const name = target['Name'] || target['الاسم'] || target[1] || 'الزائر';
-        const chatLogRaw = target['Chat Log'] || target['سجل المحادثة'] || target[10] || target[7] || "[]";
-        document.getElementById('modalChatTitle').innerText = `محادثة: ${name} (${inquiryId})`;
-        renderChatBubbles(chatLogRaw, 'modalChatLogContainer');
-        document.getElementById('expandedChatModal').style.display = 'flex';
-      } else {
-        showToast("تعذر جلب المحادثة");
-      }
-    }
-
-    function closeExpandedChat() {
-      document.getElementById('expandedChatModal').style.display = 'none';
-    }
-
-    async function trackVisitorInquiry() {
-      const inquiryIdInput = document.getElementById('trackInquiryId');
-      const inquiryId = inquiryIdInput ? inquiryIdInput.value.trim() : "";
-      if(!inquiryId) { showToast("أدخل رقم المتابعة"); return; }
-      
-      const res = await callAPI(`action=trackVisitorInquiry&inquiryId=${encodeURIComponent(inquiryId)}`);
-      const container = document.getElementById('trackResultContainer');
-      if(res && res.status === "success") {
-        const d = res.data;
-        currentActiveTrackId = d.id || inquiryId;
-        document.getElementById('resStatus').innerText = d.status || 'نشط';
-        renderChatBubbles(d.chatLog, 'resChatLogContainer');
-        container.style.display = 'block';
-      } else {
-        container.style.display = 'none';
-        alert("رقم المتابعة غير صحيح");
-      }
-    }
-
-    async function sendVisitorChatMessage() {
-      const msgInput = document.getElementById('visitorReplyInput');
-      const msg = msgInput ? msgInput.value.trim() : "";
-      const inqIdInput = document.getElementById('trackInquiryId');
-      const activeInqId = currentActiveTrackId || (inqIdInput ? inqIdInput.value.trim() : "");
-
-      if(!msg) { showToast("اكتب رسالتك أولاً"); return; }
-      if(!activeInqId) { showToast("يرجى إدخال رقم المتابعة أولاً"); return; }
-      
-      showToast("جاري إرسال الرسالة...");
-      const res = await callAPI(`action=visitorAddReply&inquiryId=${encodeURIComponent(activeInqId)}&message=${encodeURIComponent(msg)}`);
-      if(res && res.status === "success") {
-        showToast("✅ تم إرسال الرسالة بنجاح");
-        if(msgInput) msgInput.value = '';
-        trackVisitorInquiry();
-      } else {
-        alert(res ? res.message : "تعذر إرسال الرسالة");
-      }
-    }
-
-    async function handleLogin() {
-      const id = document.getElementById('memberId').value.trim();
-      const pass = document.getElementById('password').value.trim();
-      if(!id || !pass) { showToast("يرجى تعبئة الحقول"); return; }
-      
-      const res = await callAPI(`action=login&memberId=${encodeURIComponent(id)}&password=${encodeURIComponent(pass)}`);
-      if(res && res.status === "success") {
-        currentUser = res.user;
-        localStorage.setItem('currentUser', JSON.stringify(currentUser));
-        renderDashboard();
-      } else {
-        alert(res ? res.message : "خطأ في بيانات الدخول");
-      }
+      document.getElementById('dashboardView').style.display = 'block';
+      renderKanban();
     }
 
     function handleLogout() {
-      localStorage.removeItem('currentUser');
-      location.reload();
-    }
-
-    function renderDashboard() {
-      document.getElementById('loginView').style.display = "none";
-      document.getElementById('visitorSubmitView').style.display = "none";
-      document.getElementById('visitorTrackView').style.display = "none";
-      document.getElementById('dashboardView').style.display = "block";
-      
-      document.getElementById('welcomeText').innerText = `مرحباً، ${currentUser['Full Name'] || currentUser['الاسم'] || ''}`;
-      document.getElementById('userDept').innerText = currentUser['Department'] || currentUser['القسم'] || '';
-      document.getElementById('jobTitle').innerText = currentUser['Job Title'] || currentUser['المسمى الوظيفي'] || '-';
-      document.getElementById('userEmail').innerText = currentUser['Email'] || currentUser['البريد الالكتروني'] || '-';
-      document.getElementById('bioText').innerText = currentUser['Bio'] || currentUser['النبذة'] || '-';
-      document.getElementById('jobDescText').innerText = currentUser['Job Description'] || currentUser['الوصف الوظيفي'] || '-';
-
-      const mId = String(currentUser['Member ID'] || currentUser['رقم العضوية'] || '').toUpperCase();
-      const mName = String(currentUser['Full Name'] || currentUser['الاسم'] || '').trim();
-      
-      if (mId === 'COO' || mId === 'MGR-1' || mName.includes('مهند') || mName.includes('مي') || mName.includes('سلطان') || String(currentUser['Role']||'').toLowerCase() === 'admin') {
-        document.getElementById('teamTabBtn').style.display = "inline-block";
-        document.getElementById('visitorInquiriesTabBtn').style.display = "inline-block";
-        document.getElementById('closedInquiriesTabBtn').style.display = "inline-block";
-        loadAdminPanelData();
-      }
-      loadTasks(); loadSOPs(); loadEvaluations(); loadMyRequests(); loadMySupportTickets();
-    }
-
-    async function loadAdminPanelData() {
-      const memRes = await callAPI(`action=getData&sheet=Members`);
-      if(memRes && memRes.status === "success" && memRes.data) {
-        globalMembersCache = memRes.data;
-        renderMembersTable(globalMembersCache);
-        populateNewTaskDropdown(globalMembersCache);
-      }
-      const reqRes = await callAPI(`action=getData&sheet=Requests`);
-      if(reqRes && reqRes.status === "success" && reqRes.data) renderAdminRequests(reqRes.data);
-
-      const supRes = await callAPI(`action=getData&sheet=Support`);
-      if(supRes && supRes.status === "success" && supRes.data) renderAdminSupport(supRes.data);
-
-      loadVisitorInquiriesAdmin();
-    }
-
-    async function loadVisitorInquiriesAdmin() {
-      const res = await callAPI(`action=getData&sheet=VisitorInquiries`);
-      document.getElementById('visitorInquiriesLoader').style.display = "none";
-
-      if(res && res.status === "success" && res.data) {
-        globalInquiriesCache = res.data;
-        
-        const mName = String(currentUser['Full Name'] || currentUser['الاسم'] || '').trim();
-        const mId = String(currentUser['Member ID'] || currentUser['رقم العضوية'] || '').trim().toUpperCase();
-        
-        const isDrSultan = mName.includes('سلطان') || mId === 'MGR-1';
-
-        const active = res.data.filter(i => {
-          const status = String(i['Status'] || i['الحالة'] || i[6] || '');
-          const transferredTo = String(i['Transferred To'] || i['المحول إليه'] || i[8] || '');
-          
-          if (status.includes("مغلقة") || status.includes("منجزة")) return false;
-          if (isDrSultan) {
-            return status.includes("سلطان") || transferredTo.includes("سلطان");
-          }
-          return true;
-        });
-
-        const closed = res.data.filter(i => {
-          const status = String(i['Status'] || i['الحالة'] || i[6] || '');
-          return status.includes("مغلقة") || status.includes("منجزة");
-        });
-
-        document.getElementById('visitorInquiriesTable').style.display = "table";
-        document.getElementById('visitorInquiriesBody').innerHTML = active.map((i, index) => {
-          const id = i['Inquiry ID'] || i['رقم المتابعة'] || i[0];
-          const name = i['Name'] || i['الاسم'] || i[1];
-          const details = i['Details'] || i['التفاصيل'] || i[4];
-          const reply = i['Reply'] || i['الرد'] || i[7] || '';
-          const chatLogRaw = i['Chat Log'] || i['سجل المحادثة'] || i[10] || i[7] || '[]';
-          const chatContainerId = `adminChatBox-${index}`;
-
-          const handledBy = String(i['Handled By'] || i['تم بواسطة'] || i[9] || '').trim();
-          const transferredTo = String(i['Transferred To'] || i['المحول إليه'] || i[8] || '').trim();
-          const effectiveOwner = transferredTo !== "" ? transferredTo : handledBy;
-
-          const isLockedByOther = effectiveOwner !== "" && !effectiveOwner.includes(mName) && !mName.includes(effectiveOwner);
-
-          setTimeout(() => renderChatBubbles(chatLogRaw, chatContainerId), 100);
-
-          let replyControlsHtml = '';
-          let actionButtonsHtml = '';
-
-          if (isLockedByOther) {
-            replyControlsHtml = `
-              <div style="background:#fee2e2; color:#991b1b; padding:8px; border-radius:6px; font-size:0.8rem; font-weight:bold; margin-bottom:6px; text-align:center;">
-                🔒 تدار بواسطة (${effectiveOwner}). متاح للاطلاع فقط.
-              </div>
-            `;
-            actionButtonsHtml = `
-              <button class="btn" style="padding:5px; font-size:0.85rem; background:#0284c7; margin-top:4px;" onclick="transferInquiryToMe('${id}')">↩️ سحب و تحويل إليّ (${mName})</button>
-              <button class="btn" style="padding:5px; font-size:0.85rem; background:#0f766e; margin-top:4px;" onclick="transferInquiryToSultan('${id}')">➡️ تحويل لدكتور سلطان</button>
-            `;
-          } else {
-            replyControlsHtml = `
-              <input type="text" id="inqReply-${id}" value="${reply}" placeholder="اكتب ردك..." style="width:100%; margin-bottom:5px;">
-              <button class="btn" style="padding:5px; font-size:0.85rem;" onclick="saveVisitorReplyAdmin('${id}')">إرسال الرد</button>
-            `;
-            actionButtonsHtml = `
-              <button class="btn" style="padding:5px; font-size:0.85rem; background:#0284c7; margin-top:4px;" onclick="transferInquiryToSultan('${id}')">➡️ تحويل لدكتور سلطان</button>
-              <button class="btn" style="padding:5px; font-size:0.85rem; background:#10b981; margin-top:4px;" onclick="transferInquiryToMay('${id}')">➡️ تحويل لدكتورة مي</button>
-              <button class="btn" style="padding:5px; font-size:0.85rem; background:var(--danger-color); margin-top:4px;" onclick="closeInquiryAdmin('${id}')">📁 إغلاق لنقل للأرشيف</button>
-            `;
-          }
-
-          return `
-            <tr>
-              <td><strong>${id}</strong><br><span style="font-weight:600; color:var(--primary-color);">${name}</span></td>
-              <td><p style="font-size:0.85rem;">${details}</p></td>
-              <td>
-                <div class="chat-box-wrapper">
-                  <button class="expand-chat-btn" onclick="openExpandedChatByInquiryId('${id}')">
-                    <i class="fa-solid fa-expand"></i> تكبير
-                  </button>
-                  <div class="whatsapp-chat-container" id="${chatContainerId}" style="min-width:210px;"></div>
-                </div>
-              </td>
-              <td>
-                ${replyControlsHtml}
-                ${actionButtonsHtml}
-              </td>
-            </tr>
-          `;
-        }).join('') || `<tr><td colspan="4" style="text-align:center;">لا توجد محادثات نشطة موجهة حالياً</td></tr>`;
-
-        document.getElementById('closedInquiriesBody').innerHTML = closed.map((i) => {
-          const id = i['Inquiry ID'] || i['رقم المتابعة'] || i[0];
-          const name = i['Name'] || i['الاسم'] || i[1];
-
-          return `
-            <tr>
-              <td><strong>${id}</strong><br>${name}</td>
-              <td>${i['Details'] || i['التفاصيل'] || i[4]}<br><small>${i['Date'] || i['التاريخ'] || i[5]}</small></td>
-              <td><button class="btn" style="padding:4px 8px; width:auto;" onclick="openExpandedChatByInquiryId('${id}')">عرض السجل 💬</button></td>
-              <td><span class="badge badge-closed">${i['Handled By'] || i['تم بواسطة'] || i[9] || 'المكتب'}</span></td>
-            </tr>
-          `;
-        }).join('') || `<tr><td colspan="4" style="text-align:center;">لا توجد محادثات منجزة حالياً</td></tr>`;
-      }
-    }
-
-    async function saveVisitorReplyAdmin(inqId) {
-      const replyInput = document.getElementById(`inqReply-${inqId}`);
-      if (!replyInput) return;
-      const reply = replyInput.value.trim();
-      const handledBy = currentUser['Full Name'] || currentUser['الاسم'] || currentUser['Member ID'];
-
-      const res = await callAPI(`action=updateVisitorReply&inqId=${encodeURIComponent(inqId)}&reply=${encodeURIComponent(reply)}&handledBy=${encodeURIComponent(handledBy)}`);
-      if(res && res.status === "success") {
-        showToast("✅ تم إرسال الرد وتحديث الشات");
-        loadVisitorInquiriesAdmin();
-      } else {
-        alert(res ? res.message : "حدث خطأ أثناء حفظ الرد");
-      }
-    }
-
-    async function transferInquiryToSultan(inqId) {
-      if(!confirm("هل ترغب في تحويل الطلب رسمياً إلى سعادة د. سلطان سنبل؟")) return;
-      const handledBy = currentUser['Full Name'] || currentUser['الاسم'] || currentUser['Member ID'];
-
-      const res = await callAPI(`action=updateVisitorReply&inqId=${encodeURIComponent(inqId)}&transferredTo=${encodeURIComponent('د. سلطان سنبل')}&handledBy=${encodeURIComponent(handledBy)}`);
-      if(res && res.status === "success") {
-        showToast("➡️ تم تحويل الطلب لدكتور سلطان بنجاح");
-        loadVisitorInquiriesAdmin();
-      }
-    }
-
-    async function transferInquiryToMay(inqId) {
-      if(!confirm("هل ترغب في تحويل الطلب رسمياً إلى دكتورة مي القرشي؟")) return;
-      const handledBy = currentUser['Full Name'] || currentUser['الاسم'] || currentUser['Member ID'];
-
-      const res = await callAPI(`action=updateVisitorReply&inqId=${encodeURIComponent(inqId)}&transferredTo=${encodeURIComponent('د. مي القرشي')}&handledBy=${encodeURIComponent(handledBy)}`);
-      if(res && res.status === "success") {
-        showToast("➡️ تم تحويل الطلب لدكتورة مي بنجاح");
-        loadVisitorInquiriesAdmin();
-      }
-    }
-
-    async function transferInquiryToMe(inqId) {
-      const myName = currentUser['Full Name'] || currentUser['الاسم'] || 'المسؤول';
-      if(!confirm(`هل ترغب في استلام وسحب المحادثة لتصبح تحت مسؤوليتك (${myName})؟`)) return;
-
-      const res = await callAPI(`action=updateVisitorReply&inqId=${encodeURIComponent(inqId)}&transferredTo=${encodeURIComponent(myName)}&handledBy=${encodeURIComponent(myName)}`);
-      if(res && res.status === "success") {
-        showToast("↩️ تم سحب وتحويل المحادثة لصالحك بنجاح");
-        loadVisitorInquiriesAdmin();
-      }
-    }
-
-    async function closeInquiryAdmin(inqId) {
-      if(!confirm("هل أنت متأكد من إغلاق هذا الشات ونقله إلى سجل النقاشات المنجزة؟")) return;
-      const handledBy = currentUser['Full Name'] || currentUser['الاسم'] || currentUser['Member ID'];
-
-      const res = await callAPI(`action=updateVisitorReply&inqId=${encodeURIComponent(inqId)}&closeChat=true&handledBy=${encodeURIComponent(handledBy)}`);
-      if(res && res.status === "success") {
-        showToast("✅ تم حفظ الشات في الأرشيف بنجاح");
-        loadVisitorInquiriesAdmin();
-      }
-    }
-
-    function renderMembersTable(members) {
-      document.getElementById('membersTableBody').innerHTML = members.map(m => `
-        <tr><td>${m['Member ID'] || m['رقم العضوية'] || ''}</td><td>${m['Full Name'] || m['الاسم الكامل'] || ''}</td><td>${m['Job Title'] || m['المسمى الوظيفي'] || ''}</td><td>${m['Email'] || m['البريد الالكتروني'] || ''}</td></tr>
-      `).join('');
-    }
-
-    function filterMembersTable() {
-      const q = document.getElementById('memberSearchInput').value.toLowerCase();
-      renderMembersTable(globalMembersCache.filter(m => (m['Full Name']||'').toLowerCase().includes(q) || (m['Job Title']||'').toLowerCase().includes(q)));
-    }
-
-    function populateNewTaskDropdown(members) {
-      const active = members.filter(m => {
-        const st = String(m['Status'] || m['الحالة'] || '').trim().toLowerCase();
-        return st === '' || st === 'نشط' || st === 'active' || st === 'مفعل';
-      });
-      document.getElementById('newTaskAssigneeSelect').innerHTML = '<option value="">اختر اسم العضو...</option>' + active.map(m => {
-        const name = m['Full Name'] || m['الاسم الكامل'] || '';
-        return `<option value="${m['Member ID'] || m['رقم العضوية']}" data-dept="${m['Department'] || m['القسم'] || ''}" data-name="${name}">${name}</option>`;
-      }).join('');
-    }
-
-    function autoFillMemberDetails() {
-      const sel = document.getElementById('newTaskAssigneeSelect');
-      const opt = sel.options[sel.selectedIndex];
-      document.getElementById('newTaskMemberId').value = opt.value || '';
-      document.getElementById('newTaskDepartment').value = opt.getAttribute('data-dept') || '';
-    }
-
-    async function addNewTaskWithAutoFill() {
-      const taskName = document.getElementById('newTaskName').value.trim();
-      const sel = document.getElementById('newTaskAssigneeSelect');
-      const memberId = document.getElementById('newTaskMemberId').value.trim();
-      const dept = document.getElementById('newTaskDepartment').value.trim();
-      const dueDate = document.getElementById('newTaskDate').value;
-      const details = document.getElementById('newTaskDetails').value.trim();
-      const assigneeName = sel.options[sel.selectedIndex]?.getAttribute('data-name') || '';
-
-      if(!taskName || !memberId || !dueDate) { showToast("⚠️ يرجى تعبئة الحقول الأساسية"); return; }
-      const res = await callAPI(`action=addTask&taskName=${encodeURIComponent(taskName)}&assignee=${encodeURIComponent(assigneeName)}&memberId=${encodeURIComponent(memberId)}&department=${encodeURIComponent(dept)}&dueDate=${encodeURIComponent(dueDate)}&details=${encodeURIComponent(details)}`);
-      if(res && res.status === "success") { showToast("✅ تمت الإسناد بنجاح"); manualRefreshData(); }
-    }
-
-    function renderAdminRequests(reqs) {
-      document.getElementById('requestsTableBody').innerHTML = reqs.length ? reqs.map(r => {
-        const id = r['Request ID'] || r[0];
-        return `
-          <tr><td>${id}</td><td>${r['Member ID'] || r[1]}</td><td>${r['Type'] || r[2]}</td><td>${r['Details'] || r[3]}</td>
-          <td><input type="text" id="reqReply-${id}" value="${r['Reply'] || r[5] || ''}" placeholder="رد الإدارة..." style="width:100%; margin-bottom:5px;"><button class="btn" style="padding:4px 8px; font-size:0.8rem; width:auto;" onclick="saveRequestReply('${id}')">إرسال الرد</button></td></tr>
-        `;
-      }).join('') : `<tr><td colspan="5" style="text-align:center;">لا توجد طلبات</td></tr>`;
-    }
-
-    async function saveRequestReply(reqId) {
-      const reply = document.getElementById(`reqReply-${reqId}`).value.trim();
-      const res = await callAPI(`action=updateRequestReply&reqId=${encodeURIComponent(reqId)}&reply=${encodeURIComponent(reply)}`);
-      if(res && res.status === "success") { showToast("✅ تم الرد بنجاح"); manualRefreshData(); }
-    }
-
-    function renderAdminSupport(tickets) {
-      document.getElementById('adminSupportTableBody').innerHTML = tickets.length ? tickets.map(t => {
-        const id = t['Ticket ID'] || t[0];
-        return `
-          <tr><td>${id}</td><td>${t['Member ID'] || t[1]}</td><td>${t['Issue'] || t[2]}</td><td><strong>${t['Handled By'] || ''}</strong></td>
-          <td><input type="text" id="supReply-${id}" value="${t['Reply'] || t[3] || ''}" placeholder="الرد..." style="width:100%; margin-bottom:5px;">
-          <select id="supStatus-${id}" style="margin-bottom:5px;"><option value="معلق">معلق</option><option value="تم الحل">تم الحل</option></select>
-          <button class="btn" style="padding:4px 8px; font-size:0.8rem; width:auto;" onclick="saveSupportReply('${id}')">حفظ وحل</button></td></tr>
-        `;
-      }).join('') : `<tr><td colspan="5" style="text-align:center;">لا توجد بلاغات</td></tr>`;
-    }
-
-    async function saveSupportReply(ticketId) {
-      const reply = document.getElementById(`supReply-${ticketId}`).value.trim();
-      const status = document.getElementById(`supStatus-${ticketId}`).value;
-      const handledBy = currentUser['Full Name'] || currentUser['الاسم'] || currentUser['Member ID'];
-      const res = await callAPI(`action=updateSupport&ticketId=${encodeURIComponent(ticketId)}&reply=${encodeURIComponent(reply)}&status=${encodeURIComponent(status)}&handledBy=${encodeURIComponent(handledBy)}`);
-      if(res && res.status === "success") { showToast("✅ تم حفظ البلاغ"); manualRefreshData(); }
-    }
-
-    async function loadTasks() {
-      const res = await callAPI(`action=getData&sheet=Tasks`);
-      document.getElementById('tasksLoader').style.display = "none";
-      if(res && res.status === "success" && res.data) {
-        const myId = currentUser['Member ID'] || currentUser['رقم العضوية'];
-        globalTasksCache = res.data.filter(t => String(t['Member ID'] || t['رقم العضوية'] || '').trim().toLowerCase() === String(myId).trim().toLowerCase());
-        applyTasksFilterAndSearch();
-        calculateStats(globalTasksCache);
-      }
-    }
-
-    function filterTasks(status, btn) {
-      currentStatusFilter = status;
-      document.querySelectorAll('.filter-pills .pill-btn').forEach(b => b.classList.remove('active'));
-      if(btn) btn.classList.add('active');
-      applyTasksFilterAndSearch();
-    }
-
-    function applyTasksFilterAndSearch() {
-      const q = document.getElementById('taskSearchInput').value.toLowerCase();
-      const today = new Date().toISOString().split('T')[0];
-      const filtered = globalTasksCache.filter(t => {
-        const name = (t['Task Name'] || t[1] || '').toLowerCase();
-        const details = (t['Details'] || t[6] || '').toLowerCase();
-        const status = (t['Status'] || t[7] || '').toLowerCase();
-        const due = String(t['Due Date'] || t[5] || '');
-        const matchQ = name.includes(q) || details.includes(q);
-        let matchTab = true;
-        if(currentStatusFilter === 'قيد التنفيذ') matchTab = !status.includes('مكتملة');
-        else if(currentStatusFilter === 'مكتملة') matchTab = status.includes('مكتملة');
-        else if(currentStatusFilter === 'اليوم') matchTab = due === today;
-        else if(currentStatusFilter === 'متأخرة') matchTab = due < today && !status.includes('مكتملة');
-        return matchQ && matchTab;
-      });
-      renderTasksTable(filtered);
-    }
-
-    function renderTasksTable(tasks) {
-      document.getElementById('tasksTable').style.display = "table";
-      document.getElementById('tasksBody').innerHTML = tasks.length ? tasks.map(t => {
-        const isDone = (t['Status'] || '').includes('مكتملة');
-        const id = t['Task ID'] || t[0];
-        return `
-          <tr><td>${id}</td><td>${t['Task Name'] || t[1]}</td><td><span class="badge ${isDone ? 'badge-success' : 'badge-warning'}">${t['Status'] || 'قيد التنفيذ'}</span></td><td>${t['Details'] || t[6] || ''}</td><td>${t['Due Date'] || t[5] || ''}</td>
-          <td><button class="btn" style="padding:3px 8px; font-size:0.75rem; width:auto; background:${isDone?'#6c757d':'var(--success-color)'};" onclick="quickToggleTaskStatus('${id}', '${isDone ? 'قيد التنفيذ' : 'مكتملة'}')">${isDone ? 'إعادة فتح' : 'إنجاز'}</button></td></tr>
-        `;
-      }).join('') : `<tr><td colspan="6" style="text-align:center;">لا توجد مهام</td></tr>`;
-    }
-
-    async function quickToggleTaskStatus(id, newStatus) {
-      const res = await callAPI(`action=updateTaskStatus&taskId=${encodeURIComponent(id)}&status=${encodeURIComponent(newStatus)}`);
-      if(res && res.status === "success") { showToast("✅ تم التحديث"); loadTasks(); }
-    }
-
-    function calculateStats(tasks) {
-      const total = tasks.length;
-      const completed = tasks.filter(t => (t['Status'] || '').includes('مكتملة')).length;
-      const prog = total > 0 ? Math.round((completed / total) * 100) : 0;
-      document.getElementById('statTotalTasks').innerText = total;
-      document.getElementById('statCompletedTasks').innerText = completed;
-      document.getElementById('statProgress').innerText = prog + '%';
-      document.getElementById('progressBarFill').style.width = prog + '%';
-      document.getElementById('analyticsScoreDisplay').innerText = prog + '%';
-    }
-
-    async function submitUserRequest() {
-      const type = document.getElementById('reqType').value;
-      const details = document.getElementById('reqDetails').value.trim();
-      if(!details) { showToast("أدخل التفاصيل"); return; }
-      const res = await callAPI(`action=submitRequest&memberId=${encodeURIComponent(currentUser['Member ID']||currentUser['رقم العضوية'])}&type=${encodeURIComponent(type)}&details=${encodeURIComponent(details)}`);
-      if(res && res.status === "success") { showToast("✅ تم إرسال الطلب"); document.getElementById('reqDetails').value = ''; loadMyRequests(); }
-    }
-
-    async function loadMyRequests() {
-      const res = await callAPI(`action=getData&sheet=Requests`);
-      document.getElementById('myRequestsLoader').style.display = "none";
-      if(res && res.status === "success" && res.data) {
-        const myId = currentUser['Member ID'] || currentUser['رقم العضوية'];
-        const mine = res.data.filter(r => String(r['Member ID'] || r[1]) === String(myId));
-        document.getElementById('myRequestsContainer').innerHTML = mine.length ? mine.map(r => `
-          <div style="background:var(--profile-item-bg); padding:1rem; border-radius:8px; margin-bottom:0.8rem; border:1px solid var(--border-color);">
-            <p><strong>النوع:</strong> ${r['Type'] || r[2]} | <strong>الحالة:</strong> <span class="badge badge-warning">${r['Status'] || r[4]}</span></p>
-            <p style="margin-top:5px;">${r['Details'] || r[3]}</p><p style="margin-top:5px; color:var(--primary-color);"><strong>رد الإدارة:</strong> ${r['Reply'] || r[5] || 'قيد المراجعة...'}</p></div>
-        `).join('') : '<p>لا توجد طلبات</p>';
-      }
-    }
-
-    async function submitSupportTicket() {
-      const issue = document.getElementById('supportText').value.trim();
-      if(!issue) { showToast("أدخل تفاصيل المشكلة"); return; }
-      const res = await callAPI(`action=submitSupport&memberId=${encodeURIComponent(currentUser['Member ID']||currentUser['رقم العضوية'])}&issue=${encodeURIComponent(issue)}`);
-      if(res && res.status === "success") { showToast("✅ تم إرسال البلاغ"); document.getElementById('supportText').value = ''; loadMySupportTickets(); }
-    }
-
-    async function loadMySupportTickets() {
-      const res = await callAPI(`action=getData&sheet=Support`);
-      document.getElementById('mySupportLoader').style.display = "none";
-      if(res && res.status === "success" && res.data) {
-        const myId = currentUser['Member ID'] || currentUser['رقم العضوية'];
-        const mine = res.data.filter(s => String(s['Member ID'] || s[1]) === String(myId));
-        document.getElementById('mySupportContainer').innerHTML = mine.length ? mine.map(s => `
-          <div style="background:var(--profile-item-bg); padding:1rem; border-radius:8px; margin-bottom:0.8rem; border:1px solid var(--border-color);">
-            <p><strong>رقم البلاغ:</strong> ${s['Ticket ID'] || s[0]} | <strong>الحالة:</strong> <span class="badge badge-warning">${s['Status'] || s[4]}</span></p>
-            <p style="margin-top:5px;">${s['Issue'] || s[2]}</p><p style="margin-top:5px; color:var(--primary-color);"><strong>الرد:</strong> ${s['Reply'] || s[3] || 'قيد المراجعة...'}</p></div>
-        `).join('') : '<p>لا توجد بلاغات</p>';
-      }
-    }
-
-    async function loadSOPs() {
-      const res = await callAPI(`action=getData&sheet=SOPs`);
-      document.getElementById('sopsLoader').style.display = "none";
-      if(res && res.status === "success" && res.data) {
-        document.getElementById('sopsTable').style.display = "table";
-        document.getElementById('sopsBody').innerHTML = res.data.map(s => `
-          <tr><td>${s['SOP ID']||s[0]}</td><td>${s['Title']||s[1]}</td><td>${s['Department']||s[2]}</td><td>${s['Description']||s[3]}</td><td><a href="${s['Link']||s[4]}" target="_blank" style="color:var(--primary-color);">رابط الدليل</a></td></tr>
-        `).join('');
-      }
-    }
-
-    async function loadEvaluations() {
-      const res = await callAPI(`action=getData&sheet=Evaluations`);
-      document.getElementById('evalsLoader').style.display = "none";
-      if(res && res.status === "success" && res.data) {
-        document.getElementById('evalsTable').style.display = "table";
-        document.getElementById('evalsBody').innerHTML = res.data.map(e => `
-          <tr><td>${e['Eval ID']||e[0]}</td><td>${e['Quality Score']||e[2]}</td><td>${e['Punctuality Score']||e[3]}</td><td>${e['Notes']||e[4]}</td><td>${e['Date']||e[5]}</td></tr>
-        `).join('');
-      }
-    }
-
-    async function handleChangePassword() {
-      const oldPass = document.getElementById('oldPass').value.trim();
-      const newPass = document.getElementById('newPass').value.trim();
-      if(!oldPass || !newPass) { showToast("أدخل كلمات المرور"); return; }
-      const res = await callAPI(`action=changePassword&memberId=${encodeURIComponent(currentUser['Member ID']||currentUser['رقم العضوية'])}&oldPass=${encodeURIComponent(oldPass)}&newPass=${encodeURIComponent(newPass)}`);
-      if(res && res.status === "success") { showToast("✅ تم تغيير كلمة المرور بنجاح"); closePassModal(); }
-      else { showToast("❌ " + (res ? res.message : "خطأ")); }
-    }
-
-    function manualRefreshData() {
-      showToast("🔄 تم التحديث");
-      loadAdminPanelData();
-      loadTasks(); loadSOPs(); loadEvaluations(); loadMyRequests(); loadMySupportTickets();
-    }
-
-    function switchTab(id, btn) {
-      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-      document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-      btn.classList.add('active');
+      document.getElementById('dashboardView').style.display = 'none';
+      document.getElementById('loginView').style.display = 'block';
     }
 
     function toggleDarkMode() {
       document.body.classList.toggle('dark-mode');
-      localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
     }
 
-    function openPassModal() { document.getElementById('passModal').style.display = 'flex'; }
-    function closePassModal() { document.getElementById('passModal').style.display = 'none'; }
-    function exportToPDF(id, filename) { 
-      if (typeof html2pdf !== 'undefined') {
-        html2pdf().from(document.getElementById(id)).save(filename);
-      } else {
-        alert("جاري تحميل مكتبة PDF، يرجى المحاولة بعد قليل");
+    function switchTab(tabId, btn) {
+      document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+      btn.classList.add('active');
+    }
+
+    // === محرك السحب والإفلات (Drag & Drop Engine) ===
+    function renderKanban() {
+      const colTodo = document.getElementById('col-todo');
+      const colInProgress = document.getElementById('col-inprogress');
+      const colDone = document.getElementById('col-done');
+
+      colTodo.innerHTML = ''; colInProgress.innerHTML = ''; colDone.innerHTML = '';
+
+      let doneCount = 0;
+
+      tasks.forEach(task => {
+        const card = document.createElement('div');
+        card.className = 'kanban-card';
+        card.draggable = true;
+        card.id = task.id;
+        card.ondragstart = (e) => drag(e, task.id);
+
+        let priorityClass = task.priority === 'high' ? 'priority-high' : task.priority === 'med' ? 'priority-med' : 'priority-low';
+        let priorityLabel = task.priority === 'high' ? 'عالي' : task.priority === 'med' ? 'متوسط' : 'منخفض';
+
+        card.innerHTML = `
+          <h5>${task.title}</h5>
+          <p>${task.desc}</p>
+          <div class="kanban-card-footer">
+            <span>📅 ${task.date}</span>
+            <span class="priority-badge ${priorityClass}">${priorityLabel}</span>
+          </div>
+        `;
+
+        if (task.status === 'جديدة') colTodo.appendChild(card);
+        else if (task.status === 'قيد التنفيذ') colInProgress.appendChild(card);
+        else if (task.status === 'مكتملة') {
+          colDone.appendChild(card);
+          doneCount++;
+        }
+      });
+
+      // تحديث العدادات والإحصائيات
+      document.getElementById('count-todo').innerText = tasks.filter(t => t.status === 'جديدة').length;
+      document.getElementById('count-inprogress').innerText = tasks.filter(t => t.status === 'قيد التنفيذ').length;
+      document.getElementById('count-done').innerText = doneCount;
+
+      document.getElementById('statTotalTasks').innerText = tasks.length;
+      document.getElementById('statCompletedTasks').innerText = doneCount;
+      
+      let progress = tasks.length ? Math.round((doneCount / tasks.length) * 100) : 0;
+      document.getElementById('statProgress').innerText = `${progress}%`;
+      document.getElementById('progressBarFill').style.width = `${progress}%`;
+    }
+
+    function allowDrop(ev) {
+      ev.preventDefault();
+    }
+
+    function drag(ev, id) {
+      ev.dataTransfer.setData("taskId", id);
+    }
+
+    function drop(ev, newStatus) {
+      ev.preventDefault();
+      const taskId = ev.dataTransfer.getData("taskId");
+      const task = tasks.find(t => t.id === taskId);
+      if (task) {
+        task.status = newStatus;
+        renderKanban();
+        showToast(`تم نقل المهمة إلى: ${newStatus}`);
       }
+    }
+
+    function showToast(msg) {
+      const c = document.getElementById('toastContainer');
+      const t = document.createElement('div');
+      t.className = 'toast'; t.innerText = msg;
+      c.appendChild(t);
+      setTimeout(() => t.remove(), 2500);
     }
   </script>
 </body>
