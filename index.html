@@ -62,6 +62,7 @@
     .btn-hero { padding: 0.8rem 1.8rem; border-radius: 8px; font-weight: 700; text-decoration: none; transition: transform 0.2s; cursor: pointer; border: none; font-size: 0.95rem; display: inline-flex; align-items: center; gap: 8px; }
     .btn-hero-primary { background: var(--secondary-color); color: #000; }
     .btn-hero-disabled { background: rgba(255,255,255,0.2); color: #cbd5e1; cursor: not-allowed; border: 1px dashed rgba(255,255,255,0.4); }
+    .btn-hero-secondary { background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.3); }
     .btn-hero:hover:not(.btn-hero-disabled) { transform: translateY(-2px); }
 
     section { padding: 4rem 1.5rem; max-width: 1280px; margin: 0 auto; }
@@ -100,7 +101,6 @@
     .member-card h5 { font-size: 1.05rem; color: var(--primary-color); font-weight: 800; }
     body.dark-mode .member-card h5 { color: var(--secondary-color); }
     .member-card p { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.3rem; }
-    .contact-trigger { margin-top: 0.8rem; font-size: 0.8rem; color: var(--accent-color); font-weight: 700; display: block; background: rgba(2, 132, 199, 0.08); padding: 0.4rem; border-radius: 6px; text-align: center; }
 
     .portal-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; z-index: 2000; padding: 15px; }
     .login-container { background: var(--card-bg); padding: 2rem; border-radius: 16px; box-shadow: var(--shadow); width: 100%; max-width: 460px; text-align: center; border: 1px solid var(--border-color); position: relative; }
@@ -171,6 +171,7 @@
         <li><a href="#programs">البرامج والمبادرات</a></li>
         <li><a href="#workflow">آلية العمل</a></li>
         <li><a href="#team">دليل الفريق</a></li>
+        <li><button class="nav-btn" onclick="openVisitorModal()">💬 بوابة الزوار والمتابعة</button></li>
         <li><button class="nav-btn btn-portal" onclick="openPortalModal('admin')"><i class="fa-solid fa-user-lock"></i> دخول الكادر</button></li>
       </ul>
     </div>
@@ -186,9 +187,11 @@
         <p>نساعدك في اكتشاف قدراتك، فهم ذاتك، وتحديد مسارك الأكاديمي والمهني بما يتوافق مع أحدث التقييمات العالمية ومستهدفات رؤية المملكة 2030.</p>
         <div class="hero-btns">
           <!-- التقديم في القروب (رابط الفورمز المخصص للطلبات والاستفسارات) -->
-          <a href="https://forms.gle/f8e2vDnjxerB7SdL9" target="_blank" class="btn-hero btn-hero-primary"><i class="fa-solid fa-users"></i> التقديم في القروب (لطلاب كلية العلوم)[cite: 37]</a>
+          <a href="https://forms.gle/f8e2vDnjxerB7SdL9" target="_blank" class="btn-hero btn-hero-primary"><i class="fa-solid fa-users"></i> التقديم في القروب (لطلاب كلية العلوم)</a>
           <!-- التسجيل العام في البرامج (غير متاح حالياً) -->
           <button class="btn-hero btn-hero-disabled" disabled><i class="fa-solid fa-lock"></i> التسجيل في البرامج (غير متاح حالياً)</button>
+          <!-- زر متابعة الاستفسارات -->
+          <button onclick="openVisitorModal()" class="btn-hero btn-hero-secondary"><i class="fa-solid fa-comments"></i> متابعة الاستفسارات</button>
         </div>
       </div>
     </section>
@@ -324,61 +327,55 @@
       </div>
     </section>
 
-    <!-- Team Directory -->
+    <!-- Team Directory (بدون إشارات المراجع وبدون عبارة متى تتواصل معه) -->
     <section id="team" style="background: var(--bg-color);">
       <div class="section-title">
         <h3>دليل التواصل مع فريق المكتب</h3>
-        <p>من المسؤول عن ماذا؟ وإلى من تتوجه عند الحاجة للدعم؟[cite: 29]</p>
+        <p>من المسؤول عن ماذا؟ وإلى من تتوجه عند الحاجة للدعم؟</p>
         <div class="title-line"></div>
       </div>
 
       <div class="team-grid">
         <div class="member-card">
           <span class="member-role">الإدارة العليا</span>
-          <h5>مدير المكتب (د. سلطان سنبل)[cite: 30, 37]</h5>
-          <p>القيادة الاستراتيجية واعتماد الخطط والشراكات والشؤون المؤسسية[cite: 30].</p>
-          <span class="contact-trigger">متى تتواصل؟ للاعتمادات النهائية والملفات الاستراتيجية[cite: 30]</span>
+          <h5>مدير المكتب (د. سلطان سنبل)</h5>
+          <p>القيادة الاستراتيجية واعتماد الخطط والبرامج والسياسات والإشراف على جودة المخرجات وتمثيل المكتب أمام الجهات ذات العلاقة.</p>
         </div>
 
         <div class="member-card">
           <span class="member-role">الإدارة العليا</span>
-          <h5>نائب مدير المكتب (د. مي القرشي)[cite: 31, 37]</h5>
-          <p>المساندة الاستراتيجية والإشراف على الملفات المفوضة قيادياً[cite: 31].</p>
-          <span class="contact-trigger">متى تتواصل؟ عند نيابة الإدارة والقرارات التنفيذية[cite: 31]</span>
+          <h5>نائب مدير المكتب (د. مي القرشي)</h5>
+          <p>المساندة في الملفات والقرارات الاستراتيجية، الإشراف على استمرارية القيادة ووحدة التوجه، ومتابعة الأداء والتوجيه.</p>
         </div>
 
         <div class="member-card">
           <span class="member-role">التشغيل الميداني</span>
-          <h5>مدير العمليات[cite: 30]</h5>
-          <p>إدارة النظام التشغيلي، الجداول، المواعيد، ومعالجة التعثرات[cite: 30].</p>
-          <span class="contact-trigger">متى تتواصل؟ للإجراءات التشغيلية ومتابعة المهام[cite: 30]</span>
+          <h5>مدير العمليات</h5>
+          <p>إدارة النظام التشغيلي اليومي والإشراف على سير العمل بين الأقسام، متابعة الخطط والمهام والمواعيد ومؤشرات الأداء.</p>
         </div>
 
         <div class="member-card">
           <span class="member-role">شطر الطلاب والطالبات</span>
-          <h5>قائد شطر الطلاب / الطالبات[cite: 31]</h5>
-          <p>متابعة التزام المشاركين، التواصل العام، والاندماج في أنشطة المكتب[cite: 31].</p>
-          <span class="contact-trigger">متى تتواصل؟ للدعم المتعلق بالمشاركة والالتزام[cite: 31]</span>
+          <h5>قائد شطر الطلاب / الطالبات</h5>
+          <p>متابعة مشاركة الأعضاء والتواصل العام والانضباط والاندماج في أنشطة المكتب، وضمان توحيد المعايير بين الشطرين.</p>
         </div>
 
         <div class="member-card">
           <span class="member-role">قسم البرامج والفعاليات</span>
-          <h5>مشرف قسم البرامج[cite: 33]</h5>
-          <p>تصميم وتطوير الفعاليات وتكامل المحتوى البرامجي الميداني[cite: 33].</p>
-          <span class="contact-trigger">متى تتواصل؟ لاقتراح برنامج أو استكشاف مبادرة[cite: 33]</span>
+          <h5>مشرف قسم البرامج والفعاليات</h5>
+          <p>تصميم وتطوير وتنفيذ البرامج والمبادرات التوجيهية والتدريبية للمكتب وإعداد التقويم البرامجي وتحويل الأفكار إلى برامج قابلة للتنفيذ.</p>
         </div>
 
         <div class="member-card">
           <span class="member-role">قسم الإبداع والمواهب</span>
-          <h5>مسؤول استقطاب الموهوبين[cite: 35]</h5>
-          <p>اكتشاف ورعاية مواهب الخطابة، التصميم، والابتكار لدى الطلاب[cite: 35].</p>
-          <span class="contact-trigger">متى تتواصل؟ لترشيح نفسك أو عرض موهبتك الخاصة[cite: 35]</span>
+          <h5>مسؤول استقطاب الموهوبين</h5>
+          <p>اكتشاف ورعاية المواهب الإبداعية وتنميتها وإبرازها وتوفير الفرص التي تتيح لهم التعبير عن قدراتهم الاستثنائية وربطهم بمسارهم.</p>
         </div>
       </div>
     </section>
   </div>
 
-  <!-- Modal View for Portal Login -->
+  <!-- Modal View for Portal Login & Visitor Inquiries -->
   <div class="portal-modal" id="portalModal">
     <div class="login-container" id="adminLoginView">
       <button onclick="closePortalModal()" style="position:absolute; top:15px; left:15px; background:none; border:none; font-size:1.2rem; cursor:pointer;">✕</button>
@@ -515,6 +512,11 @@
 
     function openPortalModal(type) {
       document.getElementById('portalModal').style.display = 'flex';
+    }
+
+    function openVisitorModal() {
+      // توجيه زر متابعة الاستفسارات المباشر لرابط الفورمز أو تفعيل بوابته
+      window.open("https://forms.gle/f8e2vDnjxerB7SdL9", "_blank");
     }
 
     function closePortalModal() {
