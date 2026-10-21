@@ -2,775 +2,323 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>بوابة مكتب التوجيه السلوكي والمهني - كلية العلوم</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مكتب التوجيه السلوكي والمهني</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <style>
     :root {
-      --primary-color: #0f766e;
-      --secondary-color: #115e59;
-      --bg-color: #f8f9fa;
+      --primary-color: #0d5c3a;
+      --primary-hover: #083e27;
+      --secondary-color: #c5a059;
+      --accent-color: #0284c7;
+      --bg-color: #f8fafc;
       --card-bg: #ffffff;
-      --text-color: #1f2937;
-      --text-muted: #6b7280;
-      --danger-color: #e63946;
-      --warning-color: #f4a261;
-      --success-color: #14b8a6;
-      --table-header-bg: #f1f5f9;
-      --profile-item-bg: #f8fafc;
+      --text-color: #0f172a;
+      --text-muted: #64748b;
       --border-color: #e2e8f0;
+      --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
     }
-    body.dark-mode {
-      --bg-color: #0f172a; --card-bg: #1e293b; --text-color: #f1f5f9; --text-muted: #94a3b8;
-      --table-header-bg: #334155; --profile-item-bg: #334155; --border-color: #475569;
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; scroll-behavior: smooth; }
+    body { background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; }
+
+    /* Header & Navigation */
+    header { background: var(--card-bg); border-bottom: 3px solid var(--secondary-color); position: sticky; top: 0; z-index: 1000; box-shadow: var(--shadow); }
+    .nav-container { max-width: 1280px; margin: 0 auto; padding: 0.8rem 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+    .logo-box { display: flex; align-items: center; gap: 12px; }
+    .logo-icon { width: 45px; height: 45px; background: var(--primary-color); color: var(--secondary-color); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+    .logo-text h1 { font-size: 1.15rem; color: var(--primary-color); font-weight: 900; line-height: 1.2; }
+
+    .nav-links { display: flex; gap: 0.8rem; list-style: none; align-items: center; }
+    .nav-links a { text-decoration: none; color: var(--text-color); font-weight: 700; font-size: 0.88rem; padding: 0.5rem 0.8rem; border-radius: 6px; transition: all 0.2s; }
+    .nav-links a:hover { background: var(--bg-color); color: var(--primary-color); }
+    .btn-portal-link { background: var(--primary-color); color: white !important; border-radius: 8px; }
+    .btn-portal-link:hover { background: var(--primary-hover) !important; }
+
+    /* Hero Section */
+    .hero { background: linear-gradient(135deg, var(--primary-color) 0%, #062c1b 100%); color: white; padding: 5rem 1.5rem; text-align: center; position: relative; overflow: hidden; }
+    .hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 8px; background: var(--secondary-color); }
+    .hero-content { max-width: 900px; margin: 0 auto; }
+    .hero-badge { background: rgba(197, 160, 89, 0.2); color: var(--secondary-color); border: 1px solid var(--secondary-color); padding: 0.4rem 1rem; border-radius: 50px; font-size: 0.85rem; font-weight: 700; display: inline-block; margin-bottom: 1rem; }
+    .hero h2 { font-size: 2.2rem; font-weight: 900; margin-bottom: 1rem; line-height: 1.3; }
+    .hero p { font-size: 1.05rem; opacity: 0.9; margin-bottom: 2rem; max-width: 750px; margin-left: auto; margin-right: auto; }
+    .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    
+    .btn-hero { padding: 0.8rem 1.8rem; border-radius: 8px; font-weight: 700; text-decoration: none; transition: transform 0.2s; font-size: 0.95rem; display: inline-flex; align-items: center; gap: 8px; border: none; }
+    .btn-primary { background: var(--secondary-color); color: #000; }
+    .btn-secondary { background: rgba(255,255,255,0.15); color: white; border: 1px solid rgba(255,255,255,0.3); }
+    .btn-hero:hover { transform: translateY(-2px); }
+
+    /* Sections Shared */
+    section { padding: 4rem 1.5rem; max-width: 1280px; margin: 0 auto; }
+    .section-title { text-align: center; margin-bottom: 3rem; }
+    .section-title h3 { font-size: 1.8rem; color: var(--primary-color); font-weight: 900; }
+    .section-title p { color: var(--text-muted); font-size: 0.95rem; margin-top: 0.4rem; }
+    .title-line { width: 60px; height: 4px; background: var(--secondary-color); margin: 0.8rem auto 0 auto; border-radius: 2px; }
+
+    /* Cards Grid */
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+    .card { background: var(--card-bg); border-radius: 12px; padding: 1.8rem; border: 1px solid var(--border-color); box-shadow: var(--shadow); }
+    .card-icon { width: 50px; height: 50px; background: rgba(13, 92, 58, 0.08); color: var(--primary-color); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; margin-bottom: 1rem; }
+    .card h4 { font-size: 1.2rem; color: var(--primary-color); margin-bottom: 0.8rem; font-weight: 800; }
+    .card p { color: var(--text-muted); font-size: 0.9rem; }
+
+    /* Programs Section */
+    .programs-wrapper { margin-bottom: 2.5rem; }
+    .program-header { background: var(--primary-color); color: white; padding: 1rem 1.5rem; border-radius: 12px 12px 0 0; display: flex; align-items: center; gap: 10px; }
+    .program-grid { background: var(--card-bg); padding: 1.5rem; border: 1px solid var(--border-color); border-top: none; border-radius: 0 0 12px 12px; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem; }
+    .sub-card { background: var(--bg-color); padding: 1.2rem; border-radius: 8px; border-right: 4px solid var(--secondary-color); }
+    .sub-card h5 { color: var(--primary-color); font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .sub-card p { font-size: 0.85rem; color: var(--text-muted); }
+
+    /* Workflow Steps */
+    .steps-container { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+    .step-box { flex: 1; min-width: 180px; background: var(--card-bg); border: 1px solid var(--border-color); padding: 1.2rem; border-radius: 10px; text-align: center; }
+    .step-num { width: 35px; height: 35px; background: var(--secondary-color); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; margin: 0 auto 0.8rem auto; }
+    .step-box h5 { color: var(--primary-color); font-weight: 800; margin-bottom: 0.3rem; }
+    .step-box p { font-size: 0.8rem; color: var(--text-muted); }
+
+    /* Team Directory Grid */
+    .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.2rem; }
+    .member-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 10px; padding: 1.2rem; box-shadow: var(--shadow); }
+    .member-role { font-size: 0.75rem; background: rgba(197, 160, 89, 0.15); color: #8a6d29; font-weight: 800; padding: 0.2rem 0.6rem; border-radius: 4px; display: inline-block; margin-bottom: 0.5rem; }
+    .member-card h5 { font-size: 1.05rem; color: var(--primary-color); font-weight: 800; }
+    .member-card p { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.3rem; }
+
+    /* Footer */
+    footer { background: #062c1b; color: white; padding: 3rem 1.5rem 1.5rem 1.5rem; font-size: 0.85rem; border-top: 4px solid var(--secondary-color); margin-top: 4rem; }
+    .footer-container { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; margin-bottom: 2rem; text-align: right; }
+    .footer-col h5 { font-size: 1rem; color: var(--secondary-color); margin-bottom: 1rem; font-weight: 800; }
+    .footer-bottom { text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem; opacity: 0.7; }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hero h2 { font-size: 1.6rem; }
+      .steps-container { flex-direction: column; }
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; -webkit-tap-highlight-color: transparent; }
-    body { background-color: var(--bg-color); color: var(--text-color); display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 10px; }
-    
-    #toastContainer { position: fixed; bottom: 20px; left: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
-    .toast { background: var(--primary-color); color: white; padding: 12px 20px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); font-size: 0.9rem; animation: slideIn 0.3s ease; }
-    @keyframes slideIn { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-
-    .login-container { background: var(--card-bg); padding: 2rem; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); width: 100%; max-width: 440px; text-align: center; border: 1px solid var(--border-color); }
-    .login-container h2 { margin-bottom: 1.5rem; color: var(--primary-color); font-weight: 900; }
-    .form-group { margin-bottom: 1.2rem; text-align: right; }
-    .form-group label { display: block; margin-bottom: 0.4rem; font-weight: 600; font-size: 0.9rem; }
-    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; font-size: 1rem; outline: none; background: var(--card-bg); color: var(--text-color); }
-    input[readonly] { background-color: var(--border-color); opacity: 0.8; cursor: not-allowed; }
-    
-    .btn { width: 100%; padding: 0.75rem; background-color: var(--primary-color); color: white; border: none; border-radius: 8px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: background 0.2s; touch-action: manipulation; }
-    .btn:active { transform: scale(0.98); }
-    .btn:hover { background-color: var(--secondary-color); }
-
-    .dashboard-container { display: none; width: 100%; max-width: 1150px; margin: 0 auto; }
-    header { background: var(--primary-color); color: white; padding: 1.2rem; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-    .header-btns { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
-    .btn-header { background-color: transparent; border: 1px solid white; color: white; padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer; font-size: 0.85rem; touch-action: manipulation; }
-    .btn-header:hover { background-color: rgba(255, 255, 255, 0.2); }
-    .clock-box { font-size: 0.85rem; background: rgba(0,0,0,0.2); padding: 0.4rem 0.8rem; border-radius: 6px; }
-
-    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
-    .stat-card { background: var(--card-bg); padding: 1.2rem; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-right: 5px solid var(--primary-color); display: flex; flex-direction: column; border: 1px solid var(--border-color); }
-    .stat-card span { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.3rem; }
-    .stat-card p { font-size: 1.6rem; font-weight: 700; color: var(--text-color); }
-    .progress-bar-container { background: var(--border-color); border-radius: 10px; height: 8px; width: 100%; margin-top: 8px; overflow: hidden; }
-    .progress-bar-fill { background: var(--success-color); height: 100%; width: 0%; transition: width 0.4s ease; }
-
-    .profile-card { background: var(--card-bg); padding: 1.2rem; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 1.5rem; border: 1px solid var(--border-color); }
-    .profile-card h3 { color: var(--primary-color); margin-bottom: 0.5rem; }
-    .profile-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-top: 1rem; }
-    .profile-item { background: var(--profile-item-bg); padding: 0.8rem 1rem; border-radius: 8px; border: 1px solid var(--border-color); }
-    .profile-item span { display: block; font-size: 0.8rem; color: var(--text-muted); }
-    .profile-item p { font-weight: 600; margin-top: 0.2rem; }
-
-    .filter-pills { display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
-    .pill-btn { padding: 0.4rem 1rem; border-radius: 50px; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-color); cursor: pointer; font-size: 0.85rem; touch-action: manipulation; }
-    .pill-btn.active { background: var(--primary-color); color: white; border-color: var(--primary-color); }
-
-    .search-box-wrapper { margin-bottom: 1rem; }
-    .search-box-wrapper input { width: 100%; padding: 0.6rem 1rem; border: 1px solid var(--border-color); border-radius: 8px; background: var(--card-bg); color: var(--text-color); }
-
-    .nav-tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; border-bottom: 2px solid var(--border-color); overflow-x: auto; padding-bottom: 5px; -webkit-overflow-scrolling: touch; }
-    .tab-btn { padding: 0.6rem 1rem; border: none; background: none; font-size: 0.9rem; font-weight: 600; cursor: pointer; color: var(--text-muted); border-bottom: 3px solid transparent; white-space: nowrap; touch-action: manipulation; }
-    .tab-btn.active { color: var(--primary-color); border-bottom-color: var(--primary-color); }
-    .tab-content { display: none; }
-    .tab-content.active { display: block; }
-
-    .table-responsive { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 1.5rem; }
-    .data-table { width: 100%; border-collapse: collapse; background: var(--card-bg); border-radius: 8px; overflow: hidden; border: 1px solid var(--border-color); min-width: 600px; }
-    .data-table th, .data-table td { padding: 0.75rem 0.8rem; text-align: right; border-bottom: 1px solid var(--border-color); font-size: 0.85rem; }
-    .data-table th { background-color: var(--table-header-bg); color: var(--primary-color); font-weight: 700; }
-
-    .badge { padding: 0.25rem 0.6rem; border-radius: 50px; font-size: 0.75rem; font-weight: 600; display: inline-block; }
-    .badge-success { background-color: #d4edda; color: #155724; }
-    .badge-warning { background-color: #fff3cd; color: #856404; }
-    .badge-closed { background-color: #e2e8f0; color: #475569; }
-    
-    .loader { text-align: center; padding: 2rem; color: var(--text-muted); }
-    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 1000; }
-    .modal-content { background: var(--card-bg); padding: 1.5rem; border-radius: 12px; width: 92%; max-width: 500px; max-height: 85vh; overflow-y: auto; border: 1px solid var(--border-color); }
-
-    .chat-box-wrapper { position: relative; }
-    .whatsapp-chat-container { background: #efeae2; border-radius: 10px; border: 1px solid var(--border-color); height: 200px; overflow-y: auto; padding: 10px; display: flex; flex-direction: column; gap: 8px; margin-bottom: 6px; -webkit-overflow-scrolling: touch; }
-    body.dark-mode .whatsapp-chat-container { background: #0b141a; }
-    
-    .chat-bubble { max-width: 85%; padding: 8px 12px; border-radius: 8px; font-size: 0.85rem; position: relative; line-height: 1.4; word-wrap: break-word; }
-    .chat-bubble.visitor { background: #ffffff; color: #111b21; align-self: flex-start; border-top-right-radius: 0; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
-    body.dark-mode .chat-bubble.visitor { background: #202c33; color: #e9edef; }
-    .chat-bubble.admin { background: #d9fdd3; color: #111b21; align-self: flex-end; border-top-left-radius: 0; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
-    body.dark-mode .chat-bubble.admin { background: #005c4b; color: #e9edef; }
-    .chat-bubble .sender-name { font-size: 0.7rem; font-weight: bold; margin-bottom: 2px; color: var(--primary-color); }
-    body.dark-mode .chat-bubble .sender-name { color: #53bdeb; }
-    .chat-bubble .chat-time { font-size: 0.6rem; color: var(--text-muted); text-align: left; margin-top: 3px; display: block; }
-    
-    .expand-chat-btn { position: absolute; top: 8px; left: 8px; background: rgba(0,0,0,0.6); color: white; border: none; border-radius: 6px; padding: 4px 8px; font-size: 0.75rem; cursor: pointer; z-index: 10; display: flex; align-items: center; gap: 4px; }
-
-    .chat-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; z-index: 2000; }
-    .chat-modal-content { background: var(--card-bg); width: 95%; max-width: 750px; height: 85vh; border-radius: 14px; display: flex; flex-direction: column; padding: 15px; border: 1px solid var(--border-color); }
   </style>
 </head>
 <body>
 
-  <div id="toastContainer"></div>
-
-  <!-- شاشة الدخول الرئيسية -->
-  <div class="login-container" id="loginView">
-    <h2>تسجيل دخول أعضاء المكتب</h2>
-    <div class="form-group"><label>رقم العضوية (Member ID)</label><input type="text" id="memberId" placeholder="مثال: COO أو MGR-1"></div>
-    <div class="form-group"><label>كلمة المرور</label><input type="password" id="password" placeholder="••••••••"></div>
-    <button class="btn" onclick="handleLogin()">دخول النظام</button>
-    
-    <hr style="margin: 1.2rem 0; border-color: var(--border-color);">
-    <button class="btn" style="background: #0284c7; margin-bottom: 0.6rem;" onclick="showVisitorSection('submit')">🌐 بوابة الزوار: تقديم طلب / استفسار</button>
-    <button class="btn" style="background: #0d9488;" onclick="showVisitorSection('track')">🔍 غرفة متابعة الطلب والدردشة</button>
-  </div>
-
-  <!-- واجهة تقديم طلب للزوار -->
-  <div class="login-container" id="visitorSubmitView" style="display:none; max-width: 550px; text-align: right;">
-    <h2 style="text-align: center; color: var(--primary-color);">🌐 بوابة الزوار والطلاب</h2>
-    <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:1rem; text-align: center;">قدم طلبك وسنرسل لك إيميل فوراً برقم المتابعة الخاص بك.</p>
-    
-    <div class="form-group"><label>الاسم الكريم</label><input type="text" id="visitorName" placeholder="أدخل اسمك الكامل..."></div>
-    <div class="form-group"><label>البريد الإلكتروني</label><input type="email" id="visitorEmail" placeholder="name@stu.kau.edu.sa"></div>
-    <div class="form-group">
-      <label>نوع التقديم</label>
-      <select id="visitorCategory">
-        <option value="استفسار أكاديمي أو مهني">استفسار أكاديمي أو مهني</option>
-        <option value="استشارة سلوكية">استشارة سلوكية</option>
-        <option value="طلب خدمة">طلب خدمة</option>
-        <option value="اقتراح تطويري">اقتراح تطويري</option>
-      </select>
+  <!-- القائمة العلوية -->
+  <header>
+    <div class="nav-container">
+      <div class="logo-box">
+        <div class="logo-icon"><i class="fa-solid fa-compass"></i></div>
+        <div class="logo-text">
+          <h1>مكتب التوجيه السلوكي والمهني</h1>
+        </div>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#about">من نحن</a></li>
+        <li><a href="#programs">البرامج والمبادرات</a></li>
+        <li><a href="#workflow">آلية العمل</a></li>
+        <li><a href="#team">دليل الفريق</a></li>
+        <li><a href="https://forms.gle/f8e2vDnjxerB7SdL9" target="_blank" class="btn-portal-link"><i class="fa-solid fa-comments"></i> بوابة الزوار والاستفسارات</a></li>
+      </ul>
     </div>
-    <div class="form-group"><label>التفاصيل والموضوع</label><textarea id="visitorDetails" rows="4" placeholder="اكتب التفاصيل..."></textarea></div>
-    <button class="btn" onclick="submitVisitorInquiry()">إرسال التقديم</button>
-    <button class="btn" style="background:var(--text-muted); margin-top:0.6rem;" onclick="backToLogin()">الرجوع</button>
-  </div>
+  </header>
 
-  <!-- غرفة متابعة الزوار -->
-  <div class="login-container" id="visitorTrackView" style="display:none; max-width: 650px; text-align: right;">
-    <h2 style="text-align: center; color: var(--primary-color);">💬 غرفة المحادثة والمتابعة للزائر</h2>
-    <div class="form-group"><label>رقم المتابعة</label><input type="text" id="trackInquiryId" placeholder="VIS-1234"></div>
-    <button class="btn" onclick="trackVisitorInquiry()">دخول غرفة المحادثة</button>
-    
-    <div id="trackResultContainer" style="margin-top: 1.5rem; display: none;">
-      <p style="margin-bottom:8px;"><strong>الحالة:</strong> <span id="resStatus" class="badge badge-warning">-</span></p>
-      <div class="whatsapp-chat-container" id="resChatLogContainer"></div>
-      <div class="form-group" style="margin-top:10px;">
-        <input type="text" id="visitorReplyInput" placeholder="اكتب رسالتك للإدارة...">
+  <!-- القسم الرئيسي (Hero) -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">CGCO - Career Guidance & Counseling Office</div>
+      <h2>صناعة المستقبل: تمكين الطلبة وتطوير جاهزيتهم الأكاديمية والمهنية</h2>
+      <p>نساعدك في اكتشاف قدراتك، فهم ذاتك، وتحديد مسارك الأكاديمي والمهني بما يتوافق مع أحدث التقييمات العالمية ومستهدفات رؤية المملكة 2030.</p>
+      <div class="hero-btns">
+        <a href="https://forms.gle/n18frZCMgPLZq9AG6" target="_blank" class="btn-hero btn-primary"><i class="fa-solid fa-users"></i> التقديم في القروب (لطلاب كلية العلوم)</a>
+        <a href="https://forms.gle/f8e2vDnjxerB7SdL9" target="_blank" class="btn-hero btn-secondary"><i class="fa-solid fa-comments"></i> بوابة الزوار ومتابعة الاستفسارات</a>
       </div>
-      <button class="btn" onclick="sendVisitorChatMessage()">إرسال الرسالة</button>
     </div>
-    <button class="btn" style="background:var(--text-muted); margin-top:1rem;" onclick="backToLogin()">الرجوع</button>
-  </div>
+  </section>
 
-  <!-- نافذة تكبير الشات -->
-  <div class="chat-modal" id="expandedChatModal">
-    <div class="chat-modal-content">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-        <h3 id="modalChatTitle" style="color:var(--primary-color);">محادثة الزائر</h3>
-        <button class="btn" style="width:auto; padding:4px 12px; background:var(--danger-color);" onclick="closeExpandedChat()">إغلاق ✕</button>
-      </div>
-      <div class="whatsapp-chat-container" id="modalChatLogContainer" style="flex:1;"></div>
+  <!-- قسم من نحن -->
+  <section id="about">
+    <div class="section-title">
+      <h3>عن المكتب وفلسفتنا</h3>
+      <p>إحدى المبادرات النوعية الرائدة للتوجيه الشامل</p>
+      <div class="title-line"></div>
     </div>
-  </div>
-
-  <!-- لوحة التحكم للإدارة -->
-  <div class="dashboard-container" id="dashboardView">
-    <header>
-      <div>
-        <h1 id="welcomeText" style="font-size: 1.2rem;">مرحباً بك</h1>
-        <p id="userDept" style="font-size:0.85rem; opacity:0.9; margin-top:2px;"></p>
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-icon"><i class="fa-solid fa-eye"></i></div>
+        <h4>رؤيتنا</h4>
+        <p>أن نكون المرجع الرائد في تمكين الطلبة من اكتشاف ذواتهم وتعزيز جاهزيتهم الأكاديمية والمهنية واتخاذ قرارات واعية وفق رؤية 2030.</p>
       </div>
-      <div class="header-btns">
-        <div class="clock-box" id="liveClock">--:--:--</div>
-        <button class="btn-header" onclick="manualRefreshData()">🔄 تحديث</button>
-        <button class="btn-header" onclick="toggleDarkMode()">🌙 المظهر</button>
-        <button class="btn-header" onclick="openPassModal()">كلمة المرور</button>
-        <button class="btn-header" onclick="handleLogout()">خروج</button>
+      <div class="card">
+        <div class="card-icon"><i class="fa-solid fa-bullseye"></i></div>
+        <h4>رسالتنا</h4>
+        <p>تقديم خدمات توجيهية واستشارية وتطويرية عالية الجودة من خلال برامج متخصصة، وشراكات استراتيجية، وأدوات تقييم عالمية مثل بيركمان.</p>
       </div>
-    </header>
+      <div class="card">
+        <div class="card-icon"><i class="fa-solid fa-gem"></i></div>
+        <h4>قيمنا وفلسفتنا</h4>
+        <p>التمكين، الاحترافية، السرية التامة، الموثوقية، والتطوير المستمر. نؤمن بأن أفضل القرارات الناجحة تبدأ دائماً بفهم الذات.</p>
+      </div>
+    </div>
+  </section>
 
-    <div class="nav-tabs">
-      <button class="tab-btn active" onclick="switchTab('personalDashboardTab', this)">👤 اللوحة الشخصية</button>
-      <button class="tab-btn" id="teamTabBtn" style="display:none;" onclick="switchTab('teamManagementTab', this)">👥 إدارة الفريق والعمليات</button>
-      <button class="tab-btn" id="visitorInquiriesTabBtn" style="display:none;" onclick="switchTab('visitorInquiriesTab', this)">💬 غرف النقاشات النشطة</button>
-      <button class="tab-btn" id="closedInquiriesTabBtn" style="display:none;" onclick="switchTab('closedInquiriesTab', this)">📁 النقاشات المنجزة (الأرشيف)</button>
-      <button class="tab-btn" onclick="switchTab('sopsTab', this)">📚 أدلة العمل</button>
-      <button class="tab-btn" onclick="switchTab('evaluationsTab', this)">⭐ التقييمات</button>
-      <button class="tab-btn" onclick="switchTab('requestTabContent', this)">📝 إرسال طلب / متابعة</button>
-      <button class="tab-btn" onclick="switchTab('supportTabContent', this)">🛠️ الدعم الفني</button>
-      <button class="tab-btn" onclick="switchTab('analyticsTab', this)">📊 التحليلات</button>
+  <!-- البرامج والمبادرات -->
+  <section id="programs" style="background: var(--bg-color);">
+    <div class="section-title">
+      <h3>برامج ومبادرات المكتب</h3>
+      <p>منظومة متكاملة لدعم الطالب في كافة مراحل رحلته الجامعية</p>
+      <div class="title-line"></div>
     </div>
 
-    <!-- 1. اللوحة الشخصية -->
-    <div class="tab-content active" id="personalDashboardTab">
-      <div class="stats-grid">
-        <div class="stat-card"><span>إجمالي المهام المسندة</span><p id="statTotalTasks">0</p></div>
-        <div class="stat-card"><span>المهام المكتملة</span><p id="statCompletedTasks">0</p></div>
-        <div class="stat-card">
-          <span>نسبة الإنجاز البصرية</span>
-          <p id="statProgress">0%</p>
-          <div class="progress-bar-container"><div class="progress-bar-fill" id="progressBarFill"></div></div>
-        </div>
-        <div class="stat-card"><span>مؤشر النشاط</span><p id="statActivityScore">نشط</p></div>
+    <!-- برنامج وجهني -->
+    <div class="programs-wrapper">
+      <div class="program-header">
+        <i class="fa-solid fa-route" style="font-size:1.3rem; color:var(--secondary-color);"></i>
+        <h4>برنامج "وجهني" (Wajjehni)</h4>
       </div>
-
-      <div class="profile-card">
-        <h3>النبذة الشخصية والمسمى الوظيفي</h3>
-        <div class="profile-grid">
-          <div class="profile-item"><span>المسمى الوظيفي:</span><p id="jobTitle">-</p></div>
-          <div class="profile-item"><span>البريد الإلكتروني:</span><p id="userEmail">-</p></div>
-          <div class="profile-item"><span>النبذة الشخصية:</span><p id="bioText">-</p></div>
-          <div class="profile-item" style="grid-column: 1 / -1;"><span>المسؤوليات والوصف:</span><p id="jobDescText">-</p></div>
+      <div class="program-grid">
+        <div class="sub-card">
+          <h5>1. اللقاءات المفتوحة</h5>
+          <p>لقاءات دورية تفاعلية لمناقشة الموضوعات الأكاديمية والمهنية والإجابة المباشرة عن استفسارات الطلاب.</p>
         </div>
-      </div>
-
-      <div class="profile-card">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;">
-          <h3 style="color: var(--primary-color);">قائمة المهام الشخصية</h3>
-          <button class="btn" style="width: auto; padding: 0.4rem 1rem; font-size: 0.85rem;" onclick="exportToPDF('tasksTableContainer', 'تقرير_المهام.pdf')">📥 تصدير PDF</button>
+        <div class="sub-card">
+          <h5>2. الاستشارات السلوكية والمهنية</h5>
+          <p>جلسات ومحاضرات إثرائية مساعدة في تخطي التحديات والتخطيط المباشر للمسارات المستقبلية.</p>
         </div>
-
-        <div class="filter-pills">
-          <button class="pill-btn active" onclick="filterTasks('all', this)">الكل</button>
-          <button class="pill-btn" onclick="filterTasks('قيد التنفيذ', this)">قيد التنفيذ</button>
-          <button class="pill-btn" onclick="filterTasks('مكتملة', this)">مكتملة (أرشيف)</button>
-          <button class="pill-btn" onclick="filterTasks('اليوم', this)">📅 مهام اليوم</button>
-          <button class="pill-btn" onclick="filterTasks('متأخرة', this)">⚠️ مهام متأخرة</button>
+        <div class="sub-card">
+          <h5>3. ورش العمل التطويرية</h5>
+          <p>تنمية مهارات التخطيط، الذكاء العاطفي، بناء الهوية المهنية، كتابة السيرة الذاتية، واجتياز المقابلات.</p>
         </div>
-
-        <div class="search-box-wrapper">
-          <input type="text" id="taskSearchInput" placeholder="🔍 بحث فوري في المهام..." oninput="applyTasksFilterAndSearch()">
-        </div>
-
-        <div id="tasksLoader" class="loader">جاري التحميل...</div>
-        <div id="tasksTableContainer" class="table-responsive">
-          <table class="data-table" id="tasksTable" style="display:none;">
-            <thead><tr><th>رقم المهمة</th><th>العنوان</th><th>الحالة</th><th>التفاصيل</th><th>التاريخ</th><th>إجراء سريع</th></tr></thead>
-            <tbody id="tasksBody"></tbody>
-          </table>
+        <div class="sub-card">
+          <h5>4. تقييم بيركمان العالمي</h5>
+          <p>تحليل الميول والسلوك الاعتيادي ومسببات الضغط والجلسات مع مستشار معتمد لشرح التقرير.</p>
         </div>
       </div>
     </div>
 
-    <!-- 2. إدارة الفريق والعمليات -->
-    <div class="tab-content" id="teamManagementTab">
-      <div class="profile-card" style="border: 2px dashed var(--primary-color);">
-        <h4 style="margin-bottom: 1rem; color: var(--primary-color);">➕ إسناد مهمة جديدة لعضو نشط</h4>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
-          <div class="form-group" style="margin-bottom:0;"><label>عنوان المهمة</label><input type="text" id="newTaskName"></div>
-          <div class="form-group" style="margin-bottom:0;">
-            <label>اختر اسم العضو</label>
-            <select id="newTaskAssigneeSelect" onchange="autoFillMemberDetails()"><option value="">جاري التحميل...</option></select>
-          </div>
-          <div class="form-group" style="margin-bottom:0;"><label>رقم العضوية (ID)</label><input type="text" id="newTaskMemberId" readonly></div>
-          <div class="form-group" style="margin-bottom:0;"><label>القسم</label><input type="text" id="newTaskDepartment" readonly></div>
-          <div class="form-group" style="margin-bottom:0;"><label>تاريخ الاستحقاق</label><input type="date" id="newTaskDate"></div>
-        </div>
-        <div class="form-group" style="margin-bottom:1rem;"><label>تفاصيل إضافية</label><input type="text" id="newTaskDetails"></div>
-        <button class="btn" onclick="addNewTaskWithAutoFill()">إسناد المهمة وإشعار العضو</button>
+    <!-- مختبر الابتكار -->
+    <div class="programs-wrapper">
+      <div class="program-header" style="background: #083e27;">
+        <i class="fa-solid fa-lightbulb" style="font-size:1.3rem; color:var(--secondary-color);"></i>
+        <h4>مختبر الابتكار (Innovation Laboratory)</h4>
       </div>
-
-      <div class="profile-card">
-        <h4 style="margin-bottom: 1rem; color: var(--primary-color);">إدارة أعضاء الفريق</h4>
-        <div class="search-box-wrapper"><input type="text" id="memberSearchInput" placeholder="🔍 ابحث بالاسم..." oninput="filterMembersTable()"></div>
-        <div class="table-responsive">
-          <table class="data-table">
-            <thead><tr><th>رقم العضوية</th><th>الاسم</th><th>المسمى الوظيفي</th><th>البريد</th></tr></thead>
-            <tbody id="membersTableBody"><tr><td colspan="4" style="text-align:center;">جاري التحميل...</td></tr></tbody>
-          </table>
+      <div class="program-grid">
+        <div class="sub-card">
+          <h5>ما قبل الاحتضان (TRL 1)</h5>
+          <p>استكشاف المشكلات وفهم أصحاب المصلحة وتوليد مفاهيم الحلول الابتكارية.</p>
         </div>
-      </div>
-
-      <div class="profile-card">
-        <h4 style="margin-bottom: 1rem; color: var(--primary-color);">طلبات الأعضاء الواردة</h4>
-        <div class="table-responsive">
-          <table class="data-table">
-            <thead><tr><th>رقم الطلب</th><th>العضو</th><th>نوع الطلب</th><th>التفاصيل</th><th>الرد والمتابعة</th></tr></thead>
-            <tbody id="requestsTableBody"><tr><td colspan="5" style="text-align:center;">جاري التحميل...</td></tr></tbody>
-          </table>
+        <div class="sub-card">
+          <h5>إصدار الاحتضان (TRL 1-3)</h5>
+          <p>بناء الأساس العلمي، صياغة المفهوم التقني، وتصميم الاختبارات المبدئية للحل.</p>
         </div>
-      </div>
-
-      <div class="profile-card">
-        <h4 style="margin-bottom: 1rem; color: var(--primary-color);">🛠 بلاغات الدعم الفني</h4>
-        <div class="table-responsive">
-          <table class="data-table">
-            <thead><tr><th>رقم البلاغ</th><th>العضو</th><th>المشكلة</th><th>المسؤول عن الحل</th><th>الرد والحالة</th></tr></thead>
-            <tbody id="adminSupportTableBody"><tr><td colspan="5" style="text-align:center;">جاري التحميل...</td></tr></tbody>
-          </table>
+        <div class="sub-card">
+          <h5>البحث والتطوير (TRL 4-6)</h5>
+          <p>بناء النموذج الأولي، التحقق من ملاءمته، ودورات التحسين والتطبيق الفعلي.</p>
+        </div>
+        <div class="sub-card">
+          <h5>إصدار ريادة الأعمال (TRL 7-9)</h5>
+          <p>تطوير نموذج الأعمال، حماية الملكية الفكرية، تهيئة المشروع للتتجير والاستدامة.</p>
         </div>
       </div>
     </div>
+  </section>
 
-    <!-- 3. غرف النقاشات النشطة -->
-    <div class="tab-content" id="visitorInquiriesTab">
-      <div class="profile-card">
-        <h3 style="color:var(--primary-color); margin-bottom:0.5rem;">💬 غرف محادثات الزوار والطلبات النشطة</h3>
-        <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:1rem;">تابع غرف المحادثة بنمط الواتساب مباشرة.</p>
-        
-        <div id="visitorInquiriesLoader" class="loader">جاري التحميل...</div>
-        <div class="table-responsive">
-          <table class="data-table" id="visitorInquiriesTable" style="display:none;">
-            <thead>
-              <tr>
-                <th>الزائر ورقم المتابعة</th>
-                <th>نوع الطلب والتفاصيل</th>
-                <th>غرفة الدردشة المباشرة</th>
-                <th>إدارة الرد والإغلاق</th>
-              </tr>
-            </thead>
-            <tbody id="visitorInquiriesBody"></tbody>
-          </table>
-        </div>
+  <!-- آلية العمل -->
+  <section id="workflow">
+    <div class="section-title">
+      <h3>آلية العمل مع المستفيد</h3>
+      <p>خمس مراحل متكاملة تضمن تقديم أفضل خدمة نوعية للطالب</p>
+      <div class="title-line"></div>
+    </div>
+    <div class="steps-container">
+      <div class="step-box">
+        <div class="step-num">1</div>
+        <h5>التسجيل</h5>
+        <p>التعرف على الخدمات والتسجيل عبر النماذج الرسمية.</p>
+      </div>
+      <div class="step-box">
+        <div class="step-num">2</div>
+        <h5>التشخيص</h5>
+        <p>تحديد الاحتياجات الجوهرية والتقييم الأولي.</p>
+      </div>
+      <div class="step-box">
+        <div class="step-num">3</div>
+        <h5>التوجيه</h5>
+        <p>المشاركة في الجلسات الاستشارية والورش العملياتية.</p>
+      </div>
+      <div class="step-box">
+        <div class="step-num">4</div>
+        <h5>التطوير</h5>
+        <p>بناء خطة تطوير شخصية وأكاديمية ومتابعتها.</p>
+      </div>
+      <div class="step-box">
+        <div class="step-num">5</div>
+        <h5>المتابعة</h5>
+        <p>تقديم الدعم المستمر لضمان تحقيق الأثر المستدام.</p>
       </div>
     </div>
+  </section>
 
-    <!-- 4. سجل النقاشات المنجزة (الأرشيف) -->
-    <div class="tab-content" id="closedInquiriesTab">
-      <div class="profile-card">
-        <h3 style="color:var(--primary-color); margin-bottom:0.5rem;">📁 سجل النقاشات المنجزة (الأرشيف)</h3>
-        <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:1rem;">سجل كامل بالمحادثات التي تم إغلاقها والانتهاء منها بكافة تفاصيلها.</p>
-        
-        <div class="table-responsive">
-          <table class="data-table">
-            <thead>
-              <tr>
-                <th>الزائر ورقم المتابعة</th>
-                <th>التفاصيل والتاريخ</th>
-                <th>سجل المحادثة</th>
-                <th>تم بواسطة</th>
-              </tr>
-            </thead>
-            <tbody id="closedInquiriesBody"><tr><td colspan="4" style="text-align:center;">لا توجد محادثات منجزة حالياً</td></tr></tbody>
-          </table>
-        </div>
+  <!-- دليل التواصل مع الفريق -->
+  <section id="team" style="background: var(--bg-color);">
+    <div class="section-title">
+      <h3>دليل التواصل مع فريق المكتب</h3>
+      <p>من المسؤول عن ماذا؟ وإلى من تتوجه عند الحاجة للدعم؟</p>
+      <div class="title-line"></div>
+    </div>
+    <div class="team-grid">
+      <div class="member-card">
+        <span class="member-role">الإدارة العليا</span>
+        <h5>مدير المكتب (د. سلطان سنبل)</h5>
+        <p>القيادة الاستراتيجية واعتماد الخطط والبرامج والسياسات والإشراف على جودة المخرجات وتمثيل المكتب أمام الجهات ذات العلاقة.</p>
+      </div>
+      <div class="member-card">
+        <span class="member-role">الإدارة العليا</span>
+        <h5>نائب مدير المكتب (د. مي القرشي)</h5>
+        <p>المساندة في الملفات والقرارات الاستراتيجية، الإشراف على استمرارية القيادة ووحدة التوجه، ومتابعة الأداء والتوجيه.</p>
+      </div>
+      <div class="member-card">
+        <span class="member-role">التشغيل الميداني</span>
+        <h5>مدير العمليات</h5>
+        <p>إدارة النظام التشغيلي اليومي والإشراف على سير العمل بين الأقسام، متابعة الخطط والمهام والمواعيد ومؤشرات الأداء.</p>
+      </div>
+      <div class="member-card">
+        <span class="member-role">شطر الطلاب والطالبات</span>
+        <h5>قائد شطر الطلاب / الطالبات</h5>
+        <p>متابعة مشاركة الأعضاء والتواصل العام والانضباط والاندماج في أنشطة المكتب، وضمان توحيد المعايير بين الشطرين.</p>
+      </div>
+      <div class="member-card">
+        <span class="member-role">قسم البرامج والفعاليات</span>
+        <h5>مشرف قسم البرامج والفعاليات</h5>
+        <p>تصميم وتطوير وتنفيذ البرامج والمبادرات التوجيهية والتدريبية للمكتب وإعداد التقويم البرامجي وتحويل الأفكار إلى برامج قابلة للتنفيذ.</p>
+      </div>
+      <div class="member-card">
+        <span class="member-role">قسم الإبداع والمواهب</span>
+        <h5>مسؤول استقطاب الموهوبين</h5>
+        <p>اكتشاف ورعاية المواهب الإبداعية وتنميتها وإبرازها وتوفير الفرص التي تتيح لهم التعبير عن قدراتهم الاستثنائية وربطهم بمسارهم.</p>
       </div>
     </div>
+  </section>
 
-    <!-- أدلة العمل -->
-    <div class="tab-content" id="sopsTab">
-      <div class="profile-card">
-        <h3 style="color:var(--primary-color); margin-bottom:1rem;">📚 أدلة العمل (SOPs)</h3>
-        <div id="sopsLoader" class="loader">جاري التحميل...</div>
-        <div class="table-responsive">
-          <table class="data-table" id="sopsTable" style="display:none;">
-            <thead><tr><th>رمز الدليل</th><th>العنوان</th><th>القسم</th><th>الوصف</th><th>الرابط</th></tr></thead>
-            <tbody id="sopsBody"></tbody>
-          </table>
-        </div>
+  <!-- الفوتر -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-col">
+        <h5>مكتب التوجيه السلوكي والمهني</h5>
+        <p>إحدى المبادرات النوعية لتمكين الطلبة مهنياً وسلوكياً.</p>
+      </div>
+      <div class="footer-col">
+        <h5>مقر المكتب</h5>
+        <p><i class="fa-solid fa-location-dot"></i> الدور الثالث</p>
+        <p><i class="fa-solid fa-door-closed"></i> مكتب رقم: 3610</p>
+      </div>
+      <div class="footer-col">
+        <h5>الشركاء الاستراتيجيون</h5>
+        <p>• مركز المبدعون</p>
+        <p>• شركة Masters Legacy (Birkman)</p>
       </div>
     </div>
-
-    <!-- التقييمات -->
-    <div class="tab-content" id="evaluationsTab">
-      <div class="profile-card">
-        <h3 style="color:var(--primary-color); margin-bottom:1rem;">⭐ سجل التقييمات</h3>
-        <div id="evalsLoader" class="loader">جاري التحميل...</div>
-        <div class="table-responsive">
-          <table class="data-table" id="evalsTable" style="display:none;">
-            <thead><tr><th>رمز التقييم</th><th>درجة الجودة</th><th>الانضباط</th><th>ملاحظات</th><th>التاريخ</th></tr></thead>
-            <tbody id="evalsBody"></tbody>
-          </table>
-        </div>
-      </div>
+    <div class="footer-bottom">
+      <p>جميع الحقوق محفوظة © مكتب التوجيه السلوكي والمهني 2026 | جامعة الملك عبد العزيز</p>
     </div>
+  </footer>
 
-    <!-- إرسال طلب -->
-    <div class="tab-content" id="requestTabContent">
-      <div class="profile-card" style="max-width:700px; margin:0 auto 1.5rem auto;">
-        <h3 style="color:var(--primary-color); margin-bottom:1rem;">إرسال طلب رسمي للإدارة</h3>
-        <div class="form-group"><label>نوع الطلب</label><select id="reqType"><option value="إجازة رسمية">إجازة رسمية</option><option value="استئذان طارئ">استئذان طارئ</option><option value="تقرير إنجاز">تقرير إنجاز</option></select></div>
-        <div class="form-group"><label>التفاصيل</label><textarea id="reqDetails" rows="4"></textarea></div>
-        <button class="btn" onclick="submitUserRequest()">إرسال الطلب</button>
-      </div>
-      <div class="profile-card" style="max-width:700px; margin:0 auto;">
-        <h3 style="color:var(--primary-color); margin-bottom:1rem;">متابعة طلباتي</h3>
-        <div id="myRequestsLoader" class="loader">جاري التحميل...</div>
-        <div id="myRequestsContainer"></div>
-      </div>
-    </div>
-
-    <!-- الدعم الفني -->
-    <div class="tab-content" id="supportTabContent">
-      <div class="profile-card" style="max-width:700px; margin:0 auto 1.5rem auto;">
-        <h3 style="color:var(--primary-color); margin-bottom:1rem;">🛠️ إرسال بلاغ دعم فني</h3>
-        <div class="form-group"><label>وصف المشكلة</label><textarea id="supportText" rows="4"></textarea></div>
-        <button class="btn" onclick="submitSupportTicket()">إرسال البلاغ</button>
-      </div>
-      <div class="profile-card" style="max-width:700px; margin:0 auto;">
-        <h3 style="color:var(--primary-color); margin-bottom:1rem;">سجل بلاغاتي</h3>
-        <div id="mySupportLoader" class="loader">جاري التحميل...</div>
-        <div id="mySupportContainer"></div>
-      </div>
-    </div>
-
-    <!-- التحليلات -->
-    <div class="tab-content" id="analyticsTab">
-      <div class="profile-card" style="text-align:center; max-width:700px; margin:0 auto;">
-        <h3 style="color:var(--primary-color); margin-bottom:1rem;">📊 التحليلات البيانية</h3>
-        <div style="font-size: 2.5rem; font-weight: bold; color: var(--success-color);" id="analyticsScoreDisplay">0%</div>
-        <p style="margin-top: 0.5rem;">معدل الأداء والإنجاز العام للمهام.</p>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- نافذة تغيير كلمة المرور -->
-  <div class="modal" id="passModal">
-    <div class="modal-content">
-      <h3 style="color:var(--primary-color); margin-bottom:1rem;">🔐 تغيير كلمة المرور</h3>
-      <div class="form-group"><label>كلمة المرور الحالية</label><input type="password" id="oldPass"></div>
-      <div class="form-group"><label>كلمة المرور الجديدة</label><input type="password" id="newPass"></div>
-      <button class="btn" onclick="handleChangePassword()">حفظ</button>
-      <button class="btn" style="background-color: var(--text-muted); margin-top: 0.5rem;" onclick="closePassModal()">إلغاء</button>
-    </div>
-  </div>
-
-  <script>
-    const API_URL = "https://script.google.com/macros/s/AKfycbwLKK_ocd7fX7xCNgZl-Q_Feqi3h042DfII0nqzu_NfBw0-o61BcLzxnakHnEIY-QjEJA/exec";
-    let currentUser = null;
-    let globalTasksCache = [];
-    let globalMembersCache = [];
-    let globalInquiriesCache = [];
-    let currentStatusFilter = 'all';
-    let currentActiveTrackId = '';
-
-    if (localStorage.getItem('darkMode') === 'true') document.body.classList.add('dark-mode');
-
-    window.onload = function() {
-      const savedUser = localStorage.getItem('currentUser');
-      if (savedUser) {
-        try {
-          currentUser = JSON.parse(savedUser);
-          renderDashboard();
-        } catch (e) { localStorage.removeItem('currentUser'); }
-      }
-    };
-
-    function showToast(msg) {
-      const c = document.getElementById('toastContainer');
-      if (!c) return;
-      const t = document.createElement('div');
-      t.className = 'toast'; t.innerText = msg;
-      c.appendChild(t);
-      setTimeout(() => { if(t) t.remove(); }, 3000);
-    }
-
-    setInterval(() => {
-      const clockBox = document.getElementById('liveClock');
-      if (clockBox) clockBox.innerText = new Date().toLocaleTimeString('ar-SA');
-    }, 1000);
-
-    async function callAPI(query) {
-      try {
-        const res = await fetch(`${API_URL}?${query}`, { method: 'GET', redirect: 'follow' });
-        return await res.json();
-      } catch (e) {
-        showToast("خطأ في الاتصال بالخادم");
-        return null;
-      }
-    }
-
-    function showVisitorSection(type) {
-      document.getElementById('loginView').style.display = 'none';
-      if(type === 'submit') {
-        document.getElementById('visitorSubmitView').style.display = 'block';
-        document.getElementById('visitorTrackView').style.display = 'none';
-      } else {
-        document.getElementById('visitorSubmitView').style.display = 'none';
-        document.getElementById('visitorTrackView').style.display = 'block';
-      }
-    }
-
-    function backToLogin() {
-      document.getElementById('visitorSubmitView').style.display = 'none';
-      document.getElementById('visitorTrackView').style.display = 'none';
-      document.getElementById('loginView').style.display = 'block';
-    }
-
-    async function submitVisitorInquiry() {
-      const name = document.getElementById('visitorName').value.trim();
-      const email = document.getElementById('visitorEmail').value.trim();
-      const category = document.getElementById('visitorCategory').value;
-      const details = document.getElementById('visitorDetails').value.trim();
-
-      if(!name || !email || !details) { showToast("يرجى تعبئة جميع الحقول"); return; }
-      showToast("جاري إرسال الطلب وإرسال البريد...");
-      const res = await callAPI(`action=submitVisitorInquiry&name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&category=${encodeURIComponent(category)}&details=${encodeURIComponent(details)}`);
-      
-      if(res && res.status === "success") {
-        alert("✅ تم إرسال طلبك بنجاح!\nرقم المتابعة الخاص بك: " + res.inquiryId);
-        document.getElementById('visitorName').value = '';
-        document.getElementById('visitorEmail').value = '';
-        document.getElementById('visitorDetails').value = '';
-        backToLogin();
-      } else {
-        showToast("حدث خطأ أثناء الإرسال");
-      }
-    }
-
-    function parseChatMessages(rawLog) {
-      if (!rawLog) return [];
-      if (Array.isArray(rawLog)) return rawLog;
-      if (typeof rawLog === 'object') return [rawLog];
-
-      try {
-        const parsed = JSON.parse(rawLog);
-        if (Array.isArray(parsed)) return parsed;
-        if (typeof parsed === 'object') return [parsed];
-      } catch (e) {}
-
-      const lines = String(rawLog).split('\n').filter(l => l.trim().length > 0);
-      if (lines.length > 0) {
-        return lines.map(line => {
-          if (line.includes(':')) {
-            const parts = line.split(':');
-            return { sender: parts[0].trim(), text: parts.slice(1).join(':').trim(), type: 'visitor', time: '' };
-          }
-          return { sender: 'الرسالة', text: line.trim(), type: 'visitor', time: '' };
-        });
-      }
-      return [];
-    }
-
-    function renderChatBubbles(chatLogRaw, containerId) {
-      const container = document.getElementById(containerId);
-      if(!container) return;
-      container.innerHTML = '';
-      const messages = parseChatMessages(chatLogRaw);
-      
-      if(messages.length === 0) {
-        container.innerHTML = '<p style="text-align:center; color:var(--text-muted); font-size:0.8rem; padding:10px;">لا توجد رسائل بعد</p>';
-        return;
-      }
-
-      messages.forEach(msg => {
-        const bubble = document.createElement('div');
-        const isAdmin = msg.type === 'admin' || (msg.sender && msg.sender.includes('الإدارة'));
-        bubble.className = `chat-bubble ${isAdmin ? 'admin' : 'visitor'}`;
-        
-        bubble.innerHTML = `
-          <div class="sender-name">${msg.sender || (isAdmin ? 'الإدارة' : 'الزائر')}</div>
-          <div>${msg.text || ''}</div>
-          <span class="chat-time">${msg.time || ''}</span>
-        `;
-        container.appendChild(bubble);
-      });
-      container.scrollTop = container.scrollHeight;
-    }
-
-    async function trackVisitorInquiry() {
-      const id = document.getElementById('trackInquiryId').value.trim();
-      if(!id) { showToast("يرجى إدخال رقم المتابعة"); return; }
-      
-      showToast("جاري البحث عن الطلب...");
-      const res = await callAPI(`action=getVisitorInquiry&id=${encodeURIComponent(id)}`);
-      
-      if(res && res.status === "success") {
-        currentActiveTrackId = id;
-        document.getElementById('trackResultContainer').style.display = 'block';
-        document.getElementById('resStatus').innerText = res.data.status || 'قيد المعالجة';
-        renderChatBubbles(res.data.chatLog, 'resChatLogContainer');
-        showToast("تم العثور على الطلب بنجاح");
-      } else {
-        showToast("رقم المتابعة غير صحيح أو غير موجود");
-      }
-    }
-
-    async function sendVisitorChatMessage() {
-      const input = document.getElementById('visitorReplyInput');
-      const text = input.value.trim();
-      if(!text || !currentActiveTrackId) return;
-
-      const res = await callAPI(`action=sendVisitorMessage&id=${encodeURIComponent(currentActiveTrackId)}&message=${encodeURIComponent(text)}`);
-      if(res && res.status === "success") {
-        input.value = '';
-        trackVisitorInquiry();
-      } else {
-        showToast("فشل إرسال الرسالة");
-      }
-    }
-
-    async function handleLogin() {
-      const memberId = document.getElementById('memberId').value.trim();
-      const password = document.getElementById('password').value.trim();
-
-      if(!memberId || !password) { showToast("يرجى إدخال رقم العضوية وكلمة المرور"); return; }
-      
-      showToast("جاري التحقق من بيانات الدخول...");
-      const res = await callAPI(`action=login&memberId=${encodeURIComponent(memberId)}&password=${encodeURIComponent(password)}`);
-
-      if(res && res.status === "success") {
-        currentUser = res.user;
-        localStorage.setItem('currentUser', JSON.stringify(currentUser));
-        renderDashboard();
-        showToast("مرحباً بك " + currentUser.name);
-      } else {
-        showToast(res ? res.message : "خطأ في تسجيل الدخول");
-      }
-    }
-
-    function handleLogout() {
-      localStorage.removeItem('currentUser');
-      currentUser = null;
-      document.getElementById('dashboardView').style.display = 'none';
-      document.getElementById('loginView').style.display = 'block';
-      document.getElementById('memberId').value = '';
-      document.getElementById('password').value = '';
-    }
-
-    function toggleDarkMode() {
-      document.body.classList.toggle('dark-mode');
-      localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
-    }
-
-    function switchTab(tabId, btn) {
-      document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      document.getElementById(tabId).classList.add('active');
-      btn.classList.add('active');
-    }
-
-    function renderDashboard() {
-      document.getElementById('loginView').style.display = 'none';
-      document.getElementById('visitorSubmitView').style.display = 'none';
-      document.getElementById('visitorTrackView').style.display = 'none';
-      document.getElementById('dashboardView').style.display = 'block';
-
-      document.getElementById('welcomeText').innerText = `مرحباً، ${currentUser.name}`;
-      document.getElementById('userDept').innerText = `القسم: ${currentUser.department || 'عام'} | المسمى: ${currentUser.jobTitle || '-'}`;
-
-      document.getElementById('jobTitle').innerText = currentUser.jobTitle || '-';
-      document.getElementById('userEmail').innerText = currentUser.email || '-';
-      document.getElementById('bioText').innerText = currentUser.bio || 'لا توجد نبذة شخصية مضافة.';
-      document.getElementById('jobDescText').innerText = currentUser.responsibilities || 'لا توجد مسؤوليات مسجلة.';
-
-      // التحقق من صلاحيات المدير
-      if(currentUser.role === 'admin' || currentUser.isAdmin || currentUser.memberId === 'COO') {
-        const teamBtn = document.getElementById('teamTabBtn');
-        const visitorBtn = document.getElementById('visitorInquiriesTabBtn');
-        const closedBtn = document.getElementById('closedInquiriesTabBtn');
-        if(teamBtn) teamBtn.style.display = 'inline-block';
-        if(visitorBtn) visitorBtn.style.display = 'inline-block';
-        if(closedBtn) closedBtn.style.display = 'inline-block';
-      }
-
-      loadPersonalData();
-    }
-
-    async function loadPersonalData() {
-      if(!currentUser) return;
-      
-      // تحميل المهام
-      const tasksRes = await callAPI(`action=getTasks&memberId=${encodeURIComponent(currentUser.memberId)}`);
-      if(tasksRes && tasksRes.status === 'success') {
-        globalTasksCache = tasksRes.tasks || [];
-        renderTasksTable(globalTasksCache);
-      }
-      document.getElementById('tasksLoader').style.display = 'none';
-      document.getElementById('tasksTable').style.display = 'table';
-    }
-
-    function renderTasksTable(tasks) {
-      const tbody = document.getElementById('tasksBody');
-      tbody.innerHTML = '';
-
-      if(tasks.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;">لا توجد مهام مسندة حالياً</td></tr>';
-        return;
-      }
-
-      let completedCount = 0;
-      tasks.forEach(t => {
-        if(t.status === 'مكتملة') completedCount++;
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td>${t.id || '-'}</td>
-          <td>${t.title || '-'}</td>
-          <td><span class="badge ${t.status === 'مكتملة' ? 'badge-success' : 'badge-warning'}">${t.status}</span></td>
-          <td>${t.details || '-'}</td>
-          <td>${t.date || '-'}</td>
-          <td><button class="btn" style="padding:4px 8px; font-size:0.75rem;" onclick="toggleTaskStatus('${t.id}')">تغيير الحالة</button></td>
-        `;
-        tbody.appendChild(tr);
-      });
-
-      document.getElementById('statTotalTasks').innerText = tasks.length;
-      document.getElementById('statCompletedTasks').innerText = completedCount;
-      const prog = tasks.length > 0 ? Math.round((completedCount / tasks.length) * 100) : 0;
-      document.getElementById('statProgress').innerText = prog + '%';
-      document.getElementById('progressBarFill').style.width = prog + '%';
-    }
-
-    async function toggleTaskStatus(taskId) {
-      showToast("جاري تحديث حالة المهمة...");
-      const res = await callAPI(`action=toggleTaskStatus&taskId=${encodeURIComponent(taskId)}`);
-      if(res && res.status === 'success') {
-        loadPersonalData();
-        showToast("تم تحديث الحالة بنجاح");
-      } else {
-        showToast("فشل تحديث المهمة");
-      }
-    }
-
-    function filterTasks(filterType, btn) {
-      currentStatusFilter = filterType;
-      document.querySelectorAll('.filter-pills .pill-btn').forEach(b => b.classList.remove('active'));
-      if(btn) btn.classList.add('active');
-      applyTasksFilterAndSearch();
-    }
-
-    function applyTasksFilterAndSearch() {
-      const query = document.getElementById('taskSearchInput').value.toLowerCase();
-      let filtered = globalTasksCache;
-
-      if(currentStatusFilter === 'قيد التنفيذ') {
-        filtered = filtered.filter(t => t.status !== 'مكتملة');
-      } else if(currentStatusFilter === 'مكتملة') {
-        filtered = filtered.filter(t => t.status === 'مكتملة');
-      }
-
-      if(query) {
-        filtered = filtered.filter(t => (t.title && t.title.toLowerCase().includes(query)) || (t.details && t.details.toLowerCase().includes(query)));
-      }
-
-      renderTasksTable(filtered);
-    }
-
-    function exportToPDF(containerId, filename) {
-      const element = document.getElementById(containerId);
-      if(!element) return;
-      showToast("جاري تصدير الملف بصيغة PDF...");
-      html2pdf().from(element).save(filename);
-    }
-
-    function manualRefreshData() {
-      loadPersonalData();
-      showToast("تم تحديث البيانات بنجاح");
-    }
-
-    function openPassModal() { document.getElementById('passModal').style.display = 'flex'; }
-    function closePassModal() { document.getElementById('passModal').style.display = 'none'; }
-
-    async function handleChangePassword() {
-      const oldPass = document.getElementById('oldPass').value.trim();
-      const newPass = document.getElementById('newPass').value.trim();
-      if(!oldPass || !newPass) { showToast("يرجى تعبئة الحقول"); return; }
-      
-      const res = await callAPI(`action=changePassword&memberId=${encodeURIComponent(currentUser.memberId)}&oldPass=${encodeURIComponent(oldPass)}&newPass=${encodeURIComponent(newPass)}`);
-      if(res && res.status === 'success') {
-        showToast("تم تغيير كلمة المرور بنجاح");
-        closePassModal();
-      } else {
-        showToast(res ? res.message : "فشل تغيير كلمة المرور");
-      }
-    }
-
-    function submitUserRequest() { showToast("تم إرسال الطلب بنجاح"); }
-    function submitSupportTicket() { showToast("تم إرسال البلاغ بنجاح"); }
-  </script>
 </body>
 </html>
