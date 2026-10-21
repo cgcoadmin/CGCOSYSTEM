@@ -1,967 +1,840 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مكتب التوجيه السلوكي والمهني - كلية العلوم | جامعة الملك عبد العزيز</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts - Cairo -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>بوابة مكتب التوجيه السلوكي والمهني - كلية العلوم | جامعة الملك عبد العزيز</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <style>
+    :root {
+      --primary-color: #0d5c3a;
+      --primary-hover: #083e27;
+      --secondary-color: #c5a059;
+      --accent-color: #0284c7;
+      --bg-color: #f8fafc;
+      --card-bg: #ffffff;
+      --text-color: #0f172a;
+      --text-muted: #64748b;
+      --border-color: #e2e8f0;
+      --danger-color: #e63946;
+      --warning-color: #f4a261;
+      --success-color: #14b8a6;
+      --shadow: 0 10px 25px -5px rgba(0,0,0,0.05), 0 8px 10px -6px rgba(0,0,0,0.01);
+    }
+    
+    body.dark-mode {
+      --bg-color: #0f172a;
+      --card-bg: #1e293b;
+      --text-color: #f1f5f9;
+      --text-muted: #94a3b8;
+      --border-color: #334155;
+    }
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        kau: {
-                            green: '#004B23',
-                            greenDark: '#003318',
-                            greenLight: '#0F6937',
-                            gold: '#B8860B',
-                            goldDark: '#8B6508',
-                            goldLight: '#DAA520',
-                            offWhite: '#FAF9F6',
-                            cardWhite: '#FFFFFF',
-                            slateBg: '#F4F6F8'
-                        }
-                    },
-                    fontFamily: {
-                        cairo: ['Cairo', 'sans-serif']
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        body {
-            font-family: 'Cairo', sans-serif;
-            background-color: #FAF9F6;
-        }
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: #FAF9F6;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #B8860B;
-            border-radius: 10px;
-        }
-        .gold-gradient {
-            background: linear-gradient(135deg, #B8860B 0%, #DAA520 50%, #8B6508 100%);
-        }
-        .green-gradient {
-            background: linear-gradient(135deg, #004B23 0%, #0F6937 100%);
-        }
-        .gold-border-glow {
-            box-shadow: 0 0 10px rgba(184, 134, 11, 0.2);
-        }
-    </style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
+    body { background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; }
+
+    /* Toast Container */
+    #toastContainer { position: fixed; bottom: 20px; left: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
+    .toast { background: var(--primary-color); color: white; padding: 12px 20px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); font-size: 0.9rem; animation: slideIn 0.3s ease; }
+    @keyframes slideIn { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+    /* Header & Nav */
+    header { background: var(--card-bg); border-bottom: 3px solid var(--secondary-color); position: sticky; top: 0; z-index: 1000; box-shadow: var(--shadow); }
+    .nav-container { max-width: 1280px; margin: 0 auto; padding: 0.8rem 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+    .logo-box { display: flex; align-items: center; gap: 12px; }
+    .logo-icon { width: 45px; height: 45px; background: var(--primary-color); color: var(--secondary-color); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+    .logo-text h1 { font-size: 1.1rem; color: var(--primary-color); font-weight: 900; line-height: 1.2; }
+    body.dark-mode .logo-text h1 { color: #22c55e; }
+    .logo-text p { font-size: 0.8rem; color: var(--text-muted); font-weight: 600; }
+
+    .nav-links { display: flex; gap: 0.8rem; list-style: none; align-items: center; }
+    .nav-links a, .nav-btn { text-decoration: none; color: var(--text-color); font-weight: 700; font-size: 0.88rem; padding: 0.5rem 0.8rem; border-radius: 6px; transition: all 0.2s; cursor: pointer; border: none; background: transparent; }
+    .nav-links a:hover, .nav-btn:hover { background: var(--bg-color); color: var(--primary-color); }
+    .btn-portal { background: var(--primary-color); color: white !important; border-radius: 8px; }
+    .btn-portal:hover { background: var(--primary-hover) !important; }
+
+    /* Hero Section */
+    .hero { background: linear-gradient(135deg, var(--primary-color) 0%, #062c1b 100%); color: white; padding: 4rem 1.5rem; text-align: center; position: relative; overflow: hidden; }
+    .hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 8px; background: var(--secondary-color); }
+    .hero-content { max-width: 900px; margin: 0 auto; }
+    .hero-badge { background: rgba(197, 160, 89, 0.2); color: var(--secondary-color); border: 1px solid var(--secondary-color); padding: 0.4rem 1rem; border-radius: 50px; font-size: 0.85rem; font-weight: 700; display: inline-block; margin-bottom: 1rem; }
+    .hero h2 { font-size: 2.2rem; font-weight: 900; margin-bottom: 1rem; line-height: 1.3; }
+    .hero p { font-size: 1.05rem; opacity: 0.9; margin-bottom: 2rem; max-width: 750px; margin-left: auto; margin-right: auto; }
+    .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-hero { padding: 0.8rem 1.8rem; border-radius: 8px; font-weight: 700; text-decoration: none; transition: transform 0.2s; cursor: pointer; border: none; font-size: 0.95rem; }
+    .btn-hero-primary { background: var(--secondary-color); color: #000; }
+    .btn-hero-secondary { background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.3); }
+    .btn-hero:hover { transform: translateY(-2px); }
+
+    /* Global Section Styles */
+    section { padding: 4rem 1.5rem; max-width: 1280px; margin: 0 auto; }
+    .section-title { text-align: center; margin-bottom: 3rem; }
+    .section-title h3 { font-size: 1.8rem; color: var(--primary-color); font-weight: 900; }
+    body.dark-mode .section-title h3 { color: var(--secondary-color); }
+    .section-title p { color: var(--text-muted); font-size: 0.95rem; margin-top: 0.4rem; }
+    .title-line { width: 60px; height: 4px; background: var(--secondary-color); margin: 0.8rem auto 0 auto; border-radius: 2px; }
+
+    /* Cards & Grids */
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+    .card { background: var(--card-bg); border-radius: 12px; padding: 1.8rem; border: 1px solid var(--border-color); box-shadow: var(--shadow); transition: transform 0.2s; }
+    .card:hover { transform: translateY(-4px); }
+    .card-icon { width: 50px; height: 50px; background: rgba(13, 92, 58, 0.08); color: var(--primary-color); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; margin-bottom: 1rem; }
+    .card h4 { font-size: 1.2rem; color: var(--primary-color); margin-bottom: 0.8rem; font-weight: 800; }
+    body.dark-mode .card h4 { color: var(--secondary-color); }
+    .card p { color: var(--text-muted); font-size: 0.9rem; }
+
+    /* Programs Section */
+    .programs-wrapper { margin-bottom: 2.5rem; }
+    .program-header { background: var(--primary-color); color: white; padding: 1rem 1.5rem; border-radius: 12px 12px 0 0; display: flex; align-items: center; gap: 10px; }
+    .program-grid { background: var(--card-bg); padding: 1.5rem; border: 1px solid var(--border-color); border-top: none; border-radius: 0 0 12px 12px; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem; }
+    .sub-program-card { background: var(--bg-color); padding: 1.2rem; border-radius: 8px; border-right: 4px solid var(--secondary-color); }
+    .sub-program-card h5 { color: var(--primary-color); font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem; }
+    body.dark-mode .sub-program-card h5 { color: var(--secondary-color); }
+    .sub-program-card p { font-size: 0.85rem; color: var(--text-muted); }
+
+    /* Workflow Steps */
+    .steps-container { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+    .step-box { flex: 1; min-width: 180px; background: var(--card-bg); border: 1px solid var(--border-color); padding: 1.2rem; border-radius: 10px; text-align: center; position: relative; }
+    .step-num { width: 35px; height: 35px; background: var(--secondary-color); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; margin: 0 auto 0.8rem auto; }
+    .step-box h5 { color: var(--primary-color); font-weight: 800; margin-bottom: 0.3rem; }
+    body.dark-mode .step-box h5 { color: var(--secondary-color); }
+    .step-box p { font-size: 0.8rem; color: var(--text-muted); }
+
+    /* Team Directory */
+    .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.2rem; }
+    .member-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 10px; padding: 1.2rem; box-shadow: var(--shadow); position: relative; }
+    .member-role { font-size: 0.75rem; background: rgba(197, 160, 89, 0.15); color: #8a6d29; font-weight: 800; padding: 0.2rem 0.6rem; border-radius: 4px; display: inline-block; margin-bottom: 0.5rem; }
+    .member-card h5 { font-size: 1.05rem; color: var(--primary-color); font-weight: 800; }
+    body.dark-mode .member-card h5 { color: var(--secondary-color); }
+    .member-card p { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.3rem; }
+    .contact-trigger { margin-top: 0.8rem; font-size: 0.8rem; color: var(--accent-color); font-weight: 700; display: block; background: rgba(2, 132, 199, 0.08); padding: 0.4rem; border-radius: 6px; text-align: center; }
+
+    /* Portal Login & Dashboard Section */
+    .portal-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; z-index: 2000; padding: 15px; }
+    .login-container { background: var(--card-bg); padding: 2rem; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); width: 100%; max-width: 460px; text-align: center; border: 1px solid var(--border-color); position: relative; }
+    .login-container h2 { margin-bottom: 1.2rem; color: var(--primary-color); font-weight: 900; }
+    .form-group { margin-bottom: 1rem; text-align: right; }
+    .form-group label { display: block; margin-bottom: 0.4rem; font-weight: 600; font-size: 0.88rem; }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.7rem; border: 1px solid var(--border-color); border-radius: 8px; font-size: 0.95rem; outline: none; background: var(--card-bg); color: var(--text-color); }
+    
+    .btn { width: 100%; padding: 0.75rem; background-color: var(--primary-color); color: white; border: none; border-radius: 8px; font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: background 0.2s; }
+    .btn:hover { background-color: var(--primary-hover); }
+
+    /* Dashboard Interface */
+    .dashboard-container { display: none; width: 100%; max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
+    .dashboard-header { background: var(--primary-color); color: white; padding: 1.2rem; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; }
+    .header-btns { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
+    .btn-header { background-color: transparent; border: 1px solid white; color: white; padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer; font-size: 0.85rem; }
+
+    .nav-tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; border-bottom: 2px solid var(--border-color); overflow-x: auto; padding-bottom: 5px; }
+    .tab-btn { padding: 0.6rem 1rem; border: none; background: none; font-size: 0.9rem; font-weight: 700; cursor: pointer; color: var(--text-muted); border-bottom: 3px solid transparent; white-space: nowrap; }
+    .tab-btn.active { color: var(--primary-color); border-bottom-color: var(--primary-color); }
+    body.dark-mode .tab-btn.active { color: var(--secondary-color); border-bottom-color: var(--secondary-color); }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* Tables */
+    .table-responsive { width: 100%; overflow-x: auto; margin-bottom: 1.5rem; }
+    .data-table { width: 100%; border-collapse: collapse; background: var(--card-bg); border-radius: 8px; overflow: hidden; border: 1px solid var(--border-color); min-width: 600px; }
+    .data-table th, .data-table td { padding: 0.75rem 0.8rem; text-align: right; border-bottom: 1px solid var(--border-color); font-size: 0.85rem; }
+    .data-table th { background-color: var(--bg-color); color: var(--primary-color); font-weight: 800; }
+
+    .badge { padding: 0.25rem 0.6rem; border-radius: 50px; font-size: 0.75rem; font-weight: 700; display: inline-block; }
+    .badge-success { background-color: #d4edda; color: #155724; }
+    .badge-warning { background-color: #fff3cd; color: #856404; }
+
+    /* Chat Elements */
+    .whatsapp-chat-container { background: #efeae2; border-radius: 10px; border: 1px solid var(--border-color); height: 180px; overflow-y: auto; padding: 10px; display: flex; flex-direction: column; gap: 8px; }
+    body.dark-mode .whatsapp-chat-container { background: #0b141a; }
+    .chat-bubble { max-width: 85%; padding: 8px 12px; border-radius: 8px; font-size: 0.85rem; line-height: 1.4; word-wrap: break-word; }
+    .chat-bubble.visitor { background: #ffffff; color: #111b21; align-self: flex-start; }
+    body.dark-mode .chat-bubble.visitor { background: #202c33; color: #e9edef; }
+    .chat-bubble.admin { background: #d9fdd3; color: #111b21; align-self: flex-end; }
+    body.dark-mode .chat-bubble.admin { background: #005c4b; color: #e9edef; }
+
+    /* Footer */
+    footer { background: #062c1b; color: white; padding: 3rem 1.5rem 1.5rem 1.5rem; font-size: 0.85rem; border-top: 4px solid var(--secondary-color); margin-top: 4rem; }
+    .footer-container { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; margin-bottom: 2rem; }
+    .footer-col h5 { font-size: 1rem; color: var(--secondary-color); margin-bottom: 1rem; font-weight: 800; }
+    .footer-bottom { text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem; opacity: 0.7; }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hero h2 { font-size: 1.6rem; }
+      .steps-container { flex-direction: column; }
+    }
+  </style>
 </head>
-<body class="bg-kau-offWhite text-gray-800 antialiased min-h-screen flex flex-col justify-between">
+<body>
 
-    <!-- Top Info Bar -->
-    <div class="bg-kau-greenDark text-white text-xs py-2 px-4 border-b border-kau-gold/30">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <div class="flex items-center space-x-4 space-x-reverse">
-                <span><i class="fa-solid fa-university text-kau-goldLight ml-1"></i> جامعة الملك عبد العزيز</span>
-                <span class="text-kau-gold">|</span>
-                <span><i class="fa-solid fa-microscope text-kau-goldLight ml-1"></i> كلية العلوم</span>
-            </div>
-            <div class="flex items-center space-x-3 space-x-reverse">
-                <span class="hidden md:inline"><i class="fa-regular fa-clock ml-1 text-kau-gold"></i> ساعات العمل: 8:00 ص - 2:00 م</span>
-                <span class="text-kau-gold">|</span>
-                <button onclick="toggleLoginModal()" class="hover:text-kau-goldLight transition"><i class="fa-solid fa-lock ml-1"></i> دخول الأعضاء</button>
-            </div>
+  <div id="toastContainer"></div>
+
+  <!-- Header Navigation -->
+  <header>
+    <div class="nav-container">
+      <div class="logo-box">
+        <div class="logo-icon"><i class="fa-solid fa-compass"></i></div>
+        <div class="logo-text">
+          <h1>مكتب التوجيه السلوكي والمهني</h1>
+          <p>كلية العلوم - جامعة الملك عبد العزيز</p>
         </div>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#about">من نحن</a></li>
+        <li><a href="#programs">البرامج والمبادرات</a></li>
+        <li><a href="#workflow">آلية العمل</a></li>
+        <li><a href="#team">دليل الفريق</a></li>
+        <li><button class="nav-btn" onclick="openPortalModal('visitor')">💬 بوابة الزوار والمتابعة</button></li>
+        <li><button class="nav-btn btn-portal" onclick="openPortalModal('admin')"><i class="fa-solid fa-user-lock"></i> دخول الكادر</button></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- Main Website Content View -->
+  <div id="websiteView">
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <div class="hero-badge">CGCO - Career Guidance & Counseling Office</div>
+        <h2>تمكين طلاب كلية العلوم لبناء مستقبل أكاديمي ومهني واعد</h2>
+        <p>نساعدك في اكتشاف قدراتك، فهم ذاتك، وتحديد مسارك الأكاديمي والمهني بما يتوافق مع أحدث التقييمات العالمية ومستهدفات رؤية المملكة 2030.</p>
+        <div class="hero-btns">
+          <a href="https://forms.gle/xBCDowG69nu1MvY7A" target="_blank" class="btn-hero btn-hero-primary"><i class="fa-solid fa-user-plus"></i> التسجيل في البرامج</a>
+          <button onclick="openPortalModal('visitor')" class="btn-hero btn-hero-secondary"><i class="fa-solid fa-comments"></i> تقديم / متابعة استفسار</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+      <div class="section-title">
+        <h3>عن المكتب وفلسفتنا</h3>
+        <p>إحدى المبادرات النوعية الرائدة للتوجيه الشامل بكلية العلوم</p>
+        <div class="title-line"></div>
+      </div>
+
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-icon"><i class="fa-solid fa-eye"></i></div>
+          <h4>رؤيتنا</h4>
+          <p>أن نكون المرجع الرائد في تمكين طلبة كلية العلوم من اكتشاف ذواتهم وتعزيز جاهزيتهم الأكاديمية والمهنية واتخاذ قرارات واعية وفق رؤية 2030.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon"><i class="fa-solid fa-bullseye"></i></div>
+          <h4>رسالتنا</h4>
+          <p>تقديم خدمات توجيهية واستشارية وتطويرية عالية الجودة من خلال برامج متخصصة، وشراكات استراتيجية، وأدوات تقييم عالمية مثل بيركمان.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon"><i class="fa-solid fa-gem"></i></div>
+          <h4>قيمنا وفلسفتنا</h4>
+          <p>التمكين، الاحترافية، السرية التامة، الموثوقية، والتطوير المستمر. نؤمن بأن أفضل القرارات الناجحة تبدأ دائماً بفهم الذات.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Programs & Initiatives -->
+    <section id="programs" style="background: var(--bg-color);">
+      <div class="section-title">
+        <h3>برامج ومبادرات المكتب</h3>
+        <p>منظومة متكاملة لدعم الطالب في كافة مراحل رحلته الجامعية</p>
+        <div class="title-line"></div>
+      </div>
+
+      <!-- Wajjehni Program -->
+      <div class="programs-wrapper">
+        <div class="program-header">
+          <i class="fa-solid fa-route" style="font-size:1.5rem; color:var(--secondary-color);"></i>
+          <div>
+            <h4>برنامج "وجهني" (Wajjehni)</h4>
+            <p style="font-size:0.85rem; opacity:0.9;">المظلة الرئيسية لكافة الخدمات التوجيهية بالمكتب</p>
+          </div>
+        </div>
+        <div class="program-grid">
+          <div class="sub-program-card">
+            <h5>1. اللقاءات المفتوحة</h5>
+            <p>لقاءات دورية تفاعلية لمناقشة الموضوعات الأكاديمية والمهنية والإجابة المباشرة عن استفسارات الطلاب.</p>
+          </div>
+          <div class="sub-program-card">
+            <h5>2. الاستشارات السلوكية والمهنية</h5>
+            <p>جلسات ومحاضرات إثرائية مساعدة في تخطي التحديات والتخطيط المباشر للمسارات المستقبلية.</p>
+          </div>
+          <div class="sub-program-card">
+            <h5>3. ورش العمل التطويرية</h5>
+            <p>تنمية مهارات التخطيط، الذكاء العاطفي، بناء الهوية المهنية، كتابة السيرة الذاتية، واجتياز المقابلات.</p>
+          </div>
+          <div class="sub-program-card">
+            <h5>4. تقييم بيركمان العالمي</h5>
+            <p>تحليل الميول والسلوك الاعتيادي ومسببات الضغط والجلسات مع مستشار معتمد لشرح التقرير.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Innovation Lab Program -->
+      <div class="programs-wrapper">
+        <div class="program-header" style="background: #083e27;">
+          <i class="fa-solid fa-lightbulb" style="font-size:1.5rem; color:var(--secondary-color);"></i>
+          <div>
+            <h4>مختبر الابتكار (Innovation Laboratory)</h4>
+            <p style="font-size:0.85rem; opacity:0.9;">منتج ابتكاري متدرج لتحويل الفرص العلمية إلى مشاريع ريادية</p>
+          </div>
+        </div>
+        <div class="program-grid">
+          <div class="sub-program-card">
+            <h5>ما قبل الاحتضان (TRL 1)</h5>
+            <p>استكشاف المشكلات وفهم أصحاب المصلحة وتوليد مفاهيم الحلول الابتكارية.</p>
+          </div>
+          <div class="sub-program-card">
+            <h5>إصدار الاحتضان (TRL 1-3)</h5>
+            <p>بناء الأساس العلمي، صياغة المفهوم التقني، وتصميم الاختبارات المبدئية للحل.</p>
+          </div>
+          <div class="sub-program-card">
+            <h5>البحث والتطوير (TRL 4-6)</h5>
+            <p>بناء النموذج الأولي، التحقق من ملاءمته، ودورات التحسين والتطبيق الفعلي.</p>
+          </div>
+          <div class="sub-program-card">
+            <h5>إصدار ريادة الأعمال (TRL 7-9)</h5>
+            <p>تطوير نموذج الأعمال، حماية الملكية الفكرية، تهيئة المشروع للتتجير والاستدامة.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Workflow Steps -->
+    <section id="workflow">
+      <div class="section-title">
+        <h3>آلية العمل مع المستفيد</h3>
+        <p>خمس مراحل متكاملة تضمن تقديم أفضل خدمة نوعية للطالب</p>
+        <div class="title-line"></div>
+      </div>
+
+      <div class="steps-container">
+        <div class="step-box">
+          <div class="step-num">1</div>
+          <h5>التسجيل</h5>
+          <p>التعرف على الخدمات والتسجيل عبر النماذج الرسمية.</p>
+        </div>
+        <div class="step-box">
+          <div class="step-num">2</div>
+          <h5>التشخيص</h5>
+          <p>تحديد الاحتياجات الجوهرية والتقييم الأولي.</p>
+        </div>
+        <div class="step-box">
+          <div class="step-num">3</div>
+          <h5>التوجيه</h5>
+          <p>المشاركة في الجلسات الاستشارية والورش العملياتية.</p>
+        </div>
+        <div class="step-box">
+          <div class="step-num">4</div>
+          <h5>التطوير</h5>
+          <p>بناء خطة تطوير شخصية وأكاديمية ومتابعتها.</p>
+        </div>
+        <div class="step-box">
+          <div class="step-num">5</div>
+          <h5>المتابعة</h5>
+          <p>تقديم الدعم المستمر لضمان تحقيق الأثر المستدام.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Team Directory -->
+    <section id="team" style="background: var(--bg-color);">
+      <div class="section-title">
+        <h3>دليل التواصل مع فريق المكتب</h3>
+        <p>من المسؤول عن ماذا؟ وإلى من تتوجه عند الحاجة للدعم؟</p>
+        <div class="title-line"></div>
+      </div>
+
+      <div class="team-grid">
+        <div class="member-card">
+          <span class="member-role">الإدارة العليا</span>
+          <h5>مدير المكتب (د. سلطان سنبل)</h5>
+          <p>القيادة الاستراتيجية واعتماد الخطط والشراكات والشؤون المؤسسية.</p>
+          <span class="contact-trigger">متى تتواصل؟ للاعتمادات النهائية والملفات الاستراتيجية</span>
+        </div>
+
+        <div class="member-card">
+          <span class="member-role">الإدارة العليا</span>
+          <h5>نائب مدير المكتب (د. مي القرشي)</h5>
+          <p>المساندة الاستراتيجية والإشراف على الملفات المفوضة قيادياً.</p>
+          <span class="contact-trigger">متى تتواصل؟ عند نيابة الإدارة والقرارات التنفيذية</span>
+        </div>
+
+        <div class="member-card">
+          <span class="member-role">التشغيل الميداني</span>
+          <h5>مدير العمليات</h5>
+          <p>إدارة النظام التشغيلي، الجداول، المواعيد، ومعالجة التعثرات.</p>
+          <span class="contact-trigger">متى تتواصل؟ للإجراءات التشغيلية ومتابعة المهام</span>
+        </div>
+
+        <div class="member-card">
+          <span class="member-role">شطر الطلاب والطالبات</span>
+          <h5>قائد شطر الطلاب / الطالبات</h5>
+          <p>متابعة التزام المشاركين، التواصل العام، والاندماج في أنشطة المكتب.</p>
+          <span class="contact-trigger">متى تتواصل؟ للدعم المتعلق بالمشاركة والالتزام</span>
+        </div>
+
+        <div class="member-card">
+          <span class="member-role">قسم البرامج والفعاليات</span>
+          <h5>مشرف قسم البرامج</h5>
+          <p>تصميم وتطوير الفعاليات وتكامل المحتوى البرامجي الميداني.</p>
+          <span class="contact-trigger">متى تتواصل؟ لاقتراح برنامج أو استكشاف مبادرة</span>
+        </div>
+
+        <div class="member-card">
+          <span class="member-role">قسم الإبداع والمواهب</span>
+          <h5>مسؤول استقطاب الموهوبين</h5>
+          <p>اكتشاف ورعاية مواهب الخطابة، التصميم، والابتكار لدى الطلاب.</p>
+          <span class="contact-trigger">متى تتواصل؟ لترشيح نفسك أو عرض موهبتك الخاصة</span>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Modal View for Portal Login & Visitor Submissions -->
+  <div class="portal-modal" id="portalModal">
+    <!-- Admin Login -->
+    <div class="login-container" id="adminLoginView">
+      <button onclick="closePortalModal()" style="position:absolute; top:15px; left:15px; background:none; border:none; font-size:1.2rem; cursor:pointer;">✕</button>
+      <h2>تسجيل دخول أعضاء المكتب</h2>
+      <div class="form-group"><label>رقم العضوية (Member ID)</label><input type="text" id="memberId" placeholder="مثال: COO أو MGR-1"></div>
+      <div class="form-group"><label>كلمة المرور</label><input type="password" id="password" placeholder="••••••••"></div>
+      <button class="btn" onclick="handleLogin()">دخول النظام</button>
     </div>
 
-    <!-- Main Header / Navigation -->
-    <header class="bg-kau-green text-white shadow-lg sticky top-0 z-40 border-b-2 border-kau-gold">
-        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
-            <!-- Logo Section -->
-            <div class="flex items-center space-x-3 space-x-reverse cursor-pointer" onclick="switchTab('dashboard')">
-                <div class="w-12 h-12 rounded-full gold-gradient p-0.5 flex items-center justify-center shadow-md">
-                    <div class="w-full h-full bg-kau-green rounded-full flex items-center justify-center">
-                        <i class="fa-solid fa-compass text-2xl text-kau-goldLight"></i>
-                    </div>
-                </div>
-                <div>
-                    <h1 class="font-bold text-lg leading-tight text-white">مكتب التوجيه السلوكي والمهني</h1>
-                    <p class="text-xs text-kau-goldLight font-medium">كلية العلوم - قسم التطوير والتوجيه</p>
-                </div>
-            </div>
+    <!-- Visitor Submission & Chat -->
+    <div class="login-container" id="visitorPortalView" style="display:none; max-width: 550px; text-align: right;">
+      <button onclick="closePortalModal()" style="position:absolute; top:15px; left:15px; background:none; border:none; font-size:1.2rem; cursor:pointer;">✕</button>
+      <h2 style="text-align: center; color: var(--primary-color);">🌐 بوابة الزوار والمتابعة</h2>
+      
+      <div class="nav-tabs" style="margin-bottom: 1rem;">
+        <button class="tab-btn active" id="vTab1" onclick="switchVisitorTab('submit')">إرسال طلب جديد</button>
+        <button class="tab-btn" id="vTab2" onclick="switchVisitorTab('track')">متابعة طلب سابق</button>
+      </div>
 
-            <!-- Navigation Links -->
-            <nav class="hidden lg:flex items-center space-x-1 space-x-reverse font-semibold text-sm">
-                <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-btn px-4 py-2 rounded-lg transition hover:bg-kau-greenLight/50 text-kau-goldLight bg-kau-greenDark border-b-2 border-kau-gold">
-                    <i class="fa-solid fa-chart-line ml-1.5"></i>لوحة التحكم والإحصائيات
-                </button>
-                <button onclick="switchTab('tasks')" id="nav-tasks" class="nav-btn px-4 py-2 rounded-lg transition hover:bg-kau-greenLight/50 text-white">
-                    <i class="fa-solid fa-list-check ml-1.5"></i>إدارة المهام والفريق
-                </button>
-                <button onclick="switchTab('chat')" id="nav-chat" class="nav-btn px-4 py-2 rounded-lg transition hover:bg-kau-greenLight/50 text-white relative">
-                    <i class="fa-solid fa-comments ml-1.5"></i>المحادثات المباشرة
-                    <span class="absolute -top-1 -right-1 bg-red-600 text-white text-xs w-4 h-4 rounded-full flex items-center justify-center">3</span>
-                </button>
-                <button onclick="switchTab('history')" id="nav-history" class="nav-btn px-4 py-2 rounded-lg transition hover:bg-kau-greenLight/50 text-white">
-                    <i class="fa-solid fa-box-archive ml-1.5"></i>سجل النقاشات
-                </button>
-                <button onclick="switchTab('visitors')" id="nav-visitors" class="nav-btn px-4 py-2 rounded-lg transition hover:bg-kau-greenLight/50 text-white">
-                    <i class="fa-solid fa-hand-holding-hand ml-1.5"></i>بوابة الزوار والطلبة
-                </button>
-            </nav>
-
-            <!-- User Info / Quick Actions -->
-            <div class="flex items-center space-x-2 space-x-reverse">
-                <button onclick="toggleLoginModal()" class="bg-kau-gold hover:bg-kau-goldDark text-kau-greenDark px-4 py-2 rounded-lg font-bold text-sm transition shadow flex items-center">
-                    <i class="fa-solid fa-user-shield ml-2"></i>
-                    <span>بوابة الأعضاء</span>
-                </button>
-            </div>
+      <div id="vSubmitSec">
+        <div class="form-group"><label>الاسم الكامل</label><input type="text" id="visitorName" placeholder="أدخل اسمك الكريم..."></div>
+        <div class="form-group"><label>البريد الإلكتروني</label><input type="email" id="visitorEmail" placeholder="name@stu.kau.edu.sa"></div>
+        <div class="form-group">
+          <label>نوع الطلب</label>
+          <select id="visitorCategory">
+            <option value="استفسار أكاديمي أو مهني">استفسار أكاديمي أو مهني</option>
+            <option value="استشارة سلوكية">استشارة سلوكية</option>
+            <option value="طلب خدمة">طلب خدمة</option>
+            <option value="اقتراح تطويري">اقتراح تطويري</option>
+          </select>
         </div>
+        <div class="form-group"><label>التفاصيل والموضوع</label><textarea id="visitorDetails" rows="3" placeholder="اكتب التفاصيل هنا..."></textarea></div>
+        <button class="btn" onclick="submitVisitorInquiry()">إرسال التقديم</button>
+      </div>
 
-        <!-- Mobile Navigation Bar -->
-        <div class="lg:hidden bg-kau-greenDark border-t border-kau-gold/20 px-2 py-2 flex justify-around text-xs">
-            <button onclick="switchTab('dashboard')" class="text-white hover:text-kau-gold flex flex-col items-center py-1">
-                <i class="fa-solid fa-chart-line text-base mb-1"></i>الإحصائيات
-            </button>
-            <button onclick="switchTab('tasks')" class="text-white hover:text-kau-gold flex flex-col items-center py-1">
-                <i class="fa-solid fa-list-check text-base mb-1"></i>المهام
-            </button>
-            <button onclick="switchTab('chat')" class="text-white hover:text-kau-gold flex flex-col items-center py-1 relative">
-                <i class="fa-solid fa-comments text-base mb-1"></i>المحادثة
-            </button>
-            <button onclick="switchTab('history')" class="text-white hover:text-kau-gold flex flex-col items-center py-1">
-                <i class="fa-solid fa-box-archive text-base mb-1"></i>السجل
-            </button>
-            <button onclick="switchTab('visitors')" class="text-white hover:text-kau-gold flex flex-col items-center py-1">
-                <i class="fa-solid fa-hand-holding-hand text-base mb-1"></i>الزوار
-            </button>
+      <div id="vTrackSec" style="display:none;">
+        <div class="form-group"><label>رقم المتابعة</label><input type="text" id="trackInquiryId" placeholder="مثال: VIS-102"></div>
+        <button class="btn" onclick="trackVisitorInquiry()">دخول غرفة المحادثة</button>
+        <div id="trackResultContainer" style="margin-top: 1rem; display: none;">
+          <p style="margin-bottom:6px; font-size:0.85rem;"><strong>الحالة:</strong> <span id="resStatus" class="badge badge-warning">-</span></p>
+          <div class="whatsapp-chat-container" id="resChatLogContainer"></div>
+          <div class="form-group" style="margin-top:8px;">
+            <input type="text" id="visitorReplyInput" placeholder="اكتب رسالتك للإدارة...">
+          </div>
+          <button class="btn" onclick="sendVisitorChatMessage()">إرسال الرسالة</button>
         </div>
-    </header>
+      </div>
+    </div>
+  </div>
 
-    <!-- MAIN CONTENT AREA -->
-    <main class="max-w-7xl mx-auto px-4 py-6 flex-grow w-full">
-
-        <!-- 1. DASHBOARD & STATS SECTION -->
-        <section id="section-dashboard" class="tab-content space-y-6">
-            <!-- Welcome Banner -->
-            <div class="bg-white rounded-2xl p-6 shadow-sm border-r-8 border-kau-gold flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                <div>
-                    <h2 class="text-2xl font-bold text-kau-green mb-1">لوحة الأداء والإحصائيات العامة</h2>
-                    <p class="text-gray-600 text-sm">مرحباً بك في المنصة الموحدة لمكتب التوجيه السلوكي والمهني بـ كلية العلوم</p>
-                </div>
-                <div class="flex items-center space-x-3 space-x-reverse bg-kau-offWhite p-2 rounded-xl border border-gray-200">
-                    <span class="text-xs text-gray-500">الفصل الدراسي الحالي:</span>
-                    <span class="font-bold text-kau-green text-sm">الأول 1448-1449هـ</span>
-                </div>
-            </div>
-
-            <!-- Metric Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-                <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 relative overflow-hidden">
-                    <div class="absolute top-0 left-0 w-2 h-full bg-kau-green"></div>
-                    <div class="flex justify-between items-center mb-3">
-                        <span class="text-gray-500 text-sm font-semibold">جلسات التوجيه المنجزة</span>
-                        <div class="w-10 h-10 rounded-xl bg-kau-green/10 text-kau-green flex items-center justify-center">
-                            <i class="fa-solid fa-user-check text-lg"></i>
-                        </div>
-                    </div>
-                    <div class="flex items-baseline space-x-2 space-x-reverse">
-                        <span class="text-3xl font-extrabold text-kau-green">342</span>
-                        <span class="text-xs text-green-600 font-semibold"><i class="fa-solid fa-arrow-up ml-0.5"></i>12% هذا الشهر</span>
-                    </div>
-                </div>
-
-                <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 relative overflow-hidden">
-                    <div class="absolute top-0 left-0 w-2 h-full bg-kau-gold"></div>
-                    <div class="flex justify-between items-center mb-3">
-                        <span class="text-gray-500 text-sm font-semibold">استفسارات الزوار المفتوحة</span>
-                        <div class="w-10 h-10 rounded-xl bg-kau-gold/10 text-kau-goldDark flex items-center justify-center">
-                            <i class="fa-solid fa-envelope-open-text text-lg"></i>
-                        </div>
-                    </div>
-                    <div class="flex items-baseline space-x-2 space-x-reverse">
-                        <span class="text-3xl font-extrabold text-kau-goldDark">18</span>
-                        <span class="text-xs text-yellow-600 font-semibold">تتطلب الرد</span>
-                    </div>
-                </div>
-
-                <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 relative overflow-hidden">
-                    <div class="absolute top-0 left-0 w-2 h-full bg-blue-600"></div>
-                    <div class="flex justify-between items-center mb-3">
-                        <span class="text-gray-500 text-sm font-semibold">المهام التنفيذية الحالية</span>
-                        <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center">
-                            <i class="fa-solid fa-tasks text-lg"></i>
-                        </div>
-                    </div>
-                    <div class="flex items-baseline space-x-2 space-x-reverse">
-                        <span class="text-3xl font-extrabold text-gray-800">27</span>
-                        <span class="text-xs text-gray-500">من أصل 35 مهمة</span>
-                    </div>
-                </div>
-
-                <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 relative overflow-hidden">
-                    <div class="absolute top-0 left-0 w-2 h-full bg-purple-600"></div>
-                    <div class="flex justify-between items-center mb-3">
-                        <span class="text-gray-500 text-sm font-semibold">معدل رضا الطلبة</span>
-                        <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center">
-                            <i class="fa-solid fa-star text-lg"></i>
-                        </div>
-                    </div>
-                    <div class="flex items-baseline space-x-2 space-x-reverse">
-                        <span class="text-3xl font-extrabold text-purple-700">96.4%</span>
-                        <span class="text-xs text-green-600 font-semibold"><i class="fa-solid fa-star text-kau-gold"></i> ممتاز</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Charts Row -->
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <!-- Main Chart -->
-                <div class="lg:col-span-2 bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                    <div class="flex justify-between items-center mb-4">
-                        <h3 class="font-bold text-gray-800 text-lg">إحصائيات الإرشاد السلوكي والمهني الأسبوعية</h3>
-                        <select class="bg-kau-offWhite border border-gray-300 rounded-lg text-xs p-2 focus:outline-none">
-                            <option>الشهر الحالي</option>
-                            <option>الفصل السابق</option>
-                        </select>
-                    </div>
-                    <div class="h-64">
-                        <canvas id="performanceChart"></canvas>
-                    </div>
-                </div>
-
-                <!-- Distribution Chart -->
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col justify-between">
-                    <h3 class="font-bold text-gray-800 text-lg mb-2">توزيع الحالات حسب التخصص</h3>
-                    <div class="h-56 relative flex items-center justify-center">
-                        <canvas id="departmentsChart"></canvas>
-                    </div>
-                    <div class="mt-4 pt-4 border-t border-gray-100 flex justify-between text-xs text-gray-600">
-                        <span><i class="fa-solid fa-circle text-kau-green ml-1"></i>كيمياء</span>
-                        <span><i class="fa-solid fa-circle text-kau-gold ml-1"></i>أحياء</span>
-                        <span><i class="fa-solid fa-circle text-blue-500 ml-1"></i>فيزياء</span>
-                        <span><i class="fa-solid fa-circle text-purple-500 ml-1"></i>رياضيات</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 2. TASK & TEAM MANAGEMENT SECTION -->
-        <section id="section-tasks" class="tab-content hidden space-y-6">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white p-6 rounded-2xl shadow-sm border-r-8 border-kau-green">
-                <div>
-                    <h2 class="text-2xl font-bold text-kau-green">لوحة إدارة المهام والفريق</h2>
-                    <p class="text-gray-600 text-sm">متابعة توزيع الاستشارات السلوكية والخطط التشغيلية للمستشارين</p>
-                </div>
-                <button onclick="openAddTaskModal()" class="bg-kau-green hover:bg-kau-greenDark text-white px-5 py-2.5 rounded-xl font-semibold shadow transition flex items-center">
-                    <i class="fa-solid fa-plus-circle ml-2"></i> إضافة مهمة جديدة
-                </button>
-            </div>
-
-            <!-- Task Board / Kanban columns -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Column 1: New Tasks -->
-                <div class="bg-gray-100/70 p-4 rounded-2xl border border-gray-200">
-                    <div class="flex justify-between items-center mb-4">
-                        <h3 class="font-bold text-gray-700 flex items-center">
-                            <span class="w-3 h-3 bg-yellow-500 rounded-full ml-2"></span> قيد الانتظار (2)
-                        </h3>
-                        <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded-full font-bold">جديد</span>
-                    </div>
-                    
-                    <div class="space-y-3">
-                        <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition">
-                            <span class="bg-red-100 text-red-700 text-xs px-2 py-0.5 rounded font-bold">عاجل</span>
-                            <h4 class="font-bold text-gray-800 mt-2 text-sm">مراجعة خطة الإرشاد المهني للدفعة 23</h4>
-                            <p class="text-xs text-gray-500 mt-1">تحديد المهارات المطلوبة لمخرجات قسم الأحياء البحرية.</p>
-                            <div class="mt-4 flex justify-between items-center pt-3 border-t border-gray-100 text-xs text-gray-500">
-                                <span class="flex items-center"><i class="fa-regular fa-user ml-1 text-kau-gold"></i> د. أحمد الزهراني</span>
-                                <span><i class="fa-regular fa-calendar ml-1"></i> غداً</span>
-                            </div>
-                        </div>
-
-                        <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition">
-                            <span class="bg-blue-100 text-blue-700 text-xs px-2 py-0.5 rounded font-bold">عادي</span>
-                            <h4 class="font-bold text-gray-800 mt-2 text-sm">إعداد ورشة "إدارة الضغوط الكيميائية"</h4>
-                            <p class="text-xs text-gray-500 mt-1">تنسيق القاعة والتواصل مع قسم الكيمياء.</p>
-                            <div class="mt-4 flex justify-between items-center pt-3 border-t border-gray-100 text-xs text-gray-500">
-                                <span class="flex items-center"><i class="fa-regular fa-user ml-1 text-kau-gold"></i> أ. سارة الغامدي</span>
-                                <span><i class="fa-regular fa-calendar ml-1"></i> 25 أكتوبر</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Column 2: In Progress -->
-                <div class="bg-gray-100/70 p-4 rounded-2xl border border-gray-200">
-                    <div class="flex justify-between items-center mb-4">
-                        <h3 class="font-bold text-gray-700 flex items-center">
-                            <span class="w-3 h-3 bg-blue-500 rounded-full ml-2"></span> جاري التنفيذ (2)
-                        </h3>
-                        <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full font-bold">نشط</span>
-                    </div>
-
-                    <div class="space-y-3">
-                        <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition">
-                            <span class="bg-purple-100 text-purple-700 text-xs px-2 py-0.5 rounded font-bold">متابعة سلوكية</span>
-                            <h4 class="font-bold text-gray-800 mt-2 text-sm">جلسات تعديل السلوك الأكاديمي</h4>
-                            <p class="text-xs text-gray-500 mt-1">متابعة 5 حالات محولة من قسم الفيزياء.</p>
-                            <div class="mt-4 flex justify-between items-center pt-3 border-t border-gray-100 text-xs text-gray-500">
-                                <span class="flex items-center"><i class="fa-regular fa-user ml-1 text-kau-gold"></i> د. خالد الغامدي</span>
-                                <span><i class="fa-regular fa-clock ml-1"></i> مستمر</span>
-                            </div>
-                        </div>
-
-                        <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition">
-                            <span class="bg-kau-gold/20 text-kau-goldDark text-xs px-2 py-0.5 rounded font-bold">معرض التوظيف</span>
-                            <h4 class="font-bold text-gray-800 mt-2 text-sm">تجهيز حقيبة التوجيه المهني</h4>
-                            <p class="text-xs text-gray-500 mt-1">طباعة البروشورات وتجهيز نماذج التقييم السلوكي.</p>
-                            <div class="mt-4 flex justify-between items-center pt-3 border-t border-gray-100 text-xs text-gray-500">
-                                <span class="flex items-center"><i class="fa-regular fa-user ml-1 text-kau-gold"></i> فريق الإرشاد</span>
-                                <span><i class="fa-regular fa-calendar ml-1"></i> 28 أكتوبر</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Column 3: Completed -->
-                <div class="bg-gray-100/70 p-4 rounded-2xl border border-gray-200">
-                    <div class="flex justify-between items-center mb-4">
-                        <h3 class="font-bold text-gray-700 flex items-center">
-                            <span class="w-3 h-3 bg-green-500 rounded-full ml-2"></span> المنجزة (2)
-                        </h3>
-                        <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full font-bold">مكتمل</span>
-                    </div>
-
-                    <div class="space-y-3">
-                        <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition opacity-90">
-                            <span class="bg-green-100 text-green-700 text-xs px-2 py-0.5 rounded font-bold">مكتمل</span>
-                            <h4 class="font-bold text-gray-800 mt-2 text-sm line-through">تقرير الإرشاد السلوكي للربع الثالث</h4>
-                            <p class="text-xs text-gray-500 mt-1">تم تسليم التقرير لعمادة كلية العلوم.</p>
-                            <div class="mt-4 flex justify-between items-center pt-3 border-t border-gray-100 text-xs text-gray-500">
-                                <span class="flex items-center"><i class="fa-regular fa-user ml-1 text-kau-gold"></i> د. فاطمة الشهري</span>
-                                <span class="text-green-600 font-semibold"><i class="fa-solid fa-check ml-1"></i> تم الحفظ</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 3. LIVE INTERACTIVE CHAT ROOMS -->
-        <section id="section-chat" class="tab-content hidden">
-            <div class="bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden grid grid-cols-1 md:grid-cols-3 h-[650px]">
-                <!-- Chat Rooms Sidebar -->
-                <div class="bg-kau-offWhite border-l border-gray-200 flex flex-col h-full">
-                    <div class="p-4 bg-kau-green text-white">
-                        <h3 class="font-bold text-base flex items-center">
-                            <i class="fa-solid fa-comments text-kau-goldLight ml-2"></i> غرف المحادثة المباشرة
-                        </h3>
-                        <p class="text-xs text-kau-goldLight mt-1">تواصل مباشر مع المستشارين المتاحين</p>
-                    </div>
-
-                    <!-- Search -->
-                    <div class="p-3 border-b border-gray-200">
-                        <div class="relative">
-                            <input type="text" placeholder="بحث في الغرف والمستشارين..." class="w-full bg-white text-xs rounded-xl pr-8 pl-3 py-2 border border-gray-300 focus:outline-none focus:border-kau-gold">
-                            <i class="fa-solid fa-search absolute right-2.5 top-2.5 text-gray-400 text-xs"></i>
-                        </div>
-                    </div>
-
-                    <!-- Room List -->
-                    <div class="overflow-y-auto custom-scrollbar flex-grow divide-y divide-gray-100">
-                        <button onclick="selectChatRoom('الاستشارات السلوكية', 'د. خالد الغامدي')" class="w-full p-3 text-right hover:bg-white transition flex items-center space-x-3 space-x-reverse bg-white border-r-4 border-kau-gold">
-                            <div class="relative">
-                                <div class="w-10 h-10 rounded-full bg-kau-green text-white flex items-center justify-center font-bold text-sm">
-                                    س
-                                </div>
-                                <span class="w-3 h-3 bg-green-500 border-2 border-white rounded-full absolute bottom-0 right-0"></span>
-                            </div>
-                            <div class="flex-grow overflow-hidden">
-                                <div class="flex justify-between items-center">
-                                    <h4 class="font-bold text-xs text-gray-800 truncate">غرفة الاستشارات السلوكية</h4>
-                                    <span class="text-[10px] text-gray-400">10:42 ص</span>
-                                </div>
-                                <p class="text-xs text-gray-500 truncate mt-0.5">مرحباً بك، كيف يمكنني مساعدتك في الخطة؟</p>
-                            </div>
-                        </button>
-
-                        <button onclick="selectChatRoom('التوجيه المهني والفرص', 'أ. سارة الغامدي')" class="w-full p-3 text-right hover:bg-white transition flex items-center space-x-3 space-x-reverse">
-                            <div class="relative">
-                                <div class="w-10 h-10 rounded-full bg-kau-gold text-white flex items-center justify-center font-bold text-sm">
-                                    م
-                                </div>
-                                <span class="w-3 h-3 bg-green-500 border-2 border-white rounded-full absolute bottom-0 right-0"></span>
-                            </div>
-                            <div class="flex-grow overflow-hidden">
-                                <div class="flex justify-between items-center">
-                                    <h4 class="font-bold text-xs text-gray-800 truncate">التوجيه المهني والفرص</h4>
-                                    <span class="text-[10px] text-gray-400">أمس</span>
-                                </div>
-                                <p class="text-xs text-gray-500 truncate mt-0.5">تم إرسال قائمة الفرص التدريبية لقسم الكيمياء</p>
-                            </div>
-                        </button>
-
-                        <button onclick="selectChatRoom('دعم طلاب كلية العلوم', 'مستشار عام')" class="w-full p-3 text-right hover:bg-white transition flex items-center space-x-3 space-x-reverse">
-                            <div class="relative">
-                                <div class="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm">
-                                    ع
-                                </div>
-                                <span class="w-3 h-3 bg-gray-400 border-2 border-white rounded-full absolute bottom-0 right-0"></span>
-                            </div>
-                            <div class="flex-grow overflow-hidden">
-                                <div class="flex justify-between items-center">
-                                    <h4 class="font-bold text-xs text-gray-800 truncate">الدعم العام والأنشطة</h4>
-                                    <span class="text-[10px] text-gray-400">22 أكتوبر</span>
-                                </div>
-                                <p class="text-xs text-gray-500 truncate mt-0.5">شكراً لكم على الورشة الممتازة</p>
-                            </div>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Chat Main Window -->
-                <div class="md:col-span-2 flex flex-col h-full bg-slate-50">
-                    <!-- Chat Header -->
-                    <div class="p-3 bg-white border-b border-gray-200 flex justify-between items-center">
-                        <div class="flex items-center space-x-3 space-x-reverse">
-                            <div class="w-9 h-9 rounded-full bg-kau-green text-white flex items-center justify-center font-bold text-sm">
-                                س
-                            </div>
-                            <div>
-                                <h4 id="active-chat-title" class="font-bold text-sm text-gray-800">غرفة الاستشارات السلوكية</h4>
-                                <p id="active-chat-sub" class="text-[11px] text-green-600 flex items-center">
-                                    <span class="w-2 h-2 bg-green-500 rounded-full ml-1"></span> المستشار المتاح: د. خالد الغامدي
-                                </p>
-                            </div>
-                        </div>
-                        <div class="flex items-center space-x-2 space-x-reverse text-gray-500">
-                            <button class="p-2 hover:bg-gray-100 rounded-lg text-xs" title="حفظ الجلسة"><i class="fa-solid fa-download"></i></button>
-                            <button class="p-2 hover:bg-gray-100 rounded-lg text-xs text-red-600" title="إنهاء المحادثة"><i class="fa-solid fa-circle-xmark"></i></button>
-                        </div>
-                    </div>
-
-                    <!-- Messages Box -->
-                    <div id="chat-messages-box" class="flex-grow p-4 overflow-y-auto custom-scrollbar space-y-3">
-                        <div class="text-center my-2">
-                            <span class="bg-gray-200 text-gray-600 text-[10px] px-3 py-1 rounded-full">اليوم - بدأ الموعد المباشر</span>
-                        </div>
-
-                        <!-- Incoming Msg -->
-                        <div class="flex items-start space-x-2 space-x-reverse max-w-[80%]">
-                            <div class="w-7 h-7 rounded-full bg-kau-green text-white text-xs flex items-center justify-center flex-shrink-0">خ</div>
-                            <div class="bg-white p-3 rounded-2xl rounded-tr-none shadow-sm border border-gray-100">
-                                <p class="text-xs text-gray-800 leading-relaxed">السلام عليكم ورحمة الله وبركاته. أهلاً بك في مكتب التوجيه السلوكي والمهني بكلية العلوم. كيف يمكنني إفادتك اليوم؟</p>
-                                <span class="text-[9px] text-gray-400 block mt-1 text-left">10:40 ص</span>
-                            </div>
-                        </div>
-
-                        <!-- Outgoing Msg -->
-                        <div class="flex items-start space-x-2 space-x-reverse max-w-[80%] mr-auto flex-row-reverse">
-                            <div class="w-7 h-7 rounded-full bg-kau-gold text-white text-xs flex items-center justify-center flex-shrink-0">ط</div>
-                            <div class="bg-kau-green text-white p-3 rounded-2xl rounded-tl-none shadow-sm">
-                                <p class="text-xs leading-relaxed">وعليكم السلام دكتور. أحتاج استشارة بشأن مهارات العرض والإلقاء لمشروع التخرج في قسم الأحياء.</p>
-                                <span class="text-[9px] text-kau-goldLight block mt-1 text-right">10:41 ص</span>
-                            </div>
-                        </div>
-
-                        <!-- Incoming Msg -->
-                        <div class="flex items-start space-x-2 space-x-reverse max-w-[80%]">
-                            <div class="w-7 h-7 rounded-full bg-kau-green text-white text-xs flex items-center justify-center flex-shrink-0">خ</div>
-                            <div class="bg-white p-3 rounded-2xl rounded-tr-none shadow-sm border border-gray-100">
-                                <p class="text-xs text-gray-800 leading-relaxed">أهلاً بك يا بطل. لدينا جلسة تدريبية مخصصة للارتقاء بمهارات التواصل والتعامل مع التوتر قبل العروض التقديمية. هل تناسبك الساعة 11 صباحاً غداً؟</p>
-                                <span class="text-[9px] text-gray-400 block mt-1 text-left">10:42 ص</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Chat Input Box -->
-                    <div class="p-3 bg-white border-t border-gray-200">
-                        <form onsubmit="sendChatMessage(event)" class="flex items-center space-x-2 space-x-reverse">
-                            <button type="button" class="text-gray-400 hover:text-kau-gold p-2"><i class="fa-solid fa-paperclip"></i></button>
-                            <input id="chat-input-field" type="text" placeholder="اكتب رسالتك هنا..." class="flex-grow bg-kau-offWhite text-xs rounded-xl px-4 py-2.5 border border-gray-300 focus:outline-none focus:border-kau-green">
-                            <button type="submit" class="bg-kau-green hover:bg-kau-greenDark text-white px-4 py-2.5 rounded-xl text-xs font-bold transition flex items-center">
-                                <span>إرسال</span>
-                                <i class="fa-solid fa-paper-plane mr-1.5 text-xs"></i>
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 4. DISCUSSION & DISPATCH HISTORY -->
-        <section id="section-history" class="tab-content hidden space-y-6">
-            <div class="bg-white p-6 rounded-2xl shadow-sm border-r-8 border-kau-gold flex justify-between items-center">
-                <div>
-                    <h2 class="text-2xl font-bold text-kau-green">سجل النقاشات والاستشارات المنجزة</h2>
-                    <p class="text-gray-600 text-sm">أرشيف الاستشارات المقفلة مع التقييمات والتوصيات السلوكية والمهنية</p>
-                </div>
-                <div class="flex space-x-2 space-x-reverse">
-                    <button class="bg-kau-offWhite border border-gray-300 px-3 py-1.5 rounded-lg text-xs font-semibold text-gray-600 hover:bg-gray-100">
-                        <i class="fa-solid fa-filter ml-1"></i> تصفية حسب التخصص
-                    </button>
-                </div>
-            </div>
-
-            <!-- History Table -->
-            <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
-                <div class="overflow-x-auto">
-                    <table class="w-full text-right text-xs">
-                        <thead class="bg-kau-green text-white font-semibold">
-                            <tr>
-                                <th class="p-3.5">رقم الجلسة</th>
-                                <th class="p-3.5">اسم الطالب/ة</th>
-                                <th class="p-3.5">التخصص</th>
-                                <th class="p-3.5">نوع الاستشارة</th>
-                                <th class="p-3.5">المستشار المسؤول</th>
-                                <th class="p-3.5">التاريخ</th>
-                                <th class="p-3.5">النتيجة والتقييم</th>
-                                <th class="p-3.5 text-center">الإجراء</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-gray-100">
-                            <tr class="hover:bg-kau-offWhite transition">
-                                <td class="p-3.5 font-bold text-kau-green">#S-1092</td>
-                                <td class="p-3.5">عبدالله محمد العمري</td>
-                                <td class="p-3.5">الكيمياء الحيوية</td>
-                                <td class="p-3.5"><span class="bg-blue-100 text-blue-800 px-2 py-0.5 rounded">مهني</span></td>
-                                <td class="p-3.5">د. خالد الغامدي</td>
-                                <td class="p-3.5">18 أكتوبر 2026</td>
-                                <td class="p-3.5"><span class="text-green-600 font-bold"><i class="fa-solid fa-check-circle ml-1"></i> تم إعداد خطة السيرة</span></td>
-                                <td class="p-3.5 text-center">
-                                    <button onclick="viewHistoryDetails('1092')" class="text-kau-gold hover:text-kau-goldDark p-1"><i class="fa-solid fa-eye text-sm"></i></button>
-                                </td>
-                            </tr>
-
-                            <tr class="hover:bg-kau-offWhite transition">
-                                <td class="p-3.5 font-bold text-kau-green">#S-1088</td>
-                                <td class="p-3.5">سارة علي القحطاني</td>
-                                <td class="p-3.5">الاحصاء</td>
-                                <td class="p-3.5"><span class="bg-purple-100 text-purple-800 px-2 py-0.5 rounded">سلوكي أكاديمي</span></td>
-                                <td class="p-3.5">أ. سارة الغامدي</td>
-                                <td class="p-3.5">15 أكتوبر 2026</td>
-                                <td class="p-3.5"><span class="text-green-600 font-bold"><i class="fa-solid fa-check-circle ml-1"></i> تعزيز التكيف</span></td>
-                                <td class="p-3.5 text-center">
-                                    <button onclick="viewHistoryDetails('1088')" class="text-kau-gold hover:text-kau-goldDark p-1"><i class="fa-solid fa-eye text-sm"></i></button>
-                                </td>
-                            </tr>
-
-                            <tr class="hover:bg-kau-offWhite transition">
-                                <td class="p-3.5 font-bold text-kau-green">#S-1075</td>
-                                <td class="p-3.5">عمر فيصل الثبيتي</td>
-                                <td class="p-3.5">الفيزياء الطبية</td>
-                                <td class="p-3.5"><span class="bg-blue-100 text-blue-800 px-2 py-0.5 rounded">مهني</span></td>
-                                <td class="p-3.5">د. أحمد الزهراني</td>
-                                <td class="p-3.5">10 أكتوبر 2026</td>
-                                <td class="p-3.5"><span class="text-green-600 font-bold"><i class="fa-solid fa-check-circle ml-1"></i> توجيه لمستشفى الجامعة</span></td>
-                                <td class="p-3.5 text-center">
-                                    <button onclick="viewHistoryDetails('1075')" class="text-kau-gold hover:text-kau-goldDark p-1"><i class="fa-solid fa-eye text-sm"></i></button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-
-        <!-- 5. VISITORS & STUDENTS INQUIRY PORTAL -->
-        <section id="section-visitors" class="tab-content hidden space-y-6">
-            <!-- Hero Banner for Visitors -->
-            <div class="green-gradient rounded-3xl p-8 text-white shadow-xl relative overflow-hidden border-2 border-kau-gold">
-                <div class="absolute -left-10 -bottom-10 opacity-10">
-                    <i class="fa-solid fa-graduation-cap text-[220px]"></i>
-                </div>
-                <div class="max-w-2xl relative z-10">
-                    <span class="bg-kau-gold/30 text-kau-goldLight border border-kau-gold text-xs px-3 py-1 rounded-full font-bold inline-block mb-3">بوابة الخدمات العامة للزوار والطلبة</span>
-                    <h2 class="text-3xl font-extrabold mb-2">أهلاً بكم في مكتب التوجيه السلوكي والمهني</h2>
-                    <p class="text-sm text-gray-200 leading-relaxed mb-6">يسعدنا تقديم الاستشارات والرد على كافة استفسارات منسوبي وطلبة كلية العلوم بجامعة الملك عبد العزيز لضمان مسيرة أكاديمية ومهنية متميزة.</p>
-                    <div class="flex flex-wrap gap-3">
-                        <a href="#visitor-form" class="bg-kau-gold hover:bg-kau-goldDark text-kau-greenDark px-5 py-2.5 rounded-xl font-bold text-xs shadow transition">
-                            <i class="fa-solid fa-paper-plane ml-1"></i> إرسال استفسار جديد
-                        </a>
-                        <button onclick="switchTab('chat')" class="bg-white/10 hover:bg-white/20 text-white border border-white/30 px-5 py-2.5 rounded-xl font-bold text-xs transition">
-                            <i class="fa-solid fa-headset ml-1"></i> المحادثة الفورية مع مستشار
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <!-- Contact Form for Visitors -->
-                <div id="visitor-form" class="lg:col-span-2 bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
-                    <h3 class="text-lg font-bold text-kau-green mb-4 flex items-center">
-                        <i class="fa-solid fa-envelope-open-text text-kau-gold ml-2"></i> نموذج الاستفسار والتواصل المباشر
-                    </h3>
-                    <form onsubmit="handleVisitorSubmit(event)" class="space-y-4">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-xs font-bold text-gray-700 mb-1">الاسم الكامل *</label>
-                                <input type="text" required placeholder="أدخل اسمك الكريـم" class="w-full text-xs p-3 border border-gray-300 rounded-xl focus:outline-none focus:border-kau-green bg-kau-offWhite">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold text-gray-700 mb-1">الرقم الجامعي / الهوية *</label>
-                                <input type="text" required placeholder="مثال: 2105432" class="w-full text-xs p-3 border border-gray-300 rounded-xl focus:outline-none focus:border-kau-green bg-kau-offWhite">
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-xs font-bold text-gray-700 mb-1">القسم الأكاديمي *</label>
-                                <select required class="w-full text-xs p-3 border border-gray-300 rounded-xl focus:outline-none focus:border-kau-green bg-kau-offWhite">
-                                    <option value="">اختر القسم...</option>
-                                    <option>قسم الكيمياء</option>
-                                    <option>قسم علوم الأحياء</option>
-                                    <option>قسم الفيزياء</option>
-                                    <option>قسم الرياضيات</option>
-                                    <option>قسم الكيمياء الحيوية</option>
-                                    <option>قسم علوم الفلك</option>
-                                    <option>زائر من خارج الكلية</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold text-gray-700 mb-1">نوع الاستفسار *</label>
-                                <select required class="w-full text-xs p-3 border border-gray-300 rounded-xl focus:outline-none focus:border-kau-green bg-kau-offWhite">
-                                    <option>استشارة سلوكية وأكاديمية</option>
-                                    <option>توجيه وإرشاد مهني</option>
-                                    <option>استفسار عن الورش والأنشطة</option>
-                                    <option>طلب موعد خاص مع مستشار</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div>
-                            <label class="block text-xs font-bold text-gray-700 mb-1">تفاصيل الاستفسار أو الرسالة *</label>
-                            <textarea rows="4" required placeholder="اكتب تفاصيل استفسارك بكل وضوح..." class="w-full text-xs p-3 border border-gray-300 rounded-xl focus:outline-none focus:border-kau-green bg-kau-offWhite"></textarea>
-                        </div>
-
-                        <button type="submit" class="w-full bg-kau-green hover:bg-kau-greenDark text-white py-3 rounded-xl font-bold text-xs shadow-md transition gold-border-glow">
-                            <i class="fa-solid fa-paper-plane ml-2 text-kau-gold"></i> إرسال الاستفسار لمكتب التوجيه
-                        </button>
-                    </form>
-                </div>
-
-                <!-- Info Sidebar & FAQs -->
-                <div class="space-y-4">
-                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-200">
-                        <h4 class="font-bold text-sm text-kau-green mb-3 border-b pb-2 border-gray-100 flex items-center">
-                            <i class="fa-solid fa-circle-info text-kau-gold ml-2"></i> معلوماّت التواصل السريع
-                        </h4>
-                        <ul class="space-y-3 text-xs text-gray-600">
-                            <li class="flex items-center">
-                                <i class="fa-solid fa-location-dot text-kau-gold w-5 ml-2"></i>
-                                <span>مبنى كلية العلوم (مبنى A15) - الدور الثاني</span>
-                            </li>
-                            <li class="flex items-center">
-                                <i class="fa-solid fa-envelope text-kau-gold w-5 ml-2"></i>
-                                <span>science-guidance@kau.edu.sa</span>
-                            </li>
-                            <li class="flex items-center">
-                                <i class="fa-solid fa-phone text-kau-gold w-5 ml-2"></i>
-                                <span>012-6952000 تحويلة: 64120</span>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="bg-kau-offWhite p-5 rounded-2xl border border-kau-gold/30">
-                        <h4 class="font-bold text-sm text-kau-green mb-3 flex items-center">
-                            <i class="fa-solid fa-question-circle text-kau-gold ml-2"></i> أسئلة شائعة
-                        </h4>
-                        <div class="space-y-2 text-xs text-gray-700">
-                            <details class="bg-white p-2.5 rounded-lg border border-gray-200">
-                                <summary class="font-semibold cursor-pointer text-kau-green">هل الاستشارات السلوكية ذات سرية؟</summary>
-                                <p class="mt-2 text-gray-500 leading-relaxed text-[11px]">نعم، جميع الجلسات والاستشارات تتم بمنتهى الخصوصية والسرية التامة وفق معايير الجامعة.</p>
-                            </details>
-                            <details class="bg-white p-2.5 rounded-lg border border-gray-200">
-                                <summary class="font-semibold cursor-pointer text-kau-green">كيف أحصل على مقياس الميول المهنية؟</summary>
-                                <p class="mt-2 text-gray-500 leading-relaxed text-[11px]">يمكنك طلب المقياس مباشرة عبر نموذج الاستفسار أو زيارة المكتب خلال ساعات العمل.</p>
-                            </details>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- MEMBER LOGIN MODAL -->
-    <div id="loginModal" class="fixed inset-0 bg-black/60 z-50 hidden flex items-center justify-center p-4 backdrop-blur-sm">
-        <div class="bg-white w-full max-w-md rounded-3xl shadow-2xl border-2 border-kau-gold overflow-hidden transform transition-all">
-            <div class="bg-kau-green p-6 text-white text-center relative">
-                <button onclick="toggleLoginModal()" class="absolute top-4 left-4 text-white/80 hover:text-white text-lg"><i class="fa-solid fa-xmark"></i></button>
-                <div class="w-16 h-16 bg-white/10 rounded-full mx-auto flex items-center justify-center mb-2 border border-kau-gold">
-                    <i class="fa-solid fa-user-shield text-2xl text-kau-goldLight"></i>
-                </div>
-                <h3 class="text-xl font-bold">شاشة دخول أعضاء المكتب</h3>
-                <p class="text-xs text-kau-goldLight mt-1">خاص بمستشاري وكادر كلية العلوم</p>
-            </div>
-            
-            <form onsubmit="handleLogin(event)" class="p-6 space-y-4">
-                <div>
-                    <label class="block text-xs font-bold text-gray-700 mb-1">اسم المستخدم / الرقم الوظيفي</label>
-                    <div class="relative">
-                        <input type="text" required placeholder="أدخل الرقم الوظيفي..." class="w-full text-xs p-3 pr-9 border border-gray-300 rounded-xl focus:outline-none focus:border-kau-green bg-kau-offWhite">
-                        <i class="fa-solid fa-id-badge absolute right-3 top-3.5 text-gray-400 text-xs"></i>
-                    </div>
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold text-gray-700 mb-1">كلمة المرور</label>
-                    <div class="relative">
-                        <input type="password" required placeholder="••••••••" class="w-full text-xs p-3 pr-9 border border-gray-300 rounded-xl focus:outline-none focus:border-kau-green bg-kau-offWhite">
-                        <i class="fa-solid fa-key absolute right-3 top-3.5 text-gray-400 text-xs"></i>
-                    </div>
-                </div>
-
-                <div class="flex justify-between items-center text-xs">
-                    <label class="flex items-center text-gray-600">
-                        <input type="checkbox" class="ml-1.5 rounded border-gray-300 text-kau-green focus:ring-kau-green"> تذكر بياناتي
-                    </label>
-                    <a href="#" class="text-kau-goldDark hover:underline font-semibold">نسيت كلمة المرور؟</a>
-                </div>
-
-                <button type="submit" class="w-full bg-kau-green hover:bg-kau-greenDark text-white py-3 rounded-xl font-bold text-xs shadow-lg transition">
-                    تسجيل الدخول للنظام
-                </button>
-            </form>
-        </div>
+  <!-- Internal Admin Dashboard View -->
+  <div class="dashboard-container" id="dashboardView">
+    <div class="dashboard-header">
+      <div>
+        <h2 id="welcomeText" style="font-size: 1.2rem;">مرحباً بك</h2>
+        <p id="userDept" style="font-size:0.85rem; opacity:0.9;"></p>
+      </div>
+      <div class="header-btns">
+        <button class="btn-header" onclick="manualRefreshData()">🔄 تحديث</button>
+        <button class="btn-header" onclick="toggleDarkMode()">🌙 المظهر</button>
+        <button class="btn-header" onclick="handleLogout()">خروج</button>
+      </div>
     </div>
 
-    <!-- ADD TASK MODAL -->
-    <div id="addTaskModal" class="fixed inset-0 bg-black/60 z-50 hidden flex items-center justify-center p-4 backdrop-blur-sm">
-        <div class="bg-white w-full max-w-lg rounded-3xl shadow-2xl border-2 border-kau-gold overflow-hidden">
-            <div class="bg-kau-green p-4 text-white flex justify-between items-center">
-                <h3 class="font-bold text-sm"><i class="fa-solid fa-plus-circle text-kau-gold ml-2"></i>إسناد مهمة إرشادية جديدة</h3>
-                <button onclick="closeAddTaskModal()" class="text-white hover:text-kau-gold"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <form onsubmit="handleAddTask(event)" class="p-5 space-y-3 text-xs">
-                <div>
-                    <label class="block font-bold text-gray-700 mb-1">عنوان المهمة</label>
-                    <input type="text" required placeholder="مثال: ورشة الإرشاد المهني لقسم الرياضيات" class="w-full p-2.5 border border-gray-300 rounded-xl focus:outline-none focus:border-kau-green">
-                </div>
-                <div class="grid grid-cols-2 gap-3">
-                    <div>
-                        <label class="block font-bold text-gray-700 mb-1">المستشار المسؤول</label>
-                        <select class="w-full p-2.5 border border-gray-300 rounded-xl focus:outline-none focus:border-kau-green">
-                            <option>د. خالد الغامدي</option>
-                            <option>د. أحمد الزهراني</option>
-                            <option>أ. سارة الغامدي</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block font-bold text-gray-700 mb-1">الأولويات</label>
-                        <select class="w-full p-2.5 border border-gray-300 rounded-xl focus:outline-none focus:border-kau-green">
-                            <option>عادي</option>
-                            <option>هام</option>
-                            <option>عاجل جداً</option>
-                        </select>
-                    </div>
-                </div>
-                <div>
-                    <label class="block font-bold text-gray-700 mb-1">الوصف والتفاصيل</label>
-                    <textarea rows="3" placeholder="ملاحظات مهمة..." class="w-full p-2.5 border border-gray-300 rounded-xl focus:outline-none focus:border-kau-green"></textarea>
-                </div>
-                <div class="flex justify-end space-x-2 space-x-reverse pt-2">
-                    <button type="button" onclick="closeAddTaskModal()" class="px-4 py-2 rounded-xl bg-gray-200 text-gray-700 font-bold">إلغاء</button>
-                    <button type="submit" class="px-4 py-2 rounded-xl bg-kau-green text-white font-bold">إضافة المهمة</button>
-                </div>
-            </form>
-        </div>
+    <div class="nav-tabs">
+      <button class="tab-btn active" onclick="switchDashboardTab('tasksTab', this)">👤 قائمة المهام</button>
+      <button class="tab-btn" id="teamTabBtn" style="display:none;" onclick="switchDashboardTab('teamTab', this)">👥 إدارة العمليات والفريق</button>
+      <button class="tab-btn" id="inquiriesTabBtn" style="display:none;" onclick="switchDashboardTab('inquiriesTab', this)">💬 محادثات الزوار النشطة</button>
     </div>
 
-    <!-- Footer -->
-    <footer class="bg-kau-greenDark text-white border-t-4 border-kau-gold mt-12">
-        <div class="max-w-7xl mx-auto px-4 py-6 flex flex-col md:flex-row justify-between items-center text-xs text-gray-300 gap-4">
-            <div class="flex items-center space-x-3 space-x-reverse">
-                <div class="w-8 h-8 rounded-full gold-gradient flex items-center justify-center font-bold text-kau-greenDark">
-                    KAU
-                </div>
-                <div>
-                    <p class="font-bold text-white">جامعة الملك عبد العزيز - كلية العلوم</p>
-                    <p class="text-[10px] text-kau-goldLight">جميع الحقوق محفوظة © 2026 لمكتب التوجيه السلوكي والمهني</p>
-                </div>
-            </div>
-            <div class="flex space-x-4 space-x-reverse text-sm">
-                <a href="#" class="hover:text-kau-gold transition"><i class="fa-brands fa-x-twitter"></i></a>
-                <a href="#" class="hover:text-kau-gold transition"><i class="fa-solid fa-globe"></i></a>
-                <a href="#" class="hover:text-kau-gold transition"><i class="fa-solid fa-envelope"></i></a>
-            </div>
+    <!-- Tasks Tab -->
+    <div class="tab-content active" id="tasksTab">
+      <div class="card" style="margin-bottom:1rem;">
+        <h4 style="margin-bottom:0.8rem;">قائمة المهام الشخصية المسندة</h4>
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead><tr><th>رقم المهمة</th><th>العنوان</th><th>الحالة</th><th>التفاصيل</th><th>تاريخ الاستحقاق</th><th>إجراء</th></tr></thead>
+            <tbody id="tasksBody"><tr><td colspan="6" style="text-align:center;">جاري التحميل...</td></tr></tbody>
+          </table>
         </div>
-    </footer>
+      </div>
+    </div>
 
-    <!-- SCRIPT SECTION -->
-    <script>
-        // Navigation Tabs Handling
-        function switchTab(tabId) {
-            // Hide all tab contents
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-            
-            // Show selected tab content
-            const selected = document.getElementById('section-' + tabId);
-            if(selected) selected.classList.remove('hidden');
+    <!-- Team Management Tab -->
+    <div class="tab-content" id="teamTab">
+      <div class="card" style="margin-bottom:1rem;">
+        <h4 style="margin-bottom:0.8rem;">إسناد مهمة جديدة</h4>
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap:0.8rem; margin-bottom:0.8rem;">
+          <input type="text" id="newTaskName" placeholder="عنوان المهمة...">
+          <select id="newTaskAssigneeSelect" onchange="autoFillMemberDetails()"><option value="">اختر العضو...</option></select>
+          <input type="text" id="newTaskMemberId" placeholder="رقم العضوية" readonly>
+          <input type="date" id="newTaskDate">
+        </div>
+        <textarea id="newTaskDetails" rows="2" placeholder="تفاصيل المهمة..." style="width:100%; margin-bottom:0.8rem;"></textarea>
+        <button class="btn" onclick="addNewTaskWithAutoFill()">إسناد المهمة فوراً</button>
+      </div>
+    </div>
 
-            // Update Nav buttons styling
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('text-kau-goldLight', 'bg-kau-greenDark', 'border-b-2', 'border-kau-gold');
-                btn.classList.add('text-white');
-            });
+    <!-- Active Inquiries Tab -->
+    <div class="tab-content" id="inquiriesTab">
+      <div class="card">
+        <h4 style="margin-bottom:0.8rem;">محادثات واستفسارات الزوار</h4>
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead><tr><th>الزائر</th><th>الطلب</th><th>المحادثة المباشرة</th><th>الإجراء</th></tr></thead>
+            <tbody id="visitorInquiriesBody"><tr><td colspan="4" style="text-align:center;">جاري التحميل...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
 
-            const activeBtn = document.getElementById('nav-' + tabId);
-            if(activeBtn) {
-                activeBtn.classList.add('text-kau-goldLight', 'bg-kau-greenDark', 'border-b-2', 'border-kau-gold');
-                activeBtn.classList.remove('text-white');
-            }
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-col">
+        <h5>مكتب التوجيه السلوكي والمهني</h5>
+        <p>إحدى المبادرات النوعية بكلية العلوم بجامعة الملك عبد العزيز لتمكين الطلبة مهنياً وسلوكياً.</p>
+      </div>
+      <div class="footer-col">
+        <h5>مقر المكتب</h5>
+        <p><i class="fa-solid fa-location-dot"></i> كلية العلوم - الدور الثالث</p>
+        <p><i class="fa-solid fa-door-closed"></i> مكتب رقم: 3610</p>
+      </div>
+      <div class="footer-col">
+        <h5>الشركاء الاستراتيجيون</h5>
+        <p>• مركز المبدعون (جامعة الملك عبد العزيز)</p>
+        <p>• شركة Masters Legacy (Birkman)</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>جميع الحقوق محفوظة © مكتب التوجيه السلوكي والمهني - كلية العلوم | جامعة الملك عبد العزيز 2026</p>
+    </div>
+  </footer>
+
+  <script>
+    const API_URL = "https://script.google.com/macros/s/AKfycbwLKK_ocd7fX7xCNgZl-Q_Feqi3h042DfII0nqzu_NfBw0-o61BcLzxnakHnEIY-QjEJA/exec";
+    let currentUser = null;
+    let globalTasksCache = [];
+    let globalMembersCache = [];
+    let globalInquiriesCache = [];
+    let currentActiveTrackId = '';
+
+    if (localStorage.getItem('darkMode') === 'true') document.body.classList.add('dark-mode');
+
+    window.onload = function() {
+      const savedUser = localStorage.getItem('currentUser');
+      if (savedUser) {
+        try {
+          currentUser = JSON.parse(savedUser);
+          renderDashboard();
+        } catch (e) { localStorage.removeItem('currentUser'); }
+      }
+    };
+
+    function showToast(msg) {
+      const c = document.getElementById('toastContainer');
+      if (!c) return;
+      const t = document.createElement('div');
+      t.className = 'toast'; t.innerText = msg;
+      c.appendChild(t);
+      setTimeout(() => { if(t) t.remove(); }, 3000);
+    }
+
+    async function callAPI(query) {
+      try {
+        const res = await fetch(`${API_URL}?${query}`, { method: 'GET', redirect: 'follow' });
+        return await res.json();
+      } catch (e) {
+        showToast("خطأ في الاتصال بالخادم");
+        return null;
+      }
+    }
+
+    function openPortalModal(type) {
+      document.getElementById('portalModal').style.display = 'flex';
+      if(type === 'admin') {
+        document.getElementById('adminLoginView').style.display = 'block';
+        document.getElementById('visitorPortalView').style.display = 'none';
+      } else {
+        document.getElementById('adminLoginView').style.display = 'none';
+        document.getElementById('visitorPortalView').style.display = 'block';
+      }
+    }
+
+    function closePortalModal() {
+      document.getElementById('portalModal').style.display = 'none';
+    }
+
+    function switchVisitorTab(tab) {
+      if(tab === 'submit') {
+        document.getElementById('vSubmitSec').style.display = 'block';
+        document.getElementById('vTrackSec').style.display = 'none';
+        document.getElementById('vTab1').classList.add('active');
+        document.getElementById('vTab2').classList.remove('active');
+      } else {
+        document.getElementById('vSubmitSec').style.display = 'none';
+        document.getElementById('vTrackSec').style.display = 'block';
+        document.getElementById('vTab1').classList.remove('active');
+        document.getElementById('vTab2').classList.add('active');
+      }
+    }
+
+    async function submitVisitorInquiry() {
+      const name = document.getElementById('visitorName').value.trim();
+      const email = document.getElementById('visitorEmail').value.trim();
+      const category = document.getElementById('visitorCategory').value;
+      const details = document.getElementById('visitorDetails').value.trim();
+
+      if(!name || !email || !details) { showToast("يرجى تعبئة كافة الحقول"); return; }
+      showToast("جاري إرسال الطلب...");
+      const res = await callAPI(`action=submitVisitorInquiry&name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&category=${encodeURIComponent(category)}&details=${encodeURIComponent(details)}`);
+      if(res && res.status === "success") {
+        alert("✅ تم إرسال طلبك بنجاح!\nرقم المتابعة الخاص بك: " + res.inquiryId);
+        document.getElementById('visitorName').value = '';
+        document.getElementById('visitorEmail').value = '';
+        document.getElementById('visitorDetails').value = '';
+        closePortalModal();
+      }
+    }
+
+    async function trackVisitorInquiry() {
+      const id = document.getElementById('trackInquiryId').value.trim();
+      if(!id) { showToast("أدخل رقم المتابعة"); return; }
+      showToast("جاري البحث...");
+      const res = await callAPI(`action=trackVisitorInquiry&inquiryId=${encodeURIComponent(id)}`);
+      if(res && res.status === "success") {
+        currentActiveTrackId = id;
+        document.getElementById('trackResultContainer').style.display = 'block';
+        document.getElementById('resStatus').innerText = res.data.status;
+        renderChatBubbles(res.data.chatLog, 'resChatLogContainer');
+      } else {
+        showToast("رقم المتابعة غير صحيح");
+      }
+    }
+
+    function renderChatBubbles(chatLogRaw, containerId) {
+      const container = document.getElementById(containerId);
+      if(!container) return;
+      container.innerHTML = '';
+      
+      let messages = [];
+      try { messages = typeof chatLogRaw === 'string' ? JSON.parse(chatLogRaw) : chatLogRaw; } catch(e){}
+      if(!Array.isArray(messages)) messages = [];
+
+      if(messages.length === 0) {
+        container.innerHTML = '<div style="text-align:center; color:var(--text-muted); font-size:0.8rem; padding:10px;">لا توجد رسائل بعد...</div>';
+        return;
+      }
+
+      messages.forEach(msg => {
+        const bubble = document.createElement('div');
+        const isVisitor = msg.type === 'visitor' || msg.sender === 'الزائر';
+        bubble.className = `chat-bubble ${isVisitor ? 'visitor' : 'admin'}`;
+        bubble.innerHTML = `<strong>${msg.sender || (isVisitor ? 'الزائر' : 'الإدارة')}:</strong> <div>${msg.text || ''}</div>`;
+        container.appendChild(bubble);
+      });
+      container.scrollTop = container.scrollHeight;
+    }
+
+    async function sendVisitorChatMessage() {
+      const input = document.getElementById('visitorReplyInput');
+      const text = input.value.trim();
+      if(!text || !currentActiveTrackId) return;
+
+      const res = await callAPI(`action=visitorReplyChat&inquiryId=${encodeURIComponent(currentActiveTrackId)}&message=${encodeURIComponent(text)}`);
+      if(res && res.status === "success") {
+        input.value = '';
+        renderChatBubbles(res.chatLog, 'resChatLogContainer');
+      }
+    }
+
+    async function handleLogin() {
+      const memberId = document.getElementById('memberId').value.trim();
+      const password = document.getElementById('password').value.trim();
+      if(!memberId || !password) { showToast("أدخل بيانات الدخول"); return; }
+
+      showToast("جاري التحقق...");
+      const res = await callAPI(`action=login&memberId=${encodeURIComponent(memberId)}&password=${encodeURIComponent(password)}`);
+      if(res && res.status === "success") {
+        currentUser = res.user;
+        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+        closePortalModal();
+        renderDashboard();
+      } else {
+        showToast("بيانات الدخول غير صحيحة");
+      }
+    }
+
+    function handleLogout() {
+      localStorage.removeItem('currentUser');
+      currentUser = null;
+      document.getElementById('dashboardView').style.display = 'none';
+      document.getElementById('websiteView').style.display = 'block';
+    }
+
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+      localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+    }
+
+    function switchDashboardTab(tabId, btn) {
+      document.querySelectorAll('#dashboardView .tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('#dashboardView .tab-btn').forEach(el => el.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+      if(btn) btn.classList.add('active');
+    }
+
+    function renderDashboard() {
+      document.getElementById('websiteView').style.display = 'none';
+      document.getElementById('dashboardView').style.display = 'block';
+
+      document.getElementById('welcomeText').innerText = `مرحباً، ${currentUser.name}`;
+      document.getElementById('userDept').innerText = `القسم: ${currentUser.department} | الدور: ${currentUser.role}`;
+
+      if(currentUser.role === 'مدير' || currentUser.role === 'مشرف عام' || currentUser.role === 'رئيس') {
+        document.getElementById('teamTabBtn').style.display = 'block';
+        document.getElementById('inquiriesTabBtn').style.display = 'block';
+        loadTeamData();
+        loadVisitorInquiries();
+      }
+
+      loadPersonalTasks();
+    }
+
+    async function loadPersonalTasks() {
+      const res = await callAPI(`action=getTasks&memberId=${encodeURIComponent(currentUser.memberId)}`);
+      if(res && res.status === "success") {
+        globalTasksCache = res.tasks || [];
+        const tbody = document.getElementById('tasksBody');
+        tbody.innerHTML = '';
+        if(globalTasksCache.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;">لا توجد مهام مسندة حالياً</td></tr>';
+          return;
         }
+        globalTasksCache.forEach(t => {
+          tbody.innerHTML += `
+            <tr>
+              <td>${t.taskId}</td>
+              <td><strong>${t.taskName}</strong></td>
+              <td><span class="badge ${t.status==='مكتملة'?'badge-success':'badge-warning'}">${t.status}</span></td>
+              <td>${t.details || '-'}</td>
+              <td>${t.dueDate || '-'}</td>
+              <td>${t.status !== 'مكتملة' ? `<button class="btn" style="padding:3px 8px; font-size:0.75rem;" onclick="completeTask('${t.taskId}')">إنجاز</button>` : 'مكتملة'}</td>
+            </tr>
+          `;
+        });
+      }
+    }
 
-        // Login Modal Control
-        function toggleLoginModal() {
-            const modal = document.getElementById('loginModal');
-            modal.classList.toggle('hidden');
-        }
+    async function completeTask(taskId) {
+      const res = await callAPI(`action=completeTask&taskId=${encodeURIComponent(taskId)}&memberId=${encodeURIComponent(currentUser.memberId)}`);
+      if(res && res.status === "success") {
+        showToast("تم إنجاز المهمة");
+        loadPersonalTasks();
+      }
+    }
 
-        function handleLogin(e) {
-            e.preventDefault();
-            alert("تم تسجيل الدخول بنجاح! مرحباً بك في لوحة تحكم مكتب التوجيه.");
-            toggleLoginModal();
-        }
+    async function loadTeamData() {
+      const res = await callAPI(`action=getTeamData`);
+      if(res && res.status === "success") {
+        globalMembersCache = res.members || [];
+        const select = document.getElementById('newTaskAssigneeSelect');
+        select.innerHTML = '<option value="">اختر العضو...</option>';
+        globalMembersCache.forEach(m => {
+          select.innerHTML += `<option value="${m.name}" data-id="${m.memberId}">${m.name} (${m.department})</option>`;
+        });
+      }
+    }
 
-        // Add Task Modals
-        function openAddTaskModal() {
-            document.getElementById('addTaskModal').classList.remove('hidden');
-        }
+    function autoFillMemberDetails() {
+      const select = document.getElementById('newTaskAssigneeSelect');
+      const opt = select.options[select.selectedIndex];
+      document.getElementById('newTaskMemberId').value = opt.getAttribute('data-id') || '';
+    }
 
-        function closeAddTaskModal() {
-            document.getElementById('addTaskModal').classList.add('hidden');
-        }
+    async function addNewTaskWithAutoFill() {
+      const name = document.getElementById('newTaskName').value.trim();
+      const memberId = document.getElementById('newTaskMemberId').value.trim();
+      const dueDate = document.getElementById('newTaskDate').value;
+      const details = document.getElementById('newTaskDetails').value.trim();
 
-        function handleAddTask(e) {
-            e.preventDefault();
-            alert("تمت إضافة المهمة الجديدة بنجاح وإسنادها للمستشار.");
-            closeAddTaskModal();
-        }
+      if(!name || !memberId || !dueDate) { showToast("أدخل بيانات المهمة الأساسية"); return; }
+      const res = await callAPI(`action=assignTask&taskName=${encodeURIComponent(name)}&memberId=${encodeURIComponent(memberId)}&dueDate=${encodeURIComponent(dueDate)}&details=${encodeURIComponent(details)}`);
+      if(res && res.status === "success") {
+        showToast("تم إسناد المهمة بنجاح");
+        document.getElementById('newTaskName').value = '';
+        document.getElementById('newTaskDetails').value = '';
+      }
+    }
 
-        // Visitor Form Submit
-        function handleVisitorSubmit(e) {
-            e.preventDefault();
-            alert("شكراً لك! تم استلام استفسارك بنجاح وسيتواصل معك مستشار مكتب التوجيه بـ كلية العلوم عبر البريد الإلكتروني قريباً.");
-            e.target.reset();
-        }
-
-        // Select Chat Room
-        function selectChatRoom(roomTitle, advisorName) {
-            document.getElementById('active-chat-title').innerText = roomTitle;
-            document.getElementById('active-chat-sub').innerHTML = `<span class="w-2 h-2 bg-green-500 rounded-full ml-1"></span> المستشار المتاح: ${advisorName}`;
-        }
-
-        // Chat Sending Simulation
-        function sendChatMessage(e) {
-            e.preventDefault();
-            const input = document.getElementById('chat-input-field');
-            const message = input.value.trim();
-            if(!message) return;
-
-            const box = document.getElementById('chat-messages-box');
-
-            // Append User Message
-            const userMsgHtml = `
-                <div class="flex items-start space-x-2 space-x-reverse max-w-[80%] mr-auto flex-row-reverse">
-                    <div class="w-7 h-7 rounded-full bg-kau-gold text-white text-xs flex items-center justify-center flex-shrink-0">أنت</div>
-                    <div class="bg-kau-green text-white p-3 rounded-2xl rounded-tl-none shadow-sm">
-                        <p class="text-xs leading-relaxed">${message}</p>
-                        <span class="text-[9px] text-kau-goldLight block mt-1 text-right">الآن</span>
-                    </div>
+    async function loadVisitorInquiries() {
+      const res = await callAPI(`action=getVisitorInquiries`);
+      if(res && res.status === "success") {
+        globalInquiriesCache = res.inquiries || [];
+        const tbody = document.getElementById('visitorInquiriesBody');
+        tbody.innerHTML = '';
+        globalInquiriesCache.forEach(i => {
+          tbody.innerHTML += `
+            <tr>
+              <td><strong>${i.name}</strong><br><small>${i.inquiryId}</small></td>
+              <td>${i.details}</td>
+              <td style="width:250px;">
+                <div class="whatsapp-chat-container" id="adminChat_${i.inquiryId}"></div>
+                <div style="display:flex; gap:4px; margin-top:4px;">
+                  <input type="text" id="adminInput_${i.inquiryId}" placeholder="رد..." style="font-size:0.78rem;">
+                  <button class="btn" style="width:auto; padding:2px 8px;" onclick="sendAdminChatMessage('${i.inquiryId}')">إرسال</button>
                 </div>
-            `;
-            box.innerHTML += userMsgHtml;
-            input.value = '';
-            box.scrollTop = box.scrollHeight;
+              </td>
+              <td><button class="btn" style="background:var(--danger-color); padding:3px 8px; font-size:0.75rem;" onclick="closeInquiry('${i.inquiryId}')">إغلاق</button></td>
+            </tr>
+          `;
+          renderChatBubbles(i.chatLog, `adminChat_${i.inquiryId}`);
+        });
+      }
+    }
 
-            // Simulate Automated Advisor Reply after 1 second
-            setTimeout(() => {
-                const advisorMsgHtml = `
-                    <div class="flex items-start space-x-2 space-x-reverse max-w-[80%]">
-                        <div class="w-7 h-7 rounded-full bg-kau-green text-white text-xs flex items-center justify-center flex-shrink-0">خ</div>
-                        <div class="bg-white p-3 rounded-2xl rounded-tr-none shadow-sm border border-gray-100">
-                            <p class="text-xs text-gray-800 leading-relaxed">وصلتنا رسالتك، وسيتم تزويدك بالدعم والتوجيه المطلوب فوراً.</p>
-                            <span class="text-[9px] text-gray-400 block mt-1 text-left">الآن</span>
-                        </div>
-                    </div>
-                `;
-                box.innerHTML += advisorMsgHtml;
-                box.scrollTop = box.scrollHeight;
-            }, 1000);
-        }
+    async function sendAdminChatMessage(inquiryId) {
+      const input = document.getElementById(`adminInput_${inquiryId}`);
+      const text = input.value.trim();
+      if(!text) return;
+      const res = await callAPI(`action=adminReplyChat&inquiryId=${encodeURIComponent(inquiryId)}&message=${encodeURIComponent(text)}&adminName=${encodeURIComponent(currentUser.name)}`);
+      if(res && res.status === "success") {
+        input.value = '';
+        loadVisitorInquiries();
+      }
+    }
 
-        // View History Details Simulation
-        function viewHistoryDetails(id) {
-            alert(`عرض تفاصيل وسجل استشارة الطالب رقم: #${id}\n- حالة الجلسة: مكتملة\n- الملاحظات: تم تقديم خطة التوجيه وتوثيق نتائج التقييم.`);
-        }
+    async function closeInquiry(inquiryId) {
+      if(!confirm("إغلاق المحادثة؟")) return;
+      const res = await callAPI(`action=closeInquiry&inquiryId=${encodeURIComponent(inquiryId)}&adminName=${encodeURIComponent(currentUser.name)}`);
+      if(res && res.status === "success") {
+        showToast("تم الإغلاق");
+        loadVisitorInquiries();
+      }
+    }
 
-        // Initialize Charts on Load
-        window.onload = function() {
-            // Line Chart: Performance Stats
-            const ctx1 = document.getElementById('performanceChart').getContext('2d');
-            new Chart(ctx1, {
-                type: 'line',
-                data: {
-                    labels: ['الأسبوع 1', 'الأسبوع 2', 'الأسبوع 3', 'الأسبوع 4'],
-                    datasets: [
-                        {
-                            label: 'استشارات سلوكية',
-                            data: [45, 60, 75, 90],
-                            borderColor: '#004B23',
-                            backgroundColor: 'rgba(0, 75, 35, 0.1)',
-                            fill: true,
-                            tension: 0.3
-                        },
-                        {
-                            label: 'توجيه مهني',
-                            data: [30, 45, 55, 70],
-                            borderColor: '#B8860B',
-                            backgroundColor: 'rgba(184, 134, 11, 0.1)',
-                            fill: true,
-                            tension: 0.3
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { position: 'bottom', labels: { font: { family: 'Cairo' } } }
-                    }
-                }
-            });
-
-            // Doughnut Chart: Departments Distribution
-            const ctx2 = document.getElementById('departmentsChart').getContext('2d');
-            new Chart(ctx2, {
-                type: 'doughnut',
-                data: {
-                    labels: ['كيمياء', 'أحياء', 'فيزياء', 'رياضيات'],
-                    datasets: [{
-                        data: [35, 30, 20, 15],
-                        backgroundColor: ['#004B23', '#B8860B', '#3B82F6', '#A855F7']
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: false }
-                    }
-                }
-            });
-        };
-    </script>
+    function manualRefreshData() {
+      showToast("جاري التحديث...");
+      renderDashboard();
+    }
+  </script>
 </body>
 </html>
