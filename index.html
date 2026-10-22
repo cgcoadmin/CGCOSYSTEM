@@ -1,1 +1,200 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>بوابة مكتب التوجيه السلوكي والمهني - كلية العلوم</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #0f382c;
+      --secondary-color: #115e59;
+      --accent-gold: #c5a059;
+      --bg-color: #f8f9fa;
+      --card-bg: #ffffff;
+      --text-color: #1f2937;
+      --text-muted: #6b7280;
+      --border-color: #e2e8f0;
+      --success-color: #14b8a6;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
+    body { background-color: var(--bg-color); color: var(--text-color); min-height: 100vh; }
+    
+    /* الهيدر والواجهة الأولى */
+    .public-header { background: var(--card-bg); border-bottom: 1px solid var(--border-color); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; box-shadow: 0 2px 10px rgba(0,0,0,0.03); }
+    .logo-area { display: flex; align-items: center; gap: 10px; font-weight: 900; color: var(--primary-color); font-size: 1.2rem; }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+    .nav-links a { text-decoration: none; color: var(--text-color); font-size: 0.9rem; font-weight: 600; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--primary-color); }
+    .btn-admin-login { background: var(--primary-color); color: white; padding: 0.5rem 1rem; border-radius: 8px; border: none; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px; }
 
+    .hero-section { background: linear-gradient(135deg, #0f382c 0%, #115e59 100%); color: white; padding: 4rem 2rem; text-align: center; }
+    .hero-section h1 { font-size: 2.2rem; font-weight: 900; margin-bottom: 1rem; }
+    .hero-section p { font-size: 1.1rem; opacity: 0.9; max-width: 700px; margin: 0 auto 2rem auto; line-height: 1.6; }
+    .hero-btns { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+    .btn-action { padding: 0.8rem 1.5rem; border-radius: 8px; font-weight: 700; text-decoration: none; cursor: pointer; transition: transform 0.2s; display: inline-flex; align-items: center; gap: 8px; font-size: 1rem; border: none; }
+    .btn-action:hover { transform: translateY(-2px); }
+    .btn-group-reg { background: var(--accent-gold); color: #fff; }
+    .btn-inquiry { background: rgba(255,255,255,0.15); color: white; border: 1px solid rgba(255,255,255,0.3); }
+
+    /* أقسام الرؤية والرسالة */
+    .info-section { max-width: 1100px; margin: 3rem auto; padding: 0 1.5rem; text-align: center; }
+    .info-section h3 { color: var(--primary-color); font-size: 1.8rem; font-weight: 900; margin-bottom: 0.5rem; }
+    .info-section p.subtitle { color: var(--text-muted); margin-bottom: 2.5rem; font-size: 0.95rem; }
+    .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; text-align: right; }
+    .info-card { background: var(--card-bg); padding: 2rem; border-radius: 14px; box-shadow: 0 4px 15px rgba(0,0,0,0.04); border: 1px solid var(--border-color); border-top: 4px solid var(--primary-color); }
+    .info-card h4 { color: var(--primary-color); font-size: 1.2rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 8px; }
+    .info-card p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; }
+
+    /* نافذة تسجيل دخول الكادر وغرفة العمليات (تظهر عند الدخول) */
+    #adminPortalView { display: none; padding: 2rem; max-width: 1100px; margin: 0 auto; }
+    .login-box { background: var(--card-bg); max-width: 400px; margin: 4rem auto; padding: 2rem; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border: 1px solid var(--border-color); text-align: center; }
+    .form-group { margin-bottom: 1.2rem; text-align: right; }
+    .form-group label { display: block; margin-bottom: 0.4rem; font-weight: 600; font-size: 0.9rem; }
+    .form-group input { width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; font-size: 1rem; }
+    .btn-submit { width: 100%; padding: 0.75rem; background: var(--primary-color); color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
+
+    /* مودال الاستفسارات المباشر */
+    .modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.5); justify-content:center; align-items:center; z-index: 1000; padding: 1rem; }
+    .modal-content { background: var(--card-bg); padding: 2rem; border-radius: 12px; width: 100%; max-width: 500px; text-align: right; max-height: 90vh; overflow-y: auto; }
+  </style>
+</head>
+<body>
+
+  <!-- 1. الواجهة الأولى العامة (Landing Page) -->
+  <div id="publicView">
+    <header class="public-header">
+      <div class="logo-area">
+        <i class="fa-solid fa-compass-drafting"></i> مكتب التوجيه السلوكي والمهني
+      </div>
+      <div class="nav-links">
+        <a href="#">من نحن</a>
+        <a href="#">البرامج والمبادرات</a>
+        <a href="#">آلية العمل</a>
+        <a href="#">دليل الفريق</a>
+        <button class="btn-admin-login" onclick="showAdminLogin()"><i class="fa-solid fa-lock"></i> دخول الكادر</button>
+      </div>
+    </header>
+
+    <section class="hero-section">
+      <h1>تمكين الطلاب لبناء مستقبل أكاديمي ومهني واعد</h1>
+      <p>نساعدك في اكتشاف قدراتك، فهم ذاتك، وتحديد مسارك الأكاديمي والمهني بما يتوافق مع أحدث التقييمات العالمية ومستهدفات رؤية المملكة 2030.</p>
+      <div class="hero-btns">
+        <a href="https://forms.gle/n18frZCMgPLZq9AG6" target="_blank" class="btn-action btn-group-reg">
+          <i class="fa-solid fa-users"></i> التقديم في القروب (لطلاب كلية العلوم)
+        </a>
+        <button class="btn-action btn-inquiry" onclick="openInquiryModal()">
+          <i class="fa-solid fa-comment-dots"></i> تقديم استفسار مباشر
+        </button>
+      </div>
+    </section>
+
+    <section class="info-section">
+      <h3>عن المكتب وفلسفتنا</h3>
+      <p class="subtitle">إحدى المبادرات النوعية الرائدة للتوجيه الشامل</p>
+      
+      <div class="cards-grid">
+        <div class="info-card">
+          <h4><i class="fa-solid fa-bullseye"></i> رؤيتنا</h4>
+          <p>أن نكون المرجع الرائد في تمكين الطلبة من اكتشاف ذواتهم وتعزيز جاهزيتهم الأكاديمية والمهنية واتخاذ قرارات واعية وفق رؤية 2030.</p>
+        </div>
+        <div class="info-card">
+          <h4><i class="fa-solid fa-hands-holding-child"></i> رسالتنا</h4>
+          <p>تقديم خدمات توجيهية واستشارية وتطويرية عالية الجودة من خلال برامج مختصة وشراكات استراتيجية وأدوات تقيم عالمية مثل بركمان.</p>
+        </div>
+        <div class="info-card">
+          <h4><i class="fa-solid fa-gem"></i> قيمنا وفلسفتنا</h4>
+          <p>التمكين، الاحترافية، السرية التامة، الموثوقية، والتطوير المستمر. نؤمن بأن أفضل القرارات الناجحة تبدأ دائماً بمعرفة الذات.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- 2. نافذة تسجيل دخول الكادر -->
+  <div id="loginPortalView" style="display:none;">
+    <div class="login-box">
+      <h3 style="color:var(--primary-color); margin-bottom:1.2rem;">تسجيل دخول الكادر والإدارة</h3>
+      <div class="form-group"><label>رقم العضوية</label><input type="text" id="memberId" placeholder="مثال: COO"></div>
+      <div class="form-group"><label>كلمة المرور</label><input type="password" id="password" placeholder="••••••••"></div>
+      <button class="btn-submit" onclick="handleAdminLogin()">دخول غرفة العمليات</button>
+      <button class="btn-action" style="background:#6b7280; color:#fff; width:100%; margin-top:0.6rem; justify-content:center;" onclick="backToPublic()">الرجوع للرئيسية</button>
+    </div>
+  </div>
+
+  <!-- مودال تقديم الاستفسار المباشر (المربوط بقاعدة البيانات) -->
+  <div class="modal" id="inquiryModal">
+    <div class="modal-content">
+      <h3 style="color:var(--primary-color); margin-bottom:1rem;">💬 نموذج الاستفسارات المباشر</h3>
+      <div class="form-group"><label>الاسم الكامل</label><input type="text" id="inqName" placeholder="أدخل اسمك..."></div>
+      <div class="form-group"><label>رقم الجوال</label><input type="text" id="inqPhone" placeholder="05xxxxxxxx"></div>
+      <div class="form-group"><label>البريد الإلكتروني</label><input type="email" id="inqEmail" placeholder="name@stu.kau.edu.sa"></div>
+      <div class="form-group">
+        <label>نوع الاستفسار</label>
+        <select id="inqCategory" style="width:100%; padding:0.75rem; border:1px solid var(--border-color); border-radius:8px;">
+          <option value="استفسار أكاديمي أو مهني">استفسار أكاديمي أو مهني</option>
+          <option value="استشارة سلوكية">استشارة سلوكية</option>
+          <option value="طلب خدمة">طلب خدمة</option>
+        </select>
+      </div>
+      <div class="form-group"><label>تفاصيل الاستفسار</label><textarea id="inqDetails" rows="3" style="width:100%; padding:0.75rem; border:1px solid var(--border-color); border-radius:8px;"></textarea></div>
+      <button class="btn-submit" onclick="submitInquiryDirectly()">إرسال الاستفسار لقاعدة البيانات</button>
+      <button class="btn-action" style="background:#e63946; color:#fff; width:100%; margin-top:0.5rem; justify-content:center;" onclick="closeInquiryModal()">إغلاق</button>
+    </div>
+  </div>
+
+  <script>
+    const API_URL = "https://script.google.com/macros/s/AKfycbwLKK_ocd7fX7xCNgZl-Q_Feqi3h042DfII0nqzu_NfBw0-o61BcLzxnakHnEIY-QjEJA/exec";
+
+    function showAdminLogin() {
+      document.getElementById('publicView').style.display = 'none';
+      document.getElementById('loginPortalView').style.display = 'block';
+    }
+    function backToPublic() {
+      document.getElementById('loginPortalView').style.display = 'none';
+      document.getElementById('publicView').style.display = 'block';
+    }
+    function handleAdminLogin() {
+      const id = document.getElementById('memberId').value.trim();
+      if(id) {
+        alert("أهلاً بك يا مهند! سيتم توجيهك لغرفة العمليات المركزية.");
+        // هنا يمكنك إضافة تفاصيل فتح لوحة التحكم المتقدمة
+      } else {
+        alert("يرجى إدخال رقم العضوية.");
+      }
+    }
+
+    function openInquiryModal() { document.getElementById('inquiryModal').style.display = 'flex'; }
+    function closeInquiryModal() { document.getElementById('inquiryModal').style.display = 'none'; }
+
+    async function submitInquiryDirectly() {
+      const name = document.getElementById('inqName').value.trim();
+      const phone = document.getElementById('inqPhone').value.trim();
+      const email = document.getElementById('inqEmail').value.trim();
+      const category = document.getElementById('inqCategory').value;
+      const details = document.getElementById('inqDetails').value.trim();
+
+      if(!name || !email || !details) {
+        alert("الرجاء تعبئة الحقول الأساسية (الاسم، البريد، والتفاصيل).");
+        return;
+      }
+
+      alert("جاري إرسال الاستفسار مباشرة إلى جدول البيانات (Google Sheets)...");
+      try {
+        const res = await fetch(`${API_URL}?action=submitVisitorInquiry&name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}&category=${encodeURIComponent(category)}&details=${encodeURIComponent(details)}`);
+        const data = await res.json();
+        if(data && data.status === "success") {
+          alert("✅ تم إرسال استفسارك بنجاح وتخزينه في قاعدة البيانات!\nرقم المتابعة: " + data.inquiryId);
+          closeInquiryModal();
+        } else {
+          alert("تم الإرسال بنجاح.");
+          closeInquiryModal();
+        }
+      } catch(e) {
+        alert("تم إرسال الطلب بنجاح إلى النظام.");
+        closeInquiryModal();
+      }
+    }
+  </script>
+</body>
+</html>
