@@ -34,6 +34,15 @@
   </script>
 
   <style>
+    :root {
+      --primary-color: #0d5c3a;
+      --secondary-color: #c5a059;
+      --bg-color: #0f172a;
+      --card-bg: #1e293b;
+      --text-color: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #334155;
+    }
     * {
       font-family: 'Cairo', sans-serif;
       scroll-behavior: smooth;
@@ -67,455 +76,454 @@
 </head>
 <body class="bg-[#f8fafc] text-slate-800 dark:bg-slate-900 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-300">
 
-  <!-- Header / Navigation -->
-  <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b-4 border-brand-gold shadow-sm transition-colors duration-300">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between items-center h-20">
-        
-        <!-- Logo -->
-        <a href="#" class="flex items-center gap-3 group">
-          <div class="w-12 h-12 bg-brand-green text-brand-gold rounded-xl flex items-center justify-center text-2xl shadow-md group-hover:scale-105 transition-transform duration-200">
-            <i class="fa-solid fa-compass"></i>
-          </div>
-          <div>
-            <span class="block text-lg font-black text-brand-green dark:text-brand-gold leading-tight">مكتب التوجيه السلوكي والمهني</span>
-            <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">جامعة الملك عبد العزيز</span>
-          </div>
-        </a>
+  <!-- ================= واجهة الموقع التعريفية (بدون حذف أي شيء) ================= -->
+  <div id="websiteView">
+    <!-- Header / Navigation -->
+    <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b-4 border-brand-gold shadow-sm transition-colors duration-300">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-20">
+          
+          <!-- Logo -->
+          <a href="#" class="flex items-center gap-3 group">
+            <div class="w-12 h-12 bg-brand-green text-brand-gold rounded-xl flex items-center justify-center text-2xl shadow-md group-hover:scale-105 transition-transform duration-200">
+              <i class="fa-solid fa-compass"></i>
+            </div>
+            <div>
+              <span class="block text-lg font-black text-brand-green dark:text-brand-gold leading-tight">مكتب التوجيه السلوكي والمهني</span>
+              <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">جامعة الملك عبد العزيز</span>
+            </div>
+          </a>
 
-        <!-- Desktop Nav Links -->
-        <nav class="hidden md:flex items-center gap-1 lg:gap-2">
-          <a href="#about" class="px-3 py-2 rounded-lg text-sm font-bold text-slate-700 dark:text-slate-200 hover:text-brand-green dark:hover:text-brand-gold hover:bg-slate-100 dark:hover:bg-slate-800 transition">من نحن</a>
-          <a href="#programs" class="px-3 py-2 rounded-lg text-sm font-bold text-slate-700 dark:text-slate-200 hover:text-brand-green dark:hover:text-brand-gold hover:bg-slate-100 dark:hover:bg-slate-800 transition">البرامج والمبادرات</a>
-          <a href="#workflow" class="px-3 py-2 rounded-lg text-sm font-bold text-slate-700 dark:text-slate-200 hover:text-brand-green dark:hover:text-brand-gold hover:bg-slate-100 dark:hover:bg-slate-800 transition">آلية العمل</a>
-          <a href="#team" class="px-3 py-2 rounded-lg text-sm font-bold text-slate-700 dark:text-slate-200 hover:text-brand-green dark:hover:text-brand-gold hover:bg-slate-100 dark:hover:bg-slate-800 transition">دليل الفريق</a>
-        </nav>
+          <!-- Desktop Nav Links -->
+          <nav class="hidden md:flex items-center gap-1 lg:gap-2">
+            <a href="#about" class="px-3 py-2 rounded-lg text-sm font-bold text-slate-700 dark:text-slate-200 hover:text-brand-green dark:hover:text-brand-gold hover:bg-slate-100 dark:hover:bg-slate-800 transition">من نحن</a>
+            <a href="#programs" class="px-3 py-2 rounded-lg text-sm font-bold text-slate-700 dark:text-slate-200 hover:text-brand-green dark:hover:text-brand-gold hover:bg-slate-100 dark:hover:bg-slate-800 transition">البرامج والمبادرات</a>
+            <a href="#workflow" class="px-3 py-2 rounded-lg text-sm font-bold text-slate-700 dark:text-slate-200 hover:text-brand-green dark:hover:text-brand-gold hover:bg-slate-100 dark:hover:bg-slate-800 transition">آلية العمل</a>
+            <a href="#team" class="px-3 py-2 rounded-lg text-sm font-bold text-slate-700 dark:text-slate-200 hover:text-brand-green dark:hover:text-brand-gold hover:bg-slate-100 dark:hover:bg-slate-800 transition">دليل الفريق</a>
+          </nav>
 
-        <!-- Header Actions -->
-        <div class="hidden sm:flex items-center gap-3">
-          <a href="https://forms.gle/f8e2vDnjxerB7SdL9" target="_blank" rel="noopener noreferrer" 
-             class="bg-brand-green hover:bg-brand-greenDark text-white px-4 py-2.5 rounded-xl font-bold text-xs lg:text-sm flex items-center gap-2 shadow-sm hover:shadow transition transform hover:-translate-y-0.5">
+          <!-- Header Actions -->
+          <div class="hidden sm:flex items-center gap-3">
+            <a href="https://forms.gle/f8e2vDnjxerB7SdL9" target="_blank" rel="noopener noreferrer" 
+               class="bg-brand-green hover:bg-brand-greenDark text-white px-4 py-2.5 rounded-xl font-bold text-xs lg:text-sm flex items-center gap-2 shadow-sm hover:shadow transition transform hover:-translate-y-0.5">
+              <i class="fa-solid fa-comments text-brand-gold"></i>
+              <span>بوابة الزوار والاستفسارات</span>
+            </a>
+            <button onclick="toggleLoginModal()" 
+                    class="border-2 border-brand-green text-brand-green dark:border-brand-gold dark:text-brand-gold hover:bg-brand-green hover:text-white dark:hover:bg-brand-gold dark:hover:text-slate-900 px-4 py-2 rounded-xl font-bold text-xs lg:text-sm flex items-center gap-2 transition">
+              <i class="fa-solid fa-lock"></i>
+              <span>دخول الكادر والأعضاء</span>
+            </button>
+          </div>
+
+          <!-- Mobile Menu Button -->
+          <div class="flex items-center gap-2 md:hidden">
+            <button onclick="toggleMobileMenu()" class="p-2.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 focus:outline-none">
+              <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Mobile Navigation Drawer -->
+      <div id="mobileMenu" class="hidden md:hidden bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 px-4 pt-2 pb-6 space-y-3">
+        <a href="#about" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-base font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">من نحن</a>
+        <a href="#programs" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-base font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">البرامج والمبادرات</a>
+        <a href="#workflow" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-base font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">آلية العمل</a>
+        <a href="#team" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-base font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">دليل الفريق</a>
+        <div class="pt-3 border-t border-slate-200 dark:border-slate-800 flex flex-col gap-2">
+          <a href="https://forms.gle/f8e2vDnjxerB7SdL9" target="_blank" rel="noopener noreferrer" class="w-full bg-brand-green text-white py-2.5 rounded-xl font-bold text-sm text-center flex items-center justify-center gap-2">
             <i class="fa-solid fa-comments text-brand-gold"></i>
             <span>بوابة الزوار والاستفسارات</span>
           </a>
-          <button onclick="toggleLoginModal()" 
-                  class="border-2 border-brand-green text-brand-green dark:border-brand-gold dark:text-brand-gold hover:bg-brand-green hover:text-white dark:hover:bg-brand-gold dark:hover:text-slate-900 px-4 py-2 rounded-xl font-bold text-xs lg:text-sm flex items-center gap-2 transition">
+          <button onclick="toggleLoginModal(); toggleMobileMenu();" class="w-full border-2 border-brand-green text-brand-green dark:border-brand-gold dark:text-brand-gold py-2.5 rounded-xl font-bold text-sm text-center flex items-center justify-center gap-2">
             <i class="fa-solid fa-lock"></i>
             <span>دخول الكادر والأعضاء</span>
           </button>
         </div>
-
-        <!-- Mobile Menu Button -->
-        <div class="flex items-center gap-2 md:hidden">
-          <button onclick="toggleMobileMenu()" class="p-2.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 focus:outline-none">
-            <i class="fa-solid fa-bars text-xl"></i>
-          </button>
-        </div>
-
       </div>
-    </div>
+    </header>
 
-    <!-- Mobile Navigation Drawer -->
-    <div id="mobileMenu" class="hidden md:hidden bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 px-4 pt-2 pb-6 space-y-3">
-      <a href="#about" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-base font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">من نحن</a>
-      <a href="#programs" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-base font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">البرامج والمبادرات</a>
-      <a href="#workflow" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-base font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">آلية العمل</a>
-      <a href="#team" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-base font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">دليل الفريق</a>
-      <div class="pt-3 border-t border-slate-200 dark:border-slate-800 flex flex-col gap-2">
-        <a href="https://forms.gle/f8e2vDnjxerB7SdL9" target="_blank" rel="noopener noreferrer" class="w-full bg-brand-green text-white py-2.5 rounded-xl font-bold text-sm text-center flex items-center justify-center gap-2">
-          <i class="fa-solid fa-comments text-brand-gold"></i>
-          <span>بوابة الزوار والاستفسارات</span>
-        </a>
-        <button onclick="toggleLoginModal(); toggleMobileMenu();" class="w-full border-2 border-brand-green text-brand-green dark:border-brand-gold dark:text-brand-gold py-2.5 rounded-xl font-bold text-sm text-center flex items-center justify-center gap-2">
-          <i class="fa-solid fa-lock"></i>
-          <span>دخول الكادر والأعضاء</span>
-        </button>
-      </div>
-    </div>
-  </header>
-
-  <main class="flex-grow">
-    
-    <!-- Hero Section -->
-    <section class="relative bg-gradient-to-br from-brand-green via-[#083e27] to-slate-900 text-white py-20 lg:py-28 px-4 overflow-hidden">
-      <!-- Background pattern -->
-      <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#c5a059_1px,transparent_1px)] [background-size:16px_16px]"></div>
+    <main class="flex-grow">
       
-      <div class="max-w-5xl mx-auto text-center relative z-10">
+      <!-- Hero Section -->
+      <section class="relative bg-gradient-to-br from-brand-green via-[#083e27] to-slate-900 text-white py-20 lg:py-28 px-4 overflow-hidden">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#c5a059_1px,transparent_1px)] [background-size:16px_16px]"></div>
         
-        <!-- Small Badge Header -->
-        <div class="inline-flex items-center gap-2 bg-brand-gold/20 border border-brand-gold text-brand-gold px-4 py-1.5 rounded-full text-xs sm:text-sm font-bold mb-6">
-          <i class="fa-solid fa-graduation-cap"></i>
-          <span>CGCO - Career Guidance & Counseling Office</span>
-        </div>
-
-        <!-- Main Heading -->
-        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black mb-6 leading-tight">
-          صناعة المستقبل: تمكين الطلبة وتطوير جاهزيتهم الأكاديمية والمهنية
-        </h1>
-
-        <!-- Subheading Description -->
-        <p class="text-slate-200 text-base sm:text-lg lg:text-xl max-w-3xl mx-auto mb-10 leading-relaxed font-normal">
-          نساعدك في اكتشاف قدراتك، فهم ذاتك، وتحديد مسارك الأكاديمي والمهني بما يتوافق مع أحدث التقييمات العالمية ومستهدفات رؤية المملكة 2030.
-        </p>
-
-        <!-- Interactive Action Buttons -->
-        <div class="flex flex-wrap justify-center items-center gap-4">
-          <!-- Primary Gold Button -->
-          <a href="https://forms.gle/n18frZCMgPLZq9AG6" target="_blank" rel="noopener noreferrer" 
-             class="bg-brand-gold hover:bg-brand-goldHover text-slate-950 font-extrabold px-6 py-3.5 rounded-xl text-sm sm:text-base flex items-center gap-2 shadow-lg shadow-brand-gold/20 hover:scale-105 transition transform">
-            <i class="fa-solid fa-users text-lg"></i>
-            <span>التقديم في القروب (لطلاب كلية العلوم)</span>
-          </a>
-
-          <!-- Secondary Transparent Button -->
-          <a href="https://forms.gle/f8e2vDnjxerB7SdL9" target="_blank" rel="noopener noreferrer" 
-             class="bg-white/10 hover:bg-white/20 border border-white/30 text-white font-bold px-6 py-3.5 rounded-xl text-sm sm:text-base flex items-center gap-2 backdrop-blur transition hover:scale-105">
-            <i class="fa-solid fa-comments text-brand-gold"></i>
-            <span>بوابة الزوار ومتابعة الاستفسارات</span>
-          </a>
-
-          <!-- Disabled Program Registration Button -->
-          <div class="w-full sm:w-auto">
-            <button disabled 
-                    class="w-full sm:w-auto bg-slate-800/80 text-slate-400 border border-slate-700 font-bold px-6 py-3.5 rounded-xl text-sm sm:text-base flex items-center justify-center gap-2 cursor-not-allowed opacity-80">
-              <i class="fa-solid fa-lock text-brand-gold"></i>
-              <span>التسجيل في البرامج (غير متاح حالياً)</span>
-            </button>
+        <div class="max-w-5xl mx-auto text-center relative z-10">
+          <div class="inline-flex items-center gap-2 bg-brand-gold/20 border border-brand-gold text-brand-gold px-4 py-1.5 rounded-full text-xs sm:text-sm font-bold mb-6">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <span>CGCO - Career Guidance & Counseling Office</span>
           </div>
-        </div>
 
-      </div>
-    </section>
+          <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black mb-6 leading-tight">
+            صناعة المستقبل: تمكين الطلبة وتطوير جاهزيتهم الأكاديمية والمهنية
+          </h1>
 
-    <!-- Section: About Us -->
-    <section id="about" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-16">
-        <h2 class="text-2xl sm:text-4xl font-black text-brand-green dark:text-brand-gold mb-3">عن المكتب وفلسفتنا</h2>
-        <p class="text-slate-600 dark:text-slate-400 text-sm sm:text-base">رؤية واضحة ورسالة راسخة لتمكين الطالب الجامعي</p>
-        <div class="w-16 h-1 bg-brand-gold mx-auto mt-4 rounded-full"></div>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        
-        <!-- Vision -->
-        <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-8 shadow-sm hover:shadow-md transition">
-          <div class="w-14 h-14 bg-brand-green/10 dark:bg-brand-gold/10 text-brand-green dark:text-brand-gold rounded-xl flex items-center justify-center text-2xl mb-6">
-            <i class="fa-solid fa-eye"></i>
-          </div>
-          <h3 class="text-xl font-bold text-brand-green dark:text-brand-gold mb-3">رؤيتنا</h3>
-          <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
-            أن نكون المرجع الرائد في تمكين الطلبة من اكتشاف ذواتهم وتعزيز جاهزيتهم الأكاديمية والمهنية واتخاذ قرارات واعية وفق رؤية 2030.
+          <p class="text-slate-200 text-base sm:text-lg lg:text-xl max-w-3xl mx-auto mb-10 leading-relaxed font-normal">
+            نساعدك في اكتشاف قدراتك، فهم ذاتك، وتحديد مسارك الأكاديمي والمهني بما يتوافق مع أحدث التقييمات العالمية ومستهدفات رؤية المملكة 2030.
           </p>
-        </div>
 
-        <!-- Mission -->
-        <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-8 shadow-sm hover:shadow-md transition">
-          <div class="w-14 h-14 bg-brand-green/10 dark:bg-brand-gold/10 text-brand-green dark:text-brand-gold rounded-xl flex items-center justify-center text-2xl mb-6">
-            <i class="fa-solid fa-bullseye"></i>
+          <div class="flex flex-wrap justify-center items-center gap-4">
+            <a href="https://forms.gle/n18frZCMgPLZq9AG6" target="_blank" rel="noopener noreferrer" 
+               class="bg-brand-gold hover:bg-brand-goldHover text-slate-950 font-extrabold px-6 py-3.5 rounded-xl text-sm sm:text-base flex items-center gap-2 shadow-lg shadow-brand-gold/20 hover:scale-105 transition transform">
+              <i class="fa-solid fa-users text-lg"></i>
+              <span>التقديم في القروب (لطلاب كلية العلوم)</span>
+            </a>
+
+            <a href="https://forms.gle/f8e2vDnjxerB7SdL9" target="_blank" rel="noopener noreferrer" 
+               class="bg-white/10 hover:bg-white/20 border border-white/30 text-white font-bold px-6 py-3.5 rounded-xl text-sm sm:text-base flex items-center gap-2 backdrop-blur transition hover:scale-105">
+              <i class="fa-solid fa-comments text-brand-gold"></i>
+              <span>بوابة الزوار ومتابعة الاستفسارات</span>
+            </a>
+
+            <div class="w-full sm:w-auto">
+              <button disabled 
+                      class="w-full sm:w-auto bg-slate-800/80 text-slate-400 border border-slate-700 font-bold px-6 py-3.5 rounded-xl text-sm sm:text-base flex items-center justify-center gap-2 cursor-not-allowed opacity-80">
+                <i class="fa-solid fa-lock text-brand-gold"></i>
+                <span>التسجيل في البرامج (غير متاح حالياً)</span>
+              </button>
+            </div>
           </div>
-          <h3 class="text-xl font-bold text-brand-green dark:text-brand-gold mb-3">رسالتنا</h3>
-          <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
-            تقديم خدمات توجيهية واستشارية وتطويرية عالية الجودة من خلال برامج متخصصة، وشراكات استراتيجية، وأدوات تقييم عالمية مثل بيركمان.
-          </p>
         </div>
+      </section>
 
-        <!-- Values -->
-        <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-8 shadow-sm hover:shadow-md transition">
-          <div class="w-14 h-14 bg-brand-green/10 dark:bg-brand-gold/10 text-brand-green dark:text-brand-gold rounded-xl flex items-center justify-center text-2xl mb-6">
-            <i class="fa-solid fa-gem"></i>
-          </div>
-          <h3 class="text-xl font-bold text-brand-green dark:text-brand-gold mb-3">قيمنا وفلسفتنا</h3>
-          <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
-            التمكين، الاحترافية، السرية التامة، الموثوقية، والتطوير المستمر. نؤمن بأن أفضل القرارات الناجحة تبدأ دائماً بفهم الذات.
-          </p>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- Section: Programs & Initiatives -->
-    <section id="programs" class="py-20 bg-slate-100 dark:bg-slate-900/50 transition-colors duration-300">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+      <!-- Section: About Us -->
+      <section id="about" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
-          <h2 class="text-2xl sm:text-4xl font-black text-brand-green dark:text-brand-gold mb-3">البرامج والمبادرات</h2>
-          <p class="text-slate-600 dark:text-slate-400 text-sm sm:text-base">برامج متخصصة ومصممة بعناية لبناء المستثمر المهني والجامعي</p>
+          <h2 class="text-2xl sm:text-4xl font-black text-brand-green dark:text-brand-gold mb-3">عن المكتب وفلسفتنا</h2>
+          <p class="text-slate-600 dark:text-slate-400 text-sm sm:text-base">رؤية واضحة ورسالة راسخة لتمكين الطالب الجامعي</p>
           <div class="w-16 h-1 bg-brand-gold mx-auto mt-4 rounded-full"></div>
         </div>
 
-        <div class="space-y-12">
-          
-          <!-- Program 1: Wajjehni -->
-          <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden shadow-sm">
-            <div class="bg-brand-green px-6 py-4 text-white flex items-center gap-3">
-              <i class="fa-solid fa-compass text-brand-gold text-2xl"></i>
-              <div>
-                <h3 class="text-xl font-bold">برنامج "وجهني" (Wajjehni)</h3>
-                <p class="text-xs text-slate-200">الركيزة الأساسية لتطوير المهارات والتوجيه المباشر</p>
-              </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-8 shadow-sm hover:shadow-md transition">
+            <div class="w-14 h-14 bg-brand-green/10 dark:bg-brand-gold/10 text-brand-green dark:text-brand-gold rounded-xl flex items-center justify-center text-2xl mb-6">
+              <i class="fa-solid fa-eye"></i>
             </div>
-            
-            <div class="p-6 sm:p-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              
-              <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border-r-4 border-brand-gold">
-                <h4 class="font-extrabold text-brand-green dark:text-brand-gold mb-2 text-base">1. اللقاءات المفتوحة</h4>
-                <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">جلسات دورية لمناقشة التحديات الأكاديمية والفرص المستقبلية والإجابة المباشرة.</p>
-              </div>
-
-              <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border-r-4 border-brand-gold">
-                <h4 class="font-extrabold text-brand-green dark:text-brand-gold mb-2 text-base">2. الاستشارات السلوكية والمهنية</h4>
-                <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">جلسات فردية لمساعدة الطلاب على تجاوز الصعوبات والتخطيط الشخصي الصحيح.</p>
-              </div>
-
-              <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border-r-4 border-brand-gold">
-                <h4 class="font-extrabold text-brand-green dark:text-brand-gold mb-2 text-base">3. ورش العمل التطويرية</h4>
-                <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">حقائب تدريبية في الذكاء العاطفي، بناء الهوية المهنية، وإعداد السيرة الذاتية.</p>
-              </div>
-
-              <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border-r-4 border-brand-gold">
-                <h4 class="font-extrabold text-brand-green dark:text-brand-gold mb-2 text-base">4. تقييم بيركمان العالمي</h4>
-                <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">تحليل سلوكي دقيق وفهم المحفزات والميول تحت إشراف مستشارين معتمدين.</p>
-              </div>
-
-            </div>
+            <h3 class="text-xl font-bold text-brand-green dark:text-brand-gold mb-3">رؤيتنا</h3>
+            <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+              أن نكون المرجع الرائد في تمكين الطلبة من اكتشاف ذواتهم وتعزيز جاهزيتهم الأكاديمية والمهنية واتخاذ قرارات واعية وفق رؤية 2030.
+            </p>
           </div>
 
-          <!-- Program 2: Innovation Laboratory -->
-          <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden shadow-sm">
-            <div class="bg-brand-greenDark px-6 py-4 text-white flex items-center gap-3">
-              <i class="fa-solid fa-flask text-brand-gold text-2xl"></i>
-              <div>
-                <h3 class="text-xl font-bold">مختبر الابتكار (Innovation Laboratory)</h3>
-                <p class="text-xs text-slate-200">تحويل الأفكار البحثية والأكاديمية إلى مشاريع جليلة وريادية</p>
-              </div>
+          <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-8 shadow-sm hover:shadow-md transition">
+            <div class="w-14 h-14 bg-brand-green/10 dark:bg-brand-gold/10 text-brand-green dark:text-brand-gold rounded-xl flex items-center justify-center text-2xl mb-6">
+              <i class="fa-solid fa-bullseye"></i>
             </div>
-
-            <div class="p-6 sm:p-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              
-              <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border-r-4 border-brand-green">
-                <span class="inline-block px-2 py-0.5 bg-brand-green/10 text-brand-green dark:text-brand-gold text-[10px] font-bold rounded mb-1">TRL 1</span>
-                <h4 class="font-extrabold text-slate-900 dark:text-white mb-1 text-sm">ما قبل الاحتضان</h4>
-                <p class="text-xs text-slate-600 dark:text-slate-300">استكشاف المشكلات، دراسة الاحتياج الجوهري، وتوليد الأفكار الابتكارية.</p>
-              </div>
-
-              <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border-r-4 border-brand-green">
-                <span class="inline-block px-2 py-0.5 bg-brand-green/10 text-brand-green dark:text-brand-gold text-[10px] font-bold rounded mb-1">TRL 1-3</span>
-                <h4 class="font-extrabold text-slate-900 dark:text-white mb-1 text-sm">إصدار الاحتضان</h4>
-                <p class="text-xs text-slate-600 dark:text-slate-300">بناء الأساس العلمي والمستند التقني واختبار الفرضيات الأولي.</p>
-              </div>
-
-              <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border-r-4 border-brand-green">
-                <span class="inline-block px-2 py-0.5 bg-brand-green/10 text-brand-green dark:text-brand-gold text-[10px] font-bold rounded mb-1">TRL 4-6</span>
-                <h4 class="font-extrabold text-slate-900 dark:text-white mb-1 text-sm">البحث والتطوير</h4>
-                <p class="text-xs text-slate-600 dark:text-slate-300">تطوير النموذج الأولي والمحاكاة المختبرية والتحقق التجريبي.</p>
-              </div>
-
-              <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border-r-4 border-brand-green">
-                <span class="inline-block px-2 py-0.5 bg-brand-green/10 text-brand-green dark:text-brand-gold text-[10px] font-bold rounded mb-1">TRL 7-9</span>
-                <h4 class="font-extrabold text-slate-900 dark:text-white mb-1 text-sm">إصدار ريادة الأعمال</h4>
-                <p class="text-xs text-slate-600 dark:text-slate-300">إعداد نموذج العمل التجاري، حماية الملكية الفكرية، وتجهيز المشروع للانطلاق.</p>
-              </div>
-
-            </div>
+            <h3 class="text-xl font-bold text-brand-green dark:text-brand-gold mb-3">رسالتنا</h3>
+            <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+              تقديم خدمات توجيهية واستشارية وتطويرية عالية الجودة من خلال برامج متخصصة، وشراكات استراتيجية، وأدوات تقييم عالمية مثل بيركمان.
+            </p>
           </div>
 
+          <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-8 shadow-sm hover:shadow-md transition">
+            <div class="w-14 h-14 bg-brand-green/10 dark:bg-brand-gold/10 text-brand-green dark:text-brand-gold rounded-xl flex items-center justify-center text-2xl mb-6">
+              <i class="fa-solid fa-gem"></i>
+            </div>
+            <h3 class="text-xl font-bold text-brand-green dark:text-brand-gold mb-3">قيمنا وفلسفتنا</h3>
+            <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+              التمكين، الاحترافية، السرية التامة، الموثوقية، والتطوير المستمر. نؤمن بأن أفضل القرارات الناجحة تبدأ دائماً بفهم الذات.
+            </p>
+          </div>
         </div>
+      </section>
 
-      </div>
-    </section>
+      <!-- Section: Programs & Initiatives -->
+      <section id="programs" class="py-20 bg-slate-100 dark:bg-slate-900/50 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="text-center mb-16">
+            <h2 class="text-2xl sm:text-4xl font-black text-brand-green dark:text-brand-gold mb-3">البرامج والمبادرات</h2>
+            <p class="text-slate-600 dark:text-slate-400 text-sm sm:text-base">برامج متخصصة ومصممة بعناية لبناء المستثمر المهني والجامعي</p>
+            <div class="w-16 h-1 bg-brand-gold mx-auto mt-4 rounded-full"></div>
+          </div>
 
-    <!-- Section: Workflow -->
-    <section id="workflow" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-16">
-        <h2 class="text-2xl sm:text-4xl font-black text-brand-green dark:text-brand-gold mb-3">آلية العمل مع المستفيد</h2>
-        <p class="text-slate-600 dark:text-slate-400 text-sm sm:text-base">رحلة الطالب المستفيدة عبر 5 مراحل منظمّة ودقيقة</p>
-        <div class="w-16 h-1 bg-brand-gold mx-auto mt-4 rounded-full"></div>
-      </div>
+          <div class="space-y-12">
+            <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden shadow-sm">
+              <div class="bg-brand-green px-6 py-4 text-white flex items-center gap-3">
+                <i class="fa-solid fa-compass text-brand-gold text-2xl"></i>
+                <div>
+                  <h3 class="text-xl font-bold">برنامج "وجهني" (Wajjehni)</h3>
+                  <p class="text-xs text-slate-200">الركيزة الأساسية لتطوير المهارات والتوجيه المباشر</p>
+                </div>
+              </div>
+              
+              <div class="p-6 sm:p-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border-r-4 border-brand-gold">
+                  <h4 class="font-extrabold text-brand-green dark:text-brand-gold mb-2 text-base">1. اللقاءات المفتوحة</h4>
+                  <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">جلسات دورية لمناقشة التحديات الأكاديمية والفرص المستقبلية والإجابة المباشرة.</p>
+                </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-        
-        <!-- Step 1 -->
-        <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 text-center relative group hover:border-brand-gold transition">
-          <div class="w-10 h-10 bg-brand-gold text-slate-900 font-black rounded-full flex items-center justify-center mx-auto mb-4 text-lg">1</div>
-          <h3 class="font-extrabold text-brand-green dark:text-brand-gold mb-2 text-base">التسجيل</h3>
-          <p class="text-xs text-slate-600 dark:text-slate-300">تعبئة النموذج المخصص للخدمة أو الاستشارة المحددة.</p>
+                <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border-r-4 border-brand-gold">
+                  <h4 class="font-extrabold text-brand-green dark:text-brand-gold mb-2 text-base">2. الاستشارات السلوكية والمهنية</h4>
+                  <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">جلسات فردية لمساعدة الطلاب على تجاوز الصعوبات والتخطيط الشخصي الصحيح.</p>
+                </div>
+
+                <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border-r-4 border-brand-gold">
+                  <h4 class="font-extrabold text-brand-green dark:text-brand-gold mb-2 text-base">3. ورش العمل التطويرية</h4>
+                  <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">حقائب تدريبية في الذكاء العاطفي، بناء الهوية المهنية، وإعداد السيرة الذاتية.</p>
+                </div>
+
+                <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border-r-4 border-brand-gold">
+                  <h4 class="font-extrabold text-brand-green dark:text-brand-gold mb-2 text-base">4. تقييم بيركمان العالمي</h4>
+                  <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">تحليل سلوكي دقيق وفهم المحفزات والميول تحت إشراف مستشارين معتمدين.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden shadow-sm">
+              <div class="bg-brand-greenDark px-6 py-4 text-white flex items-center gap-3">
+                <i class="fa-solid fa-flask text-brand-gold text-2xl"></i>
+                <div>
+                  <h3 class="text-xl font-bold">مختبر الابتكار (Innovation Laboratory)</h3>
+                  <p class="text-xs text-slate-200">تحويل الأفكار البحثية والأكاديمية إلى مشاريع جليلة وريادية</p>
+                </div>
+              </div>
+
+              <div class="p-6 sm:p-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border-r-4 border-brand-green">
+                  <span class="inline-block px-2 py-0.5 bg-brand-green/10 text-brand-green dark:text-brand-gold text-[10px] font-bold rounded mb-1">TRL 1</span>
+                  <h4 class="font-extrabold text-slate-900 dark:text-white mb-1 text-sm">ما قبل الاحتضان</h4>
+                  <p class="text-xs text-slate-600 dark:text-slate-300">استكشاف المشكلات، دراسة الاحتياج الجوهري، وتوليد الأفكار الابتكارية.</p>
+                </div>
+
+                <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border-r-4 border-brand-green">
+                  <span class="inline-block px-2 py-0.5 bg-brand-green/10 text-brand-green dark:text-brand-gold text-[10px] font-bold rounded mb-1">TRL 1-3</span>
+                  <h4 class="font-extrabold text-slate-900 dark:text-white mb-1 text-sm">إصدار الاحتضان</h4>
+                  <p class="text-xs text-slate-600 dark:text-slate-300">بناء الأساس العلمي والمستند التقني واختبار الفرضيات الأولي.</p>
+                </div>
+
+                <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border-r-4 border-brand-green">
+                  <span class="inline-block px-2 py-0.5 bg-brand-green/10 text-brand-green dark:text-brand-gold text-[10px] font-bold rounded mb-1">TRL 4-6</span>
+                  <h4 class="font-extrabold text-slate-900 dark:text-white mb-1 text-sm">البحث والتطوير</h4>
+                  <p class="text-xs text-slate-600 dark:text-slate-300">تطوير النموذج الأولي والمحاكاة المختبرية والتحقق التجريبي.</p>
+                </div>
+
+                <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border-r-4 border-brand-green">
+                  <span class="inline-block px-2 py-0.5 bg-brand-green/10 text-brand-green dark:text-brand-gold text-[10px] font-bold rounded mb-1">TRL 7-9</span>
+                  <h4 class="font-extrabold text-slate-900 dark:text-white mb-1 text-sm">إصدار ريادة الأعمال</h4>
+                  <p class="text-xs text-slate-600 dark:text-slate-300">إعداد نموذج العمل التجاري، حماية الملكية الفكرية، وتجهيز المشروع للانطلاق.</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+      </section>
 
-        <!-- Step 2 -->
-        <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 text-center relative group hover:border-brand-gold transition">
-          <div class="w-10 h-10 bg-brand-gold text-slate-900 font-black rounded-full flex items-center justify-center mx-auto mb-4 text-lg">2</div>
-          <h3 class="font-extrabold text-brand-green dark:text-brand-gold mb-2 text-base">التشخيص</h3>
-          <p class="text-xs text-slate-600 dark:text-slate-300">جلسة أولية لتحديد احتياجات الطالب ورغباته السلوكية.</p>
-        </div>
-
-        <!-- Step 3 -->
-        <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 text-center relative group hover:border-brand-gold transition">
-          <div class="w-10 h-10 bg-brand-gold text-slate-900 font-black rounded-full flex items-center justify-center mx-auto mb-4 text-lg">3</div>
-          <h3 class="font-extrabold text-brand-green dark:text-brand-gold mb-2 text-base">التوجيه</h3>
-          <p class="text-xs text-slate-600 dark:text-slate-300">تقديم الاستشارة المتخصصة أو تطبيق التقييم المناسب.</p>
-        </div>
-
-        <!-- Step 4 -->
-        <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 text-center relative group hover:border-brand-gold transition">
-          <div class="w-10 h-10 bg-brand-gold text-slate-900 font-black rounded-full flex items-center justify-center mx-auto mb-4 text-lg">4</div>
-          <h3 class="font-extrabold text-brand-green dark:text-brand-gold mb-2 text-base">التطوير</h3>
-          <p class="text-xs text-slate-600 dark:text-slate-300">المشاركة في البرامج التدريبية المخصصة والمتابعة الأكاديمية.</p>
-        </div>
-
-        <!-- Step 5 -->
-        <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 text-center relative group hover:border-brand-gold transition sm:col-span-2 lg:col-span-1">
-          <div class="w-10 h-10 bg-brand-gold text-slate-900 font-black rounded-full flex items-center justify-center mx-auto mb-4 text-lg">5</div>
-          <h3 class="font-extrabold text-brand-green dark:text-brand-gold mb-2 text-base">المتابعة</h3>
-          <p class="text-xs text-slate-600 dark:text-slate-300">قياس الأثر المترتب وتقييم التطور الأكاديمي والمهني.</p>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- Section: Team Directory -->
-    <section id="team" class="py-20 bg-slate-100 dark:bg-slate-900/50 transition-colors duration-300">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+      <!-- Section: Workflow -->
+      <section id="workflow" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
-          <h2 class="text-2xl sm:text-4xl font-black text-brand-green dark:text-brand-gold mb-3">دليل الفريق</h2>
-          <p class="text-slate-600 dark:text-slate-400 text-sm sm:text-base">منظومة الإدارة والتنفيذ بمكتب التوجيه السلوكي والمهني</p>
+          <h2 class="text-2xl sm:text-4xl font-black text-brand-green dark:text-brand-gold mb-3">آلية العمل مع المستفيد</h2>
+          <p class="text-slate-600 dark:text-slate-400 text-sm sm:text-base">رحلة الطالب المستفيدة عبر 5 مراحل منظمّة ودقيقة</p>
           <div class="w-16 h-1 bg-brand-gold mx-auto mt-4 rounded-full"></div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          
-          <!-- Member 1 -->
-          <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-slate-200 dark:border-slate-700 shadow-sm flex items-start gap-4">
-            <div class="w-12 h-12 bg-brand-green/10 text-brand-green dark:text-brand-gold rounded-xl flex items-center justify-center text-xl shrink-0">
-              <i class="fa-solid fa-user-tie"></i>
-            </div>
-            <div>
-              <span class="inline-block px-2.5 py-0.5 bg-brand-gold/20 text-brand-gold text-[11px] font-bold rounded-md mb-1">الإدارة العليا</span>
-              <h3 class="font-extrabold text-slate-900 dark:text-white text-base">مدير المكتب</h3>
-              <p class="text-xs font-bold text-brand-green dark:text-brand-gold mb-2">د. سلطان سنبل</p>
-              <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">الإشراف العام، التوجيه الاستراتيجي، واعتماد الخطط والتطوير المؤسسي.</p>
-            </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+          <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 text-center relative group hover:border-brand-gold transition">
+            <div class="w-10 h-10 bg-brand-gold text-slate-900 font-black rounded-full flex items-center justify-center mx-auto mb-4 text-lg">1</div>
+            <h3 class="font-extrabold text-brand-green dark:text-brand-gold mb-2 text-base">التسجيل</h3>
+            <p class="text-xs text-slate-600 dark:text-slate-300">تعبئة النموذج المخصص للخدمة أو الاستشارة المحددة.</p>
           </div>
 
-          <!-- Member 2 -->
-          <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-slate-200 dark:border-slate-700 shadow-sm flex items-start gap-4">
-            <div class="w-12 h-12 bg-brand-green/10 text-brand-green dark:text-brand-gold rounded-xl flex items-center justify-center text-xl shrink-0">
-              <i class="fa-solid fa-user-gear"></i>
-            </div>
-            <div>
-              <span class="inline-block px-2.5 py-0.5 bg-brand-gold/20 text-brand-gold text-[11px] font-bold rounded-md mb-1">الإدارة العليا</span>
-              <h3 class="font-extrabold text-slate-900 dark:text-white text-base">نائب مدير المكتب</h3>
-              <p class="text-xs font-bold text-brand-green dark:text-brand-gold mb-2">د. مي القرشي</p>
-              <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">المتابعة التنفيذية وإدارة ملف الشراكات الاستراتيجية والجودة.</p>
-            </div>
+          <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 text-center relative group hover:border-brand-gold transition">
+            <div class="w-10 h-10 bg-brand-gold text-slate-900 font-black rounded-full flex items-center justify-center mx-auto mb-4 text-lg">2</div>
+            <h3 class="font-extrabold text-brand-green dark:text-brand-gold mb-2 text-base">التشخيص</h3>
+            <p class="text-xs text-slate-600 dark:text-slate-300">جلسة أولية لتحديد احتياجات الطالب ورغباته السلوكية.</p>
           </div>
 
-          <!-- Member 3 -->
-          <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-slate-200 dark:border-slate-700 shadow-sm flex items-start gap-4">
-            <div class="w-12 h-12 bg-brand-green/10 text-brand-green dark:text-brand-gold rounded-xl flex items-center justify-center text-xl shrink-0">
-              <i class="fa-solid fa-sliders"></i>
-            </div>
-            <div>
-              <span class="inline-block px-2.5 py-0.5 bg-brand-gold/20 text-brand-gold text-[11px] font-bold rounded-md mb-1">التشغيل الميداني</span>
-              <h3 class="font-extrabold text-slate-900 dark:text-white text-base">مدير العمليات</h3>
-              <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-2">إدارة الجداول التشغيلية وتنسيق المهام اليومية بين الأقسام الميدانية.</p>
-            </div>
+          <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 text-center relative group hover:border-brand-gold transition">
+            <div class="w-10 h-10 bg-brand-gold text-slate-900 font-black rounded-full flex items-center justify-center mx-auto mb-4 text-lg">3</div>
+            <h3 class="font-extrabold text-brand-green dark:text-brand-gold mb-2 text-base">التوجيه</h3>
+            <p class="text-xs text-slate-600 dark:text-slate-300">تقديم الاستشارة المتخصصة أو تطبيق التقييم المناسب.</p>
           </div>
 
-          <!-- Member 4 -->
-          <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-slate-200 dark:border-slate-700 shadow-sm flex items-start gap-4">
-            <div class="w-12 h-12 bg-brand-green/10 text-brand-green dark:text-brand-gold rounded-xl flex items-center justify-center text-xl shrink-0">
-              <i class="fa-solid fa-users-line"></i>
-            </div>
-            <div>
-              <span class="inline-block px-2.5 py-0.5 bg-brand-gold/20 text-brand-gold text-[11px] font-bold rounded-md mb-1">شطر الطلاب والطالبات</span>
-              <h3 class="font-extrabold text-slate-900 dark:text-white text-base">قائد شطر الطلاب / الطالبات</h3>
-              <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-2">قيادة الأنشطة الطلابية والمتابعة المباشرة للطلبة المستفيدين.</p>
-            </div>
+          <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 text-center relative group hover:border-brand-gold transition">
+            <div class="w-10 h-10 bg-brand-gold text-slate-900 font-black rounded-full flex items-center justify-center mx-auto mb-4 text-lg">4</div>
+            <h3 class="font-extrabold text-brand-green dark:text-brand-gold mb-2 text-base">التطوير</h3>
+            <p class="text-xs text-slate-600 dark:text-slate-300">المشاركة في البرامج التدريبية المخصصة والمتابعة الأكاديمية.</p>
           </div>
 
-          <!-- Member 5 -->
-          <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-slate-200 dark:border-slate-700 shadow-sm flex items-start gap-4">
-            <div class="w-12 h-12 bg-brand-green/10 text-brand-green dark:text-brand-gold rounded-xl flex items-center justify-center text-xl shrink-0">
-              <i class="fa-solid fa-calendar-check"></i>
-            </div>
-            <div>
-              <span class="inline-block px-2.5 py-0.5 bg-brand-gold/20 text-brand-gold text-[11px] font-bold rounded-md mb-1">قسم البرامج والفعاليات</span>
-              <h3 class="font-extrabold text-slate-900 dark:text-white text-base">مشرف قسم البرامج والفعاليات</h3>
-              <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-2">تصميم وتنفيذ الجدول الزمني للورش والمبادرات الاستشارية.</p>
-            </div>
+          <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 text-center relative group hover:border-brand-gold transition sm:col-span-2 lg:col-span-1">
+            <div class="w-10 h-10 bg-brand-gold text-slate-900 font-black rounded-full flex items-center justify-center mx-auto mb-4 text-lg">5</div>
+            <h3 class="font-extrabold text-brand-green dark:text-brand-gold mb-2 text-base">المتابعة</h3>
+            <p class="text-xs text-slate-600 dark:text-slate-300">قياس الأثر المترتب وتقييم التطور الأكاديمي والمهني.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section: Team Directory -->
+      <section id="team" class="py-20 bg-slate-100 dark:bg-slate-900/50 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="text-center mb-16">
+            <h2 class="text-2xl sm:text-4xl font-black text-brand-green dark:text-brand-gold mb-3">دليل الفريق</h2>
+            <p class="text-slate-600 dark:text-slate-400 text-sm sm:text-base">منظومة الإدارة والتنفيذ بمكتب التوجيه السلوكي والمهني</p>
+            <div class="w-16 h-1 bg-brand-gold mx-auto mt-4 rounded-full"></div>
           </div>
 
-          <!-- Member 6 -->
-          <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-slate-200 dark:border-slate-700 shadow-sm flex items-start gap-4">
-            <div class="w-12 h-12 bg-brand-green/10 text-brand-green dark:text-brand-gold rounded-xl flex items-center justify-center text-xl shrink-0">
-              <i class="fa-solid fa-lightbulb"></i>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-slate-200 dark:border-slate-700 shadow-sm flex items-start gap-4">
+              <div class="w-12 h-12 bg-brand-green/10 text-brand-green dark:text-brand-gold rounded-xl flex items-center justify-center text-xl shrink-0"><i class="fa-solid fa-user-tie"></i></div>
+              <div>
+                <span class="inline-block px-2.5 py-0.5 bg-brand-gold/20 text-brand-gold text-[11px] font-bold rounded-md mb-1">الإدارة العليا</span>
+                <h3 class="font-extrabold text-slate-900 dark:text-white text-base">مدير المكتب</h3>
+                <p class="text-xs font-bold text-brand-green dark:text-brand-gold mb-2">د. سلطان سنبل</p>
+                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">الإشراف العام، التوجيه الاستراتيجي، واعتماد الخطط والتطوير المؤسسي.</p>
+              </div>
             </div>
-            <div>
-              <span class="inline-block px-2.5 py-0.5 bg-brand-gold/20 text-brand-gold text-[11px] font-bold rounded-md mb-1">قسم الإبداع والمواهب</span>
-              <h3 class="font-extrabold text-slate-900 dark:text-white text-base">مسؤول استقطاب الموهوبين</h3>
-              <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-2">اكتشاف الطاقات الطلابية الواعدة وترشيحها لبرامج التميز والمختبر.</p>
+
+            <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-slate-200 dark:border-slate-700 shadow-sm flex items-start gap-4">
+              <div class="w-12 h-12 bg-brand-green/10 text-brand-green dark:text-brand-gold rounded-xl flex items-center justify-center text-xl shrink-0"><i class="fa-solid fa-user-gear"></i></div>
+              <div>
+                <span class="inline-block px-2.5 py-0.5 bg-brand-gold/20 text-brand-gold text-[11px] font-bold rounded-md mb-1">الإدارة العليا</span>
+                <h3 class="font-extrabold text-slate-900 dark:text-white text-base">نائب مدير المكتب</h3>
+                <p class="text-xs font-bold text-brand-green dark:text-brand-gold mb-2">د. مي القرشي</p>
+                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">المتابعة التنفيذية وإدارة ملف الشراكات الاستراتيجية والجودة.</p>
+              </div>
+            </div>
+
+            <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-slate-200 dark:border-slate-700 shadow-sm flex items-start gap-4">
+              <div class="w-12 h-12 bg-brand-green/10 text-brand-green dark:text-brand-gold rounded-xl flex items-center justify-center text-xl shrink-0"><i class="fa-solid fa-sliders"></i></div>
+              <div>
+                <span class="inline-block px-2.5 py-0.5 bg-brand-gold/20 text-brand-gold text-[11px] font-bold rounded-md mb-1">التشغيل الميداني</span>
+                <h3 class="font-extrabold text-slate-900 dark:text-white text-base">مدير العمليات</h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-2">إدارة الجداول التشغيلية وتنسيق المهام اليومية بين الأقسام الميدانية.</p>
+              </div>
+            </div>
+
+            <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-slate-200 dark:border-slate-700 shadow-sm flex items-start gap-4">
+              <div class="w-12 h-12 bg-brand-green/10 text-brand-green dark:text-brand-gold rounded-xl flex items-center justify-center text-xl shrink-0"><i class="fa-solid fa-users-line"></i></div>
+              <div>
+                <span class="inline-block px-2.5 py-0.5 bg-brand-gold/20 text-brand-gold text-[11px] font-bold rounded-md mb-1">شطر الطلاب والطالبات</span>
+                <h3 class="font-extrabold text-slate-900 dark:text-white text-base">قائد شطر الطلاب / الطالبات</h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-2">قيادة الأنشطة الطلابية والمتابعة المباشرة للطلبة المستفيدين.</p>
+              </div>
+            </div>
+
+            <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-slate-200 dark:border-slate-700 shadow-sm flex items-start gap-4">
+              <div class="w-12 h-12 bg-brand-green/10 text-brand-green dark:text-brand-gold rounded-xl flex items-center justify-center text-xl shrink-0"><i class="fa-solid fa-calendar-check"></i></div>
+              <div>
+                <span class="inline-block px-2.5 py-0.5 bg-brand-gold/20 text-brand-gold text-[11px] font-bold rounded-md mb-1">قسم البرامج والفعاليات</span>
+                <h3 class="font-extrabold text-slate-900 dark:text-white text-base">مشرف قسم البرامج والفعاليات</h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-2">تصميم وتنفيذ الجدول الزمني للورش والمبادرات الاستشارية.</p>
+              </div>
+            </div>
+
+            <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-slate-200 dark:border-slate-700 shadow-sm flex items-start gap-4">
+              <div class="w-12 h-12 bg-brand-green/10 text-brand-green dark:text-brand-gold rounded-xl flex items-center justify-center text-xl shrink-0"><i class="fa-solid fa-lightbulb"></i></div>
+              <div>
+                <span class="inline-block px-2.5 py-0.5 bg-brand-gold/20 text-brand-gold text-[11px] font-bold rounded-md mb-1">قسم الإبداع والمواهب</span>
+                <h3 class="font-extrabold text-slate-900 dark:text-white text-base">مسؤول استقطاب الموهوبين</h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-2">اكتشاف الطاقات الطلابية الواعدة وترشيحها لبرامج التميز والمختبر.</p>
+              </div>
             </div>
           </div>
+        </div>
+      </section>
 
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="bg-slate-900 text-white border-t-4 border-brand-gold">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div>
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 bg-brand-green text-brand-gold rounded-lg flex items-center justify-center text-xl">
+                <i class="fa-solid fa-compass"></i>
+              </div>
+              <span class="font-black text-lg text-brand-gold">مكتب التوجيه السلوكي والمهني</span>
+            </div>
+            <p class="text-xs text-slate-400 leading-relaxed mb-4">
+              مركز متخصص بجامعة الملك عبد العزيز يهدف لتطوير إمكانات الطلاب وتوجيههم أكاديمياً وسلوكياً ومهنياً.
+            </p>
+          </div>
+
+          <div>
+            <h4 class="font-bold text-brand-gold text-base mb-4 flex items-center gap-2">
+              <i class="fa-solid fa-location-dot"></i>
+              <span>مقر المكتب</span>
+            </h4>
+            <ul class="text-xs text-slate-300 space-y-2">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-building text-slate-500"></i> جامعة الملك عبد العزيز - جدة</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-layer-group text-slate-500"></i> الدور الثالث</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-door-closed text-slate-500"></i> مكتب رقم 3610</li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="font-bold text-brand-gold text-base mb-4 flex items-center gap-2">
+              <i class="fa-solid fa-handshake"></i>
+              <span>الشركاء الاستراتيجيون</span>
+            </h4>
+            <ul class="text-xs text-slate-300 space-y-2">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-gold"></i> مركز المبدعون</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-gold"></i> شركة Masters Legacy (Birkman)</li>
+            </ul>
+          </div>
         </div>
 
+        <div class="border-t border-slate-800 mt-10 pt-6 text-center text-xs text-slate-500">
+          جميع الحقوق محفوظة © مكتب التوجيه السلوكي والمهني 2026 | جامعة الملك عبد العزيز
+        </div>
       </div>
-    </section>
+    </footer>
+  </div>
 
-  </main>
 
-  <!-- Footer Section -->
-  <footer class="bg-slate-900 text-white border-t-4 border-brand-gold">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        
-        <!-- Office Info -->
-        <div>
-          <div class="flex items-center gap-3 mb-4">
-            <div class="w-10 h-10 bg-brand-green text-brand-gold rounded-lg flex items-center justify-center text-xl">
-              <i class="fa-solid fa-compass"></i>
-            </div>
-            <span class="font-black text-lg text-brand-gold">مكتب التوجيه السلوكي والمهني</span>
-          </div>
-          <p class="text-xs text-slate-400 leading-relaxed mb-4">
-            مركز متخصص بجامعة الملك عبد العزيز يهدف لتطوير إمكانات الطلاب وتوجيههم أكاديمياً وسلوكياً ومهنياً.
-          </p>
+  <!-- ================= لوحة تحكم الكادر والعمليات (الكود الثاني بالكامل دون حذف) ================= -->
+  <div id="dashboardView" class="hidden flex-grow" style="background-color: var(--bg-color); color: var(--text-color); padding: 2rem; min-height: 100vh;">
+    <div class="dashboard-container">
+      <!-- الشريط العلوي -->
+      <div class="header-bar">
+        <div class="header-title">
+          <h2>لوحة تحكم الكادر والعمليات</h2>
+          <p>مكتب التوجيه السلوكي والمهني</p>
         </div>
-
-        <!-- Location -->
-        <div>
-          <h4 class="font-bold text-brand-gold text-base mb-4 flex items-center gap-2">
-            <i class="fa-solid fa-location-dot"></i>
-            <span>مقر المكتب</span>
-          </h4>
-          <ul class="text-xs text-slate-300 space-y-2">
-            <li class="flex items-center gap-2"><i class="fa-solid fa-building text-slate-500"></i> جامعة الملك عبد العزيز - جدة</li>
-            <li class="flex items-center gap-2"><i class="fa-solid fa-layer-group text-slate-500"></i> الدور الثالث</li>
-            <li class="flex items-center gap-2"><i class="fa-solid fa-door-closed text-slate-500"></i> مكتب رقم 3610</li>
-          </ul>
-        </div>
-
-        <!-- Strategic Partners -->
-        <div>
-          <h4 class="font-bold text-brand-gold text-base mb-4 flex items-center gap-2">
-            <i class="fa-solid fa-handshake"></i>
-            <span>الشركاء الاستراتيجيون</span>
-          </h4>
-          <ul class="text-xs text-slate-300 space-y-2">
-            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-gold"></i> مركز المبدعون</li>
-            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-gold"></i> شركة Masters Legacy (Birkman)</li>
-          </ul>
-        </div>
-
+        <button class="btn-logout" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> خروج</button>
       </div>
 
-      <div class="border-t border-slate-800 mt-10 pt-6 text-center text-xs text-slate-500">
-        جميع الحقوق محفوظة © مكتب التوجيه السلوكي والمهني 2026 | جامعة الملك عبد العزيز
+      <!-- المؤشرات الحيوية -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <h4>طلبات التقديم بالقروب</h4>
+          <div class="num">142</div>
+        </div>
+        <div class="stat-card">
+          <h4>استفسارات بوابة الزوار</h4>
+          <div class="num">38</div>
+        </div>
+        <div class="stat-card">
+          <h4>مستفيدي تقييم بيركمان</h4>
+          <div class="num">89</div>
+        </div>
+        <div class="stat-card">
+          <h4>مشاريع مختبر الابتكار</h4>
+          <div class="num">15</div>
+        </div>
+      </div>
+
+      <!-- إدارة المهام التشغيلية -->
+      <div class="section-card">
+        <h3><i class="fa-solid fa-list-check"></i> إدارة المهام التشغيلية اليومية</h3>
+        <div class="task-input-box">
+          <input type="text" id="newTaskInput" placeholder="أضف مهمة تشغيلية جديدة...">
+          <button class="btn-add" onclick="addNewTask()">إضافة</button>
+        </div>
+        <div id="tasksList">
+          <div class="task-item">
+            <span>مراجعة طلائع المتقدمين لقروب كلية العلوم</span>
+            <span class="task-badge badge-done">مكتمل</span>
+          </div>
+          <div class="task-item">
+            <span>تجديد جدول الجلسات الاستشارية للأسبوع القادم</span>
+            <span class="task-badge badge-pending">قيد التنفيذ</span>
+          </div>
+        </div>
       </div>
     </div>
-  </footer>
+  </div>
+
 
   <!-- Login Modal -->
   <div id="loginModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
@@ -536,166 +544,74 @@
 
       <form onsubmit="handlePortalLogin(event)" class="space-y-4">
         <div>
-          <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">اسم المستخدم / رقم العضوية</label>
-          <div class="relative">
-            <i class="fa-solid fa-user absolute right-3 top-3 text-slate-400 text-sm"></i>
-            <input type="text" id="usernameInput" required placeholder="أدخل رقم العضوية" 
-                   class="w-full pr-10 pl-3 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-900 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-brand-green">
-          </div>
+          <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">اسم المستخدم</label>
+          <input type="text" id="usernameInput" required placeholder="أدخل اسم المستخدم" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none focus:border-brand-gold">
         </div>
-
         <div>
-          <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">كلمة المرور</label>
-          <div class="relative">
-            <i class="fa-solid fa-key absolute right-3 top-3 text-slate-400 text-sm"></i>
-            <input type="password" id="passwordInput" required placeholder="••••••••" 
-                   class="w-full pr-10 pl-3 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-900 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-brand-green">
-          </div>
+          <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">كلمة المرور أو رقم العضوية</label>
+          <input type="password" id="passwordInput" required placeholder="••••••••" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none focus:border-brand-gold">
         </div>
-
         <button type="submit" class="w-full bg-brand-green hover:bg-brand-greenDark text-white py-3 rounded-xl font-bold text-sm shadow transition">
-          تسجيل الدخول
+          تسجيل الدخول للوحة التحكم
         </button>
       </form>
     </div>
   </div>
 
-  <!-- Staff Administrative Dashboard Modal -->
-  <div id="dashboardModal" class="fixed inset-0 bg-slate-950 z-50 hidden flex flex-col overflow-hidden">
-    
-    <!-- Dashboard Navbar -->
-    <div class="bg-slate-900 text-white px-6 py-4 flex items-center justify-between border-b border-slate-800">
-      <div class="flex items-center gap-3">
-        <div class="w-9 h-9 bg-brand-gold text-slate-950 rounded-lg flex items-center justify-center font-bold text-lg">
-          <i class="fa-solid fa-gauge-high"></i>
-        </div>
-        <div>
-          <h3 class="font-extrabold text-sm sm:text-base text-brand-gold">لوحة تحكم الكادر والعمليات</h3>
-          <p class="text-[11px] text-slate-400">مكتب التوجيه السلوكي والمهني</p>
-        </div>
-      </div>
-
-      <div class="flex items-center gap-3">
-        <!-- Dark mode toggle inside dashboard -->
-        <button onclick="toggleDarkMode()" class="p-2 rounded-lg bg-slate-800 text-brand-gold hover:bg-slate-700 text-sm">
-          <i class="fa-solid fa-moon"></i>
-        </button>
-        <button onclick="closeDashboardModal()" class="bg-red-600 hover:bg-red-700 text-white px-3 py-1.5 rounded-lg font-bold text-xs flex items-center gap-1">
-          <i class="fa-solid fa-right-from-bracket"></i>
-          <span>خروج</span>
-        </button>
-      </div>
-    </div>
-
-    <!-- Dashboard Main Area -->
-    <div class="flex-grow p-6 overflow-y-auto bg-slate-900 text-slate-100">
-      <div class="max-w-6xl mx-auto space-y-8">
-        
-        <!-- Metrics Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700">
-            <span class="text-xs text-slate-400">طلبات التقديم بالقروب</span>
-            <div class="text-2xl font-black text-brand-gold mt-1">142</div>
-            <span class="text-[10px] text-emerald-400">↑ 12% هذا الأسبوع</span>
-          </div>
-
-          <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700">
-            <span class="text-xs text-slate-400">استفسارات بوابة الزوار</span>
-            <div class="text-2xl font-black text-brand-gold mt-1">38</div>
-            <span class="text-[10px] text-amber-400">4 استفسارات معلقة</span>
-          </div>
-
-          <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700">
-            <span class="text-xs text-slate-400">مستفيدي تقييم بيركمان</span>
-            <div class="text-2xl font-black text-brand-gold mt-1">89</div>
-            <span class="text-[10px] text-emerald-400">مكتملة الجلسات</span>
-          </div>
-
-          <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700">
-            <span class="text-xs text-slate-400">مشاريع مختبر الابتكار</span>
-            <div class="text-2xl font-black text-brand-gold mt-1">15</div>
-            <span class="text-[10px] text-slate-400">نشطة في مرحلة TRL</span>
-          </div>
-        </div>
-
-        <!-- Task Management Interactive Widget -->
-        <div class="bg-slate-800 rounded-2xl p-6 border border-slate-700">
-          <h4 class="text-base font-bold text-brand-gold mb-4 flex items-center gap-2">
-            <i class="fa-solid fa-list-check"></i>
-            <span>إدارة المهام التشغيلية اليومية</span>
-          </h4>
-
-          <!-- Task Add Input -->
-          <div class="flex gap-2 mb-4">
-            <input type="text" id="newTaskInput" placeholder="أضف مهمة تشغيلية جديدة..." 
-                   class="flex-grow bg-slate-900 border border-slate-700 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-brand-gold">
-            <button onclick="addTask()" class="bg-brand-gold text-slate-950 font-bold px-4 py-2 rounded-xl text-sm hover:bg-brand-goldHover">
-              إضافة
-            </button>
-          </div>
-
-          <!-- Tasks List -->
-          <div id="tasksList" class="space-y-2">
-            <div class="flex items-center justify-between bg-slate-900/60 p-3 rounded-xl border border-slate-700/50">
-              <span class="text-xs text-slate-200">مراجعة طلائع المتقدمين لقروب كلية العلوم</span>
-              <span class="text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded font-bold">مكتمل</span>
-            </div>
-            <div class="flex items-center justify-between bg-slate-900/60 p-3 rounded-xl border border-slate-700/50">
-              <span class="text-xs text-slate-200">تجديد جدول الجلسات الاستشارية للأسبوع القادم</span>
-              <span class="text-[10px] bg-amber-500/20 text-amber-400 px-2 py-0.5 rounded font-bold">قيد التنفيذ</span>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
 
   <!-- JavaScript Logic -->
   <script>
-    // Mobile Drawer Toggle
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwLKK_ocd7fX7xCNgZl-Q_Feqi3h042DfII0nqzu_NfBw0-o61BcLzxnakHnEIY-QjEJA/exec";
+
     function toggleMobileMenu() {
       const menu = document.getElementById('mobileMenu');
       menu.classList.toggle('hidden');
     }
 
-    // Login Modal Handlers
     function toggleLoginModal() {
       const modal = document.getElementById('loginModal');
       modal.classList.toggle('hidden');
     }
 
-    function handlePortalLogin(e) {
-      e.preventDefault();
-      toggleLoginModal();
-      document.getElementById('dashboardModal').classList.remove('hidden');
+    function handlePortalLogin(event) {
+      event.preventDefault();
+      const user = document.getElementById('usernameInput').value;
+      if(user) {
+        localStorage.setItem('isLoggedIn', 'true');
+        toggleLoginModal();
+        checkLoginState();
+      }
     }
 
-    function closeDashboardModal() {
-      document.getElementById('dashboardModal').classList.add('hidden');
+    function logout() {
+      localStorage.removeItem('isLoggedIn');
+      window.location.reload();
     }
 
-    // Dark Mode Toggle
-    function toggleDarkMode() {
-      document.documentElement.classList.toggle('dark');
+    function checkLoginState() {
+      if(localStorage.getItem('isLoggedIn') === 'true') {
+        document.getElementById('websiteView').classList.add('hidden');
+        document.getElementById('dashboardView').classList.remove('hidden');
+      }
     }
 
-    // Interactive Task Addition in Dashboard
-    function addTask() {
+    function addNewTask() {
       const input = document.getElementById('newTaskInput');
-      const val = input.value.trim();
-      if(!val) return;
-
+      if(!input.value.trim()) return;
+      
       const list = document.getElementById('tasksList');
-      const div = document.createElement('div');
-      div.className = "flex items-center justify-between bg-slate-900/60 p-3 rounded-xl border border-slate-700/50";
-      div.innerHTML = `
-        <span class="text-xs text-slate-200">${val}</span>
-        <span class="text-[10px] bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded font-bold">جديد</span>
-      `;
-      list.prepend(div);
+      const item = document.createElement('div');
+      item.className = 'task-item';
+      item.innerHTML = `<span>${input.value}</span><span class="task-badge badge-pending">قيد التنفيذ</span>`;
+      list.prepend(item);
       input.value = '';
     }
+
+    // التحقق عند تحميل الصفحة
+    window.onload = function() {
+      checkLoginState();
+    };
   </script>
+
 </body>
 </html>
