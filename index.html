@@ -5,8 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>نظام إدارة المكتب الإلكتروني المتقدم</title>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
-  <!-- مكتبة طباعة وتصدير PDF -->
+  <!-- مكتبات التصدير (PDF & Excel) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
   <style>
     :root {
       --primary-color: #1b4332;
@@ -135,7 +136,7 @@
     .dashboard-container { 
       display: none; 
       width: 100%; 
-      max-width: 1100px; 
+      max-width: 1150px; 
       margin: 2rem auto; 
       padding: 0 1rem; 
     }
@@ -307,104 +308,41 @@
       font-weight: 600; 
       display: inline-block; 
     }
-    .badge-success { 
-      background-color: #d4edda; 
-      color: #155724; 
-    }
-    .badge-warning { 
-      background-color: #fff3cd; 
-      color: #856404; 
-    }
-    .badge-danger { 
-      background-color: #f8d7da; 
-      color: #721c24; 
-    }
+    .badge-success { background-color: #d4edda; color: #155724; }
+    .badge-warning { background-color: #fff3cd; color: #856404; }
+    .badge-danger { background-color: #f8d7da; color: #721c24; }
     
-    .loader { 
-      text-align: center; 
-      padding: 2rem; 
-      color: var(--text-muted); 
-    }
+    .loader { text-align: center; padding: 2rem; color: var(--text-muted); }
     .modal { 
       display: none; 
       position: fixed; 
-      top: 0; 
-      left: 0; 
-      width: 100%; 
-      height: 100%; 
+      top: 0; left: 0; width: 100%; height: 100%; 
       background: rgba(0,0,0,0.5); 
-      justify-content: center; 
-      align-items: center; 
+      justify-content: center; align-items: center; 
       z-index: 1000; 
     }
     .modal-content { 
       background: var(--card-bg); 
-      padding: 2rem; 
-      border-radius: 10px; 
-      width: 90%; 
-      max-width: 500px; 
-      max-height: 85vh; 
-      overflow-y: auto; 
-    }
-    .admin-banner { 
-      background: #d4edda; 
-      color: #155724; 
-      padding: 1rem; 
-      border-radius: 8px; 
-      margin-bottom: 1.5rem; 
-      font-weight: bold; 
-      display: none; 
-      border: 1px solid #c3e6cb; 
+      padding: 2rem; border-radius: 10px; 
+      width: 90%; max-width: 500px; max-height: 85vh; overflow-y: auto; 
     }
     
     .progress-bar-container { 
-      background: var(--border-color); 
-      border-radius: 50px; 
-      height: 12px; 
-      width: 100%; 
-      overflow: hidden; 
-      margin-top: 8px; 
+      background: var(--border-color); border-radius: 50px; height: 12px; width: 100%; overflow: hidden; margin-top: 8px; 
     }
-    .progress-bar-fill { 
-      background: var(--success-color); 
-      height: 100%; 
-      width: 0%; 
-      transition: width 0.5s ease; 
-    }
+    .progress-bar-fill { background: var(--success-color); height: 100%; width: 0%; transition: width 0.5s ease; }
 
-    .filter-pills { 
-      display: flex; 
-      gap: 0.5rem; 
-      margin-bottom: 1rem; 
-      flex-wrap: wrap; 
-    }
+    .filter-pills { display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
     .pill-btn { 
-      background: var(--table-header-bg); 
-      border: none; 
-      padding: 0.4rem 0.9rem; 
-      border-radius: 20px; 
-      font-size: 0.85rem; 
-      cursor: pointer; 
-      color: var(--text-color); 
-      font-weight: 600; 
+      background: var(--table-header-bg); border: none; padding: 0.4rem 0.9rem; 
+      border-radius: 20px; font-size: 0.85rem; cursor: pointer; color: var(--text-color); font-weight: 600; 
     }
-    .pill-btn.active { 
-      background: var(--primary-color); 
-      color: white; 
-    }
+    .pill-btn.active { background: var(--primary-color); color: white; }
 
-    .search-box-wrapper { 
-      margin-bottom: 1rem; 
-    }
+    .search-box-wrapper { margin-bottom: 1rem; }
     .search-box-wrapper input { 
-      width: 100%; 
-      padding: 0.6rem 1rem; 
-      border: 1px solid var(--border-color); 
-      border-radius: 6px; 
-      font-size: 0.95rem; 
-      background: var(--card-bg); 
-      color: var(--text-color); 
-      outline: none; 
+      width: 100%; padding: 0.6rem 1rem; border: 1px solid var(--border-color); 
+      border-radius: 6px; font-size: 0.95rem; background: var(--card-bg); color: var(--text-color); outline: none; 
     }
   </style>
 </head>
@@ -438,20 +376,19 @@
       </div>
     </header>
 
-    <div class="admin-banner" id="adminBanner">👑 مرحباً بك بكامل الصلاحيات السيادية والإدارة المطلقة (COO - مهند مجرشي).</div>
-
     <!-- التبويبات الرئيسية -->
     <div class="nav-tabs">
       <button class="tab-btn active" onclick="switchTab('personalDashboardTab', this)">👤 لوحتي الشخصية</button>
       <button class="tab-btn" id="teamTabBtn" style="display:none;" onclick="switchTab('teamManagementTab', this)">👥 إدارة أعضاء الفريق</button>
       <button class="tab-btn" onclick="switchTab('sopsTab', this)">أدلة العمل (SOPs)</button>
       <button class="tab-btn" onclick="switchTab('evaluationsTab', this)">سجل التقييمات</button>
+      <button class="tab-btn" onclick="switchTab('calendarTab', this)">📅 تقويم المهام</button>
       <button class="tab-btn" onclick="switchTab('requestTabContent', this)">إرسال طلب / متابعة</button>
       <button class="tab-btn" onclick="switchTab('supportTabContent', this)">🛠️ الدعم الفني (Support)</button>
       <button class="tab-btn" onclick="switchTab('analyticsTab', this)">📊 التحليلات البيانية</button>
     </div>
 
-    <!-- 1. التبويب الأول: اللوحة الشخصية -->
+    <!-- 1. اللوحة الشخصية -->
     <div class="tab-content active" id="personalDashboardTab">
       <div class="stats-grid">
         <div class="stat-card"><span>إجمالي المهام المسندة</span><p id="statTotalTasks">0</p></div>
@@ -477,7 +414,10 @@
       <div style="background: var(--card-bg); padding: 1.5rem; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 1.5rem;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;">
           <h3 style="color: var(--primary-color);">قائمة المهام الشخصية</h3>
-          <button class="btn" style="width: auto; padding: 0.4rem 1rem; font-size: 0.85rem;" onclick="exportToPDF('tasksTableContainer', 'تقرير_المهام.pdf')">📥 تصدير PDF</button>
+          <div style="display:flex; gap:0.5rem;">
+            <button class="btn" style="width: auto; padding: 0.4rem 1rem; font-size: 0.85rem;" onclick="exportToExcel('tasksTable', 'تقرير_المهام.xlsx')">📥 تصدير Excel</button>
+            <button class="btn" style="width: auto; padding: 0.4rem 1rem; font-size: 0.85rem;" onclick="exportToPDF('tasksTableContainer', 'تقرير_المهام.pdf')">📄 تصدير PDF</button>
+          </div>
         </div>
 
         <div class="filter-pills">
@@ -502,64 +442,34 @@
       </div>
     </div>
 
-    <!-- 2. التبويب الثاني: إدارة أعضاء الفريق -->
+    <!-- 2. إدارة أعضاء الفريق -->
     <div class="tab-content" id="teamManagementTab">
       <div id="cooControlPanel">
         <h3 style="color: var(--primary-color); margin-bottom: 1rem;">👥 لوحة إدارة أعضاء الفريق والعمليات</h3>
         
-        <!-- نموذج إسناد مهمة جديدة بالتعبئة التلقائية المباشرة -->
         <div style="background: var(--card-bg); padding: 1.5rem; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 1.5rem; border: 2px dashed var(--primary-color);">
           <h4 style="margin-bottom: 1rem; color: var(--primary-color);">➕ إسناد مهمة جديدة لعضو (تعبئة تلقائية)</h4>
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
-            <div class="form-group" style="margin-bottom:0;">
-              <label>عنوان المهمة</label>
-              <input type="text" id="newTaskName" placeholder="عنوان المهمة...">
-            </div>
+            <div class="form-group" style="margin-bottom:0;"><label>عنوان المهمة</label><input type="text" id="newTaskName" placeholder="عنوان المهمة..."></div>
             <div class="form-group" style="margin-bottom:0;">
               <label>اختر العضو المسند إليه</label>
-              <select id="newTaskAssigneeSelect" onchange="autoFillMemberDetails()">
-                <option value="">جاري تحميل الأعضاء...</option>
-              </select>
+              <select id="newTaskAssigneeSelect" onchange="autoFillMemberDetails()"><option value="">جاري تحميل الأعضاء...</option></select>
             </div>
-            <div class="form-group" style="margin-bottom:0;">
-              <label>رقم العضوية (ID)</label>
-              <input type="text" id="newTaskMemberId" readonly placeholder="يظهر تلقائياً...">
-            </div>
-            <div class="form-group" style="margin-bottom:0;">
-              <label>القسم</label>
-              <input type="text" id="newTaskDepartment" readonly placeholder="يظهر تلقائياً...">
-            </div>
-            <div class="form-group" style="margin-bottom:0;">
-              <label>تاريخ الاستحقاق</label>
-              <input type="date" id="newTaskDate">
-            </div>
+            <div class="form-group" style="margin-bottom:0;"><label>رقم العضوية (ID)</label><input type="text" id="newTaskMemberId" readonly placeholder="يظهر تلقائياً..."></div>
+            <div class="form-group" style="margin-bottom:0;"><label>القسم</label><input type="text" id="newTaskDepartment" readonly placeholder="يظهر تلقائياً..."></div>
+            <div class="form-group" style="margin-bottom:0;"><label>تاريخ الاستحقاق</label><input type="date" id="newTaskDate"></div>
           </div>
-          <div class="form-group" style="margin-bottom:1rem;">
-            <label>تفاصيل إضافية عن المهمة</label>
-            <input type="text" id="newTaskDetails" placeholder="تفاصيل إضافية عن المهمة...">
-          </div>
-          <button class="btn" onclick="addNewTaskWithAutoFill()" id="submitTaskBtn">إرسال وإسناد المهمة</button>
+          <div class="form-group" style="margin-bottom:1rem;"><label>تفاصيل إضافية عن المهمة</label><input type="text" id="newTaskDetails" placeholder="تفاصيل إضافية..."></div>
+          <button class="btn" onclick="addNewTaskWithAutoFill()">إرسال وإسناد المهمة</button>
         </div>
 
         <div style="background: var(--card-bg); padding: 1.5rem; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 1.5rem;">
           <h4 style="margin-bottom: 1rem; color: var(--primary-color);">إدارة أعضاء الفريق (التعديل الفوري)</h4>
-          <div class="search-box-wrapper">
-            <input type="text" id="memberSearchInput" placeholder="🔍 ابحث بالاسم أو المسمى الوظيفي..." oninput="filterMembersTable()">
-          </div>
+          <div class="search-box-wrapper"><input type="text" id="memberSearchInput" placeholder="🔍 ابحث بالاسم أو المسمى..." oninput="filterMembersTable()"></div>
           <div style="overflow-x: auto;">
             <table class="data-table">
-              <thead>
-                <tr>
-                  <th>رقم العضوية</th>
-                  <th>الاسم</th>
-                  <th>المسمى الوظيفي</th>
-                  <th>البريد</th>
-                  <th>الحالة الحالية</th>
-                </tr>
-              </thead>
-              <tbody id="membersTableBody">
-                <tr><td colspan="5" style="text-align:center;">جاري تحميل الأعضاء...</td></tr>
-              </tbody>
+              <thead><tr><th>رقم العضوية</th><th>الاسم</th><th>المسمى الوظيفي</th><th>البريد</th><th>الحالة الحالية</th></tr></thead>
+              <tbody id="membersTableBody"><tr><td colspan="5" style="text-align:center;">جاري تحميل الأعضاء...</td></tr></tbody>
             </table>
           </div>
         </div>
@@ -568,43 +478,21 @@
           <h4 style="margin-bottom: 1rem; color: var(--primary-color);">طلبات الأعضاء الواردة</h4>
           <div style="overflow-x: auto;">
             <table class="data-table">
-              <thead>
-                <tr>
-                  <th>رقم الطلب</th>
-                  <th>العضو</th>
-                  <th>نوع الطلب</th>
-                  <th>التفاصيل</th>
-                  <th>الإجراء والقرار</th>
-                </tr>
-              </thead>
-              <tbody id="requestsTableBody">
-                <tr><td colspan="5" style="text-align:center;">جاري تحميل الطلبات...</td></tr>
-              </tbody>
+              <thead><tr><th>رقم الطلب</th><th>العضو</th><th>نوع الطلب</th><th>التفاصيل</th><th>الإجراء والقرار</th></tr></thead>
+              <tbody id="requestsTableBody"><tr><td colspan="5" style="text-align:center;">جاري تحميل الطلبات...</td></tr></tbody>
             </table>
           </div>
         </div>
 
-        <!-- لوحة إدارة بلاغات الدعم الفني الواردة للإدارة -->
         <div style="background: var(--card-bg); padding: 1.5rem; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
           <h4 style="margin-bottom: 1rem; color: var(--primary-color);">🛠 بلاغات الدعم الفني (Support) الواردة</h4>
           <div style="overflow-x: auto;">
             <table class="data-table">
-              <thead>
-                <tr>
-                  <th>رقم البلاغ</th>
-                  <th>العضو</th>
-                  <th>المشكلة</th>
-                  <th>الرد / الحل</th>
-                  <th>الحالة والإجراء</th>
-                </tr>
-              </thead>
-              <tbody id="adminSupportTableBody">
-                <tr><td colspan="5" style="text-align:center;">جاري تحميل البلاغات...</td></tr>
-              </tbody>
+              <thead><tr><th>رقم البلاغ</th><th>العضو</th><th>المشكلة</th><th>الرد / الحل</th><th>الحالة والإجراء</th></tr></thead>
+              <tbody id="adminSupportTableBody"><tr><td colspan="5" style="text-align:center;">جاري تحميل البلاغات...</td></tr></tbody>
             </table>
           </div>
         </div>
-
       </div>
     </div>
 
@@ -626,7 +514,16 @@
       </table>
     </div>
 
-    <!-- إرسال طلب / ومتابعة حالة الردود -->
+    <!-- تقويم المهام -->
+    <div class="tab-content" id="calendarTab">
+      <div style="background:var(--card-bg); padding:2rem; border-radius:10px;">
+        <h3 style="color:var(--primary-color); margin-bottom:1rem;">📅 تقويم المواعيد النهائية للمهام</h3>
+        <p style="color:var(--text-muted); margin-bottom:1.5rem;">استعراض زمني للمهام المرتبطة بجداولك الزمنية.</p>
+        <div id="calendarTasksList">جاري تحميل التقويم...</div>
+      </div>
+    </div>
+
+    <!-- إرسال طلب -->
     <div class="tab-content" id="requestTabContent">
       <div style="background:var(--card-bg); padding:2rem; border-radius:10px; max-width:700px; margin:0 auto; margin-bottom: 1.5rem;">
         <h3 style="color:var(--primary-color); margin-bottom:1rem;">إرسال طلب رسمي للإدارة</h3>
@@ -639,10 +536,7 @@
             <option value="أخرى">أخرى</option>
           </select>
         </div>
-        <div class="form-group">
-          <label>تفاصيل الطلب</label>
-          <textarea id="reqDetails" rows="4" placeholder="اكتب تفاصيل طلبك هنا..."></textarea>
-        </div>
+        <div class="form-group"><label>تفاصيل الطلب</label><textarea id="reqDetails" rows="4" placeholder="اكتب تفاصيل طلبك هنا..."></textarea></div>
         <button class="btn" onclick="submitUserRequest()">إرسال الطلب</button>
       </div>
 
@@ -653,14 +547,11 @@
       </div>
     </div>
 
-    <!-- تبويب الدعم الفني (Support) للأعضاء والإدارة -->
+    <!-- الدعم الفني -->
     <div class="tab-content" id="supportTabContent">
       <div style="background:var(--card-bg); padding:2rem; border-radius:10px; max-width:700px; margin:0 auto; margin-bottom: 1.5rem;">
         <h3 style="color:var(--primary-color); margin-bottom:1rem;">🛠️ إرسال بلاغ دعم فني أو مشكلة</h3>
-        <div class="form-group">
-          <label>وصف المشكلة الفنية أو الملاحظة</label>
-          <textarea id="supportText" rows="4" placeholder="اشرح المشكلة التقنية بالتفصيل ليتم حلها وتسجيلها..."></textarea>
-        </div>
+        <div class="form-group"><label>وصف المشكلة الفنية أو الملاحظة</label><textarea id="supportText" rows="4" placeholder="اشرح المشكلة التقنية بالتفصيل..."></textarea></div>
         <button class="btn" onclick="submitSupportTicket()">إرسال البلاغ</button>
       </div>
 
@@ -683,18 +574,15 @@
 
   </div>
 
-  <!-- نافذة التنبيهات الحية -->
+  <!-- نوافذ تفاعلية -->
   <div class="modal" id="notifModal">
     <div class="modal-content">
       <h3 style="color:var(--primary-color); margin-bottom:1rem;">🔔 سجل التنبيهات الحية</h3>
-      <div id="notifListBody" style="font-size: 0.9rem; line-height: 1.6;">
-        لا توجد تنبيهات جديدة في الوقت الحالي.
-      </div>
+      <div id="notifListBody" style="font-size: 0.9rem; line-height: 1.6;">لا توجد تنبيهات جديدة في الوقت الحالي.</div>
       <button class="btn" onclick="closeNotifModal()" style="margin-top:1.5rem; background:#6c757d;">إغلاق</button>
     </div>
   </div>
 
-  <!-- نافذة تغيير كلمة المرور -->
   <div class="modal" id="passModal">
     <div class="modal-content">
       <h3 style="margin-bottom:1rem; color:var(--primary-color);">تغيير كلمة المرور</h3>
@@ -712,12 +600,21 @@
     let globalTasksCache = [];
     let globalMembersCache = [];
     let currentStatusFilter = 'all';
+    let idleTimer = null;
 
-    if (localStorage.getItem('darkMode') === 'true') {
-      document.body.classList.add('dark-mode');
+    // نظام الخمول (15 دقيقة خمول تسجل الخروج تلقائياً)
+    function resetIdleTimer() {
+      clearTimeout(idleTimer);
+      if(currentUser) {
+        idleTimer = setTimeout(() => {
+          alert("تم تسجيل الخروج تلقائياً بسبب الخمول حفاظاً على الأمان.");
+          handleLogout();
+        }, 15 * 60 * 1000);
+      }
     }
-
     window.onload = function() {
+      window.onmousemove = resetIdleTimer;
+      window.onkeypress = resetIdleTimer;
       updateDarkModeButtonText();
 
       const savedUser = localStorage.getItem('currentUser');
@@ -725,17 +622,16 @@
         try {
           currentUser = JSON.parse(savedUser);
           renderDashboard();
-          
           const savedTab = localStorage.getItem('activeTab');
           if(savedTab) {
             const btn = document.querySelector(`.nav-tabs button[onclick*="${savedTab}"]`);
             if(btn) switchTab(savedTab, btn, false);
           }
-        } catch (e) {
-          localStorage.removeItem('currentUser');
-        }
+        } catch (e) { localStorage.removeItem('currentUser'); }
       }
     };
+
+    if (localStorage.getItem('darkMode') === 'true') { document.body.classList.add('dark-mode'); }
 
     function showToast(message) {
       const container = document.getElementById('toastContainer');
@@ -769,33 +665,8 @@
       if (!user) return false;
       const mId = String(user['Member ID'] || user['رقم العضوية'] || '').trim().toUpperCase();
       const mName = String(user['Full Name'] || user['الاسم'] || '').trim();
-      if (mId === 'COO' || mName.includes('مهند مجرشي')) {
-        return true;
-      }
-      return false;
+      return (mId === 'COO' || mName.includes('مهند مجرشي'));
     }
-
-    function checkAccountStatusSecurity() {
-      if (!currentUser) return;
-      if (checkIsSuperAdmin(currentUser)) return;
-
-      fetchJSONP(`${API_URL}?action=getData&sheet=Members`, res => {
-        if (res.status === "success" && res.data) {
-          const currentId = currentUser['Member ID'] || currentUser['رقم العضوية'];
-          const updatedUserRecord = res.data.find(m => String(m['Member ID'] || m['رقم العضوية']) === String(currentId));
-          
-          if (updatedUserRecord) {
-            const statusVal = removeTashkeel(updatedUserRecord['Status'] || updatedUserRecord['الحالة'] || '');
-            if (statusVal.includes('جمد') || statusVal.includes('frozen') || statusVal.includes('معلق')) {
-              alert("تم تجميد حسابك من قبل الإدارة. سيتم تسجيل الخروج الآن.");
-              handleLogout();
-            }
-          }
-        }
-      });
-    }
-
-    setInterval(checkAccountStatusSecurity, 30000);
 
     function manualRefreshData() {
       showToast("🔄 تم تحديث البيانات بنجاح");
@@ -815,11 +686,9 @@
         if(res.status === "success") {
           currentUser = res.user;
           const statusClean = removeTashkeel(currentUser['Status'] || currentUser['الحالة'] || '');
-          
           if(!checkIsSuperAdmin(currentUser) && (statusClean.includes('جمد') || statusClean.includes('frozen') || statusClean.includes('معلق'))) {
             err.innerText = "عفواً، الحساب مجمد."; err.style.display="block"; return;
           }
-          
           localStorage.setItem('currentUser', JSON.stringify(currentUser));
           showToast("✨ أهلاً بك، تم تسجيل الدخول بنجاح!");
           renderDashboard();
@@ -840,12 +709,11 @@
       document.getElementById('jobDescText').innerText = currentUser['Job Description'] || currentUser['الوصف الوظيفي'] || '-';
 
       if(checkIsSuperAdmin(currentUser) || String(currentUser['Role'] || '').toLowerCase() === 'admin') {
-        document.getElementById('adminBanner').style.display = "block";
         document.getElementById('teamTabBtn').style.display = "inline-block";
         loadAdminPanelData();
       }
-
       loadTasks(); loadSOPs(); loadEvaluations(); loadMyRequests(); loadMySupportTickets();
+      resetIdleTimer();
     }
 
     function loadAdminPanelData() {
@@ -857,24 +725,17 @@
         }
       });
       fetchJSONP(`${API_URL}?action=getData&sheet=Requests`, res => {
-        if(res.status === "success" && res.data) {
-          renderRequestsTable(res.data);
-        }
+        if(res.status === "success" && res.data) { renderRequestsTable(res.data); }
       });
       fetchJSONP(`${API_URL}?action=getData&sheet=Support`, res => {
-        if(res.status === "success" && res.data) {
-          renderAdminSupportTable(res.data);
-        }
+        if(res.status === "success" && res.data) { renderAdminSupportTable(res.data); }
       });
     }
 
     function renderMembersTable(members) {
       const tbody = document.getElementById('membersTableBody');
       tbody.innerHTML = "";
-      if(!members || members.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;">لا توجد بيانات أعضاء.</td></tr>`;
-        return;
-      }
+      if(!members || members.length === 0) { tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;">لا توجد بيانات أعضاء.</td></tr>`; return; }
       members.forEach(m => {
         const mId = m['Member ID'] || m['رقم العضوية'];
         const mName = m['Full Name'] || m['الاسم'];
@@ -884,10 +745,7 @@
 
         const tr = document.createElement('tr');
         tr.innerHTML = `
-          <td><b>${mId}</b></td>
-          <td>${mName}</td>
-          <td>${mJob}</td>
-          <td>${mEmail}</td>
+          <td><b>${mId}</b></td><td>${mName}</td><td>${mJob}</td><td>${mEmail}</td>
           <td>
             <select onchange="updateMemberStatus('${mId}', this.value)" style="padding: 0.3rem; border-radius: 4px; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-color);">
               <option value="نشط" ${mStatus.includes('نشط')?'selected':''}>نشط</option>
@@ -912,11 +770,8 @@
 
     function updateMemberStatus(memberId, newStatus) {
       fetchJSONP(`${API_URL}?action=updateMemberStatus&memberId=${encodeURIComponent(memberId)}&status=${encodeURIComponent(newStatus)}`, res => {
-        if(res.status === "success") {
-          showToast(`✅ تم تحديث حالة العضو (${memberId}) إلى: ${newStatus}`);
-        } else {
-          showToast("❌ حدث خطأ أثناء التحديث");
-        }
+        if(res.status === "success") { showToast(`✅ تم تحديث حالة العضو (${memberId}) إلى: ${newStatus}`); }
+        else { showToast("❌ حدث خطأ أثناء التحديث"); }
       });
     }
 
@@ -955,20 +810,9 @@
       const dueDate = document.getElementById('newTaskDate').value;
       const details = document.getElementById('newTaskDetails').value.trim();
 
-      if(!taskName || !assigneeId) {
-        alert("يرجى إدخال عنوان المهمة واختيار العضو المسؤول.");
-        return;
-      }
+      if(!taskName || !assigneeId) { alert("يرجى إدخال عنوان المهمة واختيار العضو المسؤول."); return; }
 
-      const taskData = {
-        title: taskName,
-        assigneeId: assigneeId,
-        assigneeName: assigneeName,
-        department: dept,
-        dueDate: dueDate,
-        details: details,
-        status: "قيد التنفيذ"
-      };
+      const taskData = { title: taskName, assigneeId: assigneeId, assigneeName: assigneeName, department: dept, dueDate: dueDate, details: details, status: "قيد التنفيذ" };
 
       fetchJSONP(`${API_URL}?action=addTask&data=${encodeURIComponent(JSON.stringify(taskData))}`, res => {
         if(res.status === "success") {
@@ -977,9 +821,7 @@
           document.getElementById('newTaskDetails').value = "";
           document.getElementById('newTaskDate').value = "";
           loadTasks();
-        } else {
-          showToast("❌ خطأ أثناء إسناد المهمة");
-        }
+        } else { showToast("❌ خطأ أثناء إسناد المهمة"); }
       });
     }
 
@@ -993,14 +835,10 @@
           const currentId = currentUser['Member ID'] || currentUser['رقم العضوية'];
           const isSuper = checkIsSuperAdmin(currentUser) || String(currentUser['Role'] || '').toLowerCase() === 'admin';
           
-          if(isSuper) {
-            globalTasksCache = res.data;
-          } else {
-            globalTasksCache = res.data.filter(t => String(t['Member ID'] || t['رقم العضوية'] || '').trim() === String(currentId).trim());
-          }
-
+          globalTasksCache = isSuper ? res.data : res.data.filter(t => String(t['Member ID'] || t['رقم العضوية'] || '').trim() === String(currentId).trim());
           renderTasksTable(globalTasksCache);
           updatePersonalStats(globalTasksCache);
+          renderCalendarView(globalTasksCache);
         }
       });
     }
@@ -1027,16 +865,31 @@
         else if(statusClean.includes('متأخر') || statusClean.includes('delayed')) badgeClass = "badge-danger";
 
         const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td><b>${tId}</b></td>
-          <td>${tTitle}</td>
-          <td><span class="badge ${badgeClass}">${tStatus}</span></td>
-          <td>${tDetails}</td>
-          <td>${tDate}</td>
-        `;
+        tr.innerHTML = `<td><b>${tId}</b></td><td>${tTitle}</td><td><span class="badge ${badgeClass}">${tStatus}</span></td><td>${tDetails}</td><td>${tDate}</td>`;
         tbody.appendChild(tr);
       });
       document.getElementById('tasksTable').style.display = "table";
+    }
+
+    function renderCalendarView(tasks) {
+      const container = document.getElementById('calendarTasksList');
+      container.innerHTML = "";
+      if(!tasks || tasks.length === 0) {
+        container.innerHTML = `<p style="color:var(--text-muted);">لا توجد مهام مسجلة في التقويم.</p>`;
+        return;
+      }
+      tasks.forEach(t => {
+        const div = document.createElement('div');
+        div.style.cssText = "background:var(--profile-item-bg); padding:1rem; border-radius:8px; margin-bottom:0.8rem; border-right:4px solid var(--primary-color);";
+        div.innerHTML = `
+          <div style="display:flex; justify-content:space-between; margin-bottom:0.4rem;">
+            <b>${t['Title'] || t['العنوان']}</b>
+            <span class="badge badge-success">${t['Due Date'] || t['التاريخ'] || 'بدون تاريخ'}</span>
+          </div>
+          <p style="font-size:0.9rem;">${t['Details'] || t['التفاصيل'] || ''}</p>
+        `;
+        container.appendChild(div);
+      });
     }
 
     function updatePersonalStats(tasks) {
@@ -1053,26 +906,20 @@
 
     function filterTasks(statusFilter, btnElement) {
       currentStatusFilter = statusFilter;
-      const pills = document.querySelectorAll('.filter-pills .pill-btn');
-      pills.forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.filter-pills .pill-btn').forEach(p => p.classList.remove('active'));
       if(btnElement) btnElement.classList.add('active');
-
       applyTasksFilterAndSearch();
     }
 
     function applyTasksFilterAndSearch() {
       const searchQuery = document.getElementById('taskSearchInput').value.toLowerCase();
-      
       let filtered = globalTasksCache.filter(t => {
         const title = String(t['Title'] || t['العنوان'] || '').toLowerCase();
         const details = String(t['Details'] || t['التفاصيل'] || '').toLowerCase();
         const status = removeTashkeel(t['Status'] || t['الحالة'] || '');
         const dueDateStr = String(t['Due Date'] || t['التاريخ'] || '');
-
-        // البحث الفوري
         const matchesSearch = title.includes(searchQuery) || details.includes(searchQuery);
 
-        // الفلترة
         if(currentStatusFilter === 'all') return matchesSearch;
         if(currentStatusFilter === 'قيد التنفيذ') return matchesSearch && status.includes('قيد التنفيذ');
         if(currentStatusFilter === 'مكتملة') return matchesSearch && (status.includes('مكتمل') || status.includes('completed'));
@@ -1086,7 +933,6 @@
         }
         return matchesSearch;
       });
-
       renderTasksTable(filtered);
     }
 
@@ -1099,13 +945,7 @@
           tbody.innerHTML = "";
           res.data.forEach(s => {
             const tr = document.createElement('tr');
-            tr.innerHTML = `
-              <td><b>${s['SOP ID'] || s['رمز الدليل'] || '-'}</b></td>
-              <td>${s['Title'] || s['العنوان'] || '-'}</td>
-              <td>${s['Department'] || s['القسم'] || '-'}</td>
-              <td>${s['Description'] || s['الوصف'] || '-'}</td>
-              <td><a href="${s['Link'] || s['الرابط'] || '#'}" target="_blank">رابط الدليل</a></td>
-            `;
+            tr.innerHTML = `<td><b>${s['SOP ID'] || s['رمز الدليل'] || '-'}</b></td><td>${s['Title'] || s['العنوان'] || '-'}</td><td>${s['Department'] || s['القسم'] || '-'}</td><td>${s['Description'] || s['الوصف'] || '-'}</td><td><a href="${s['Link'] || s['الرابط'] || '#'}" target="_blank">رابط الدليل</a></td>`;
             tbody.appendChild(tr);
           });
           document.getElementById('sopsTable').style.display = "table";
@@ -1120,24 +960,16 @@
         if(res.status === "success" && res.data) {
           const currentId = currentUser['Member ID'] || currentUser['رقم العضوية'];
           const isSuper = checkIsSuperAdmin(currentUser) || String(currentUser['Role'] || '').toLowerCase() === 'admin';
-          
           const myEvals = isSuper ? res.data : res.data.filter(e => String(e['Member ID'] || e['رقم العضوية'] || '').trim() === String(currentId).trim());
           
-          const tbody = document.getElementById('evalsBody');
-          tbody.innerHTML = "";
           if(myEvals.length > 0) {
             document.getElementById('statLastEval').innerText = myEvals[myEvals.length - 1]['Quality Score'] || myEvals[myEvals.length - 1]['درجة الجودة'] || 'ممتاز';
           }
-
+          const tbody = document.getElementById('evalsBody');
+          tbody.innerHTML = "";
           myEvals.forEach(e => {
             const tr = document.createElement('tr');
-            tr.innerHTML = `
-              <td><b>${e['Evaluation ID'] || e['رمز التقييم'] || '-'}</b></td>
-              <td>${e['Quality Score'] || e['درجة الجودة'] || '-'}</td>
-              <td>${e['Discipline'] || e['الانضباط'] || '-'}</td>
-              <td>${e['Notes'] || e['ملاحظات'] || '-'}</td>
-              <td>${e['Date'] || e['التاريخ'] || '-'}</td>
-            `;
+            tr.innerHTML = `<td><b>${e['Evaluation ID'] || e['رمز التقييم'] || '-'}</b></td><td>${e['Quality Score'] || e['درجة الجودة'] || '-'}</td><td>${e['Discipline'] || e['الانضباط'] || '-'}</td><td>${e['Notes'] || e['ملاحظات'] || '-'}</td><td>${e['Date'] || e['التاريخ'] || '-'}</td>`;
             tbody.appendChild(tr);
           });
           document.getElementById('evalsTable').style.display = "table";
@@ -1150,49 +982,31 @@
       const details = document.getElementById('reqDetails').value.trim();
       if(!details) { alert("يرجى كتابة تفاصيل الطلب."); return; }
 
-      const payload = {
-        memberId: currentUser['Member ID'] || currentUser['رقم العضوية'],
-        memberName: currentUser['Full Name'] || currentUser['الاسم'],
-        type: type,
-        details: details,
-        status: "قيد المراجعة"
-      };
-
+      const payload = { memberId: currentUser['Member ID'] || currentUser['رقم العضوية'], memberName: currentUser['Full Name'] || currentUser['الاسم'], type: type, details: details, status: "قيد المراجعة" };
       fetchJSONP(`${API_URL}?action=addRequest&data=${encodeURIComponent(JSON.stringify(payload))}`, res => {
         if(res.status === "success") {
           showToast("📤 تم إرسال طلبك بنجاح للإدارة!");
           document.getElementById('reqDetails').value = "";
           loadMyRequests();
-        } else {
-          showToast("❌ حدث خطأ أثناء إرسال الطلب");
-        }
+        } else { showToast("❌ حدث خطأ أثناء إرسال الطلب"); }
       });
     }
 
     function loadMyRequests() {
       const container = document.getElementById('myRequestsContainer');
       document.getElementById('myRequestsLoader').style.display = "block";
-      
       fetchJSONP(`${API_URL}?action=getData&sheet=Requests`, res => {
         document.getElementById('myRequestsLoader').style.display = "none";
         if(res.status === "success" && res.data) {
           const currentId = currentUser['Member ID'] || currentUser['رقم العضوية'];
           const myReqs = res.data.filter(r => String(r['Member ID'] || r['رقم العضوية'] || '').trim() === String(currentId).trim());
-          
           container.innerHTML = "";
-          if(myReqs.length === 0) {
-            container.innerHTML = `<p style="color:var(--text-muted); text-align:center;">لا توجد طلبات سابقة.</p>`;
-            return;
-          }
-
+          if(myReqs.length === 0) { container.innerHTML = `<p style="color:var(--text-muted); text-align:center;">لا توجد طلبات سابقة.</p>`; return; }
           myReqs.forEach(r => {
             const div = document.createElement('div');
             div.style.cssText = "background:var(--profile-item-bg); padding:1rem; border-radius:8px; margin-bottom:0.8rem; border-right:4px solid var(--primary-color);";
             div.innerHTML = `
-              <div style="display:flex; justify-content:space-between; margin-bottom:0.4rem;">
-                <b>${r['Type'] || r['نوع الطلب']}</b>
-                <span class="badge badge-warning">${r['Status'] || r['الحالة'] || 'قيد المراجعة'}</span>
-              </div>
+              <div style="display:flex; justify-content:space-between; margin-bottom:0.4rem;"><b>${r['Type'] || r['نوع الطلب']}</b><span class="badge badge-warning">${r['Status'] || r['الحالة']}</span></div>
               <p style="font-size:0.9rem; margin-bottom:0.4rem;">${r['Details'] || r['التفاصيل']}</p>
               <p style="font-size:0.8rem; color:var(--success-color);"><b>رد الإدارة:</b> ${r['Admin Response'] || r['رد الإدارة'] || 'قريباً...'}</p>
             `;
@@ -1205,33 +1019,20 @@
     function renderRequestsTable(requests) {
       const tbody = document.getElementById('requestsTableBody');
       tbody.innerHTML = "";
-      if(!requests || requests.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;">لا توجد طلبات أعضاء واردة.</td></tr>`;
-        return;
-      }
-
+      if(!requests || requests.length === 0) { tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;">لا توجد طلبات أعضاء واردة.</td></tr>`; return; }
       requests.forEach(r => {
         const rId = r['Request ID'] || r['رقم الطلب'] || '-';
-        const rName = r['Member Name'] || r['اسم العضو'] || '-';
-        const rType = r['Type'] || r['نوع الطلب'] || '-';
-        const rDetails = r['Details'] || r['التفاصيل'] || '-';
-        const rStatus = r['Status'] || r['الحالة'] || 'قيد المراجعة';
-        const rAdminResponse = r['Admin Response'] || r['رد الإدارة'] || '';
-
         const tr = document.createElement('tr');
         tr.innerHTML = `
-          <td><b>${rId}</b></td>
-          <td>${rName}</td>
-          <td>${rType}</td>
-          <td>${rDetails}</td>
+          <td><b>${rId}</b></td><td>${r['Member Name'] || '-'}</td><td>${r['Type'] || '-'}</td><td>${r['Details'] || '-'}</td>
           <td>
-            <input type="text" id="resp_${rId}" value="${rAdminResponse}" placeholder="اكتب الرد هنا..." style="padding:0.3rem; width:120px; font-size:0.85rem; margin-bottom:4px; display:block;">
+            <input type="text" id="resp_${rId}" value="${r['Admin Response'] || ''}" placeholder="اكتب الرد..." style="padding:0.3rem; width:120px; font-size:0.85rem; margin-bottom:4px; display:block;">
             <select id="stat_${rId}" style="padding:0.3rem; font-size:0.85rem; margin-bottom:4px; display:block;">
-              <option value="مقبول" ${rStatus.includes('مقبول')?'selected':''}>مقبول</option>
-              <option value="مرفوض" ${rStatus.includes('مرفوض')?'selected':''}>مرفوض</option>
-              <option value="قيد المراجعة" ${rStatus.includes('قيد المراجعة')?'selected':''}>قيد المراجعة</option>
+              <option value="مقبول" ${(r['Status']||'').includes('مقبول')?'selected':''}>مقبول</option>
+              <option value="مرفوض" ${(r['Status']||'').includes('مرفوض')?'selected':''}>مرفوض</option>
+              <option value="قيد المراجعة" ${(r['Status']||'').includes('قيد المراجعة')?'selected':''}>قيد المراجعة</option>
             </select>
-            <button class="btn" style="padding:0.2rem 0.5rem; font-size:0.8rem;" onclick="replyToRequest('${rId}')">حفظ الرد</button>
+            <button class="btn" style="padding:0.2rem 0.5rem; font-size:0.8rem;" onclick="replyToRequest('${rId}')">حفظ</button>
           </td>
         `;
         tbody.appendChild(tr);
@@ -1241,63 +1042,41 @@
     function replyToRequest(requestId) {
       const resp = document.getElementById(`resp_${requestId}`).value.trim();
       const status = document.getElementById(`stat_${requestId}`).value;
-
       fetchJSONP(`${API_URL}?action=updateRequestResponse&requestId=${encodeURIComponent(requestId)}&response=${encodeURIComponent(resp)}&status=${encodeURIComponent(status)}`, res => {
-        if(res.status === "success") {
-          showToast("✨ تم حفظ الرد وتحديث الطلب بنجاح!");
-        } else {
-          showToast("❌ خطأ أثناء تحديث الطلب");
-        }
+        if(res.status === "success") { showToast("✨ تم حفظ الرد وتحديث الطلب بنجاح!"); }
+        else { showToast("❌ خطأ أثناء التحديث"); }
       });
     }
 
     function submitSupportTicket() {
       const text = document.getElementById('supportText').value.trim();
       if(!text) { alert("يرجى كتابة وصف المشكلة الفنية."); return; }
-
-      const payload = {
-        memberId: currentUser['Member ID'] || currentUser['رقم العضوية'],
-        memberName: currentUser['Full Name'] || currentUser['الاسم'],
-        issue: text,
-        status: "قيد المعالجة"
-      };
-
+      const payload = { memberId: currentUser['Member ID'] || currentUser['رقم العضوية'], memberName: currentUser['Full Name'] || currentUser['الاسم'], issue: text, status: "قيد المعالجة" };
       fetchJSONP(`${API_URL}?action=addSupportTicket&data=${encodeURIComponent(JSON.stringify(payload))}`, res => {
         if(res.status === "success") {
           showToast("🛠️ تم إرسال بلاغ الدعم الفني بنجاح!");
           document.getElementById('supportText').value = "";
           loadMySupportTickets();
-        } else {
-          showToast("❌ خطأ أثناء إرسال البلاغ");
-        }
+        } else { showToast("❌ خطأ أثناء إرسال البلاغ"); }
       });
     }
 
     function loadMySupportTickets() {
       const container = document.getElementById('mySupportContainer');
       document.getElementById('mySupportLoader').style.display = "block";
-
       fetchJSONP(`${API_URL}?action=getData&sheet=Support`, res => {
         document.getElementById('mySupportLoader').style.display = "none";
         if(res.status === "success" && res.data) {
           const currentId = currentUser['Member ID'] || currentUser['رقم العضوية'];
           const myTickets = res.data.filter(t => String(t['Member ID'] || t['رقم العضوية'] || '').trim() === String(currentId).trim());
-          
           container.innerHTML = "";
-          if(myTickets.length === 0) {
-            container.innerHTML = `<p style="color:var(--text-muted); text-align:center;">لا توجد بلاغات دعم سابقة.</p>`;
-            return;
-          }
-
+          if(myTickets.length === 0) { container.innerHTML = `<p style="color:var(--text-muted); text-align:center;">لا توجد بلاغات دعم سابقة.</p>`; return; }
           myTickets.forEach(t => {
             const div = document.createElement('div');
             div.style.cssText = "background:var(--profile-item-bg); padding:1rem; border-radius:8px; margin-bottom:0.8rem; border-right:4px solid var(--warning-color);";
             div.innerHTML = `
-              <div style="display:flex; justify-content:space-between; margin-bottom:0.4rem;">
-                <b>بلاغ #${t['Ticket ID'] || t['رقم البلاغ'] || ''}</b>
-                <span class="badge badge-warning">${t['Status'] || t['الحالة'] || 'قيد المعالجة'}</span>
-              </div>
-              <p style="font-size:0.9rem; margin-bottom:0.4rem;">${t['Issue'] || t['المشكلة']}</p>
+              <div style="display:flex; justify-content:space-between; margin-bottom:0.4rem;"><b>بلاغ #${t['Ticket ID'] || ''}</b><span class="badge badge-warning">${t['Status'] || ''}</span></div>
+              <p style="font-size:0.9rem; margin-bottom:0.4rem;">${t['Issue'] || ''}</p>
               <p style="font-size:0.8rem; color:var(--success-color);"><b>رد الدعم الفني:</b> ${t['Admin Response'] || t['الرد / الحل'] || 'جارٍ العمل على الحل...'}</p>
             `;
             container.appendChild(div);
@@ -1309,30 +1088,17 @@
     function renderAdminSupportTable(tickets) {
       const tbody = document.getElementById('adminSupportTableBody');
       tbody.innerHTML = "";
-      if(!tickets || tickets.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;">لا توجد بلاغات دعم فني واردة.</td></tr>`;
-        return;
-      }
-
+      if(!tickets || tickets.length === 0) { tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;">لا توجد بلاغات دعم فني واردة.</td></tr>`; return; }
       tickets.forEach(t => {
-        const tId = t['Ticket ID'] || t['رقم البلاغ'] || '-';
-        const mName = t['Member Name'] || t['اسم العضو'] || '-';
-        const issue = t['Issue'] || t['المشكلة'] || '-';
-        const resp = t['Admin Response'] || t['الرد / الحل'] || '';
-        const status = t['Status'] || t['الحالة'] || 'قيد المعالجة';
-
+        const tId = t['Ticket ID'] || '-';
         const tr = document.createElement('tr');
         tr.innerHTML = `
-          <td><b>${tId}</b></td>
-          <td>${mName}</td>
-          <td>${issue}</td>
-          <td>
-            <input type="text" id="supp_resp_${tId}" value="${resp}" placeholder="اكتب الحل..." style="padding:0.3rem; width:130px; font-size:0.85rem;">
-          </td>
+          <td><b>${tId}</b></td><td>${t['Member Name'] || '-'}</td><td>${t['Issue'] || '-'}</td>
+          <td><input type="text" id="supp_resp_${tId}" value="${t['Admin Response'] || ''}" placeholder="اكتب الحل..." style="padding:0.3rem; width:130px; font-size:0.85rem;"></td>
           <td>
             <select id="supp_stat_${tId}" style="padding:0.3rem; font-size:0.85rem; margin-bottom:4px;">
-              <option value="قيد المعالجة" ${status.includes('قيد المعالجة')?'selected':''}>قيد المعالجة</option>
-              <option value="تم الحل" ${status.includes('تم الحل')?'selected':''}>تم الحل</option>
+              <option value="قيد المعالجة" ${(t['Status']||'').includes('قيد المعالجة')?'selected':''}>قيد المعالجة</option>
+              <option value="تم الحل" ${(t['Status']||'').includes('تم الحل')?'selected':''}>تم الحل</option>
             </select>
             <button class="btn" style="padding:0.2rem 0.5rem; font-size:0.8rem;" onclick="replyToSupportTicket('${tId}')">حفظ</button>
           </td>
@@ -1344,35 +1110,23 @@
     function replyToSupportTicket(ticketId) {
       const resp = document.getElementById(`supp_resp_${ticketId}`).value.trim();
       const status = document.getElementById(`supp_stat_${ticketId}`).value;
-
       fetchJSONP(`${API_URL}?action=updateSupportResponse&ticketId=${encodeURIComponent(ticketId)}&response=${encodeURIComponent(resp)}&status=${encodeURIComponent(status)}`, res => {
-        if(res.status === "success") {
-          showToast("✨ تم تحديث بلاغ الدعم الفني بنجاح!");
-        } else {
-          showToast("❌ خطأ أثناء التحديث");
-        }
+        if(res.status === "success") { showToast("✨ تم تحديث بلاغ الدعم الفني بنجاح!"); }
+        else { showToast("❌ خطأ أثناء التحديث"); }
       });
     }
 
     function switchTab(tabId, btnElement, saveToLocal = true) {
-      const contents = document.querySelectorAll('.tab-content');
-      contents.forEach(c => c.classList.remove('active'));
-
-      const buttons = document.querySelectorAll('.nav-tabs button');
-      buttons.forEach(b => b.classList.remove('active'));
-
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      document.querySelectorAll('.nav-tabs button').forEach(b => b.classList.remove('active'));
       document.getElementById(tabId).classList.add('active');
       btnElement.classList.add('active');
-
-      if(saveToLocal) {
-        localStorage.setItem('activeTab', tabId);
-      }
+      if(saveToLocal) localStorage.setItem('activeTab', tabId);
     }
 
     function toggleDarkMode() {
       document.body.classList.toggle('dark-mode');
-      const isDark = document.body.classList.contains('dark-mode');
-      localStorage.setItem('darkMode', isDark);
+      localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
       updateDarkModeButtonText();
     }
 
@@ -1390,7 +1144,6 @@
       const oldP = document.getElementById('oldPass').value.trim();
       const newP = document.getElementById('newPass').value.trim();
       const err = document.getElementById('passError');
-
       if(!oldP || !newP) { err.innerText = "يرجى تعبئة جميع الحقول"; err.style.display="block"; return; }
 
       const mId = currentUser['Member ID'] || currentUser['رقم العضوية'];
@@ -1398,27 +1151,24 @@
         if(res.status === "success") {
           showToast("✨ تم تغيير كلمة المرور بنجاح!");
           closePassModal();
-          document.getElementById('oldPass').value = "";
-          document.getElementById('newPass').value = "";
+          document.getElementById('oldPass').value = ""; document.getElementById('newPass').value = "";
           err.style.display = "none";
-        } else {
-          err.innerText = res.message || "خطأ أثناء تغيير كلمة المرور";
-          err.style.display = "block";
-        }
+        } else { err.innerText = res.message || "خطأ أثناء تغيير كلمة المرور"; err.style.display = "block"; }
       });
+    }
+
+    function exportToExcel(tableId, filename) {
+      const table = document.getElementById(tableId);
+      const wb = XLSX.utils.table_to_book(table, {sheet: "Sheet1"});
+      XLSX.writeFile(wb, filename);
+      showToast("📥 جاري تصدير الملف كـ Excel...");
     }
 
     function exportToPDF(containerId, filename) {
       const element = document.getElementById(containerId);
-      const opt = {
-        margin: 10,
-        filename: filename,
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-      };
+      const opt = { margin: 10, filename: filename, image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2, useCORS: true }, jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' } };
       html2pdf().from(element).set(opt).save();
-      showToast("📥 جاري تصدير الملف كـ PDF...");
+      showToast("📄 جاري تصدير الملف كـ PDF...");
     }
 
     function handleLogout() {
@@ -1427,8 +1177,7 @@
       currentUser = null;
       document.getElementById('dashboardView').style.display = "none";
       document.getElementById('loginView').style.display = "block";
-      document.getElementById('memberId').value = "";
-      document.getElementById('password').value = "";
+      document.getElementById('memberId').value = ""; document.getElementById('password').value = "";
       showToast("👋 تم تسجيل الخروج بنجاح");
     }
   </script>
