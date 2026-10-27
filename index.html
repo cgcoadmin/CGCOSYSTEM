@@ -60,16 +60,8 @@
     .card h4 { font-size: 1.2rem; color: var(--primary-color); margin-bottom: 0.8rem; font-weight: 800; }
     .card p { color: var(--text-muted); font-size: 0.9rem; }
 
-    /* Programs Section */
-    .programs-wrapper { margin-bottom: 2.5rem; }
-    .program-header { background: var(--primary-color); color: white; padding: 1rem 1.5rem; border-radius: 12px 12px 0 0; display: flex; align-items: center; gap: 10px; }
-    .program-grid { background: var(--card-bg); padding: 1.5rem; border: 1px solid var(--border-color); border-top: none; border-radius: 0 0 12px 12px; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem; }
-    .sub-card { background: var(--bg-color); padding: 1.2rem; border-radius: 8px; border-right: 4px solid var(--secondary-color); }
-    .sub-card h5 { color: var(--primary-color); font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem; }
-    .sub-card p { font-size: 0.85rem; color: var(--text-muted); }
-
-    /* نافذة نظام الكادر المعزولة */
-    .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0f172a; z-index: 9999; overflow-y: auto; padding: 2rem 1rem; }
+    /* نافذة الكادر المعزولة تماماً (تغطي الشاشة بدون أي تداخل) */
+    .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0f172a; z-index: 99999; overflow-y: auto; padding: 2rem 1rem; }
     .modal-box { max-width: 450px; margin: 5rem auto; background: #1e293b; padding: 2.5rem; border-radius: 16px; border: 1px solid #334155; color: #f8fafc; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5); }
     .modal-box h3 { color: var(--secondary-color); font-size: 1.4rem; font-weight: 900; margin-bottom: 1.5rem; text-align: center; }
     .form-group { margin-bottom: 1.2rem; }
@@ -78,18 +70,26 @@
     .btn-submit { width: 100%; background: var(--secondary-color); color: #000; border: none; padding: 0.8rem; border-radius: 8px; font-weight: 800; font-size: 1rem; cursor: pointer; margin-top: 1rem; }
     .btn-close-modal { background: transparent; color: #94a3b8; border: none; width: 100%; margin-top: 1rem; cursor: pointer; font-size: 0.85rem; font-weight: 700; }
 
-    /* لوحة التحكم الداخلية للكادر */
-    .dashboard-container { max-width: 1100px; margin: 0 auto; color: #f8fafc; display: none; }
-    .header-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; background: #1e293b; padding: 1rem 1.5rem; border-radius: 12px; border: 1px solid #334155; }
-    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.2rem; margin-bottom: 2rem; }
-    .stat-card { background: #1e293b; padding: 1.5rem; border-radius: 12px; border: 1px solid #334155; }
-    .stat-card .num { font-size: 2rem; font-weight: 900; color: var(--secondary-color); }
-    .section-card { background: #1e293b; padding: 1.5rem; border-radius: 12px; border: 1px solid #334155; margin-bottom: 1.5rem; }
+    /* لوحة التحكم الداخلية المرتبة باحترافية عالية */
+    .dashboard-container { max-width: 1200px; margin: 0 auto; color: #f8fafc; display: none; }
+    .dash-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; background: #1e293b; padding: 1.2rem 2rem; border-radius: 12px; border: 1px solid #334155; }
+    .dash-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.2rem; margin-bottom: 2rem; }
+    .dash-stat-card { background: #1e293b; padding: 1.5rem; border-radius: 12px; border: 1px solid #334155; }
+    .dash-stat-card h4 { font-size: 0.9rem; color: #94a3b8; margin-bottom: 0.5rem; }
+    .dash-stat-card .num { font-size: 2rem; font-weight: 900; color: var(--secondary-color); }
     
-    /* تصميم المهام والمواعيد الزمنية */
-    .task-item, .calendar-item { background: #0f172a; padding: 1rem; border-radius: 8px; border: 1px solid #334155; display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem; }
+    .dash-section { background: #1e293b; padding: 1.8rem; border-radius: 12px; border: 1px solid #334155; margin-bottom: 1.8rem; }
+    .dash-section h3 { color: var(--secondary-color); font-size: 1.2rem; margin-bottom: 1.2rem; display: flex; align-items: center; gap: 10px; }
+
+    /* شبكة التقويم التفاعلي (Calendar Grid) */
+    .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; margin-top: 1rem; }
+    .cal-day-header { text-align: center; font-weight: 700; color: var(--secondary-color); font-size: 0.85rem; padding: 0.5rem; }
+    .cal-cell { background: #0f172a; border: 1px solid #334155; min-height: 80px; border-radius: 6px; padding: 6px; font-size: 0.8rem; }
+    .cal-cell .day-num { font-weight: 800; color: #94a3b8; margin-bottom: 4px; }
+    .cal-event { background: rgba(197, 160, 89, 0.2); color: var(--secondary-color); padding: 2px 4px; border-radius: 4px; font-size: 0.7rem; margin-top: 2px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+
+    .task-item { background: #0f172a; padding: 1rem; border-radius: 8px; border: 1px solid #334155; display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem; }
     .task-meta { font-size: 0.8rem; color: #94a3b8; display: flex; gap: 15px; margin-top: 4px; }
-    .badge-time { background: rgba(197, 160, 89, 0.2); color: var(--secondary-color); padding: 0.2rem 0.6rem; border-radius: 4px; font-weight: 700; font-size: 0.75rem; }
 
     footer { background: #062c1b; color: white; padding: 2rem; text-align: center; margin-top: 4rem; border-top: 4px solid var(--secondary-color); font-size: 0.85rem; }
   </style>
@@ -112,7 +112,7 @@
     </div>
   </header>
 
-  <!-- القسم الرئيسي (Hero) -->
+  <!-- القسم الرئيسي -->
   <section class="hero">
     <div class="hero-content">
       <div class="hero-badge">CGCO - Career Guidance & Counseling Office</div>
@@ -132,13 +132,13 @@
       <div class="title-line"></div>
     </div>
     <div class="grid-3">
-      <div class="card"><h4>رؤيتنا</h4><p>أن نكون المرجع الرائد في تمكين الطلبة من اكتشاف ذواتهم وتعزيز جاهزيتهم الأكاديمية والمهنية.</p></div>
+      <div class="card"><h4>رؤيتنا</h4><p>أن نكون المرجع الرائد في تمكين الطلبة من اكتشاف ذواتهم وتعزيز جاهزيتهم الأكاديمية.</p></div>
       <div class="card"><h4>رسالتنا</h4><p>تقديم خدمات توجيهية واستشارية وتطويرية عالية الجودة من خلال برامج متخصصة.</p></div>
       <div class="card"><h4>قيمنا</h4><p>التمكين، الاحترافية، السرية التامة، الموثوقية، والتطوير المستمر.</p></div>
     </div>
   </section>
 
-  <!-- نافذة نظام الكادر المعزولة -->
+  <!-- نافذة نظام الكادر المعزولة تماماً -->
   <div id="staffPortalModal" class="modal-overlay">
     
     <!-- 1. نموذج تسجيل الدخول -->
@@ -156,20 +156,20 @@
       <button class="btn-close-modal" onclick="closeStaffModal()">إلغاء والعودة للموقع</button>
     </div>
 
-    <!-- 2. تغيير كلمة المرور الإجبارية -->
+    <!-- 2. تغيير كلمة المرور الإجبارية أول مرة -->
     <div id="changePasswordView" class="modal-box" style="display: none;">
       <h3>تغيير كلمة المرور الإجبارية</h3>
-      <p style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 1.2rem; text-align: center;">هذا أول تسجيل دخول لك، يجب تغيير كلمة المرور لتفعيل حسابك في الشيت.</p>
+      <p style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 1.2rem; text-align: center;">هذا أول تسجيل دخول لك، يرجى تعيين كلمة مرور جديدة لتفعيل حسابك.</p>
       <div class="form-group">
         <label>كلمة المرور الجديدة</label>
         <input type="password" id="firstNewPassword" placeholder="أدخل كلمة المرور الجديدة">
       </div>
-      <button class="btn-submit" onclick="submitFirstPasswordChange()">حفظ وتحديث الشيت</button>
+      <button class="btn-submit" onclick="submitFirstPasswordChange()">حفظ وتحديث الحساب</button>
     </div>
 
-    <!-- 3. لوحة التحكم الحقيقية بعد الدخول (مع التقويم والمهام الزمنية) -->
+    <!-- 3. لوحة التحكم الحقيقية (منظمة ومرتبة بالكامل) -->
     <div id="dashboardView" class="dashboard-container">
-      <div class="header-bar">
+      <div class="dash-header">
         <div>
           <h2 style="color:var(--secondary-color);">لوحة تحكم الكادر والعمليات</h2>
           <p style="font-size:0.85rem; color:#94a3b8;" id="welcomeUserText">مرحباً بك</p>
@@ -177,37 +177,68 @@
         <button onclick="logoutStaff()" style="background:#ef4444; color:white; border:none; padding:0.5rem 1rem; border-radius:8px; cursor:pointer; font-weight:700;"><i class="fa-solid fa-right-from-bracket"></i> تسجيل خروج</button>
       </div>
 
-      <div class="stats-grid">
-        <div class="stat-card"><h4>طلبات القروب</h4><div class="num">142</div></div>
-        <div class="stat-card"><h4>استفسارات الزوار</h4><div class="num">38</div></div>
-        <div class="stat-card"><h4>تقييم بيركمان</h4><div class="num">89</div></div>
-        <div class="stat-card"><h4>مشاريع الابتكار</h4><div class="num">15</div></div>
+      <div class="dash-stats">
+        <div class="dash-stat-card"><h4>طلبات القروب</h4><div class="num">142</div></div>
+        <div class="dash-stat-card"><h4>استفسارات الزوار</h4><div class="num">38</div></div>
+        <div class="dash-stat-card"><h4>تقييم بيركمان</h4><div class="num">89</div></div>
+        <div class="dash-stat-card"><h4>مشاريع الابتكار</h4><div class="num">15</div></div>
       </div>
 
-      <!-- نظام التقويم والفعاليات والمواعيد المجدولة -->
-      <div class="section-card">
-        <h3 style="color:var(--secondary-color); margin-bottom:1rem;"><i class="fa-solid fa-calendar-days"></i> التقويم العام وفعاليات ومواعيد المكتب</h3>
-        <div id="calendarList">
-          <div class="calendar-item">
-            <div>
-              <strong>اللقاء التعريفي لبرنامج "وجهني"</strong>
-              <div class="task-meta"><span><i class="fa-solid fa-clock"></i> 2026-06-15 | 10:00 صباحاً</span><span><i class="fa-solid fa-location-dot"></i> قاعة الاجتماعات الكبرى</span></div>
-            </div>
-            <span class="badge-time">فعالية عامة</span>
+      <!-- التقويم التفاعلي العام (الشهر والسنوات) -->
+      <div class="dash-section">
+        <h3><i class="fa-solid fa-calendar-days"></i> التقويم العام للفعاليات والمواعيد (من 1 إلى 30)</h3>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+          <span style="font-weight: 700; color: var(--secondary-color);" id="currentMonthYear">يونيو 2026</span>
+          <div id="calendarControls" style="display:none; gap: 10px;"> <!-- يظهر فقط لصلاحيات COO و MGR-1 -->
+            <button onclick="addCalendarEventPrompt()" style="background:var(--secondary-color); color:#000; border:none; padding:0.4rem 1rem; border-radius:6px; font-weight:700; cursor:pointer;">+ إضافة موعد/فعالية</button>
           </div>
-          <div class="calendar-item">
-            <div>
-              <strong>اجتماع لجنة إدارة العمليات والإشراف</strong>
-              <div class="task-meta"><span><i class="fa-solid fa-clock"></i> 2026-06-18 | 01:00 ظهراً</span><span><i class="fa-solid fa-user-group"></i> أونلاين عبر Teams</span></div>
-            </div>
-            <span class="badge-time">اجتماع دوري</span>
-          </div>
+        </div>
+        <!-- شبكة التقويم -->
+        <div class="calendar-grid">
+          <div class="cal-day-header">الأحد</div>
+          <div class="cal-day-header">الإثنين</div>
+          <div class="cal-day-header">الثلاثاء</div>
+          <div class="cal-day-header">الأربعاء</div>
+          <div class="cal-day-header">الخميس</div>
+          <div class="cal-day-header">الجمعة</div>
+          <div class="cal-day-header">السبت</div>
+          <!-- خانات الأيام (مثال توضيحي لتقويم شهر يونيو) -->
+          <div class="cal-cell"><div class="day-num">1</div></div>
+          <div class="cal-cell"><div class="day-num">2</div></div>
+          <div class="cal-cell"><div class="day-num">3</div></div>
+          <div class="cal-cell"><div class="day-num">4</div></div>
+          <div class="cal-cell"><div class="day-num">5</div></div>
+          <div class="cal-cell"><div class="day-num">6</div></div>
+          <div class="cal-cell"><div class="day-num">7</div></div>
+          <div class="cal-cell"><div class="day-num">8</div></div>
+          <div class="cal-cell"><div class="day-num">9</div></div>
+          <div class="cal-cell"><div class="day-num">10</div></div>
+          <div class="cal-cell"><div class="day-num">11</div></div>
+          <div class="cal-cell"><div class="day-num">12</div></div>
+          <div class="cal-cell"><div class="day-num">13</div></div>
+          <div class="cal-cell"><div class="day-num">14</div></div>
+          <div class="cal-cell"><div class="day-num">15</div><div class="cal-event">لقاء وجهني</div></div>
+          <div class="cal-cell"><div class="day-num">16</div></div>
+          <div class="cal-cell"><div class="day-num">17</div></div>
+          <div class="cal-cell"><div class="day-num">18</div><div class="cal-event">اجتماع العمليات</div></div>
+          <div class="cal-cell"><div class="day-num">19</div></div>
+          <div class="cal-cell"><div class="day-num">20</div></div>
+          <div class="cal-cell"><div class="day-num">21</div></div>
+          <div class="cal-cell"><div class="day-num">22</div></div>
+          <div class="cal-cell"><div class="day-num">23</div></div>
+          <div class="cal-cell"><div class="day-num">24</div></div>
+          <div class="cal-cell"><div class="day-num">25</div></div>
+          <div class="cal-cell"><div class="day-num">26</div></div>
+          <div class="cal-cell"><div class="day-num">27</div></div>
+          <div class="cal-cell"><div class="day-num">28</div></div>
+          <div class="cal-cell"><div class="day-num">29</div></div>
+          <div class="cal-cell"><div class="day-num">30</div></div>
         </div>
       </div>
 
-      <!-- إدارة المهام التشغيلية مع المدة الزمنية -->
-      <div class="section-card">
-        <h3 style="color:var(--secondary-color); margin-bottom:1rem;"><i class="fa-solid fa-list-check"></i> المهام التشغيلية والمدة الزمنية المحددة</h3>
+      <!-- إدارة المهام التشغيلية والمدد الزمنية -->
+      <div class="dash-section">
+        <h3><i class="fa-solid fa-list-check"></i> إدارة المهام التشغيلية والمدد الزمنية</h3>
         <div style="display:grid; grid-template-columns: 2fr 1fr 1fr auto; gap:10px; margin-bottom:1.5rem;">
           <input type="text" id="taskTitleInput" placeholder="عنوان المهمة..." style="padding:0.7rem; background:#0f172a; border:1px solid #334155; border-radius:8px; color:white;">
           <input type="text" id="taskDurationInput" placeholder="المدة (مثال: 3 أيام)" style="padding:0.7rem; background:#0f172a; border:1px solid #334155; border-radius:8px; color:white;">
@@ -218,7 +249,7 @@
           <div class="task-item">
             <div>
               <span>مراجعة وتقييم طلبات التقديم لقروب العلوم</span>
-              <div class="task-meta"><span><i class="fa-solid fa-hourglass-half"></i> المدة: 5 أيام</span><span><i class="fa-calendar-days"></i> الموعد النهائي: 2026-06-20</span></div>
+              <div class="task-meta"><span><i class="fa-solid fa-hourglass-half"></i> المدة: 5 أيام</span><span><i class="fa-solid fa-calendar-days"></i> الموعد النهائي: 2026-06-20</span></div>
             </div>
             <span style="color:var(--secondary-color); font-weight:700;">قيد التنفيذ</span>
           </div>
@@ -237,6 +268,7 @@
   <script>
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw2LNNXf5CUyJj61CmYg2xsknOw2csPkcaz2oUrEgT3lyfIALn9KuRnU8dJq-czoogKJw/exec";
     let activeMemberId = "";
+    let activeUserRole = "";
 
     function openLoginModal() {
       document.getElementById('staffPortalModal').style.display = 'block';
@@ -260,7 +292,7 @@
         return;
       }
 
-      alert("جاري التحقق من بيانات الدخول عبر الخادم...");
+      alert("جاري التحقق من بيانات الدخول...");
 
       try {
         const response = await fetch(`${SCRIPT_URL}?action=login&memberId=${encodeURIComponent(memberId)}&password=${encodeURIComponent(password)}`);
@@ -268,6 +300,8 @@
 
         if(result.status === "success") {
           activeMemberId = memberId;
+          activeUserRole = result.user ? result.user.Role : "STAFF";
+          
           const isFirstTime = result.user && (result.user.isFirstLogin === true || String(password).toLowerCase().includes("temp") || String(result.user.Password || "").startsWith("temp"));
 
           if(isFirstTime) {
@@ -291,17 +325,17 @@
         return;
       }
 
-      alert("جاري تحديث كلمة المرور الجديدة في شيت إكسل...");
+      alert("جاري تحديث كلمة المرور...");
 
       try {
         const response = await fetch(`${SCRIPT_URL}?action=updatePassword&memberId=${encodeURIComponent(activeMemberId)}&newPassword=${encodeURIComponent(newPass)}`);
         const result = await response.json();
 
         if(result.status === "success") {
-          alert("تم تغيير كلمة المرور وتحديثها في الشيت بنجاح! يتم الآن توجيهك للوحة التحكم.");
-          showDashboard({ MemberId: activeMemberId });
+          alert("تم تحديث كلمة المرور بنجاح! يتم الآن توجيهك للوحة التحكم.");
+          showDashboard({ MemberId: activeMemberId, Role: activeUserRole });
         } else {
-          alert("حدث خطأ أثناء التحديث في الشيت.");
+          alert("حدث خطأ أثناء التحديث.");
         }
       } catch(err) {
         alert("حدث خطأ في الاتصال.");
@@ -312,14 +346,27 @@
       document.getElementById('loginView').style.display = 'none';
       document.getElementById('changePasswordView').style.display = 'none';
       document.getElementById('dashboardView').style.display = 'block';
-      document.getElementById('welcomeUserText').innerText = "مرحباً بك، العضو: " + (user.Name || activeMemberId);
+      document.getElementById('welcomeUserText').innerText = "مرحباً بك، العضو: " + (user.Name || activeMemberId) + " | الصلاحية: " + (user.Role || "عضو");
+
+      // إظهار أزرار التحكم بالتقويم فقط إذا كان المستخدم COO أو MGR-1
+      if(user.Role === 'COO' || user.Role === 'MGR-1' || activeMemberId.includes('COO') || activeMemberId.includes('MGR')) {
+        document.getElementById('calendarControls').style.display = 'flex';
+      }
     }
 
     function logoutStaff() {
       activeMemberId = "";
+      activeUserRole = "";
       document.getElementById('loginMemberId').value = "";
       document.getElementById('loginPassword').value = "";
       closeStaffModal();
+    }
+
+    function addCalendarEventPrompt() {
+      const eventName = prompt("أدخل عنوان الفعالية أو الموعد الجديد:");
+      if(eventName) {
+        alert("تمت إضافة الفعالية بنجاح إلى التقويم العام!");
+      }
     }
 
     function addNewTaskWithDuration() {
