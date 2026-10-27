@@ -3,596 +3,277 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>مكتب التوجيه السلوكي والمهني | جامعة الملك عبد العزيز</title>
-  
-  <!-- Fonts & Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <title>مكتب التوجيه السلوكي والمهني</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          colors: {
-            brand: {
-              green: '#0d5c3a',
-              greenDark: '#083e27',
-              gold: '#c5a059',
-              goldHover: '#b38e47',
-              lightBg: '#f8fafc',
-            }
-          },
-          fontFamily: {
-            cairo: ['Cairo', 'sans-serif'],
-          }
-        }
-      }
-    }
-  </script>
-
   <style>
     :root {
       --primary-color: #0d5c3a;
+      --primary-hover: #083e27;
       --secondary-color: #c5a059;
-      --bg-color: #0f172a;
-      --card-bg: #1e293b;
-      --text-color: #f8fafc;
-      --text-muted: #94a3b8;
-      --border-color: #334155;
+      --bg-color: #f8fafc;
+      --card-bg: #ffffff;
+      --text-color: #0f172a;
+      --text-muted: #64748b;
+      --border-color: #e2e8f0;
+      --shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
     }
-    * {
-      font-family: 'Cairo', sans-serif;
-      scroll-behavior: smooth;
-    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; scroll-behavior: smooth; }
+    body { background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; }
+
+    /* Header & Navigation */
+    header { background: var(--card-bg); border-bottom: 3px solid var(--secondary-color); position: sticky; top: 0; z-index: 1000; box-shadow: var(--shadow); }
+    .nav-container { max-width: 1280px; margin: 0 auto; padding: 0.8rem 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+    .logo-box { display: flex; align-items: center; gap: 12px; }
+    .logo-icon { width: 45px; height: 45px; background: var(--primary-color); color: var(--secondary-color); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+    .logo-text h1 { font-size: 1.15rem; color: var(--primary-color); font-weight: 900; }
+
+    .nav-links { display: flex; gap: 0.8rem; list-style: none; align-items: center; }
+    .nav-links a { text-decoration: none; color: var(--text-color); font-weight: 700; font-size: 0.88rem; padding: 0.5rem 0.8rem; border-radius: 6px; transition: all 0.2s; }
+    .nav-links a:hover { background: var(--bg-color); color: var(--primary-color); }
+    .btn-portal-link { background: var(--primary-color); color: white !important; border-radius: 8px; }
+    .btn-portal-link:hover { background: var(--primary-hover) !important; }
+    .btn-staff-login { background: var(--secondary-color); color: #000 !important; border-radius: 8px; cursor: pointer; }
+
+    /* Hero Section */
+    .hero { background: linear-gradient(135deg, var(--primary-color) 0%, #062c1b 100%); color: white; padding: 5rem 1.5rem; text-align: center; position: relative; overflow: hidden; }
+    .hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 8px; background: var(--secondary-color); }
+    .hero-content { max-width: 900px; margin: 0 auto; }
+    .hero-badge { background: rgba(197, 160, 89, 0.2); color: var(--secondary-color); border: 1px solid var(--secondary-color); padding: 0.4rem 1rem; border-radius: 50px; font-size: 0.85rem; font-weight: 700; display: inline-block; margin-bottom: 1rem; }
+    .hero h2 { font-size: 2.2rem; font-weight: 900; margin-bottom: 1rem; }
+    .hero p { font-size: 1.05rem; opacity: 0.9; margin-bottom: 2rem; }
+    .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
     
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-    ::-webkit-scrollbar-track {
-      background: #f1f1f1;
-    }
-    .dark ::-webkit-scrollbar-track {
-      background: #1e293b;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #c5a059;
-      border-radius: 4px;
-    }
+    .btn-hero { padding: 0.8rem 1.8rem; border-radius: 8px; font-weight: 700; text-decoration: none; transition: transform 0.2s; font-size: 0.95rem; display: inline-flex; align-items: center; gap: 8px; }
+    .btn-primary { background: var(--secondary-color); color: #000; }
+    .btn-secondary { background: rgba(255,255,255,0.15); color: white; border: 1px solid rgba(255,255,255,0.3); }
+    .btn-hero:hover { transform: translateY(-2px); }
+
+    /* Sections Shared */
+    section { padding: 4rem 1.5rem; max-width: 1280px; margin: 0 auto; }
+    .section-title { text-align: center; margin-bottom: 3rem; }
+    .section-title h3 { font-size: 1.8rem; color: var(--primary-color); font-weight: 900; }
+    .title-line { width: 60px; height: 4px; background: var(--secondary-color); margin: 0.8rem auto 0 auto; border-radius: 2px; }
+
+    /* Cards Grid */
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+    .card { background: var(--card-bg); border-radius: 12px; padding: 1.8rem; border: 1px solid var(--border-color); box-shadow: var(--shadow); }
+    .card h4 { font-size: 1.2rem; color: var(--primary-color); margin-bottom: 0.8rem; font-weight: 800; }
+    .card p { color: var(--text-muted); font-size: 0.9rem; }
+
+    /* Programs Section */
+    .programs-wrapper { margin-bottom: 2.5rem; }
+    .program-header { background: var(--primary-color); color: white; padding: 1rem 1.5rem; border-radius: 12px 12px 0 0; display: flex; align-items: center; gap: 10px; }
+    .program-grid { background: var(--card-bg); padding: 1.5rem; border: 1px solid var(--border-color); border-top: none; border-radius: 0 0 12px 12px; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem; }
+    .sub-card { background: var(--bg-color); padding: 1.2rem; border-radius: 8px; border-right: 4px solid var(--secondary-color); }
+    .sub-card h5 { color: var(--primary-color); font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .sub-card p { font-size: 0.85rem; color: var(--text-muted); }
+
+    /* Workflow Steps */
+    .steps-container { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+    .step-box { flex: 1; min-width: 180px; background: var(--card-bg); border: 1px solid var(--border-color); padding: 1.2rem; border-radius: 10px; text-align: center; }
+    .step-num { width: 35px; height: 35px; background: var(--secondary-color); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; margin: 0 auto 0.8rem auto; }
+    .step-box h5 { color: var(--primary-color); font-weight: 800; margin-bottom: 0.3rem; }
+
+    /* Team Directory */
+    .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.2rem; }
+    .member-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 10px; padding: 1.2rem; box-shadow: var(--shadow); }
+    .member-role { font-size: 0.75rem; background: rgba(197, 160, 89, 0.15); color: #8a6d29; font-weight: 800; padding: 0.2rem 0.6rem; border-radius: 4px; display: inline-block; margin-bottom: 0.5rem; }
+    .member-card h5 { font-size: 1.05rem; color: var(--primary-color); font-weight: 800; }
+    .member-card p { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.3rem; }
+
+    /* Dashboard Modal Overlay */
+    .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.95); z-index: 2000; overflow-y: auto; padding: 2rem 1rem; }
+    .dashboard-container { max-width: 1100px; margin: 0 auto; color: #f8fafc; }
+    .header-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; background: #1e293b; padding: 1rem 1.5rem; border-radius: 12px; border: 1px solid #334155; }
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.2rem; margin-bottom: 2rem; }
+    .stat-card { background: #1e293b; padding: 1.5rem; border-radius: 12px; border: 1px solid #334155; }
+    .stat-card .num { font-size: 2rem; font-weight: 900; color: var(--secondary-color); }
+    .section-card { background: #1e293b; padding: 1.5rem; border-radius: 12px; border: 1px solid #334155; margin-bottom: 1.5rem; }
+    .task-input-box { display: flex; gap: 10px; margin-bottom: 1.5rem; }
+    .task-input-box input { flex: 1; padding: 0.7rem 1rem; background: #0f172a; border: 1px solid #334155; border-radius: 8px; color: white; }
+    .btn-add { background: var(--secondary-color); color: #000; border: none; padding: 0.7rem 1.5rem; border-radius: 8px; font-weight: 800; cursor: pointer; }
+    .task-item { background: #0f172a; padding: 1rem; border-radius: 8px; border: 1px solid #334155; display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem; }
     
-    .glass-card {
-      background: rgba(255, 255, 255, 0.9);
-      backdrop-filter: blur(10px);
-    }
-    
-    .dark .glass-card {
-      background: rgba(15, 23, 42, 0.9);
-      backdrop-filter: blur(10px);
-    }
+    footer { background: #062c1b; color: white; padding: 2rem; text-align: center; margin-top: 4rem; border-top: 4px solid var(--secondary-color); font-size: 0.85rem; }
   </style>
 </head>
-<body class="bg-[#f8fafc] text-slate-800 dark:bg-slate-900 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-300">
+<body>
 
-  <!-- ================= واجهة الموقع التعريفية (بدون حذف أي شيء) ================= -->
-  <div id="websiteView">
-    <!-- Header / Navigation -->
-    <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b-4 border-brand-gold shadow-sm transition-colors duration-300">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-center h-20">
-          
-          <!-- Logo -->
-          <a href="#" class="flex items-center gap-3 group">
-            <div class="w-12 h-12 bg-brand-green text-brand-gold rounded-xl flex items-center justify-center text-2xl shadow-md group-hover:scale-105 transition-transform duration-200">
-              <i class="fa-solid fa-compass"></i>
-            </div>
-            <div>
-              <span class="block text-lg font-black text-brand-green dark:text-brand-gold leading-tight">مكتب التوجيه السلوكي والمهني</span>
-              <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">جامعة الملك عبد العزيز</span>
-            </div>
-          </a>
-
-          <!-- Desktop Nav Links -->
-          <nav class="hidden md:flex items-center gap-1 lg:gap-2">
-            <a href="#about" class="px-3 py-2 rounded-lg text-sm font-bold text-slate-700 dark:text-slate-200 hover:text-brand-green dark:hover:text-brand-gold hover:bg-slate-100 dark:hover:bg-slate-800 transition">من نحن</a>
-            <a href="#programs" class="px-3 py-2 rounded-lg text-sm font-bold text-slate-700 dark:text-slate-200 hover:text-brand-green dark:hover:text-brand-gold hover:bg-slate-100 dark:hover:bg-slate-800 transition">البرامج والمبادرات</a>
-            <a href="#workflow" class="px-3 py-2 rounded-lg text-sm font-bold text-slate-700 dark:text-slate-200 hover:text-brand-green dark:hover:text-brand-gold hover:bg-slate-100 dark:hover:bg-slate-800 transition">آلية العمل</a>
-            <a href="#team" class="px-3 py-2 rounded-lg text-sm font-bold text-slate-700 dark:text-slate-200 hover:text-brand-green dark:hover:text-brand-gold hover:bg-slate-100 dark:hover:bg-slate-800 transition">دليل الفريق</a>
-          </nav>
-
-          <!-- Header Actions -->
-          <div class="hidden sm:flex items-center gap-3">
-            <a href="https://forms.gle/f8e2vDnjxerB7SdL9" target="_blank" rel="noopener noreferrer" 
-               class="bg-brand-green hover:bg-brand-greenDark text-white px-4 py-2.5 rounded-xl font-bold text-xs lg:text-sm flex items-center gap-2 shadow-sm hover:shadow transition transform hover:-translate-y-0.5">
-              <i class="fa-solid fa-comments text-brand-gold"></i>
-              <span>بوابة الزوار والاستفسارات</span>
-            </a>
-            <button onclick="toggleLoginModal()" 
-                    class="border-2 border-brand-green text-brand-green dark:border-brand-gold dark:text-brand-gold hover:bg-brand-green hover:text-white dark:hover:bg-brand-gold dark:hover:text-slate-900 px-4 py-2 rounded-xl font-bold text-xs lg:text-sm flex items-center gap-2 transition">
-              <i class="fa-solid fa-lock"></i>
-              <span>دخول الكادر والأعضاء</span>
-            </button>
-          </div>
-
-          <!-- Mobile Menu Button -->
-          <div class="flex items-center gap-2 md:hidden">
-            <button onclick="toggleMobileMenu()" class="p-2.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 focus:outline-none">
-              <i class="fa-solid fa-bars text-xl"></i>
-            </button>
-          </div>
-
-        </div>
+  <!-- القائمة العلوية -->
+  <header>
+    <div class="nav-container">
+      <div class="logo-box">
+        <div class="logo-icon"><i class="fa-solid fa-compass"></i></div>
+        <div class="logo-text"><h1>مكتب التوجيه السلوكي والمهني</h1></div>
       </div>
+      <ul class="nav-links">
+        <li><a href="#about">من نحن</a></li>
+        <li><a href="#programs">البرامج والمبادرات</a></li>
+        <li><a href="#workflow">آلية العمل</a></li>
+        <li><a href="#team">دليل الفريق</a></li>
+        <li><a href="https://forms.gle/f8e2vDnjxerB7SdL9" target="_blank" class="btn-portal-link"><i class="fa-solid fa-comments"></i> بوابة الزوار</a></li>
+        <li><a class="btn-staff-login" onclick="openDashboard()"><i class="fa-solid fa-user-lock"></i> لوحة الكادر</a></li>
+      </ul>
+    </div>
+  </header>
 
-      <!-- Mobile Navigation Drawer -->
-      <div id="mobileMenu" class="hidden md:hidden bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 px-4 pt-2 pb-6 space-y-3">
-        <a href="#about" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-base font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">من نحن</a>
-        <a href="#programs" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-base font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">البرامج والمبادرات</a>
-        <a href="#workflow" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-base font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">آلية العمل</a>
-        <a href="#team" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg text-base font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">دليل الفريق</a>
-        <div class="pt-3 border-t border-slate-200 dark:border-slate-800 flex flex-col gap-2">
-          <a href="https://forms.gle/f8e2vDnjxerB7SdL9" target="_blank" rel="noopener noreferrer" class="w-full bg-brand-green text-white py-2.5 rounded-xl font-bold text-sm text-center flex items-center justify-center gap-2">
-            <i class="fa-solid fa-comments text-brand-gold"></i>
-            <span>بوابة الزوار والاستفسارات</span>
-          </a>
-          <button onclick="toggleLoginModal(); toggleMobileMenu();" class="w-full border-2 border-brand-green text-brand-green dark:border-brand-gold dark:text-brand-gold py-2.5 rounded-xl font-bold text-sm text-center flex items-center justify-center gap-2">
-            <i class="fa-solid fa-lock"></i>
-            <span>دخول الكادر والأعضاء</span>
-          </button>
-        </div>
+  <!-- القسم الرئيسي (Hero) -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">CGCO - Career Guidance & Counseling Office</div>
+      <h2>صناعة المستقبل: تمكين الطلبة وتطوير جاهزيتهم الأكاديمية والمهنية</h2>
+      <p>نساعدك في اكتشاف قدراتك، فهم ذاتك، وتحديد مسارك الأكاديمي والمهني بما يتوافق مع أحدث التقييمات العالمية ومستهدفات رؤية المملكة 2030.</p>
+      <div class="hero-btns">
+        <a href="https://forms.gle/n18frZCMgPLZq9AG6" target="_blank" class="btn-hero btn-primary"><i class="fa-solid fa-users"></i> التقديم في القروب (لطلاب كلية العلوم)</a>
+        <a href="https://forms.gle/f8e2vDnjxerB7SdL9" target="_blank" class="btn-hero btn-secondary"><i class="fa-solid fa-comments"></i> بوابة الزوار ومتابعة الاستفسارات</a>
       </div>
-    </header>
+    </div>
+  </section>
 
-    <main class="flex-grow">
-      
-      <!-- Hero Section -->
-      <section class="relative bg-gradient-to-br from-brand-green via-[#083e27] to-slate-900 text-white py-20 lg:py-28 px-4 overflow-hidden">
-        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#c5a059_1px,transparent_1px)] [background-size:16px_16px]"></div>
-        
-        <div class="max-w-5xl mx-auto text-center relative z-10">
-          <div class="inline-flex items-center gap-2 bg-brand-gold/20 border border-brand-gold text-brand-gold px-4 py-1.5 rounded-full text-xs sm:text-sm font-bold mb-6">
-            <i class="fa-solid fa-graduation-cap"></i>
-            <span>CGCO - Career Guidance & Counseling Office</span>
-          </div>
-
-          <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black mb-6 leading-tight">
-            صناعة المستقبل: تمكين الطلبة وتطوير جاهزيتهم الأكاديمية والمهنية
-          </h1>
-
-          <p class="text-slate-200 text-base sm:text-lg lg:text-xl max-w-3xl mx-auto mb-10 leading-relaxed font-normal">
-            نساعدك في اكتشاف قدراتك، فهم ذاتك، وتحديد مسارك الأكاديمي والمهني بما يتوافق مع أحدث التقييمات العالمية ومستهدفات رؤية المملكة 2030.
-          </p>
-
-          <div class="flex flex-wrap justify-center items-center gap-4">
-            <a href="https://forms.gle/n18frZCMgPLZq9AG6" target="_blank" rel="noopener noreferrer" 
-               class="bg-brand-gold hover:bg-brand-goldHover text-slate-950 font-extrabold px-6 py-3.5 rounded-xl text-sm sm:text-base flex items-center gap-2 shadow-lg shadow-brand-gold/20 hover:scale-105 transition transform">
-              <i class="fa-solid fa-users text-lg"></i>
-              <span>التقديم في القروب (لطلاب كلية العلوم)</span>
-            </a>
-
-            <a href="https://forms.gle/f8e2vDnjxerB7SdL9" target="_blank" rel="noopener noreferrer" 
-               class="bg-white/10 hover:bg-white/20 border border-white/30 text-white font-bold px-6 py-3.5 rounded-xl text-sm sm:text-base flex items-center gap-2 backdrop-blur transition hover:scale-105">
-              <i class="fa-solid fa-comments text-brand-gold"></i>
-              <span>بوابة الزوار ومتابعة الاستفسارات</span>
-            </a>
-
-            <div class="w-full sm:w-auto">
-              <button disabled 
-                      class="w-full sm:w-auto bg-slate-800/80 text-slate-400 border border-slate-700 font-bold px-6 py-3.5 rounded-xl text-sm sm:text-base flex items-center justify-center gap-2 cursor-not-allowed opacity-80">
-                <i class="fa-solid fa-lock text-brand-gold"></i>
-                <span>التسجيل في البرامج (غير متاح حالياً)</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Section: About Us -->
-      <section id="about" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16">
-          <h2 class="text-2xl sm:text-4xl font-black text-brand-green dark:text-brand-gold mb-3">عن المكتب وفلسفتنا</h2>
-          <p class="text-slate-600 dark:text-slate-400 text-sm sm:text-base">رؤية واضحة ورسالة راسخة لتمكين الطالب الجامعي</p>
-          <div class="w-16 h-1 bg-brand-gold mx-auto mt-4 rounded-full"></div>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-8 shadow-sm hover:shadow-md transition">
-            <div class="w-14 h-14 bg-brand-green/10 dark:bg-brand-gold/10 text-brand-green dark:text-brand-gold rounded-xl flex items-center justify-center text-2xl mb-6">
-              <i class="fa-solid fa-eye"></i>
-            </div>
-            <h3 class="text-xl font-bold text-brand-green dark:text-brand-gold mb-3">رؤيتنا</h3>
-            <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
-              أن نكون المرجع الرائد في تمكين الطلبة من اكتشاف ذواتهم وتعزيز جاهزيتهم الأكاديمية والمهنية واتخاذ قرارات واعية وفق رؤية 2030.
-            </p>
-          </div>
-
-          <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-8 shadow-sm hover:shadow-md transition">
-            <div class="w-14 h-14 bg-brand-green/10 dark:bg-brand-gold/10 text-brand-green dark:text-brand-gold rounded-xl flex items-center justify-center text-2xl mb-6">
-              <i class="fa-solid fa-bullseye"></i>
-            </div>
-            <h3 class="text-xl font-bold text-brand-green dark:text-brand-gold mb-3">رسالتنا</h3>
-            <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
-              تقديم خدمات توجيهية واستشارية وتطويرية عالية الجودة من خلال برامج متخصصة، وشراكات استراتيجية، وأدوات تقييم عالمية مثل بيركمان.
-            </p>
-          </div>
-
-          <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-8 shadow-sm hover:shadow-md transition">
-            <div class="w-14 h-14 bg-brand-green/10 dark:bg-brand-gold/10 text-brand-green dark:text-brand-gold rounded-xl flex items-center justify-center text-2xl mb-6">
-              <i class="fa-solid fa-gem"></i>
-            </div>
-            <h3 class="text-xl font-bold text-brand-green dark:text-brand-gold mb-3">قيمنا وفلسفتنا</h3>
-            <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
-              التمكين، الاحترافية، السرية التامة، الموثوقية، والتطوير المستمر. نؤمن بأن أفضل القرارات الناجحة تبدأ دائماً بفهم الذات.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <!-- Section: Programs & Initiatives -->
-      <section id="programs" class="py-20 bg-slate-100 dark:bg-slate-900/50 transition-colors duration-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="text-center mb-16">
-            <h2 class="text-2xl sm:text-4xl font-black text-brand-green dark:text-brand-gold mb-3">البرامج والمبادرات</h2>
-            <p class="text-slate-600 dark:text-slate-400 text-sm sm:text-base">برامج متخصصة ومصممة بعناية لبناء المستثمر المهني والجامعي</p>
-            <div class="w-16 h-1 bg-brand-gold mx-auto mt-4 rounded-full"></div>
-          </div>
-
-          <div class="space-y-12">
-            <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden shadow-sm">
-              <div class="bg-brand-green px-6 py-4 text-white flex items-center gap-3">
-                <i class="fa-solid fa-compass text-brand-gold text-2xl"></i>
-                <div>
-                  <h3 class="text-xl font-bold">برنامج "وجهني" (Wajjehni)</h3>
-                  <p class="text-xs text-slate-200">الركيزة الأساسية لتطوير المهارات والتوجيه المباشر</p>
-                </div>
-              </div>
-              
-              <div class="p-6 sm:p-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border-r-4 border-brand-gold">
-                  <h4 class="font-extrabold text-brand-green dark:text-brand-gold mb-2 text-base">1. اللقاءات المفتوحة</h4>
-                  <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">جلسات دورية لمناقشة التحديات الأكاديمية والفرص المستقبلية والإجابة المباشرة.</p>
-                </div>
-
-                <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border-r-4 border-brand-gold">
-                  <h4 class="font-extrabold text-brand-green dark:text-brand-gold mb-2 text-base">2. الاستشارات السلوكية والمهنية</h4>
-                  <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">جلسات فردية لمساعدة الطلاب على تجاوز الصعوبات والتخطيط الشخصي الصحيح.</p>
-                </div>
-
-                <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border-r-4 border-brand-gold">
-                  <h4 class="font-extrabold text-brand-green dark:text-brand-gold mb-2 text-base">3. ورش العمل التطويرية</h4>
-                  <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">حقائب تدريبية في الذكاء العاطفي، بناء الهوية المهنية، وإعداد السيرة الذاتية.</p>
-                </div>
-
-                <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border-r-4 border-brand-gold">
-                  <h4 class="font-extrabold text-brand-green dark:text-brand-gold mb-2 text-base">4. تقييم بيركمان العالمي</h4>
-                  <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">تحليل سلوكي دقيق وفهم المحفزات والميول تحت إشراف مستشارين معتمدين.</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden shadow-sm">
-              <div class="bg-brand-greenDark px-6 py-4 text-white flex items-center gap-3">
-                <i class="fa-solid fa-flask text-brand-gold text-2xl"></i>
-                <div>
-                  <h3 class="text-xl font-bold">مختبر الابتكار (Innovation Laboratory)</h3>
-                  <p class="text-xs text-slate-200">تحويل الأفكار البحثية والأكاديمية إلى مشاريع جليلة وريادية</p>
-                </div>
-              </div>
-
-              <div class="p-6 sm:p-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border-r-4 border-brand-green">
-                  <span class="inline-block px-2 py-0.5 bg-brand-green/10 text-brand-green dark:text-brand-gold text-[10px] font-bold rounded mb-1">TRL 1</span>
-                  <h4 class="font-extrabold text-slate-900 dark:text-white mb-1 text-sm">ما قبل الاحتضان</h4>
-                  <p class="text-xs text-slate-600 dark:text-slate-300">استكشاف المشكلات، دراسة الاحتياج الجوهري، وتوليد الأفكار الابتكارية.</p>
-                </div>
-
-                <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border-r-4 border-brand-green">
-                  <span class="inline-block px-2 py-0.5 bg-brand-green/10 text-brand-green dark:text-brand-gold text-[10px] font-bold rounded mb-1">TRL 1-3</span>
-                  <h4 class="font-extrabold text-slate-900 dark:text-white mb-1 text-sm">إصدار الاحتضان</h4>
-                  <p class="text-xs text-slate-600 dark:text-slate-300">بناء الأساس العلمي والمستند التقني واختبار الفرضيات الأولي.</p>
-                </div>
-
-                <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border-r-4 border-brand-green">
-                  <span class="inline-block px-2 py-0.5 bg-brand-green/10 text-brand-green dark:text-brand-gold text-[10px] font-bold rounded mb-1">TRL 4-6</span>
-                  <h4 class="font-extrabold text-slate-900 dark:text-white mb-1 text-sm">البحث والتطوير</h4>
-                  <p class="text-xs text-slate-600 dark:text-slate-300">تطوير النموذج الأولي والمحاكاة المختبرية والتحقق التجريبي.</p>
-                </div>
-
-                <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border-r-4 border-brand-green">
-                  <span class="inline-block px-2 py-0.5 bg-brand-green/10 text-brand-green dark:text-brand-gold text-[10px] font-bold rounded mb-1">TRL 7-9</span>
-                  <h4 class="font-extrabold text-slate-900 dark:text-white mb-1 text-sm">إصدار ريادة الأعمال</h4>
-                  <p class="text-xs text-slate-600 dark:text-slate-300">إعداد نموذج العمل التجاري، حماية الملكية الفكرية، وتجهيز المشروع للانطلاق.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Section: Workflow -->
-      <section id="workflow" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16">
-          <h2 class="text-2xl sm:text-4xl font-black text-brand-green dark:text-brand-gold mb-3">آلية العمل مع المستفيد</h2>
-          <p class="text-slate-600 dark:text-slate-400 text-sm sm:text-base">رحلة الطالب المستفيدة عبر 5 مراحل منظمّة ودقيقة</p>
-          <div class="w-16 h-1 bg-brand-gold mx-auto mt-4 rounded-full"></div>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-          <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 text-center relative group hover:border-brand-gold transition">
-            <div class="w-10 h-10 bg-brand-gold text-slate-900 font-black rounded-full flex items-center justify-center mx-auto mb-4 text-lg">1</div>
-            <h3 class="font-extrabold text-brand-green dark:text-brand-gold mb-2 text-base">التسجيل</h3>
-            <p class="text-xs text-slate-600 dark:text-slate-300">تعبئة النموذج المخصص للخدمة أو الاستشارة المحددة.</p>
-          </div>
-
-          <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 text-center relative group hover:border-brand-gold transition">
-            <div class="w-10 h-10 bg-brand-gold text-slate-900 font-black rounded-full flex items-center justify-center mx-auto mb-4 text-lg">2</div>
-            <h3 class="font-extrabold text-brand-green dark:text-brand-gold mb-2 text-base">التشخيص</h3>
-            <p class="text-xs text-slate-600 dark:text-slate-300">جلسة أولية لتحديد احتياجات الطالب ورغباته السلوكية.</p>
-          </div>
-
-          <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 text-center relative group hover:border-brand-gold transition">
-            <div class="w-10 h-10 bg-brand-gold text-slate-900 font-black rounded-full flex items-center justify-center mx-auto mb-4 text-lg">3</div>
-            <h3 class="font-extrabold text-brand-green dark:text-brand-gold mb-2 text-base">التوجيه</h3>
-            <p class="text-xs text-slate-600 dark:text-slate-300">تقديم الاستشارة المتخصصة أو تطبيق التقييم المناسب.</p>
-          </div>
-
-          <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 text-center relative group hover:border-brand-gold transition">
-            <div class="w-10 h-10 bg-brand-gold text-slate-900 font-black rounded-full flex items-center justify-center mx-auto mb-4 text-lg">4</div>
-            <h3 class="font-extrabold text-brand-green dark:text-brand-gold mb-2 text-base">التطوير</h3>
-            <p class="text-xs text-slate-600 dark:text-slate-300">المشاركة في البرامج التدريبية المخصصة والمتابعة الأكاديمية.</p>
-          </div>
-
-          <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 text-center relative group hover:border-brand-gold transition sm:col-span-2 lg:col-span-1">
-            <div class="w-10 h-10 bg-brand-gold text-slate-900 font-black rounded-full flex items-center justify-center mx-auto mb-4 text-lg">5</div>
-            <h3 class="font-extrabold text-brand-green dark:text-brand-gold mb-2 text-base">المتابعة</h3>
-            <p class="text-xs text-slate-600 dark:text-slate-300">قياس الأثر المترتب وتقييم التطور الأكاديمي والمهني.</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- Section: Team Directory -->
-      <section id="team" class="py-20 bg-slate-100 dark:bg-slate-900/50 transition-colors duration-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="text-center mb-16">
-            <h2 class="text-2xl sm:text-4xl font-black text-brand-green dark:text-brand-gold mb-3">دليل الفريق</h2>
-            <p class="text-slate-600 dark:text-slate-400 text-sm sm:text-base">منظومة الإدارة والتنفيذ بمكتب التوجيه السلوكي والمهني</p>
-            <div class="w-16 h-1 bg-brand-gold mx-auto mt-4 rounded-full"></div>
-          </div>
-
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-slate-200 dark:border-slate-700 shadow-sm flex items-start gap-4">
-              <div class="w-12 h-12 bg-brand-green/10 text-brand-green dark:text-brand-gold rounded-xl flex items-center justify-center text-xl shrink-0"><i class="fa-solid fa-user-tie"></i></div>
-              <div>
-                <span class="inline-block px-2.5 py-0.5 bg-brand-gold/20 text-brand-gold text-[11px] font-bold rounded-md mb-1">الإدارة العليا</span>
-                <h3 class="font-extrabold text-slate-900 dark:text-white text-base">مدير المكتب</h3>
-                <p class="text-xs font-bold text-brand-green dark:text-brand-gold mb-2">د. سلطان سنبل</p>
-                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">الإشراف العام، التوجيه الاستراتيجي، واعتماد الخطط والتطوير المؤسسي.</p>
-              </div>
-            </div>
-
-            <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-slate-200 dark:border-slate-700 shadow-sm flex items-start gap-4">
-              <div class="w-12 h-12 bg-brand-green/10 text-brand-green dark:text-brand-gold rounded-xl flex items-center justify-center text-xl shrink-0"><i class="fa-solid fa-user-gear"></i></div>
-              <div>
-                <span class="inline-block px-2.5 py-0.5 bg-brand-gold/20 text-brand-gold text-[11px] font-bold rounded-md mb-1">الإدارة العليا</span>
-                <h3 class="font-extrabold text-slate-900 dark:text-white text-base">نائب مدير المكتب</h3>
-                <p class="text-xs font-bold text-brand-green dark:text-brand-gold mb-2">د. مي القرشي</p>
-                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">المتابعة التنفيذية وإدارة ملف الشراكات الاستراتيجية والجودة.</p>
-              </div>
-            </div>
-
-            <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-slate-200 dark:border-slate-700 shadow-sm flex items-start gap-4">
-              <div class="w-12 h-12 bg-brand-green/10 text-brand-green dark:text-brand-gold rounded-xl flex items-center justify-center text-xl shrink-0"><i class="fa-solid fa-sliders"></i></div>
-              <div>
-                <span class="inline-block px-2.5 py-0.5 bg-brand-gold/20 text-brand-gold text-[11px] font-bold rounded-md mb-1">التشغيل الميداني</span>
-                <h3 class="font-extrabold text-slate-900 dark:text-white text-base">مدير العمليات</h3>
-                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-2">إدارة الجداول التشغيلية وتنسيق المهام اليومية بين الأقسام الميدانية.</p>
-              </div>
-            </div>
-
-            <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-slate-200 dark:border-slate-700 shadow-sm flex items-start gap-4">
-              <div class="w-12 h-12 bg-brand-green/10 text-brand-green dark:text-brand-gold rounded-xl flex items-center justify-center text-xl shrink-0"><i class="fa-solid fa-users-line"></i></div>
-              <div>
-                <span class="inline-block px-2.5 py-0.5 bg-brand-gold/20 text-brand-gold text-[11px] font-bold rounded-md mb-1">شطر الطلاب والطالبات</span>
-                <h3 class="font-extrabold text-slate-900 dark:text-white text-base">قائد شطر الطلاب / الطالبات</h3>
-                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-2">قيادة الأنشطة الطلابية والمتابعة المباشرة للطلبة المستفيدين.</p>
-              </div>
-            </div>
-
-            <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-slate-200 dark:border-slate-700 shadow-sm flex items-start gap-4">
-              <div class="w-12 h-12 bg-brand-green/10 text-brand-green dark:text-brand-gold rounded-xl flex items-center justify-center text-xl shrink-0"><i class="fa-solid fa-calendar-check"></i></div>
-              <div>
-                <span class="inline-block px-2.5 py-0.5 bg-brand-gold/20 text-brand-gold text-[11px] font-bold rounded-md mb-1">قسم البرامج والفعاليات</span>
-                <h3 class="font-extrabold text-slate-900 dark:text-white text-base">مشرف قسم البرامج والفعاليات</h3>
-                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-2">تصميم وتنفيذ الجدول الزمني للورش والمبادرات الاستشارية.</p>
-              </div>
-            </div>
-
-            <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-slate-200 dark:border-slate-700 shadow-sm flex items-start gap-4">
-              <div class="w-12 h-12 bg-brand-green/10 text-brand-green dark:text-brand-gold rounded-xl flex items-center justify-center text-xl shrink-0"><i class="fa-solid fa-lightbulb"></i></div>
-              <div>
-                <span class="inline-block px-2.5 py-0.5 bg-brand-gold/20 text-brand-gold text-[11px] font-bold rounded-md mb-1">قسم الإبداع والمواهب</span>
-                <h3 class="font-extrabold text-slate-900 dark:text-white text-base">مسؤول استقطاب الموهوبين</h3>
-                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-2">اكتشاف الطاقات الطلابية الواعدة وترشيحها لبرامج التميز والمختبر.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-    </main>
-
-    <!-- Footer Section -->
-    <footer class="bg-slate-900 text-white border-t-4 border-brand-gold">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div>
-            <div class="flex items-center gap-3 mb-4">
-              <div class="w-10 h-10 bg-brand-green text-brand-gold rounded-lg flex items-center justify-center text-xl">
-                <i class="fa-solid fa-compass"></i>
-              </div>
-              <span class="font-black text-lg text-brand-gold">مكتب التوجيه السلوكي والمهني</span>
-            </div>
-            <p class="text-xs text-slate-400 leading-relaxed mb-4">
-              مركز متخصص بجامعة الملك عبد العزيز يهدف لتطوير إمكانات الطلاب وتوجيههم أكاديمياً وسلوكياً ومهنياً.
-            </p>
-          </div>
-
-          <div>
-            <h4 class="font-bold text-brand-gold text-base mb-4 flex items-center gap-2">
-              <i class="fa-solid fa-location-dot"></i>
-              <span>مقر المكتب</span>
-            </h4>
-            <ul class="text-xs text-slate-300 space-y-2">
-              <li class="flex items-center gap-2"><i class="fa-solid fa-building text-slate-500"></i> جامعة الملك عبد العزيز - جدة</li>
-              <li class="flex items-center gap-2"><i class="fa-solid fa-layer-group text-slate-500"></i> الدور الثالث</li>
-              <li class="flex items-center gap-2"><i class="fa-solid fa-door-closed text-slate-500"></i> مكتب رقم 3610</li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 class="font-bold text-brand-gold text-base mb-4 flex items-center gap-2">
-              <i class="fa-solid fa-handshake"></i>
-              <span>الشركاء الاستراتيجيون</span>
-            </h4>
-            <ul class="text-xs text-slate-300 space-y-2">
-              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-gold"></i> مركز المبدعون</li>
-              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-gold"></i> شركة Masters Legacy (Birkman)</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="border-t border-slate-800 mt-10 pt-6 text-center text-xs text-slate-500">
-          جميع الحقوق محفوظة © مكتب التوجيه السلوكي والمهني 2026 | جامعة الملك عبد العزيز
-        </div>
+  <!-- من نحن -->
+  <section id="about">
+    <div class="section-title">
+      <h3>عن المكتب وفلسفتنا</h3>
+      <div class="title-line"></div>
+    </div>
+    <div class="grid-3">
+      <div class="card">
+        <h4>رؤيتنا</h4>
+        <p>أن نكون المرجع الرائد في تمكين الطلبة من اكتشاف ذواتهم وتعزيز جاهزيتهم الأكاديمية والمهنية واتخاذ قرارات واعية وفق رؤية 2030.</p>
       </div>
-    </footer>
-  </div>
+      <div class="card">
+        <h4>رسالتنا</h4>
+        <p>تقديم خدمات توجيهية واستشارية وتطويرية عالية الجودة من خلال برامج متخصصة، وشراكات استراتيجية، وأدوات تقييم عالمية.</p>
+      </div>
+      <div class="card">
+        <h4>قيمنا</h4>
+        <p>التمكين، الاحترافية، السرية التامة، الموثوقية، والتطوير المستمر لضمان أفضل القرارات الناجحة للطالب.</p>
+      </div>
+    </div>
+  </section>
 
+  <!-- البرامج والمبادرات -->
+  <section id="programs" style="background: var(--bg-color);">
+    <div class="section-title">
+      <h3>برامج ومبادرات المكتب</h3>
+      <div class="title-line"></div>
+    </div>
+    
+    <div class="programs-wrapper">
+      <div class="program-header">
+        <i class="fa-solid fa-route" style="color: var(--secondary-color);"></i>
+        <h4>برنامج "وجهني" (Wajjehni)</h4>
+      </div>
+      <div class="program-grid">
+        <div class="sub-card"><h5>1. اللقاءات المفتوحة</h5><p>مناقشة الموضوعات الأكاديمية والمهنية والإجابة عن استفسارات الطلاب.</p></div>
+        <div class="sub-card"><h5>2. الاستشارات السلوكية</h5><p>مساعدة في تخطي التحديات والتخطيط المباشر للمسارات المستقبلية.</p></div>
+        <div class="sub-card"><h5>3. ورش العمل</h5><p>تنمية مهارات التخطيط، الذكاء العاطفي، وكتابة السيرة الذاتية.</p></div>
+        <div class="sub-card"><h5>4. تقييم بيركمان</h5><p>تحليل الميول والسلوك الاعتيادي ومسببات الضغط بجلسات مع مستشار معتمد.</p></div>
+      </div>
+    </div>
 
-  <!-- ================= لوحة تحكم الكادر والعمليات (الكود الثاني بالكامل دون حذف) ================= -->
-  <div id="dashboardView" class="hidden flex-grow" style="background-color: var(--bg-color); color: var(--text-color); padding: 2rem; min-height: 100vh;">
+    <div class="programs-wrapper">
+      <div class="program-header" style="background: #083e27;">
+        <i class="fa-solid fa-lightbulb" style="color: var(--secondary-color);"></i>
+        <h4>مختبر الابتكار (Innovation Laboratory)</h4>
+      </div>
+      <div class="program-grid">
+        <div class="sub-card"><h5>ما قبل الاحتضان (TRL 1)</h5><p>استكشاف المشكلات وفهم أصحاب المصلحة وتوليد الحلول الابتكارية.</p></div>
+        <div class="sub-card"><h5>إصدار الاحتضان (TRL 1-3)</h5><p>بناء الأساس العلمي، صياغة المفهوم التقني، وتصميم الاختبارات.</p></div>
+        <div class="sub-card"><h5>البحث والتطوير (TRL 4-6)</h5><p>بناء النموذج الأولي، التحقق من ملاءمته، ودورات التحسين التطبيقي.</p></div>
+        <div class="sub-card"><h5>ريادة الأعمال (TRL 7-9)</h5><p>تطوير نموذج الأعمال، حماية الملكية الفكرية، وتهيئة المشروع للتجير.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- آلية العمل -->
+  <section id="workflow">
+    <div class="section-title">
+      <h3>آلية العمل مع المستفيد</h3>
+      <div class="title-line"></div>
+    </div>
+    <div class="steps-container">
+      <div class="step-box"><div class="step-num">1</div><h5>التسجيل</h5><p>التعرف على الخدمات عبر النماذج الرسمية.</p></div>
+      <div class="step-box"><div class="step-num">2</div><h5>التشخيص</h5><p>تحديد الاحتياجات الجوهرية والتقييم الأولي.</p></div>
+      <div class="step-box"><div class="step-num">3</div><h5>التوجيه</h5><p>المشاركة في الجلسات الاستشارية والورش.</p></div>
+      <div class="step-box"><div class="step-num">4</div><h5>التطوير</h5><p>بناء خطة تطوير شخصية وأكاديمية.</p></div>
+      <div class="step-box"><div class="step-num">5</div><h5>المتابعة</h5><p>تقديم الدعم المستمر لضمان الأثر المستدام.</p></div>
+    </div>
+  </section>
+
+  <!-- دليل الفريق -->
+  <section id="team" style="background: var(--bg-color);">
+    <div class="section-title">
+      <h3>دليل التواصل مع فريق المكتب</h3>
+      <div class="title-line"></div>
+    </div>
+    <div class="team-grid">
+      <div class="member-card"><span class="member-role">الإدارة العليا</span><h5>مدير المكتب (د. سلطان سنبل)</h5><p>القيادة الاستراتيجية واعتماد الخطط والبرامج والسياسات والإشراف على جودة المخرجات.</p></div>
+      <div class="member-card"><span class="member-role">الإدارة العليا</span><h5>نائب مدير المكتب (د. مي القرشي)</h5><p>المساندة في الملفات والقرارات الاستراتيجية، الإشراف على استمرارية القيادة ووحدة التوجه.</p></div>
+      <div class="member-card"><span class="member-role">التشغيل الميداني</span><h5>مدير العمليات</h5><p>إدارة النظام التشغيلي اليومي والإشراف على سير العمل بين الأقسام ومتابعة مؤشرات الأداء.</p></div>
+      <div class="member-card"><span class="member-role">شطر الطلاب والطالبات</span><h5>قائد شطر الطلاب / الطالبات</h5><p>متابعة مشاركة الأعضاء والتواصل العام والانضباط والاندماج في أنشطة المكتب.</p></div>
+      <div class="member-card"><span class="member-role">قسم البرامج والفعاليات</span><h5>مشرف قسم البرامج والفعاليات</h5><p>تصميم وتطوير وتنفيذ البرامج والمبادرات التوجيهية والتدريبية وإعداد التقويم البرامجي.</p></div>
+      <div class="member-card"><span class="member-role">قسم الإبداع والمواهب</span><h5>مسؤول استقطاب الموهوبين</h5><p>اكتشاف ورعاية المواهب الإبداعية وتنميتها وإبرازها وتوفير الفرص الاستثنائية لهم.</p></div>
+    </div>
+  </section>
+
+  <!-- نافذة لوحة تحكم الكادر (تفتح كـ Modal) -->
+  <div id="dashboardModal" class="modal-overlay">
     <div class="dashboard-container">
-      <!-- الشريط العلوي -->
       <div class="header-bar">
-        <div class="header-title">
-          <h2>لوحة تحكم الكادر والعمليات</h2>
-          <p>مكتب التوجيه السلوكي والمهني</p>
+        <div>
+          <h2 style="color:var(--secondary-color);">لوحة تحكم الكادر والعمليات</h2>
+          <p style="font-size:0.85rem; color:#94a3b8;">مكتب التوجيه السلوكي والمهني</p>
         </div>
-        <button class="btn-logout" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> خروج</button>
+        <button onclick="closeDashboard()" style="background:#ef4444; color:white; border:none; padding:0.5rem 1rem; border-radius:8px; cursor:pointer; font-weight:700;"><i class="fa-solid fa-xmark"></i> إغلاق اللوحة</button>
       </div>
 
-      <!-- المؤشرات الحيوية -->
       <div class="stats-grid">
-        <div class="stat-card">
-          <h4>طلبات التقديم بالقروب</h4>
-          <div class="num">142</div>
-        </div>
-        <div class="stat-card">
-          <h4>استفسارات بوابة الزوار</h4>
-          <div class="num">38</div>
-        </div>
-        <div class="stat-card">
-          <h4>مستفيدي تقييم بيركمان</h4>
-          <div class="num">89</div>
-        </div>
-        <div class="stat-card">
-          <h4>مشاريع مختبر الابتكار</h4>
-          <div class="num">15</div>
-        </div>
+        <div class="stat-card"><h4>طلبات القروب</h4><div class="num">142</div></div>
+        <div class="stat-card"><h4>استفسارات الزوار</h4><div class="num">38</div></div>
+        <div class="stat-card"><h4>تقييم بيركمان</h4><div class="num">89</div></div>
+        <div class="stat-card"><h4>مشاريع الابتكار</h4><div class="num">15</div></div>
       </div>
 
-      <!-- إدارة المهام التشغيلية -->
       <div class="section-card">
-        <h3><i class="fa-solid fa-list-check"></i> إدارة المهام التشغيلية اليومية</h3>
+        <h3 style="color:var(--secondary-color); margin-bottom:1rem;"><i class="fa-solid fa-list-check"></i> إدارة المهام التشغيلية</h3>
         <div class="task-input-box">
-          <input type="text" id="newTaskInput" placeholder="أضف مهمة تشغيلية جديدة...">
+          <input type="text" id="newTaskInput" placeholder="أضف مهمة جديدة...">
           <button class="btn-add" onclick="addNewTask()">إضافة</button>
         </div>
         <div id="tasksList">
-          <div class="task-item">
-            <span>مراجعة طلائع المتقدمين لقروب كلية العلوم</span>
-            <span class="task-badge badge-done">مكتمل</span>
-          </div>
-          <div class="task-item">
-            <span>تجديد جدول الجلسات الاستشارية للأسبوع القادم</span>
-            <span class="task-badge badge-pending">قيد التنفيذ</span>
-          </div>
+          <div class="task-item"><span>مراجعة طلبات التقديم لقروب العلوم</span><span style="color:#10b981;">مكتمل</span></div>
+          <div class="task-item"><span>تحديث جدول الجلسات للأسبوع القادم</span><span style="color:var(--secondary-color);">قيد التنفيذ</span></div>
         </div>
+      </div>
+
+      <div class="section-card">
+        <h3 style="color:var(--secondary-color); margin-bottom:1rem;"><i class="fa-solid fa-key"></i> تحديث كلمة المرور في الشيت</h3>
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom:10px;">
+          <input type="text" id="memberIdInput" placeholder="رقم العضوية (Member ID)" style="padding:0.7rem; background:#0f172a; border:1px solid #334155; border-radius:8px; color:white;">
+          <input type="password" id="newPasswordInput" placeholder="كلمة المرور الجديدة" style="padding:0.7rem; background:#0f172a; border:1px solid #334155; border-radius:8px; color:white;">
+        </div>
+        <button onclick="updatePasswordInSheet()" style="background:var(--primary-color); color:white; border:none; padding:0.7rem 1.5rem; border-radius:8px; font-weight:700; cursor:pointer;">حفظ وتحديث الشيت</button>
       </div>
     </div>
   </div>
 
+  <!-- فوتر الموقع -->
+  <footer>
+    <p>جميع الحقوق محفوظة © مكتب التوجيه السلوكي والمهني 2026 | جامعة الملك عبد العزيز</p>
+  </footer>
 
-  <!-- Login Modal -->
-  <div id="loginModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-    <div class="bg-white dark:bg-slate-800 rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-slate-200 dark:border-slate-700 relative">
-      
-      <!-- Close Button -->
-      <button onclick="toggleLoginModal()" class="absolute top-4 left-4 text-slate-400 hover:text-slate-600 dark:hover:text-white p-2">
-        <i class="fa-solid fa-xmark text-xl"></i>
-      </button>
-
-      <div class="text-center mb-6">
-        <div class="w-12 h-12 bg-brand-green/10 text-brand-green dark:text-brand-gold rounded-2xl flex items-center justify-center text-2xl mx-auto mb-3">
-          <i class="fa-solid fa-user-lock"></i>
-        </div>
-        <h3 class="text-xl font-black text-slate-900 dark:text-white">بوابة دخول الكادر والأعضاء</h3>
-        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">الرجاء إدخال اسم المستخدم ورقم العضوية</p>
-      </div>
-
-      <form onsubmit="handlePortalLogin(event)" class="space-y-4">
-        <div>
-          <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">اسم المستخدم</label>
-          <input type="text" id="usernameInput" required placeholder="أدخل اسم المستخدم" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none focus:border-brand-gold">
-        </div>
-        <div>
-          <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">كلمة المرور أو رقم العضوية</label>
-          <input type="password" id="passwordInput" required placeholder="••••••••" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none focus:border-brand-gold">
-        </div>
-        <button type="submit" class="w-full bg-brand-green hover:bg-brand-greenDark text-white py-3 rounded-xl font-bold text-sm shadow transition">
-          تسجيل الدخول للوحة التحكم
-        </button>
-      </form>
-    </div>
-  </div>
-
-
-  <!-- JavaScript Logic -->
   <script>
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwLKK_ocd7fX7xCNgZl-Q_Feqi3h042DfII0nqzu_NfBw0-o61BcLzxnakHnEIY-QjEJA/exec";
 
-    function toggleMobileMenu() {
-      const menu = document.getElementById('mobileMenu');
-      menu.classList.toggle('hidden');
+    function openDashboard() {
+      document.getElementById('dashboardModal').style.display = 'block';
     }
 
-    function toggleLoginModal() {
-      const modal = document.getElementById('loginModal');
-      modal.classList.toggle('hidden');
-    }
-
-    function handlePortalLogin(event) {
-      event.preventDefault();
-      const user = document.getElementById('usernameInput').value;
-      if(user) {
-        localStorage.setItem('isLoggedIn', 'true');
-        toggleLoginModal();
-        checkLoginState();
-      }
-    }
-
-    function logout() {
-      localStorage.removeItem('isLoggedIn');
-      window.location.reload();
-    }
-
-    function checkLoginState() {
-      if(localStorage.getItem('isLoggedIn') === 'true') {
-        document.getElementById('websiteView').classList.add('hidden');
-        document.getElementById('dashboardView').classList.remove('hidden');
-      }
+    function closeDashboard() {
+      document.getElementById('dashboardModal').style.display = 'none';
     }
 
     function addNewTask() {
@@ -602,15 +283,37 @@
       const list = document.getElementById('tasksList');
       const item = document.createElement('div');
       item.className = 'task-item';
-      item.innerHTML = `<span>${input.value}</span><span class="task-badge badge-pending">قيد التنفيذ</span>`;
+      item.innerHTML = `<span>${input.value}</span><span style="color:var(--secondary-color);">قيد التنفيذ</span>`;
       list.prepend(item);
       input.value = '';
     }
 
-    // التحقق عند تحميل الصفحة
-    window.onload = function() {
-      checkLoginState();
-    };
+    async function updatePasswordInSheet() {
+      const memberId = document.getElementById('memberIdInput').value.trim();
+      const newPass = document.getElementById('newPasswordInput').value.trim();
+
+      if(!memberId || !newPass) {
+        alert("الرجاء إدخال رقم العضوية وكلمة المرور الجديدة");
+        return;
+      }
+
+      alert("جاري إرسال الطلب وتحديث كلمة المرور في قاعدة البيانات...");
+
+      try {
+        const response = await fetch(`${SCRIPT_URL}?action=updatePassword&memberId=${encodeURIComponent(memberId)}&newPassword=${encodeURIComponent(newPass)}`);
+        const result = await response.json();
+
+        if(result.status === "success") {
+          alert("تم تحديث كلمة المرور في الشيت بنجاح!");
+          document.getElementById('memberIdInput').value = '';
+          document.getElementById('newPasswordInput').value = '';
+        } else {
+          alert("خطأ: " + (result.message || "لم يتم العثور على العضو"));
+        }
+      } catch (error) {
+        alert("حدث خطأ في الاتصال بالخادم.");
+      }
+    }
   </script>
 
 </body>
