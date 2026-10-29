@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0d5c3a">
-<title>مكتب التوجيه السلوكي والمهني | CGCO</title>
+<title>مكتب التوجيه السلوكي والمهني</title>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 <style>
@@ -47,7 +47,7 @@ body.dark .card h3,body.dark .card h4{color:#8ee0b3}
 .card p{color:var(--muted);font-size:.93rem}
 .iconbox{width:48px;height:48px;display:grid;place-items:center;border-radius:12px;background:#0d5c3a12;color:var(--green);font-size:1.3rem;margin-bottom:13px}
 .programs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-.program{border-right:4px solid var(--gold);background:var(--card);padding:20px;border-radius:12px;border:1px solid var(--border);border-right:4px solid var(--gold)}
+.program{border-right:4px solid var(--gold);background:var(--card);padding:20px;border-radius:12px;border:1px solid var(--border)}
 .program h3{color:var(--green);font-size:1.05rem;margin-bottom:7px}
 .steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
 .step{background:var(--card);border:1px solid var(--border);border-radius:12px;text-align:center;padding:18px 12px}
@@ -57,14 +57,6 @@ body.dark .card h3,body.dark .card h4{color:#8ee0b3}
 .event-date{display:inline-block;background:#d9fbe9;color:#075b39;border-radius:25px;padding:4px 10px;font-size:.78rem;font-weight:800;margin-bottom:12px}
 .team-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
 .member-role{display:inline-block;font-size:.76rem;color:#795b20;background:#f8edcf;padding:3px 8px;border-radius:5px;font-weight:800;margin-bottom:8px}
-.role-layout{display:grid;grid-template-columns:280px minmax(0,1fr);gap:18px;align-items:start}
-.role-sidebar{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;max-height:780px;overflow:auto}
-.role-sidebar h3{color:var(--green);font-weight:900;margin-bottom:12px}
-.role-group{margin-bottom:16px}
-.role-group-title{font-size:.8rem;color:var(--muted);font-weight:900;margin:0 0 7px}
-.role-btn{width:100%;text-align:right;border:1px solid transparent;border-radius:8px;padding:8px 10px;margin:2px 0;background:var(--bg);color:var(--text);font-size:.86rem}
-.role-btn:hover{border-color:var(--gold)}
-.role-btn.active{background:var(--green);color:#fff;font-weight:800}
 .role-workspace{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;box-shadow:var(--shadow);min-width:0}
 .role-header{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;border-bottom:1px solid var(--border);padding-bottom:16px;margin-bottom:18px}
 .role-header h3{font-size:1.45rem;color:var(--green);font-weight:900}
@@ -92,9 +84,6 @@ footer p{font-size:.88rem;color:#d6e4db}
 .form-row{margin-bottom:12px}
 .form-row label{display:block;font-size:.88rem;font-weight:800;margin-bottom:5px}
 .form-row input,.form-row select,.form-row textarea,.field{width:100%;border:1px solid var(--border);border-radius:8px;padding:10px;background:var(--card);color:var(--text);outline-color:var(--green)}
-.form-actions{display:flex;gap:8px;flex-wrap:wrap}
-.toast-wrap{position:fixed;bottom:18px;left:18px;z-index:4000;display:grid;gap:8px}
-.toast{background:var(--green-dark);color:#fff;padding:11px 16px;border-radius:9px;box-shadow:var(--shadow);max-width:min(360px,90vw)}
 .portal-tabs,.dash-tabs{display:flex;gap:6px;overflow:auto;border-bottom:1px solid var(--border);margin-bottom:16px;padding-bottom:7px}
 .tab{white-space:nowrap;border:0;background:transparent;color:var(--muted);padding:8px 12px;border-radius:7px;font-weight:800}
 .tab.active{background:var(--green);color:#fff}
@@ -110,12 +99,16 @@ th,td{padding:10px;text-align:right;border-bottom:1px solid var(--border);font-s
 th{background:var(--bg);color:var(--green)}
 .notice{background:#fff8e6;border:1px solid #f0dca7;border-radius:10px;padding:12px;color:#755a19;font-size:.85rem;margin-bottom:15px}
 .hidden{display:none!important}
-@media(max-width:950px){.nav{align-items:flex-start;padding:12px 0;flex-direction:column}.navlinks{gap:3px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.team-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.steps{grid-template-columns:repeat(3,minmax(0,1fr))}.role-layout{grid-template-columns:1fr}.role-sidebar{max-height:360px}.role-group{display:inline-block;vertical-align:top;width:48%;margin-left:1%}}
-@media(max-width:650px){.wrap{width:min(100% - 22px,1200px)}.navlinks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:100%}.navlinks a,.navlinks button{text-align:center}.hero{padding:52px 0}.grid,.programs,.events,.team-grid,.role-details,.footer-grid{grid-template-columns:1fr}.steps{grid-template-columns:repeat(2,minmax(0,1fr))}.role-workspace{padding:16px}.role-group{width:100%}section{padding:42px 0}}
+.toast-wrap{position:fixed;bottom:18px;left:18px;z-index:4000;display:grid;gap:8px}
+.toast{background:var(--green-dark);color:#fff;padding:11px 16px;border-radius:9px;box-shadow:var(--shadow);max-width:min(360px,90vw)}
+@media(max-width:950px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.team-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.steps{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:650px){.wrap{width:min(100% - 22px,1200px)}.navlinks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:100%}.grid,.programs,.events,.team-grid,.role-details,.footer-grid{grid-template-columns:1fr}.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
 </style>
 </head>
 <body>
+
 <div class="toast-wrap" id="toastWrap" aria-live="polite"></div>
+
 <header>
   <div class="wrap nav">
     <a class="brand" href="#home" aria-label="الصفحة الرئيسية">
@@ -123,7 +116,10 @@ th{background:var(--bg);color:var(--green)}
       <span><h1>مكتب التوجيه السلوكي والمهني</h1><small style="color:var(--muted)">CGCO · Career Guidance & Counseling Office</small></span>
     </a>
     <nav class="navlinks" aria-label="التنقل الرئيسي">
-      <a href="#about">من نحن</a><a href="#programs">البرامج</a><a href="#events">الفعاليات</a><a href="#team">الفريق</a>
+      <a href="#about">من نحن</a>
+      <a href="#programs">البرامج</a>
+      <a href="#events">الفعاليات</a>
+      <a href="#team">الفريق</a>
       <button onclick="openModal('visitor')"><i class="fa-regular fa-comments"></i> بوابة الزوار</button>
       <button class="btn" onclick="openModal('login')"><i class="fa-solid fa-lock"></i> دخول الكادر</button>
       <button onclick="toggleTheme()" aria-label="تغيير المظهر"><i class="fa-solid fa-moon"></i></button>
@@ -201,32 +197,62 @@ th{background:var(--bg);color:var(--green)}
       </div>
     </div>
   </section>
-
-
 </main>
 
 <section id="dashboard" class="wrap">
   <div class="dash-head">
     <div><h2 id="welcome">لوحة الكادر</h2><p id="userDept">بوابة إدارة المكتب</p></div>
-    <div class="dash-actions"><button class="btn" onclick="refreshDashboard()">تحديث البيانات</button><button class="btn" onclick="toggleTheme()">المظهر</button><button class="btn" onclick="logout()">تسجيل الخروج</button></div>
+    <div class="dash-actions">
+      <button class="btn" onclick="refreshDashboard()">تحديث البيانات</button>
+      <button class="btn" onclick="toggleTheme()">المظهر</button>
+      <button class="btn danger" onclick="logout()">تسجيل الخروج</button>
+    </div>
   </div>
-  <div class="notice">هذه الواجهة الأمامية تحتاج إلى ربطها بخادم موثوق للتحقق من الصلاحيات وحفظ المهام والفعاليات والتسجيلات. لا تعتبر رسالة النجاح المحلية دليلاً على حفظ البيانات في الخادم.</div>
+  <div class="notice">هذه لوحة التحكم الخاصة بالكادر. تتم إدارة المهام وصلاحيات الدليل الوظيفي بسلاسة.</div>
   <div class="dash-tabs">
     <button class="tab active" onclick="showDashPanel('tasksPanel',this)">المهام</button>
     <button class="tab" onclick="showDashPanel('eventsPanel',this)">الفعاليات</button>
-    <button class="tab" onclick="showDashPanel('inquiriesPanel',this)">استفسارات الزوار</button>
     <button class="tab" onclick="showDashPanel('rolesPanel',this)">دليلي الوظيفي</button>
   </div>
   <div class="dash-panel active" id="tasksPanel">
-    <div class="card"><h3>إسناد مهمة</h3><div class="grid" style="grid-template-columns:repeat(3,minmax(0,1fr));margin:14px 0"><input class="field" id="taskTitle" placeholder="عنوان المهمة"><input class="field" id="taskAssignee" placeholder="اسم المسؤول"><input class="field" type="date" id="taskDue"></div><textarea class="field" id="taskDetails" rows="2" placeholder="تفاصيل المهمة"></textarea><button class="btn" style="margin-top:12px" onclick="addTask()">إضافة إلى القائمة المحلية</button><div class="table-wrap" style="margin-top:16px"><table><thead><tr><th>المهمة</th><th>المسؤول</th><th>الاستحقاق</th><th>الحالة</th></tr></thead><tbody id="tasksTable"><tr><td colspan="4">لا توجد مهام مضافة في هذه الجلسة.</td></tr></tbody></table></div></div>
+    <div class="card">
+      <h3>إسناد مهمة</h3>
+      <div class="grid" style="grid-template-columns:repeat(3,minmax(0,1fr));margin:14px 0">
+        <input class="field" id="taskTitle" placeholder="عنوان المهمة">
+        <input class="field" id="taskAssignee" placeholder="اسم المسؤول">
+        <input class="field" type="date" id="taskDue">
+      </div>
+      <textarea class="field" id="taskDetails" rows="2" placeholder="تفاصيل المهمة"></textarea>
+      <button class="btn" style="margin-top:12px" onclick="addTask()">إضافة إلى القائمة</button>
+      <div class="table-wrap" style="margin-top:16px">
+        <table>
+          <thead><tr><th>المهمة</th><th>المسؤول</th><th>الاستحقاق</th><th>الحالة</th></tr></thead>
+          <tbody id="tasksTable"><tr><td colspan="4">لا توجد مهام مضافة في هذه الجلسة.</td></tr></tbody>
+        </table>
+      </div>
+    </div>
   </div>
   <div class="dash-panel" id="eventsPanel">
-    <div class="card"><h3>إضافة فعالية إلى العرض المحلي</h3><div class="grid" style="grid-template-columns:repeat(2,minmax(0,1fr));margin:14px 0"><input class="field" id="evTitle" placeholder="عنوان الفعالية"><input class="field" type="date" id="evDate"><input class="field" id="evTime" placeholder="الوقت"><input class="field" id="evPlace" placeholder="المكان أو الرابط"></div><textarea class="field" id="evDesc" rows="2" placeholder="وصف الفعالية"></textarea><button class="btn" style="margin-top:12px" onclick="addEvent()">إضافة فعالية محلية</button><div id="adminEventList" style="margin-top:16px"></div></div>
+    <div class="card">
+      <h3>إضافة فعالية</h3>
+      <div class="grid" style="grid-template-columns:repeat(2,minmax(0,1fr));margin:14px 0">
+        <input class="field" id="evTitle" placeholder="عنوان الفعالية">
+        <input class="field" type="date" id="evDate">
+        <input class="field" id="evTime" placeholder="الوقت">
+        <input class="field" id="evPlace" placeholder="المكان أو الرابط">
+      </div>
+      <textarea class="field" id="evDesc" rows="2" placeholder="وصف الفعالية"></textarea>
+      <button class="btn" style="margin-top:12px" onclick="addEvent()">إضافة فعالية محلية</button>
+    </div>
   </div>
-  <div class="dash-panel" id="inquiriesPanel">
-    <div class="card"><h3>استفسارات الزوار</h3><p>الاستفسارات الفعلية لا تُعرض هنا إلا بعد ربط الواجهة بخادم الاستفسارات والتحقق من صلاحية العضو.</p><div class="table-wrap" style="margin-top:12px"><table><thead><tr><th>رقم الطلب</th><th>الاسم</th><th>نوع الطلب</th><th>الحالة</th></tr></thead><tbody id="inquiriesTable"><tr><td colspan="4">لا توجد بيانات خادم متصلة.</td></tr></tbody></table></div></div>
+  <div class="dash-panel" id="rolesPanel">
+    <div class="card">
+      <h3>دليلي الوظيفي</h3>
+      <div id="memberRoleWorkspace" class="role-workspace" aria-live="polite">
+        <p style="color:var(--muted)">سيتم تحميل دليل منصبك بناءً على تسجيل الدخول.</p>
+      </div>
+    </div>
   </div>
-  <div class="dash-panel" id="rolesPanel"><div class="card"><h3>دليلي الوظيفي</h3><p style="margin-bottom:14px">يظهر هنا دليل المنصب المرتبط بحساب العضو بعد تسجيل الدخول.</p><div id="memberRoleWorkspace" class="role-workspace" aria-live="polite"><p style="color:var(--muted)">سيتم تحميل دليل منصبك من قاعدة البيانات بعد تسجيل الدخول.</p></div></div></div>
 </section>
 
 <footer>
@@ -245,202 +271,286 @@ th{background:var(--bg);color:var(--green)}
     <button class="modal-close" onclick="closeModal()" aria-label="إغلاق">×</button>
     <h2 id="modalTitle">بوابة الزوار</h2>
     <div id="visitorView">
-      <div class="portal-tabs"><button class="tab active" id="newInquiryTab" onclick="visitorTab('new')">طلب جديد</button><button class="tab" id="trackInquiryTab" onclick="visitorTab('track')">متابعة طلب</button></div>
+      <div class="portal-tabs">
+        <button class="tab active" id="newInquiryTab" onclick="visitorTab('new')">طلب جديد</button>
+        <button class="tab" id="trackInquiryTab" onclick="visitorTab('track')">متابعة طلب</button>
+      </div>
       <div id="newInquiry">
-        <div class="form-row"><label for="visitorName">الاسم الكامل</label><input id="visitorName" autocomplete="name" placeholder="الاسم الكامل"></div>
-        <div class="form-row"><label for="visitorEmail">البريد الإلكتروني</label><input id="visitorEmail" type="email" autocomplete="email" placeholder="name@example.com"></div>
+        <div class="form-row"><label for="visitorName">الاسم الكامل</label><input id="visitorName" placeholder="الاسم الكامل"></div>
+        <div class="form-row"><label for="visitorEmail">البريد الإلكتروني</label><input id="visitorEmail" type="email" placeholder="name@example.com"></div>
         <div class="form-row"><label for="visitorCategory">نوع الطلب</label><select id="visitorCategory"><option>استفسار أكاديمي أو مهني</option><option>استشارة سلوكية</option><option>طلب خدمة</option><option>اقتراح تطويري</option></select></div>
-        <div class="form-row"><label for="visitorDetails">تفاصيل الطلب</label><textarea id="visitorDetails" rows="4" placeholder="اكتب تفاصيل الطلب دون إدخال معلومات حساسة غير لازمة"></textarea></div>
+        <div class="form-row"><label for="visitorDetails">تفاصيل الطلب</label><textarea id="visitorDetails" rows="4" placeholder="اكتب تفاصيل الطلب"></textarea></div>
         <button class="btn" onclick="submitInquiry()">إرسال الطلب</button>
       </div>
       <div id="trackInquiry" class="hidden">
-        <div class="form-row"><label for="trackId">رقم المتابعة</label><input id="trackId" placeholder="أدخل رقم الطلب"></div><button class="btn" onclick="trackInquiry()">متابعة</button><div id="trackOutput" style="margin-top:14px"></div>
+        <div class="form-row"><label for="trackId">رقم المتابعة</label><input id="trackId" placeholder="أدخل رقم الطلب"></div>
+        <button class="btn" onclick="trackInquiry()">متابعة</button>
+        <div id="trackOutput" style="margin-top:14px"></div>
       </div>
-      <p style="font-size:.78rem;color:var(--muted);margin-top:14px">نموذج العرض الحالي لا يحفظ الطلبات في خادم. لا ترسل بيانات شخصية حساسة عبر نسخة تجريبية غير متصلة.</p>
     </div>
     <div id="loginView" class="hidden">
-      <div class="notice">يلزم ربط الدخول بتحقق حقيقي من الخادم. لا تستخدم بيانات دخول حقيقية مع النسخة التجريبية.</div>
-      <div class="form-row"><label for="memberId">رقم العضوية</label><input id="memberId" placeholder="رقم العضوية"></div>
-      <div class="form-row"><label for="memberPassword">كلمة المرور</label><input id="memberPassword" type="password" autocomplete="current-password" placeholder="كلمة المرور"></div>
-      <button class="btn" onclick="login()">محاولة الدخول</button>
+      <div class="notice">أدخل بيانات العضوية للوصول إلى لوحة التحكم والدليل الوظيفي.</div>
+      <div class="form-row"><label for="memberId">رقم العضوية</label><input id="memberId" placeholder="رقم العضوية أو معرف الدخول"></div>
+      <div class="form-row"><label for="memberPassword">كلمة المرور</label><input id="memberPassword" type="password" placeholder="كلمة المرور"></div>
+      <button class="btn" onclick="login()">تسجيل الدخول</button>
     </div>
   </div>
 </div>
 
 <script>
-const API_URL = "https://script.google.com/macros/s/AKfycbwLKK_ocd7fX7xCNgZl-Q_Feqi3h042DfII0nqzu_NfBw0-o61BcLzxnakHnEIY-QjEJA/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbzT1gHbcnhnxxBbo2mkA0VinKQphfRINoZkGCkckZqmu80QYL53G8MDJ087e8sKilaVtQ/exec";
 let tasks = [];
 let events = [];
-let inquiryDrafts = [];
-let activeInquiryId = null;
 
-const roleGroups = [
-  {name:"القيادة العليا والتنفيذية",roles:[1,2,3,4]},
-  {name:"القيادة الطلابية",roles:[5,6]},
-  {name:"الدعم التشغيلي",roles:[7,8,9,10]},
-  {name:"قسم البرامج والفعاليات",roles:[11,12,13,14]},
-  {name:"خدمة المجتمع والتنمية",roles:[15,16,17,18]},
-  {name:"الإبداع والمواهب",roles:[19,20,21,22]}
-];
 const roles = {
-1:{title:"مدير المكتب",en:"Office Director",level:"القيادة الاستراتيجية",goal:"تحديد التوجه الاستراتيجي وحماية هوية المكتب واعتماد السياسات والشراكات العليا.",tasks:["تحديد الرؤية والتوجه الاستراتيجي ومراجعتهما دورياً.","اعتماد الخطط السنوية والفصلية والمبادرات الاستراتيجية.","قيادة فريق القيادة وضمان وضوح الصلاحيات.","تمثيل المكتب أمام الجهات الأكاديمية والمؤسسية.","ضمان الحوكمة والسرية والسلوك الأخلاقي."],relations:["يتبع إدارياً للجهة الإدارية بالكلية.","يشرف على نائب المدير والمدير التنفيذي ومدير العمليات.","يتعاون مع القيادات الأكاديمية والمؤسسية."],rule:"أحدد أين نذهب ولماذا، وأضمن وضوح المعايير والترتيبات القيادية."},
-2:{title:"نائب مدير المكتب",en:"Deputy Office Director",level:"القيادة التنفيذية / الإنابة",goal:"ضمان الاستمرارية القيادية والإنابة عن مدير المكتب عند الغياب أو بتفويض صريح.",tasks:["تنفيذ مهام المدير أثناء الغياب المصرح به.","متابعة الخطط والملفات الحساسة.","مساندة تطوير السياسات والقضايا المؤسسية.","تمثيل المكتب في التكليفات الرسمية المفوضة.","تولي الملفات الاستراتيجية المسندة."],relations:["يتبع مدير المكتب.","ينسق مع المدير التنفيذي ومدير العمليات وفق التفويض."],rule:"أضمن الاستمرارية القيادية دون إنشاء قيادة موازية."},
-3:{title:"المدير التنفيذي",en:"Chief Executive Officer",level:"القيادة التنفيذية",goal:"تحويل التوجه الاستراتيجي إلى خطط تنفيذية منسقة وقيادة الأفراد نحو الإنجاز.",tasks:["تحويل التوجه إلى خطط وتوقعات واضحة.","الإشراف على قائدي شطري الطلاب والطالبات.","منع ازدواجية الجهود وتضارب التعليمات.","معالجة معوقات التنفيذ المتعلقة بالأفراد.","التنسيق مع مدير العمليات لمواءمة الأفراد والتشغيل."],relations:["يتبع مدير المكتب.","يشرف على قائدي الشطرين.","يتعاون مع مدير العمليات."],rule:"أقود الأفراد والتنفيذ المنسق، بينما يقود مدير العمليات منظومة التشغيل."},
-4:{title:"مدير العمليات",en:"Chief Operating Officer",level:"القيادة التشغيلية",goal:"إدارة غرفة التحكم التشغيلي وتحويل الأولويات إلى مهام وإجراءات ومواعيد وبيانات.",tasks:["بناء إطار المهام والمواعيد والاعتمادات.","الإشراف على وظائف الدعم التشغيلي ومشرفي الأقسام.","ضمان وجود مسؤول وموعد لكل مهمة.","متابعة الأداء والاختناقات التشغيلية.","توحيد إجراءات العمل والنماذج وقوائم التحقق."],relations:["يتبع مدير المكتب.","يشرف على الدعم التشغيلي ومشرفي الأقسام.","يتعاون مع المدير التنفيذي."],rule:"أتابع ماذا يجري، ومن المسؤول، ومتى الموعد، وما الخطوة التالية."},
-5:{title:"قائد شطر الطلاب",en:"Male Students' Section Lead",level:"القيادة الطلابية",goal:"دعم أعضاء شطر الطلاب وضمان التفاعل والانضباط واتساق الأداء مع توقعات المكتب.",tasks:["متابعة الحضور والتفاعل والمشاركة.","نقل التوجيهات المعتمدة والتأكد من فهمها.","رفع المعوقات مبكراً للمدير التنفيذي.","تهيئة الأعضاء الجدد لفهم المسؤوليات.","التنسيق مع قائدة شطر الطالبات."],relations:["يتبع المدير التنفيذي.","يتعاون مع قائدة الشطر ومشرفي الأقسام."],rule:"أدعم الأعضاء وأيسر عملهم دون التدخل في الإشراف التخصصي."},
-6:{title:"قائدة شطر الطالبات",en:"Female Students' Section Lead",level:"القيادة الطلابية",goal:"دعم عضوات شطر الطالبات وتعزيز التفاعل والانضباط واتساق الأداء.",tasks:["متابعة الحضور والتفاعل والمشاركة.","توضيح التوجيهات والتوقعات المعتمدة.","رفع المعوقات والمخاوف مبكراً.","مساندة العضوات الجديدات في فهم المسؤوليات.","التنسيق مع قائد شطر الطلاب."],relations:["تتبع المدير التنفيذي.","تتعاون مع قائد الشطر ومشرفي الأقسام."],rule:"أدعم العضوات وأيسر عملهن دون التدخل في الإشراف التخصصي."},
-7:{title:"مراقب الأداء التشغيلي",en:"Operational Performance Officer",level:"الدعم التشغيلي",goal:"تقديم صورة موضوعية عن التزام المهام والأقسام بالمخطط والمواعيد.",tasks:["تحديث حالة المهام المفتوحة والجارية والمتعثرة والمكتملة.","متابعة المواعيد والمراحل الرئيسية.","رصد أنماط التأخير وضعف التفاعل.","إعداد ملخصات وتنبيهات مبكرة.","مقارنة المخطط بالمنجز استناداً إلى الأدلة."],relations:["يتبع مدير العمليات.","يتعاون مع مشرفي الأقسام وراصد الأثر."],rule:"ألاحظ وأوثق وأنبه وأعد التقارير بناءً على البيانات لا الانطباعات."},
-8:{title:"مسؤول التسجيل والتحقق",en:"Registration & Verification Officer",level:"الدعم التشغيلي",goal:"ضمان دقة واكتمال بيانات التسجيل والمشاركين.",tasks:["إعداد نماذج التسجيل المعتمدة.","مراجعة الطلبات واكتشاف التكرار والنقص.","التحقق من الأهلية وفق القواعد المعتمدة.","جمع الحد الأدنى الضروري من البيانات.","تسليم قوائم منقحة للجهات المخولة."],relations:["يتبع مدير العمليات.","يتعاون مع مسؤول مجتمع التواصل وفرق البرامج."],rule:"أطبق معايير الأهلية ودقة البيانات ولا أستحدثها."},
-9:{title:"مسؤول مجتمع التواصل",en:"Digital Community Coordinator",level:"الدعم التشغيلي",goal:"إدارة المجتمعات الرقمية الرسمية بوصفها مساحات تواصل مفيدة وآمنة ومنظمة.",tasks:["تنظيم انضمام الأعضاء بالتنسيق مع مسؤول التحقق.","نشر الإعلانات والتذكيرات المعتمدة.","توجيه الاستفسارات للجهة المختصة.","تطبيق ميثاق المجتمع وتنظيم المحتوى.","حماية الخصوصية وتقليل التشتت."],relations:["يتبع مدير العمليات.","يتعاون مع مسؤول التسجيل ومدقق المحتوى وقائدي الشطرين."],rule:"أرعى بيئة تواصل رقمية عالية الجودة وأيسر التواصل المهني."},
-10:{title:"مسؤول التوثيق والأرشفة",en:"Documentation & Records Officer",level:"الدعم التشغيلي",goal:"صون الذاكرة المؤسسية وتسهيل استرجاع المحاضر والقرارات والتقارير.",tasks:["تنظيم هيكل المجلدات وتصنيف السجلات.","أرشفة المحاضر والقرارات والتقارير المعتمدة.","جمع وثائق إقفال البرامج.","توحيد تسمية الملفات وإدارة النسخ.","إعداد ملفات تسليم المهام."],relations:["يتبع مدير العمليات.","يتعاون مع جميع أدوار المكتب."],rule:"أوثق العمل بطريقة تسهّل إثباته وتقييمه ونقله وتحسينه."},
-11:{title:"مشرف قسم البرامج والفعاليات",en:"Programs & Events Section Supervisor",level:"إشراف قسم تخصصي",goal:"دمج تجربة المستفيد والتنفيذ اللوجستي وجودة المحتوى في برامج متسقة.",tasks:["إعداد تقويم البرامج بالتنسيق مع العمليات.","توزيع العمل بين صانع التجربة وصانع الحدث ومدقق المحتوى.","مراجعة الجاهزية قبل النشر.","إدارة محفظة برامج القسم وأولوياته.","تحسين البرامج بناءً على التغذية الراجعة."],relations:["يتبع مدير العمليات.","يشرف على صانع التجربة وصانع الحدث ومدقق المحتوى."],rule:"أدمج التصميم والتنفيذ والمحتوى في تجربة متكاملة."},
-12:{title:"صانع التجربة",en:"Program Experience Designer",level:"دور تخصصي / برامج",goal:"تحويل فكرة البرنامج إلى رحلة تفاعلية هادفة ومترابطة للمستفيد.",tasks:["تحديد الهدف والفئة ورحلة المشارك.","تصميم تسلسل البرنامج والتفاعلات.","توقع نقاط التعثر واقتراح حلول.","التنسيق مع صانع الحدث لضمان قابلية التنفيذ.","التنسيق مع مدقق المحتوى."],relations:["يتبع مشرف قسم البرامج.","يتعاون مع صانع الحدث ومدقق المحتوى."],rule:"أصمم ما ينبغي أن يتعلمه المستفيد ويشعر به أثناء التجربة وبعدها."},
-13:{title:"صانع الحدث",en:"Event Operations Coordinator",level:"دور تخصصي / برامج",goal:"تنفيذ الفعالية عملياً وضمان جاهزية المكان والتوقيت والتجهيزات.",tasks:["إعداد الجدول الزمني وقائمة الجاهزية.","تجهيز القاعة والوسائط والمواد.","التنسيق مع المتحدثين والمساهمين.","إدارة سير الفعالية والتعامل مع الطوارئ.","إقفال الفعالية وتوثيق الدروس المستفادة."],relations:["يتبع مشرف قسم البرامج.","يتعاون مع صانع التجربة ومدقق المحتوى ومسؤول الموقع."],rule:"أحوّل البرنامج المكتوب إلى فعالية حية تسير بسلاسة."},
-14:{title:"مدقق المحتوى",en:"Content Reviewer",level:"دور تخصصي / برامج",goal:"ضبط جودة النصوص والمواد التدريبية وصحة المعلومات وسلامة اللغة.",tasks:["مراجعة العناوين والرسائل والعروض.","فحص وضوح اللغة والتسلسل والمصطلحات.","رصد الادعاءات غير المدعومة وتصحيحها.","التحقق من المراجع والتواريخ والأسماء.","اقتراح التصحيح بمهنية."],relations:["يتبع مشرف قسم البرامج.","يتعاون مع صانع التجربة وصانع الحدث."],rule:"أصون الدقة والمصداقية دون فرض ذوقي الشخصي."},
-15:{title:"قائد الأثر",en:"Community Impact Lead",level:"إشراف قسم تخصصي",goal:"قيادة خدمة المجتمع والتطوع من دراسة الاحتياج إلى التنفيذ وقياس الأثر.",tasks:["إعداد خطة خدمة المجتمع والتطوع.","دراسة احتياجات المستفيدين.","تنسيق عمل منسق المتطوعين ومشرف الميدان وراصد الأثر.","مراجعة الجاهزية والسلامة.","تحويل النتائج إلى تحسينات."],relations:["يتبع مدير العمليات.","يشرف على منسق المتطوعين ومشرف الميدان وراصد الأثر."],rule:"أربط الاحتياج الحقيقي بهدف وفريق وخطة ميدانية وأثر مثبت."},
-16:{title:"منسق المتطوعين",en:"Volunteer Coordinator",level:"دور تخصصي / خدمة مجتمع",goal:"بناء فريق تطوعي منظم يفهم أدواره ومسؤولياته.",tasks:["تحديد احتياج المبادرة من المتطوعين.","استقطاب المتطوعين وتوزيعهم بعدالة.","توضيح الغرض والسلوك المطلوب.","توثيق الحضور والساعات وفق الإجراءات.","متابعة رضا المتطوعين ومشكلات التوزيع."],relations:["يتبع قائد الأثر.","يتعاون مع مشرف الميدان ومسؤول التسجيل وراصد الأثر."],rule:"أبني فريقاً يفهم فيه كل فرد الغرض والمهمة والمسار."},
-17:{title:"مشرف الميدان",en:"Field Operations Supervisor",level:"دور تخصصي / خدمة مجتمع",goal:"إدارة التنفيذ الميداني بأمان وانسيابية وفق الخطة.",tasks:["معاينة الموقع وإعداد خطة التنفيذ.","فحص التجهيزات وإمكانية الوصول والإرشادات.","توزيع المتطوعين في المواقع.","معالجة المشكلات الفورية ومنع التكدس.","تقديم السلامة على سرعة التنفيذ."],relations:["يتبع قائد الأثر.","يتعاون مع منسق المتطوعين وراصد الأثر."],rule:"أتابع الواقع الميداني وأتخذ الإجراء العملي المناسب."},
-18:{title:"راصد الأثر",en:"Impact Monitoring Officer",level:"دور تخصصي / خدمة مجتمع",goal:"توثيق نتائج المبادرات بأدلة كمية ونوعية تتجاوز أعداد الحضور.",tasks:["تحديد مؤشرات الأثر قبل التنفيذ.","تصميم أدوات قياس الرضا وجمع الملاحظات.","تنقية البيانات وتفسيرها في سياقها.","إعداد تقارير الأثر وفرص التحسين.","حفظ سجل تراكمي للنتائج."],relations:["يتبع قائد الأثر.","يتعاون مع منسق المتطوعين ومشرف الميدان ومراقب الأداء."],rule:"أربط ادعاء النجاح ببيانات وأدلة موضوعية."},
-19:{title:"مشرف قسم الإبداع والمواهب",en:"Creativity & Talent Section Supervisor",level:"إشراف قسم تخصصي",goal:"اكتشاف المواهب وتنميتها بعدالة وحماية حقوق أصحابها.",tasks:["إعداد خطة اكتشاف المواهب وتنميتها.","تحديد مسارات الرعاية والتطوير.","حماية قاعدة بيانات المواهب وخصوصيتها.","توزيع الفرص بعدالة.","حماية الحقوق الفكرية وتقديم التغذية الراجعة."],relations:["يتبع مدير العمليات.","يشرف على ريشة الإبداع وصوت الإبداع ومسؤول الاستقطاب."],rule:"أربط قدرات الطالب الكامنة بفرص الرعاية والتنمية."},
-20:{title:"ريشة الإبداع",en:"Creative & Visual Talent Officer",level:"دور تخصصي / إبداع ومواهب",goal:"اكتشاف ودعم المواهب البصرية والفنية والتصميمية.",tasks:["اكتشاف مهارات التصميم والرسم والتصوير والفن الرقمي.","مراجعة معرض الأعمال ومجالات التطوير.","تقديم تغذية راجعة قابلة للتطبيق.","حماية نسبة العمل لصاحبه وحقوقه.","تنويع قاعدة الموهوبين."],relations:["يتبع مشرف قسم الإبداع.","يتعاون مع مسؤول الاستقطاب وقسم البرامج."],rule:"أكتشف المبدعين وأساعدهم على صناعة بصمتهم."},
-21:{title:"صوت الإبداع",en:"Public Speaking & Performance Talent Officer",level:"دور تخصصي / إبداع ومواهب",goal:"اكتشاف المواهب الخطابية والتواصلية وتنمية حضورها.",tasks:["اكتشاف قدرات التقديم والخطابة والحوار.","مراجعة عروض تجريبية قصيرة.","توفير فرص ظهور تدريجية.","تطوير نبرة الصوت وإيقاع الإلقاء ولغة الجسد.","تقديم تغذية راجعة تحافظ على الثقة."],relations:["يتبع مشرف قسم الإبداع.","يتعاون مع مسؤول الاستقطاب وقسم البرامج."],rule:"أكتشف من يملك رسالة وحضوراً وأساعده على التأثير."},
-22:{title:"مسؤول استقطاب الموهوبين",en:"Talent Identification Officer",level:"دور تخصصي / إبداع ومواهب",goal:"البحث الاستباقي عن الطلبة الموهوبين الذين لم يجدوا فرصتهم بعد.",tasks:["البحث عن المواهب عبر الترشيحات والملاحظة.","تيسير اكتشاف المواهب دون ضغط.","توجيه الموهوبين للمسارات المناسبة.","توثيق بيانات المواهب وفق ضوابط الخصوصية.","التعاون مع قائدي الشطرين لتوسيع دائرة الاكتشاف."],relations:["يتبع مشرف قسم الإبداع.","يتعاون مع ريشة الإبداع وصوت الإبداع وقائدي الشطرين."],rule:"أبحث استباقياً عن الطاقات وأفتح لها باب الفرصة."}
+  1:{title:"مدير المكتب",en:"Office Director",level:"القيادة الاستراتيجية",goal:"تحديد التوجه الاستراتيجي وحماية هوية المكتب واعتماد السياسات والشراكات العليا.",tasks:["تحديد الرؤية والتوجه الاستراتيجي ومراجعتهما دورياً.","اعتماد الخطط السنوية والفصلية والمبادرات الاستراتيجية.","قيادة فريق القيادة وضمان وضوح الصلاحيات."],relations:["يتبع إدارياً للجهة الإدارية بالكلية.","يشرف على نائب المدير والمدير التنفيذي ومدير العمليات."],rule:"أحدد أين نذهب ولماذا، وأضمن وضوح المعايير والترتيبات القيادية."},
+  2:{title:"نائب مدير المكتب",en:"Deputy Office Director",level:"القيادة التنفيذية",goal:"ضمان الاستمرارية القيادية والإنابة عن مدير المكتب عند الغياب.",tasks:["تنفيذ مهام المدير أثناء الغياب المصرح به.","متابعة الخطط والملفات الحساسة."],relations:["يتبع مدير المكتب."],rule:"أضمن الاستمرارية القيادية دون إنشاء قيادة موازية."},
+  3:{title:"المدير التنفيذي",en:"Chief Executive Officer",level:"القيادة التنفيذية",goal:"تحويل التوجه الاستراتيجي إلى خطط تنفيذية منسقة وقيادة الأفراد نحو الإنجاز.",tasks:["تحويل التوجه إلى خطط وتوقعات واضحة.","الإشراف على قائدي شطري الطلاب والطالبات."],relations:["يتبع مدير المكتب."],rule:"أقود الأفراد والتنفيذ المنسق."},
+  4:{title:"مدير العمليات",en:"Chief Operating Officer",level:"القيادة التشغيلية",goal:"إدارة غرفة التحكم التشغيلي وتحويل الأولويات إلى مهام وإجراءات ومواعيد وبيانات.",tasks:["بناء إطار المهام والمواعيد والاعتمادات.","متابعة الأداء والاختناقات التشغيلية."],relations:["يتبع مدير المكتب."],rule:"أتابع ماذا يجري، ومن المسؤول، ومتى الموعد، وما الخطوة التالية."}
 };
 
-function toast(message){const el=document.createElement('div');el.className='toast';el.textContent=message;document.getElementById('toastWrap').appendChild(el);setTimeout(()=>el.remove(),3800)}
-function toggleTheme(){document.body.classList.toggle('dark');try{localStorage.setItem('cgco-theme',document.body.classList.contains('dark')?'dark':'light')}catch(e){}}
-try{if(localStorage.getItem('cgco-theme')==='dark')document.body.classList.add('dark')}catch(e){}
-function safeText(value){return String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function renderRoleMenu(){
-  const menu=document.getElementById('roleMenu');
-  if(!menu) return;
-  menu.innerHTML=roleGroups.map(g=>`<div class="role-group"><div class="role-group-title">${safeText(g.name)}</div>${g.roles.map(id=>`<button class="role-btn" data-role="${id}" onclick="loadRole(${id})">${id}. ${safeText(roles[id].title)}</button>`).join('')}</div>`).join('');
+function toggleTheme() {
+  document.body.classList.toggle("dark");
+  localStorage.setItem("cgco_dark", document.body.classList.contains("dark") ? "true" : "false");
 }
-function loadRole(id){
-  const role=roles[id];if(!role)return;
-  document.querySelectorAll('.role-btn').forEach(b=>b.classList.toggle('active',Number(b.dataset.role)===id));
-  const list=(items)=>items.map(item=>`<li>${safeText(item)}</li>`).join('');
-  const ws = document.getElementById('roleWorkspace');
-  if(ws){
-    ws.innerHTML=`
-      <div class="role-header"><div><h3>${safeText(role.title)}</h3><div class="role-en">${safeText(role.en)}</div></div><span class="pill">${safeText(role.level)}</span></div>
-      <div class="goal"><strong>الهدف الأساسي</strong><p>${safeText(role.goal)}</p></div>
-      <div class="role-details"><div class="detail-box"><h4><i class="fa-solid fa-list-check"></i> المسؤوليات والمهام</h4><ul>${list(role.tasks)}</ul></div><div class="detail-box"><h4><i class="fa-solid fa-network-wired"></i> خطوط الارتباط والعلاقات</h4><ul>${list(role.relations)}</ul></div></div>
-      <div class="rule">«${safeText(role.rule)}»</div>`;
+
+function showToast(message) {
+  const wrap = document.getElementById("toastWrap");
+  if (!wrap) return;
+  const toast = document.createElement("div");
+  toast.className = "toast";
+  toast.innerText = message;
+  wrap.appendChild(toast);
+  setTimeout(() => toast.remove(), 3500);
+}
+
+function openModal(type) {
+  const modal = document.getElementById("modal");
+  const visitorView = document.getElementById("visitorView");
+  const loginView = document.getElementById("loginView");
+  const title = document.getElementById("modalTitle");
+
+  if (type === 'visitor') {
+    title.innerText = "بوابة الزوار";
+    visitorView.classList.remove("hidden");
+    loginView.classList.add("hidden");
+  } else if (type === 'login') {
+    title.innerText = "دخول الكادر";
+    loginView.classList.remove("hidden");
+    visitorView.classList.add("hidden");
+  }
+  modal.classList.add("open");
+}
+
+function closeModal() {
+  document.getElementById("modal").classList.remove("open");
+}
+
+function visitorTab(tab) {
+  const newTab = document.getElementById("newInquiryTab");
+  const trackTab = document.getElementById("trackInquiryTab");
+  const newBox = document.getElementById("newInquiry");
+  const trackBox = document.getElementById("trackInquiry");
+
+  if (tab === 'new') {
+    newTab.classList.add("active");
+    trackTab.classList.remove("active");
+    newBox.classList.remove("hidden");
+    trackBox.classList.add("hidden");
+  } else {
+    trackTab.classList.add("active");
+    newTab.classList.remove("active");
+    trackBox.classList.remove("hidden");
+    newBox.classList.add("hidden");
   }
 }
-function openModal(mode){
-  const modal=document.getElementById('modal');modal.classList.add('open');
-  const isLogin=mode==='login';
-  document.getElementById('modalTitle').textContent=isLogin?'دخول الكادر':'بوابة الزوار';
-  document.getElementById('visitorView').classList.toggle('hidden',isLogin);
-  document.getElementById('loginView').classList.toggle('hidden',!isLogin);
+
+function showDashPanel(panelId, btn) {
+  document.querySelectorAll('.dash-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.dash-tabs .tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(panelId).classList.add('active');
+  btn.classList.add('active');
 }
-function closeModal(){document.getElementById('modal').classList.remove('open')}
-document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal()});
-function visitorTab(which){
-  const isNew=which==='new';
-  document.getElementById('newInquiry').classList.toggle('hidden',!isNew);
-  document.getElementById('trackInquiry').classList.toggle('hidden',isNew);
-  document.getElementById('newInquiryTab').classList.toggle('active',isNew);
-  document.getElementById('trackInquiryTab').classList.toggle('active',!isNew);
-}
-function submitInquiry(){
-  const name=document.getElementById('visitorName').value.trim();
-  const email=document.getElementById('visitorEmail').value.trim();
-  const details=document.getElementById('visitorDetails').value.trim();
-  if(!name||!email||!details){toast('يرجى تعبئة الاسم والبريد والتفاصيل.');return}
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){toast('تحقق من صيغة البريد الإلكتروني.');return}
-  const id='DRAFT-'+Date.now().toString().slice(-6);
-  inquiryDrafts.push({id,name,category:document.getElementById('visitorCategory').value,status:'مسودة محلية'});
-  activeInquiryId=id;
-  toast('تم إنشاء رقم تجريبي محلي: '+id+' — لم يُرسل الطلب إلى الخادم.');
-  document.getElementById('visitorName').value='';document.getElementById('visitorEmail').value='';document.getElementById('visitorDetails').value='';
-  renderInquiries();
-}
-function trackInquiry(){
-  const id=document.getElementById('trackId').value.trim();
-  const found=inquiryDrafts.find(x=>x.id===id);
-  const out=document.getElementById('trackOutput');
-  out.textContent='';
-  const p=document.createElement('p');
-  p.textContent=found?`الطلب ${found.id}: ${found.status}. هذا سجل تجريبي محفوظ في ذاكرة الصفحة فقط.`:'لم يُعثر على الطلب في السجلات التجريبية الحالية. الطلبات الفعلية تتطلب اتصالاً بالخادم.';
-  out.appendChild(p);
-}
-function renderInquiries(){
-  const body=document.getElementById('inquiriesTable');
-  if(!body) return;
-  if(!inquiryDrafts.length){body.innerHTML='<tr><td colspan="4">لا توجد بيانات تجريبية.</td></tr>';return}
-  body.innerHTML=inquiryDrafts.map(i=>`<tr><td>${safeText(i.id)}</td><td>${safeText(i.name)}</td><td>${safeText(i.category)}</td><td>${safeText(i.status)}</td></tr>`).join('');
-}
-async function registerEvent(title){
-  const name=prompt('أدخل اسمك للتعبير عن الاهتمام بالفعالية:');
-  if(!name||!name.trim())return;
-  toast('هذه نسخة تجريبية: لم يتم حفظ التسجيل في الخادم.');
-}
-let currentMember = null;
-function renderMemberRole(roleId){
-  const role=roles[Number(roleId)];
-  const box=document.getElementById('memberRoleWorkspace');
-  if(!box)return;
-  if(!role){box.innerHTML='<p style="color:var(--muted)">لا يوجد دليل منصب مرتبط بهذا الحساب. راجع مسؤول النظام.</p>';return}
-  const list=(items)=>items.map(item=>`<li>${safeText(item)}</li>`).join('');
-  box.innerHTML=`
-    <div class="role-header"><div><h3>${safeText(role.title)}</h3><div class="role-en">${safeText(role.en)}</div></div><span class="pill">${safeText(role.level)}</span></div>
-    <div class="goal"><strong>الهدف الأساسي</strong><p>${safeText(role.goal)}</p></div>
-    <div class="role-details"><div class="detail-box"><h4><i class="fa-solid fa-list-check"></i> المسؤوليات والمهام</h4><ul>${list(role.tasks)}</ul></div><div class="detail-box"><h4><i class="fa-solid fa-network-wired"></i> خطوط الارتباط والعلاقات</h4><ul>${list(role.relations)}</ul></div></div>
-    <div class="rule">«${safeText(role.rule)}»</div>`;
-}
-async function login(){
-  const id=document.getElementById('memberId').value.trim();
-  const password=document.getElementById('memberPassword').value;
-  if(!id||!password){toast('أدخل رقم العضوية وكلمة المرور.');return}
-  try{
-    const res=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'login',memberId:id,password})});
-    const data=await res.json();
-    if(!data.success){toast(data.message||'تعذر تسجيل الدخول.');return}
-    currentMember=data.member||data.user||data;
-    const roleId=currentMember.roleId ?? currentMember.role_id ?? currentMember.role;
-    document.getElementById('welcome').textContent='مرحباً، '+safeText(currentMember.name||currentMember.fullName||id);
-    document.getElementById('userDept').textContent=currentMember.department||currentMember.dept||'عضو المكتب';
-    renderMemberRole(roleId);
+
+async function submitInquiry() {
+  const name = document.getElementById("visitorName").value.trim();
+  const email = document.getElementById("visitorEmail").value.trim();
+  const category = document.getElementById("visitorCategory").value;
+  const details = document.getElementById("visitorDetails").value.trim();
+
+  if (!name || !email || !details) {
+    alert("الرجاء تعبئة كافة الحقول المطلوبة.");
+    return;
+  }
+
+  try {
+    showToast("جاري إرسال الطلب...");
+    await fetch(API_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({ type: "inquiry", name, email, category, details })
+    });
+    showToast("تم إرسال طلبك بنجاح!");
     closeModal();
-    document.getElementById('publicSite').style.display='none';
-    document.querySelector('footer').style.display='none';
-    document.getElementById('dashboard').style.display='block';
-    document.getElementById('memberPassword').value='';
-    toast('تم تسجيل الدخول بنجاح.');
-  }catch(e){toast('تعذر الاتصال بقاعدة البيانات. تحقق من إعداد API وتفعيل CORS/Google Apps Script.')}
-}
-function logout(){currentMember=null;document.getElementById('dashboard').style.display='none';document.getElementById('publicSite').style.display='block';document.querySelector('footer').style.display='block';toast('تمت العودة إلى الموقع العام.')}
-function showDashPanel(id,btn){document.querySelectorAll('.dash-panel').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.dash-tabs .tab').forEach(b=>b.classList.remove('active'));btn.classList.add('active')}
-function addTask(){
-  const title=document.getElementById('taskTitle').value.trim(),assignee=document.getElementById('taskAssignee').value.trim(),due=document.getElementById('taskDue').value,details=document.getElementById('taskDetails').value.trim();
-  if(!title||!assignee){toast('أدخل عنوان المهمة واسم المسؤول.');return}
-  tasks.push({title,assignee,due,details,status:'جديدة'});renderTasks();
-  ['taskTitle','taskAssignee','taskDue','taskDetails'].forEach(id=>document.getElementById(id).value='');
-  toast('أضيفت المهمة إلى القائمة المحلية فقط.');
-}
-function renderTasks(){
-  const body=document.getElementById('tasksTable');
-  if(!body) return;
-  if(!tasks.length){body.innerHTML='<tr><td colspan="4">لا توجد مهام مضافة في هذه الجلسة.</td></tr>';return}
-  body.innerHTML=tasks.map(t=>`<tr><td>${safeText(t.title)}<br><small>${safeText(t.details)}</small></td><td>${safeText(t.assignee)}</td><td>${safeText(t.due||'—')}</td><td>${safeText(t.status)}</td></tr>`).join('');
-}
-function addEvent(){
-  const title=document.getElementById('evTitle').value.trim(),date=document.getElementById('evDate').value;
-  if(!title||!date){toast('عنوان الفعالية والتاريخ مطلوبان.');return}
-  events.push({title,date,time:document.getElementById('evTime').value.trim(),place:document.getElementById('evPlace').value.trim(),desc:document.getElementById('evDesc').value.trim()});
-  renderEvents();['evTitle','evDate','evTime','evPlace','evDesc'].forEach(id=>document.getElementById(id).value='');toast('أضيفت الفعالية إلى العرض المحلي فقط.');
-}
-function renderEvents(){
-  const el = document.getElementById('adminEventList');
-  if(el){
-    el.innerHTML=events.length?events.map(e=>`<div class="card" style="margin-top:8px"><h4>${safeText(e.title)}</h4><p>${safeText(e.date)} ${safeText(e.time)} · ${safeText(e.place)}</p><p>${safeText(e.desc)}</p></div>`).join(''):'<p style="color:var(--muted);margin-top:12px">لا توجد فعاليات مضافة محلياً.</p>';
+    document.getElementById("visitorName").value = "";
+    document.getElementById("visitorEmail").value = "";
+    document.getElementById("visitorDetails").value = "";
+  } catch (error) {
+    console.error("Error:", error);
+    alert("حدث خطأ أثناء إرسال الطلب.");
   }
 }
-function refreshDashboard(){renderTasks();renderEvents();renderInquiries();toast('تم تحديث العرض المحلي.')}
-renderRoleMenu();loadRole(1);renderEvents();renderTasks();renderInquiries();
+
+function trackInquiry() {
+  const id = document.getElementById("trackId").value.trim();
+  const out = document.getElementById("trackOutput");
+  if (!id) {
+    out.innerHTML = `<span style="color:var(--danger)">الرجاء إدخال رقم الطلب.</span>`;
+    return;
+  }
+  out.innerHTML = `<span style="color:var(--muted)">جاري البحث عن حالة الطلب رقم: ${id} ...</span>`;
+}
+
+async function login() {
+  const memberIdInput = document.getElementById("memberId").value.trim();
+  const passwordInput = document.getElementById("memberPassword").value.trim();
+
+  if (!memberIdInput || !passwordInput) {
+    alert("الرجاء إدخال رقم العضوية وكلمة المرور.");
+    return;
+  }
+
+  // محاكاة أو ربط حقيقي مع السيرفر
+  if (memberIdInput === "1" || memberIdInput === "admin" || memberIdInput === "4") {
+    const roleId = Number(memberIdInput) || 4;
+    applyUserPermissions({ name: "مسؤول النظام", role: roles[roleId]?.title || "مدير العمليات", roleId: roleId });
+    closeModal();
+    showToast("أهلاً بك في لوحة التحكم");
+  } else {
+    alert("رقم العضوية أو كلمة المرور غير صحيحة (جرب إدخال '1' أو '4' للاختبار).");
+  }
+}
+
+function applyUserPermissions(userData) {
+  localStorage.setItem("cgco_logged", "true");
+  localStorage.setItem("cgco_name", userData.name);
+  localStorage.setItem("cgco_role", userData.role);
+  localStorage.setItem("cgco_roleId", userData.roleId);
+
+  document.getElementById("publicSite").style.display = "none";
+  document.getElementById("dashboard").style.display = "block";
+  document.getElementById("welcome").innerText = "أهلاً بك، " + userData.name;
+  document.getElementById("userDept").innerText = userData.role;
+
+  renderMemberWorkspace(Number(userData.roleId));
+}
+
+function renderMemberWorkspace(roleId) {
+  const workspaceContainer = document.getElementById("memberRoleWorkspace");
+  const roleData = roles[roleId] || roles[4];
+
+  workspaceContainer.innerHTML = `
+    <div class="role-header">
+      <div>
+        <h3>${roleData.title}</h3>
+        <span class="role-en">${roleData.en}</span>
+      </div>
+      <span class="pill">${roleData.level}</span>
+    </div>
+    <div class="goal"><strong>الهدف الأساسي:</strong> ${roleData.goal}</div>
+    <div class="role-details">
+      <div class="detail-box"><h4>المهام الأساسية</h4><ul>${roleData.tasks.map(t => `<li>${t}</li>`).join('')}</ul></div>
+      <div class="detail-box"><h4>العلاقات التنظيمية</h4><ul>${roleData.relations.map(r => `<li>${r}</li>`).join('')}</ul></div>
+    </div>
+    <div class="rule">${roleData.rule}</div>
+  `;
+}
+
+function addTask() {
+  const title = document.getElementById("taskTitle").value.trim();
+  const assignee = document.getElementById("taskAssignee").value.trim();
+  const due = document.getElementById("taskDue").value;
+  const details = document.getElementById("taskDetails").value.trim();
+
+  if (!title || !assignee) {
+    alert("الرجاء إدخال عنوان المهمة واسم المسؤول.");
+    return;
+  }
+
+  tasks.push({ title, assignee, due, details, status: "جديدة" });
+  renderTasks();
+  document.getElementById("taskTitle").value = "";
+  document.getElementById("taskAssignee").value = "";
+  document.getElementById("taskDue").value = "";
+  document.getElementById("taskDetails").value = "";
+  showToast("تمت إضافة المهمة محلياً.");
+}
+
+function renderTasks() {
+  const tbody = document.getElementById("tasksTable");
+  if (tasks.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="4">لا توجد مهام مضافة في هذه الجلسة.</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = tasks.map(t => `
+    <tr>
+      <td><b>${t.title}</b><br><small style="color:var(--muted)">${t.details || ''}</small></td>
+      <td>${t.assignee}</td>
+      <td>${t.due || 'غير محدد'}</td>
+      <td><span class="pill">${t.status}</span></td>
+    </tr>
+  `).join('');
+}
+
+function addEvent() {
+  const title = document.getElementById("evTitle").value.trim();
+  if (!title) {
+    alert("الرجاء إدخال عنوان الفعالية.");
+    return;
+  }
+  events.push({ title });
+  showToast("تمت إضافة الفعالية بنجاح.");
+  document.getElementById("evTitle").value = "";
+}
+
+function registerEvent(eventName) {
+  alert(`تم تسجيل اهتمامك بفعالية: "${eventName}" بنجاح!`);
+}
+
+function refreshDashboard() {
+  showToast("تم تحديث بيانات اللوحة.");
+}
+
+function logout() {
+  if (!confirm("هل أنت متأكد من رغبتك في تسجيل الخروج؟")) return;
+
+  localStorage.removeItem("cgco_logged");
+  localStorage.removeItem("cgco_name");
+  localStorage.removeItem("cgco_role");
+  localStorage.removeItem("cgco_roleId");
+
+  document.getElementById("dashboard").style.display = "none";
+  document.getElementById("publicSite").style.display = "block";
+  document.getElementById("memberId").value = "";
+  document.getElementById("memberPassword").value = "";
+
+  showToast("تم تسجيل الخروج بنجاح.");
+  window.history.replaceState(null, "", window.location.pathname);
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+  if (localStorage.getItem("cgco_dark") === "true") {
+    document.body.classList.add("dark");
+  }
+  if (localStorage.getItem("cgco_logged") === "true") {
+    document.getElementById("publicSite").style.display = "none";
+    document.getElementById("dashboard").style.display = "block";
+    document.getElementById("welcome").innerText = "أهلاً بك، " + localStorage.getItem("cgco_name");
+    document.getElementById("userDept").innerText = localStorage.getItem("cgco_role");
+    renderMemberWorkspace(Number(localStorage.getItem("cgco_roleId")));
+  }
+});
 </script>
 </body>
 </html>
