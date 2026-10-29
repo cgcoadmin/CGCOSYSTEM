@@ -208,7 +208,7 @@ th{background:var(--bg);color:var(--green)}
       <button class="btn danger" onclick="logout()">تسجيل الخروج</button>
     </div>
   </div>
-  <div class="notice">هذه لوحة التحكم الخاصة بالكادر. تتم إدارة المهام وصلاحيات الدليل الوظيفي بسلاسة.</div>
+  <div class="notice">تم تسجيل دخولك بنجاح. البيانات والمناصب مرتبطة بنظام الإدارة.</div>
   <div class="dash-tabs">
     <button class="tab active" onclick="showDashPanel('tasksPanel',this)">المهام</button>
     <button class="tab" onclick="showDashPanel('eventsPanel',this)">الفعاليات</button>
@@ -242,14 +242,14 @@ th{background:var(--bg);color:var(--green)}
         <input class="field" id="evPlace" placeholder="المكان أو الرابط">
       </div>
       <textarea class="field" id="evDesc" rows="2" placeholder="وصف الفعالية"></textarea>
-      <button class="btn" style="margin-top:12px" onclick="addEvent()">إضافة فعالية محلية</button>
+      <button class="btn" style="margin-top:12px" onclick="addEvent()">إضافة فعالية</button>
     </div>
   </div>
   <div class="dash-panel" id="rolesPanel">
     <div class="card">
       <h3>دليلي الوظيفي</h3>
       <div id="memberRoleWorkspace" class="role-workspace" aria-live="polite">
-        <p style="color:var(--muted)">سيتم تحميل دليل منصبك بناءً على تسجيل الدخول.</p>
+        <p style="color:var(--muted)">سيتم تحميل دليل منصبك بناءً على بيانات تسجيل الدخول.</p>
       </div>
     </div>
   </div>
@@ -290,7 +290,7 @@ th{background:var(--bg);color:var(--green)}
     </div>
     <div id="loginView" class="hidden">
       <div class="notice">أدخل بيانات العضوية للوصول إلى لوحة التحكم والدليل الوظيفي.</div>
-      <div class="form-row"><label for="memberId">رقم العضوية</label><input id="memberId" placeholder="رقم العضوية أو معرف الدخول"></div>
+      <div class="form-row"><label for="memberId">رقم العضوية (مثل COO أو MGR-1)</label><input id="memberId" placeholder="أدخل رقم العضوية"></div>
       <div class="form-row"><label for="memberPassword">كلمة المرور</label><input id="memberPassword" type="password" placeholder="كلمة المرور"></div>
       <button class="btn" onclick="login()">تسجيل الدخول</button>
     </div>
@@ -298,15 +298,16 @@ th{background:var(--bg);color:var(--green)}
 </div>
 
 <script>
-const API_URL = "https://script.google.com/macros/s/AKfycbzT1gHbcnhnxxBbo2mkA0VinKQphfRINoZkGCkckZqmu80QYL53G8MDJ087e8sKilaVtQ/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbyEaAKiEkpgoVh2yI9glrRsc8B1U-F0HblV9QAFmy3kwFCN1EsFKjo1AHZT4RRTBMRCKw/exec";
 let tasks = [];
 let events = [];
 
 const roles = {
-  1:{title:"مدير المكتب",en:"Office Director",level:"القيادة الاستراتيجية",goal:"تحديد التوجه الاستراتيجي وحماية هوية المكتب واعتماد السياسات والشراكات العليا.",tasks:["تحديد الرؤية والتوجه الاستراتيجي ومراجعتهما دورياً.","اعتماد الخطط السنوية والفصلية والمبادرات الاستراتيجية.","قيادة فريق القيادة وضمان وضوح الصلاحيات."],relations:["يتبع إدارياً للجهة الإدارية بالكلية.","يشرف على نائب المدير والمدير التنفيذي ومدير العمليات."],rule:"أحدد أين نذهب ولماذا، وأضمن وضوح المعايير والترتيبات القيادية."},
-  2:{title:"نائب مدير المكتب",en:"Deputy Office Director",level:"القيادة التنفيذية",goal:"ضمان الاستمرارية القيادية والإنابة عن مدير المكتب عند الغياب.",tasks:["تنفيذ مهام المدير أثناء الغياب المصرح به.","متابعة الخطط والملفات الحساسة."],relations:["يتبع مدير المكتب."],rule:"أضمن الاستمرارية القيادية دون إنشاء قيادة موازية."},
-  3:{title:"المدير التنفيذي",en:"Chief Executive Officer",level:"القيادة التنفيذية",goal:"تحويل التوجه الاستراتيجي إلى خطط تنفيذية منسقة وقيادة الأفراد نحو الإنجاز.",tasks:["تحويل التوجه إلى خطط وتوقعات واضحة.","الإشراف على قائدي شطري الطلاب والطالبات."],relations:["يتبع مدير المكتب."],rule:"أقود الأفراد والتنفيذ المنسق."},
-  4:{title:"مدير العمليات",en:"Chief Operating Officer",level:"القيادة التشغيلية",goal:"إدارة غرفة التحكم التشغيلي وتحويل الأولويات إلى مهام وإجراءات ومواعيد وبيانات.",tasks:["بناء إطار المهام والمواعيد والاعتمادات.","متابعة الأداء والاختناقات التشغيلية."],relations:["يتبع مدير المكتب."],rule:"أتابع ماذا يجري، ومن المسؤول، ومتى الموعد، وما الخطوة التالية."}
+  "1": {title:"رئيس المكتب",en:"Office Director",level:"القيادة الاستراتيجية",goal:"الإشراف العام وإدارة وتوجيه جميع أقسام المكتب والاعتمادات النهائية.",tasks:["الإشراف العام وتوجيه جميع أقسام المكتب.","اعتماد الخطط السنوية والمبادرات."],relations:["يتبع إدارياً للجهة الإدارية بالكلية.","يشرف على جميع أقسام المكتب."],rule:"أحدد التوجه الاستراتيجي وأضمن وضوح المعايير والترتيبات القيادية."},
+  "MGR-1": {title:"رئيس المكتب",en:"Office Director",level:"القيادة الاستراتيجية",goal:"الإشراف العام وإدارة وتوجيه جميع أقسام المكتب والاعتمادات النهائية.",tasks:["الإشراف العام وتوجيه جميع أقسام المكتب.","اعتماد الخطط السنوية والمبادرات."],relations:["يتبع إدارياً للجهة الإدارية بالكلية.","يشرف على جميع أقسام المكتب."],rule:"أحدد التوجه الاستراتيجي وأضمن وضوح المعايير والترتيبات القيادية."},
+  "VP-1": {title:"نائب رئيس المكتب",en:"Deputy Office Director",level:"القيادة التنفيذية",goal:"مساعدة رئيس المكتب في الإشراف العام ومتابعة سير العمل بين الأقسام.",tasks:["مساعدة رئيس المكتب في الإشراف العام.","تسهيل التواصل في غياب رئيس المكتب."],relations:["يتبع رئيس المكتب."],rule:"أضمن الاستمرارية القيادية وتسهيل التواصل بين الأقسام."},
+  "COO": {title:"رئيس قسم الإدارة والعمليات",en:"Chief Operating Officer",level:"القيادة التشغيلية",goal:"إدارة وتنسيق العمليات اليومية ومتابعة المهام التشغيلية وتنظيم أعضاء الأقسام.",tasks:["إدارة وتنسيق العمليات اليومية.","متابعة المهام التشغيلية وتنظيم أعضاء الأقسام."],relations:["يتبع رئيس المكتب.","يشرف على متابعة الأداء والعمليات."],rule:"أتابع سير العمل اليومي، ومن المسؤول، ومتى الموعد، وما الخطوة التالية."},
+  "CEO": {title:"الرئيس التنفيذي",en:"Chief Executive Officer",level:"القيادة التنفيذية",goal:"القيادة الاستراتيجية وتحويل التوجهات إلى خطط عمل تنفيذية وفعالة.",tasks:["تحويل التوجهات إلى خطط عمل تنفيذية.","الإشراف الشامل على التوجهات والأنشطة."],relations:["يتبع رئيس المكتب.","يشرف على القادة التنفيذيين."],rule:"تحويل التوجهات الاستراتيجية إلى واقع ملموس وإنجاز ميداني."}
 };
 
 function toggleTheme() {
@@ -384,14 +385,14 @@ async function submitInquiry() {
   }
 
   try {
-    showToast("جاري إرسال الطلب...");
+    showToast("جاري إرسال الطلب إلى النظام...");
     await fetch(API_URL, {
       method: "POST",
       mode: "no-cors",
       headers: { "Content-Type": "text/plain;charset=utf-8" },
-      body: JSON.stringify({ type: "inquiry", name, email, category, details })
+      body: JSON.stringify({ action: "inquiry", name, email, category, details })
     });
-    showToast("تم إرسال طلبك بنجاح!");
+    showToast("تم إرسال طلبك وحفظه بنجاح!");
     closeModal();
     document.getElementById("visitorName").value = "";
     document.getElementById("visitorEmail").value = "";
@@ -421,14 +422,40 @@ async function login() {
     return;
   }
 
-  // محاكاة أو ربط حقيقي مع السيرفر
-  if (memberIdInput === "1" || memberIdInput === "admin" || memberIdInput === "4") {
-    const roleId = Number(memberIdInput) || 4;
-    applyUserPermissions({ name: "مسؤول النظام", role: roles[roleId]?.title || "مدير العمليات", roleId: roleId });
-    closeModal();
-    showToast("أهلاً بك في لوحة التحكم");
-  } else {
-    alert("رقم العضوية أو كلمة المرور غير صحيحة (جرب إدخال '1' أو '4' للاختبار).");
+  const payload = {
+    action: "login",
+    memberId: memberIdInput,
+    password: passwordInput
+  };
+
+  try {
+    showToast("جاري التحقق من قاعدة البيانات...");
+    
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(payload)
+    });
+
+    const result = await response.json();
+
+    if (result.status === "success") {
+      showToast("أهلاً بك، " + result.name);
+      closeModal();
+      
+      applyUserPermissions({
+        name: result.name,
+        role: result.role,
+        roleId: result.roleId || memberIdInput.toUpperCase()
+      });
+      
+    } else {
+      alert(result.message || "فشل تسجيل الدخول. تأكد من رقم العضوية وكلمة المرور.");
+    }
+
+  } catch (error) {
+    console.error("Login Error:", error);
+    alert("حدث خطأ في الاتصال بالخادم. يرجى التأكد من رابط الـ API.");
   }
 }
 
@@ -443,12 +470,21 @@ function applyUserPermissions(userData) {
   document.getElementById("welcome").innerText = "أهلاً بك، " + userData.name;
   document.getElementById("userDept").innerText = userData.role;
 
-  renderMemberWorkspace(Number(userData.roleId));
+  renderMemberWorkspace(userData.roleId, userData.role);
 }
 
-function renderMemberWorkspace(roleId) {
+function renderMemberWorkspace(roleId, roleTitle) {
   const workspaceContainer = document.getElementById("memberRoleWorkspace");
-  const roleData = roles[roleId] || roles[4];
+  const key = String(roleId).toUpperCase();
+  const roleData = roles[key] || {
+    title: roleTitle || "عضو فريق العمل",
+    en: "Staff Member",
+    level: "التشغيل والتنفيذ",
+    goal: "المساهمة الفعالة في تحقيق اهداف ومستهدفات مكتب التوجيه السلوكي والمهني.",
+    tasks: ["تنفيذ المهام المسندة بدقة.", "الالتزام بالجدول الزمني والتعليمات المعتمدة."],
+    relations: ["يتبع لرئيس القسم والقيادة التنفيذية."],
+    rule: "الإنجاز والانضباط والجودة في العمل."
+  };
 
   workspaceContainer.innerHTML = `
     <div class="role-header">
@@ -548,7 +584,16 @@ window.addEventListener("DOMContentLoaded", () => {
     document.getElementById("dashboard").style.display = "block";
     document.getElementById("welcome").innerText = "أهلاً بك، " + localStorage.getItem("cgco_name");
     document.getElementById("userDept").innerText = localStorage.getItem("cgco_role");
-    renderMemberWorkspace(Number(localStorage.getItem("cgco_roleId")));
+    renderMemberWorkspace(localStorage.getItem("cgco_roleId"), localStorage.getItem("cgco_role"));
+  }
+});
+
+window.addEventListener("pageshow", (event) => {
+  if (event.persisted || localStorage.getItem("cgco_logged") !== "true") {
+    const dash = document.getElementById("dashboard");
+    const pub = document.getElementById("publicSite");
+    if (dash) dash.style.display = "none";
+    if (pub) pub.style.display = "block";
   }
 });
 </script>
